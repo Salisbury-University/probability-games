@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Card Test</title>
+  </head>
+  <body>
+    <form>
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <center>
+          <h1 class="card-title">Card 2</h1>
+          <input type="text" id="card2" value="0"/>
+          <br>
+          <button class="btn btn-primary" type="button" onclick="decrementValue(2)">-</button>
+          <button class="btn btn-primary" type="button" onclick="incrementValue(2)">+</button>
+          </center>
+        </div>
+     </div>
+     <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <center>
+          <h1 class="card-title">Card 3</h1>
+          <input type="text" id="card3" value="0"/>
+          <br>
+          <button class="btn btn-primary" type="button" onclick="decrementValue(3)">-</button>
+          <button class="btn btn-primary" type="button" onclick="incrementValue(3)">+</button>
+        </center>
+        </div>
+     </div>
+     <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <center>
+          <h1 class="card-title">Card 4</h1>
+          <input type="text" id="card4" value="0"/>
+          <br>
+          <button class="btn btn-primary" type="button" onclick="decrementValue(4)">-</button>
+          <button class="btn btn-primary" type="button" onclick="incrementValue(4)">+</button>
+        </center>
+        </div>
+     </div>
+    </form>
+
+    <div id="total-count"></div>
+
+    
+    <script>
+        const totalCount = document.getElementById("total-count");
+        var count = 10;
+        totalCount.innerHTML = count;
+        function incrementValue(num){
+            if(count != 0){
+                var name = 'card' + num;
+                var value = parseInt(document.getElementById(name).value, 10);
+                value = isNaN(value) ? 0 : value;
+                value++;
+                count--;
+                document.getElementById(name).value = value;
+                totalCount.innerHTML = count;
+            }    
+        }
+        function decrementValue(num){
+            if(count != 10){
+                var name = 'card' + num;
+                var value = parseInt(document.getElementById(name).value, 10);
+                value = isNaN(value) ? 0 : value;
+                value--;
+                count++;
+                document.getElementById(name).value = value;
+                totalCount.innerHTML = count;
+            }
+        }
+	</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  </body>
+</html>
