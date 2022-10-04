@@ -1,9 +1,123 @@
-<!doctype html>
-<html>
-    <head>
-        <title>Coin Flip</title>
-    </head>
-    <body>
-        <h1>Coin Flip</h1>
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content
+		="width=device-width, initial-scale=1.0">
+	<title>Coin Flip</title>
+
+	<style>
+		.container {
+			width: 70%;
+			margin: auto;
+			text-align: center;
+		}
+
+		body {
+			background-color: #E51E1E;
+			margin: 0;
+		}
+
+		h1 {
+			margin: 30px;
+			font-family: "Calibri", cursive;
+			text-shadow: 5px 0 #33373c;
+			font-size: 4.5rem;
+			color: #EBEBDD;
+			text-align: center;
+		}
+
+		img {
+			width: 25%;
+		}
+
+		.bottom {
+			padding-top: 30px;
+		}
+
+		.butn {
+			background: #A0A098;
+			font-family: "Calibri", cursive;
+			border-radius: 7px;
+			color: #ffff;
+			font-size: 30px;
+			padding: 16px 25px 16px 25px;
+			text-decoration: none;
+		}
+
+		.butn:hover {
+			background: #232931;
+			text-decoration: none;
+		}
+
+		.lab { 
+			font-family: "Calibri", cursive;
+			text-shadow: 2px 0 #33373c;
+			font-size: 2rem;
+			color: #EBEBDD;
+		}
+		</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Coin Flip</h1>
+
+		<div class="coin">
+			<img class="img" src="coinHead.png">
+		</div>
+	</div>
+
+	<div class="container bottom">
+		<button type="button" class="butn" onClick="flipCoin()">Clip To Flip Coin</button>
+	</div>
+
+	<div class="container bottom">
+		<label for="quantity" class = "lab">How Many Times To Flip?</label>
+		<input type="number" id="quantity" min="1" value=1 />
+	  	<button id="flip" type="button" class="butn" onClick="flipCoinMultiple()">Flip Coin Multiple Times</button>
+	  	<div id="result">
+	</div>
+
+	<script>
+		// Function to flip coin
+		function flipCoin() {
+			
+			let randomNumber = Math.random();
+
+			if (randomNumber <= .3) {
+				document.querySelector("h1").innerHTML = "You got HEADS!";
+				document.querySelector("img").setAttribute("src", "coinHead.png");
+			}
+
+			else {
+				document.querySelector("h1").innerHTML = "You got TAILS!";
+				document.querySelector("img").setAttribute("src", "coinTail.png");
+			}
+		}
+
+		// Function to flip coin multiple times
+		function flipCoinMultiple() {
+			
+			let button = document.getElementById("flip");
+    		let result = document.getElementById("result");
+			let qty = document.getElementById("quantity").value;
+      		let score = "";
+
+      		for (let i = 0; i < qty; i++) {
+       			let num = Math.random();
+
+        		if (num <= 0.3) {
+          			score += "<p>You got HEADS!</p>";
+        		} else {
+          			score += "<p>You got TAILS!</p>";
+        		}
+      		}
+
+      		result.innerHTML = score;
+		}
+
+	</script>
+</body>
 </html>
