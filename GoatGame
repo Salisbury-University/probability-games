@@ -10,9 +10,10 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<div class="container-fluid">
-    <h1>My First Bootstrap Page</h1>
-    <p>This is some text.</p>
+<!-- <script src="pixi.min.js"></script> -->
+
+<div class="jumbotron text-center" style="margin-bottom:0">
+    <h1>Monty Hall Problem</h1>
   </div>
 <script>
     const Doors = [0, 0, 0];
@@ -20,18 +21,17 @@
     Doors[carLocation] = 1;
 </script>
 
-
 <title> Gamer moment</title>
 <p id="goatLoc"></p>
 <p id="result"></p>
 
-<img src="ClosedDoro.png" onclick="chooseDoor(0)" width="300px" alt="Door 1" id="door0">
+<img src="ClosedDoro.png" onclick="chooseDoor(0)" width="300px" alt="Door 1" id="door0" class="rounded float-left">
 <img src="ClosedDoro.png" onclick="chooseDoor(1)" width="300px" alt="Door 2" id="door1">
-<img src="ClosedDoro.png" onclick="chooseDoor(2)" width="300px" alt="Door 3" id="door2">
+<img src="ClosedDoro.png" onclick="chooseDoor(2)" width="300px" alt="Door 3" id="door2" class="rounded float-right">
 
 <script>
-    var string = "Door 0: " + Doors[0] + "! Door 1: " + Doors[1] + "! Door 2: " + Doors[2];
-    document.getElementById("goatLoc").innerHTML = string;
+    var string = "Door Zero: " + Doors[0] + "-- Door One: " + Doors[1] + "-- Door Two: " + Doors[2];
+    //document.getElementById("goatLoc").innerHTML = string;
 
     function chooseDoor(x) {
 
@@ -40,27 +40,39 @@
         while(revealGoat == x || revealGoat == carLocation){
             revealGoat = Math.floor(Math.random() * 3);
         }
-        var revealDoor = "door"+revealGoat;
-        document.getElementById(revealDoor).src = "goat.jfif"
-        var stringToDisplay = "You selected door: " + (x) + " There is a goat at door: " + (revealGoat) + " Do you want to switch doors?";
 
+        var stringToDisplay = "You selected door: " + (x) + " There is a goat at door: " + (revealGoat) + " Do you want to switch doors?";    
+
+        
         let choice = window.confirm(stringToDisplay);
+
         var doorChoice = x;
         if (choice) {
-
             var remainderDoor = 5;
-            
             remainderDoor = remainderDoor -( x+ 1);
             remainderDoor = remainderDoor - (revealGoat + 1);
-
             doorChoice = remainderDoor;
-
         } 
-        var tmp = "door"+carLocation;
-        document.getElementById(tmp).src = "car.jfif"
-        
-        //having trouble revealing last door
 
+        if(Doors[0] == 0){
+            document.getElementById("door0").src = "goat.jfif";
+        }else{
+            document.getElementById("door0").src = "car.jfif";
+        }
+
+        if(Doors[1] == 0){
+            document.getElementById("door1").src = "goat.jfif";
+        }else{
+            document.getElementById("door1").src = "car.jfif";
+        }
+
+        if(Doors[2] == 0){
+            document.getElementById("door2").src = "goat.jfif";
+        }else{
+            document.getElementById("door2").src = "car.jfif";
+        }
+
+        //having trouble revealing last door
         window.alert("Door selected: " + (doorChoice) + "Car was located at door: " + (carLocation));
     }
 </script>
