@@ -12,7 +12,7 @@ The purpose of this project is to create a website that hosts different probabil
 - Monty Hall Problem
 
 ## To-Do
-- [ ] Work on website landing page
+- [x] Work on website landing page
 - [ ] Decide on website universal header and design language
 
 ### Weighted die
