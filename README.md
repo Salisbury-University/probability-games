@@ -16,7 +16,7 @@ The purpose of this project is to create a website that hosts different probabil
 - [ ] Decide on website universal header and design language
 
 ### Weighted die
-- [ ]animate the weighted die
+- [ ] animate the weighted die
 
 ### Card + Dice game
 - [ ] add gui and player information
