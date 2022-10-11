@@ -4,8 +4,8 @@ The purpose of this project is to create a website that hosts different probabil
 on school computers with the aims of educating students on probability.
 
 ## Technologies:
-- Pixi.js: rendering/grphics library [Pixi.js](https://pixijs.com/)
-- boostrap: css/GUI library v5.0.2 [bootstrap](https://getbootstrap.com/)
+- [Pixi.js](https://pixijs.com/): rendering/grphics library
+- [boostrap](https://getbootstrap.com/): css/GUI library v5.0.2
 
 ## Games in developement:
 - Weighted Die
