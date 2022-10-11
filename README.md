@@ -12,16 +12,16 @@ The purpose of this project is to create a website that hosts different probabil
 - Monty Hall Problem
 
 ## To-Do
-[] Work on website landing page
-[] Decide on website universal header and design language
+[ ] Work on website landing page
+[ ] Decide on website universal header and design language
 
-###Weighted die
-[]animate the weighted die
+### Weighted die
+[ ]animate the weighted die
 
-###Card + Dice game
-[] add gui and player information
-[] add two player functionality
-[] animate chips moving to and from cards
+### Card + Dice game
+[ ] add gui and player information
+[ ] add two player functionality
+[ ] animate chips moving to and from cards
 
-###Monty Hall Problem
-[] Work on GUI
+### Monty Hall Problem
+[ ] Work on GUI
