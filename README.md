@@ -1,10 +1,11 @@
 # Probability Games
 ## Purpose:
-The purpose of this project is to create a website that hosts different probability games.
+The purpose of this project is to create a website that hosts different probability games. These games will be designed to run
+on school computers with the aims of educating students on probability.
 
 ## Technologies:
-- Pixi.js: rendering/grphics library
-- boostrap: css/GUI library
+- Pixi.js: rendering/grphics library [Pixi.js](https://pixijs.com/)
+- boostrap: css/GUI library v5.0.2 [bootstrap](https://getbootstrap.com/)
 
 ## Games in developement:
 - Weighted Die
