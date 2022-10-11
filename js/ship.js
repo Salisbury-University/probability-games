@@ -20,15 +20,13 @@ let newPosY = 0;
 
 document.body.appendChild(btn);
 
-function animate() {
-  //while the chip is not in the newly calculated position
-  // increment its potition in a posiiton between its old and new pos
-  while (chips[currChip].x != newPosX || chips[currChip].y != newPosY) {
+// create a function that moves the next chip in the pile to a card
+// inputs: card number, card array, chips array
+// outputs: none
+// functions: takes the card number input, gets the x and y value of that card (top left) and uses those
+// to calculate the center of the card, and moves the chip on the top of the stack to that position.
+function moveChips(moveToCard, cardNo, cardArr, chipArr) {
 
-    //move the chip from old position to new position iteratively
-
-  }
-  // flip the flag when the animation is completed
 }
 
 btn.onclick = function() {
@@ -84,23 +82,48 @@ btn.onclick = function() {
 
 // Create the application helper and add its render target to the page
 let app = new PIXI.Application({
-  backgroundColor: 0xCD5C5C
+  backgroundColor: 0x24273a
 });
 
+// create window height variable
+windowWidth = window.innerWidth - 10;
+windowHeight = window.innerHeight - 10;
+
 // resize the windwo to fit the whole screen
-app.renderer.resize(window.innerWidth, window.innerHeight);
+app.renderer.resize(windowWidth, windowHeight);
 
 document.body.appendChild(app.view);
 
 const Graphics = PIXI.Graphics;
 
-// chip color vars
-let chipColor = 0xe31616;
-let chipBorderColor = 0xe7e7e7;
-let numChips = 10;
+//array to hold rectangle objects (cards) that go at the top of the page
+let cards = [];
+
+//constant card dimension values
+const cardHeight = 200;
+const cardWidth = 120;
+const cornerRadius = 6;
+const cardBorderColor = 0xb8c0e0;
+const cardColor = 0x8aadf4;
+
+// create the cards at the top of the application screen
+for (i = 0; i < 11; i++) {
+  cards[i] = new Graphics;
+  cards[i].beginFill(cardColor);
+  cards[i].lineStyle(1, cardBorderColor, 1);
+  cards[i].drawRoundedRect(((windowWidth / 11 * i)) + (windowWidth / 11 - cardWidth) / 2, 50, cardWidth, cardHeight, cornerRadius);
+  cards[i].endFill();
+
+  app.stage.addChild(cards[i]);
+}
 
 // array to hold stack of chips
 let chips = [];
+
+// chip color vars
+const chipColor = 0xa6da95;
+const chipBorderColor = 0xb8c0e0;
+const numChips = 10;
 
 // create a stack of chips
 for (i = 0; i < numChips; i++) {
@@ -129,17 +152,17 @@ const style = new PIXI.TextStyle({
   dropShadowColor: '#000000'
 });
 
-// create PIXI text element
-const myText = new PIXI.Text('hello world!', style);
+// // create PIXI text element
+// const myText = new PIXI.Text('hello world!', style);
 
-// staging one shape after another works like layers, later things are layerd on top of previous things
-app.stage.addChild(myText);
+// // staging one shape after another works like layers, later things are layerd on top of previous things
+// app.stage.addChild(myText);
 
-// text can be changed even after it is changed
-myText.text = 'text changed!';
-myText.style.wordWrap = true;
-myText.style.wordWrapWidth = 100;
-myText.style.align = 'center';
+// // text can be changed even after it is changed
+// myText.text = 'text changed!';
+// myText.style.wordWrap = true;
+// myText.style.wordWrapWidth = 100;
+// myText.style.align = 'center';
 
 // loop is an arbitrary name for the funciton called by the ticker method which is a continuous loop
 app.ticker.add(delta => loop(delta));
@@ -151,15 +174,12 @@ let elapsed = 0.0;
 function loop(delta) {
   elapsed += delta;
 
-  // animate(elapsed);
-  winWidth = window.innerWidth;
-  winHeight = window.innerHeight;
   objHeight = 180;
   objWidth = 180;
 
-  // //factors: ending x or y value, range of movement, size of object, and speed of movement
-  myText.x = (winWidth - objWidth) / 2 + Math.cos(elapsed / 40.0) * (winWidth - objWidth) / 2;
-  // myText.y = (winHeight - objHeight) / 2 + Math.cos(elapsed / 15.0) * (winHeight - objHeight) / 2;
+  // // factors: ending x or y value, range of movement, size of object, and speed of movement
+  // myText.x = (windowWidth - objWidth) / 2 + Math.cos(elapsed / 40.0) * (windowWidth - objWidth) / 2;
+  // myText.y = (windowHeight - objHeight) / 2 + Math.cos(elapsed / 15.0) * (windowHeight - objHeight) / 2;
 
 }
 
