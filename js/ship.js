@@ -108,14 +108,20 @@ const cardColor = 0x8aadf4;
 
 // create the cards at the top of the application screen
 for (i = 0; i < 11; i++) {
+  let j = i;
   cards[i] = new Graphics;
   cards[i].beginFill(cardColor);
   cards[i].lineStyle(1, cardBorderColor, 1);
   cards[i].drawRoundedRect(((windowWidth / 11 * i)) + (windowWidth / 11 - cardWidth) / 2, 50, cardWidth, cardHeight, cornerRadius);
+  cards[i].interactive = true;
+  cards[i].buttonMode = true;
+  cards[i].on('pointerdown', (event) => clickCard(j));
   cards[i].endFill();
 
   app.stage.addChild(cards[i]);
 }
+
+
 
 // array to hold stack of chips
 let chips = [];
@@ -127,9 +133,8 @@ const numChips = 10;
 
 // create a stack of chips
 for (i = 0; i < numChips; i++) {
-
+  
   chips[i] = new Graphics();
-
   chips[i].beginFill(chipColor);              // ellipse color
   chips[i].lineStyle(1, chipBorderColor, 1);  // ellipse border
   chips[i].drawEllipse(window.innerWidth / 2 - 12, window.innerHeight / 2 - i * 10, 24, 12);  // position + size of the ellipse (topleft x, topleft y, height, width)
@@ -189,3 +194,7 @@ function loop(delta) {
 //   else
 //     btn.innerHTML = "Resume";
 // }
+
+function clickCard(num){
+  console.log("clicked " + num);
+}
