@@ -1,33 +1,61 @@
 <!DOCTYPE html>
 <html>
 
+<head>
+    <link rel="stylesheet" href="styleSheet.css">
+</head>
+
+<title> Monty Hall Problem</title>
+
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
 <!-- <script src="pixi.min.js"></script> -->
 
 <div class="jumbotron text-center" style="margin-bottom:0">
     <h1>Monty Hall Problem</h1>
-  </div>
+</div>
+
 <script>
     const Doors = [0, 0, 0];
     const carLocation = Math.floor(Math.random() * 3);
     Doors[carLocation] = 1;
+    var gamesPlayed = 0;
 </script>
 
-<title> Gamer moment</title>
-<p id="goatLoc"></p>
-<p id="result"></p>
 
-<img src="ClosedDoro.png" onclick="chooseDoor(0)" width="300px" alt="Door 1" id="door0" class="rounded float-left">
-<img src="ClosedDoro.png" onclick="chooseDoor(1)" width="300px" alt="Door 2" id="door1">
-<img src="ClosedDoro.png" onclick="chooseDoor(2)" width="300px" alt="Door 3" id="door2" class="rounded float-right">
+
+<div class="border">
+    <p id="goatLoc"></p>
+    <p id="result"></p>
+    <div style="width: 80%; margin:auto;padding-bottom: 40px;">
+        <figure style="text-align: center;">
+        <img src="ClosedDoro.png" style="padding:  5px;" onclick="chooseDoor(0)" width="300px" alt="Door 1" id="door0">
+        <img src="ClosedDoro.png"  style="padding:  5px;" onclick="chooseDoor(1)" width="300px" alt="Door 2" id="door1">
+        <img src="ClosedDoro.png"  style="padding:  5px;" onclick="chooseDoor(2)" width="300px" alt="Door 3" id="door2">
+        </figure>
+    </div>
+
+    <div class="statsSection">
+        <h1 class="centerText"> Statistics For Game</h1>
+        <div class="row">
+        <h5>Games Played: </h5>
+        <h5 id="gamesPlayed"></h5>
+        <h5>Games Won: </h5>
+        <h5 id="gamesWon"></h5>
+        <h5>Games Lost: </h5>
+        <h5 id="gamesLost"></h5>    
+        </div>
+    </div>
+
+</div>
+
+
+
+
 
 <script>
     var string = "Door Zero: " + Doors[0] + "-- Door One: " + Doors[1] + "-- Door Two: " + Doors[2];
@@ -37,43 +65,58 @@
 
         var revealGoat = x;
         //displays the other goat location
-        while(revealGoat == x || revealGoat == carLocation){
+        while (revealGoat == x || revealGoat == carLocation) {
             revealGoat = Math.floor(Math.random() * 3);
         }
 
-        var stringToDisplay = "You selected door: " + (x) + " There is a goat at door: " + (revealGoat) + " Do you want to switch doors?";    
+        var stringToDisplay = "You selected door: " + (x) + " There is a goat at door: " + (revealGoat) + " Do you want to switch doors?";
 
-        
+
         let choice = window.confirm(stringToDisplay);
 
         var doorChoice = x;
         if (choice) {
             var remainderDoor = 5;
-            remainderDoor = remainderDoor -( x+ 1);
+            remainderDoor = remainderDoor - (x + 1);
             remainderDoor = remainderDoor - (revealGoat + 1);
             doorChoice = remainderDoor;
-        } 
+        }
 
-        if(Doors[0] == 0){
+        
+
+        if (Doors[0] == 0) {
             document.getElementById("door0").src = "goat.jfif";
-        }else{
+        } else {
             document.getElementById("door0").src = "car.jfif";
         }
 
-        if(Doors[1] == 0){
+        if (Doors[1] == 0) {
             document.getElementById("door1").src = "goat.jfif";
-        }else{
+        } else {
             document.getElementById("door1").src = "car.jfif";
         }
 
-        if(Doors[2] == 0){
+        if (Doors[2] == 0) {
             document.getElementById("door2").src = "goat.jfif";
-        }else{
+        } else {
             document.getElementById("door2").src = "car.jfif";
         }
-
+        updateStats(doorChoice);
         //having trouble revealing last door
         window.alert("Door selected: " + (doorChoice) + "Car was located at door: " + (carLocation));
+       
+    }
+
+    function updateStats(x){
+        if(x == carLocation){
+            gamesPlayed++;
+            var stringToDisplay = "You have played " + gamesPlayed + " games.";
+            document.getElementById("ss").innerHTML = stringToDisplay;
+        }else{
+            gamesPlayed++;
+            var stringToDisplay = "You have played " + gamesPlayed + " games.";
+            document.getElementById("ss").innerHTML = stringToDisplay;
+        }
     }
 </script>
 
