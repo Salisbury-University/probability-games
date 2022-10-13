@@ -95,9 +95,12 @@ app.renderer.resize(windowWidth, windowHeight);
 document.body.appendChild(app.view);
 
 const Graphics = PIXI.Graphics;
+const TitleText = PIXI.Text;
 
 //array to hold rectangle objects (cards) that go at the top of the page
 let cards = [];
+let titles = [];
+let cardChips = [];
 
 //constant card dimension values
 const cardHeight = 200;
@@ -109,16 +112,21 @@ const cardColor = 0x8aadf4;
 // create the cards at the top of the application screen
 for (i = 0; i < 11; i++) {
   let j = i;
+  titles[i] = new TitleText(i + 2);
+  titles[i].x = ((windowWidth / 11 * i) + (windowWidth / 11 - cardWidth) / 2) + 50;
+  titles[i].y = 50;
+  cardChips[i] = 0;
   cards[i] = new Graphics;
   cards[i].beginFill(cardColor);
   cards[i].lineStyle(1, cardBorderColor, 1);
   cards[i].drawRoundedRect(((windowWidth / 11 * i)) + (windowWidth / 11 - cardWidth) / 2, 50, cardWidth, cardHeight, cornerRadius);
   cards[i].interactive = true;
   cards[i].buttonMode = true;
-  cards[i].on('pointerdown', (event) => clickCard(j));
+  cards[i].on('pointerdown', (event) => clickMove(j, cardChips));
   cards[i].endFill();
 
   app.stage.addChild(cards[i]);
+  app.stage.addChild(titles[i]);
 }
 
 
@@ -195,6 +203,6 @@ function loop(delta) {
 //     btn.innerHTML = "Resume";
 // }
 
-function clickCard(num){
-  console.log("clicked " + num);
+function clickMove(cardNumber, numberChips){
+  numberChips[cardNumber]++;
 }
