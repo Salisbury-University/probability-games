@@ -7,9 +7,6 @@
 // continue
 
 // create the button first so it's at the top
-let btn = document.createElement("button");
-btn.innerHTML = "Move Chips";
-
 // some vars for moving the chips
 let pressCount = 0;
 let currChip = 9;
@@ -18,71 +15,11 @@ let animating = false;
 let newPosX = 0;
 let newPosY = 0;
 
-document.body.appendChild(btn);
-
-// create a function that moves the next chip in the pile to a card
-// inputs: card number, card array, chips array
-// outputs: none
-// functions: takes the card number input, gets the x and y value of that card (top left) and uses those
-// to calculate the center of the card, and moves the chip on the top of the stack to that position.
-function moveChips(moveToCard, cardNo, cardArr, chipArr) {
-
-}
-
-btn.onclick = function() {
-
-  if (increasing == 1) {
-    // calculate new x and y values
-    chips[currChip].x += 100;
-    newPosX = chips[currChip] + 100;
-
-    chips[currChip].y += 100 - (10 * (2 * pressCount));
-    newPosY = chips[currChip] + 100 - (10 * (2 * pressCount));
+var count = 0;
 
 
-    // increment/decrement counters
-    pressCount++;
-    currChip--;
-
-    // let animation start
-    // animating = true;
-
-    // check if still in range
-    if (pressCount == 10) {
-      pressCount -= 1;
-      currChip = 0;
-      increasing = 0;
-    }
-  }
-
-  else {
-    // calculate new x and y values
-    chips[currChip].x -= 100;
-    newPosX = chips[currChip] + 100;
-
-    chips[currChip].y += -100 + (10 * (2 * pressCount));
-    newPosY = chips[currChip] - 100 + (10 * (2 * pressCount));
-
-    // increment/decrement counters
-    pressCount--;
-    currChip++;
-
-    // let animation start
-    // animating = true;
-
-    // check if still in range
-    if (pressCount == -1) {
-      pressCount += 1;
-      currChip = 9;
-      increasing = 1;
-    }
-  }
-
-}
-
-// Create the application helper and add its render target to the page
 let app = new PIXI.Application({
-  backgroundColor: 0x24273a
+  backgroundColor: 0x548CC3
 });
 
 // create window height variable
@@ -96,7 +33,19 @@ document.body.appendChild(app.view);
 
 const Graphics = PIXI.Graphics;
 const TitleText = PIXI.Text;
+const PlayerText = PIXI.Text;
 
+let cardWindow = new Graphics;
+
+cardWindow.beginFill(0x35654d);
+cardWindow.lineStyle(20,0x725044);
+cardWindow.drawRoundedRect(0,0,windowWidth, 300);
+app.stage.addChild(cardWindow);
+
+
+if(count == 10){
+  console.log("fuck you");
+}
 //array to hold rectangle objects (cards) that go at the top of the page
 let cards = [];
 let titles = [];
@@ -107,7 +56,7 @@ const cardHeight = 200;
 const cardWidth = 120;
 const cornerRadius = 6;
 const cardBorderColor = 0xb8c0e0;
-const cardColor = 0x8aadf4;
+const cardColor = 0xffffff;
 
 // create the cards at the top of the application screen
 for (i = 0; i < 11; i++) {
@@ -130,13 +79,12 @@ for (i = 0; i < 11; i++) {
 }
 
 
-
 // array to hold stack of chips
 let chips = [];
 
 // chip color vars
-const chipColor = 0xa6da95;
-const chipBorderColor = 0xb8c0e0;
+const chipColor = 0xd4af37;
+const chipBorderColor = 0x000000;
 const numChips = 10;
 
 // create a stack of chips
@@ -204,5 +152,5 @@ function loop(delta) {
 // }
 
 function clickMove(cardNumber, numberChips){
-  numberChips[cardNumber]++;
+  
 }
