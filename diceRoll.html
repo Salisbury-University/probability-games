@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content
+		="width=device-width, initial-scale=1.0">
+	<title>Dice Roll</title>
+
+	<style>
+		.container {
+			width: 70%;
+			margin: auto;
+			text-align: center;
+		}
+
+		body {
+			background-color: #E51E1E;
+			margin: 0;
+		}
+
+		h1 {
+			margin: 30px;
+			font-family: "Calibri", cursive;
+			text-shadow: 5px 0 #33373c;
+			font-size: 4.5rem;
+			color: #EBEBDD;
+			text-align: center;
+		}
+
+		img {
+			width: 25%;
+		}
+
+		.bottom {
+			padding-top: 30px;
+		}
+
+		.butn {
+			background: #A0A098;
+			font-family: "Calibri", cursive;
+			border-radius: 7px;
+			color: #ffff;
+			font-size: 30px;
+			padding: 16px 25px 16px 25px;
+			text-decoration: none;
+		}
+
+		.butn:hover {
+			background: #232931;
+			text-decoration: none;
+		}
+
+		.lab { 
+			font-family: "Calibri", cursive;
+			text-shadow: 2px 0 #33373c;
+			font-size: 2rem;
+			color: #EBEBDD;
+		}
+		</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Dice Roll</h1>
+
+		<div class="dice">
+			<img class="img" src="dice1.png">
+		</div>
+	</div>
+
+	<div class="container bottom">
+		<button type="button" class="butn" onClick="rollDice()">Click To Roll Dice</button>
+	</div>
+
+	<div class="container bottom">
+		<label for="quantity" class = "lab">How Many Times To Roll?</label>
+		<input type="number" id="quantity" min="1" value=1 />
+	  	<button id="roll" type="button" class="butn" onClick="rollDiceMultiple()">Roll Dice Multiple Times</button>
+		<h1>
+			One: <div id="oneTotal" ></div> 
+            Two: <div id="twoTotal"></div>
+            Three: <div id="threeTotal"></div>
+            Four: <div id="fourTotal"></div>
+            Five: <div id="fiveTotal"></div>
+            Six: <div id="sixTotal"></div>
+		</h1>			
+	</div>
+
+	
+	<script> // start of java script
+		// Function to roll dice
+		function rollDice() {
+
+			// determines number on dice
+			let randomNumber = Math.floor(Math.random() * 6) + 1;
+            // determines if dice is weighted or not
+			let isWeighted = Math.floor(Math.random() * 2) + 1;
+
+			// if dice is weighted 
+			if (isWeighted == 1) {
+				// regular dice is one
+				if (randomNumber == 1) {
+					document.querySelector("h1").innerHTML = "You rolled a One!";
+					document.querySelector("img").setAttribute("src", "dice1.png");
+				} 
+				// regular dice is two
+				else if (randomNumber == 2) {
+					document.querySelector("h1").innerHTML = "You rolled a Two!";
+					document.querySelector("img").setAttribute("src", "dice2.png");
+				}
+                // regular dice is three
+				else if (randomNumber == 3) {
+					document.querySelector("h1").innerHTML = "You rolled a Three!";
+					document.querySelector("img").setAttribute("src", "dice3.png");
+				}
+                // regular dice is four
+				else if (randomNumber == 4) {
+					document.querySelector("h1").innerHTML = "You rolled a Four!";
+					document.querySelector("img").setAttribute("src", "dice4.png");
+				}
+                // regular dice is five
+				else if (randomNumber == 5) {
+					document.querySelector("h1").innerHTML = "You rolled a Five!";
+					document.querySelector("img").setAttribute("src", "dice5.png");
+				}
+                // regular dice is six
+				else if (randomNumber == 6) {
+					document.querySelector("h1").innerHTML = "You rolled a Six!";
+					document.querySelector("img").setAttribute("src", "dice6.png");
+				}
+			} 
+
+			// if dice is not weighted
+			else {
+				// regular dice is one
+				if (randomNumber == 1) {
+					document.querySelector("h1").innerHTML = "You rolled a One!";
+					document.querySelector("img").setAttribute("src", "dice1.png");
+				} 
+				// regular dice is two
+				else if (randomNumber == 2) {
+					document.querySelector("h1").innerHTML = "You rolled a Two!";
+					document.querySelector("img").setAttribute("src", "dice2.png");
+				}
+                // regular dice is three
+				else if (randomNumber == 3) {
+					document.querySelector("h1").innerHTML = "You rolled a Three!";
+					document.querySelector("img").setAttribute("src", "dice3.png");
+				}
+                // regular dice is four
+				else if (randomNumber == 4) {
+					document.querySelector("h1").innerHTML = "You rolled a Four!";
+					document.querySelector("img").setAttribute("src", "dice4.png");
+				}
+                // regular dice is five
+				else if (randomNumber == 5) {
+					document.querySelector("h1").innerHTML = "You rolled a Five!";
+					document.querySelector("img").setAttribute("src", "dice5.png");
+				}
+                // regular dice is six
+				else if (randomNumber == 6) {
+					document.querySelector("h1").innerHTML = "You rolled a Six!";
+					document.querySelector("img").setAttribute("src", "dice6.png");
+				}
+			}
+		}
+
+		// Function to roll dice multiple times
+		function rollDiceMultiple() {
+			// determines if dice is weighted or not
+			//let isWeighted = Math.floor(Math.random() * 2) + 1;
+            let isWeighted = 0;
+			
+			let button = document.getElementById("roll");
+			let qty = document.getElementById("quantity").value;
+
+			// if coin is weighted
+			if (isWeighted == 1) {
+				let oneCount = 0;
+				let twoCount = 0;
+                let threeCount = 0;
+                let fourCount = 0;
+                let fiveCount = 0;
+                let sixCount = 0;
+				
+				// determines amount of weight
+				//let weightAmount = Math.random() * .45 + .3; //////////
+				
+      			for (let i = 0; i < qty; i++) {
+       				let num = Math.floor(Math.random() * 6) + 1;
+										
+					// if weighted dice is one
+        			if (num == 1) {
+          				oneCount += 1;
+        			} 
+					// if weighted dice is two
+        			else if (num == 2) {
+          				twoCount += 1;
+        			} 
+                    // if weighted dice is three
+        			else if (num == 3) {
+          				threeCount += 1;
+        			} 
+                    // if weighted dice is four
+        			else if (num == 4) {
+          				fourCount += 1;
+        			} 
+                    // if weighted dice is five
+        			else if (num == 5) {
+          				fiveCount += 1;
+        			} 
+                    // if weighted dice is six
+        			else if (num == 6) {
+          				sixCount += 1;
+        			} 
+      			}
+      			document.getElementById("oneTotal").innerHTML = oneCount;
+				document.getElementById("twoTotal").innerHTML = twoCount;
+                document.getElementById("threeTotal").innerHTML = threeCount;
+				document.getElementById("fourTotal").innerHTML = fourCount;
+                document.getElementById("fiveTotal").innerHTML = fiveCount;
+				document.getElementById("sixTotal").innerHTML = sixCount;
+			} 
+
+			// if coin is not weighted
+			else {
+				let oneCount = 0;
+				let twoCount = 0;
+                let threeCount = 0;
+                let fourCount = 0;
+                let fiveCount = 0;
+                let sixCount = 0;
+
+      			for (let i = 0; i < qty; i++) {
+                    let num = Math.floor(Math.random() * 6) + 1;
+					
+					// if weighted coin is heads
+        			if (num == 1) {
+          				oneCount += 1;
+        			} 
+					// if weighted coin is heads
+        			else if (num == 2) {
+          				twoCount += 1;
+        			} 
+                    // if weighted coin is heads
+        			else if (num == 3) {
+          				threeCount += 1;
+        			} 
+                    // if weighted coin is heads
+        			else if (num == 4) {
+          				fourCount += 1;
+        			} 
+                    // if weighted coin is heads
+        			else if (num == 5) {
+          				fiveCount += 1;
+        			} 
+                    // if weighted coin is heads
+        			else if (num == 6) {
+          				sixCount += 1;
+        			}
+      			}
+      			document.getElementById("oneTotal").innerHTML = oneCount;
+				document.getElementById("twoTotal").innerHTML = twoCount;
+                document.getElementById("threeTotal").innerHTML = threeCount;
+				document.getElementById("fourTotal").innerHTML = fourCount;
+                document.getElementById("fiveTotal").innerHTML = fiveCount;
+				document.getElementById("sixTotal").innerHTML = sixCount;
+			}
+		}
+
+	</script> 
+</body>
+</html>
