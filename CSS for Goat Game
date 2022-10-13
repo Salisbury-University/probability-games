@@ -1,0 +1,48 @@
+
+.centerText {
+    text-align: center;
+    font-size: 42pt;
+    color: black;
+    margin-bottom: .3em;
+  }
+
+.border{
+    background-color: aqua;
+    border-top: 4pt solid black;
+}
+
+.statsSection{
+    border-top: 4pt solid black;
+    background-color: grey;
+}
+.biggerText{
+    font-size: 24pt;
+}
+
+.contn{
+    position: relative;
+    width: 30%;
+    background-color: orange;
+}
+
+  /* Style the button and place it in the middle of the container/image */
+.container .btns {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: rgb(58, 5, 5);
+    color: white;
+    font-size: 16px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .imgHolder{
+    background-color: teal;
+    width: 100%;
+  }
+  
