@@ -210,18 +210,18 @@
         }
 
         document.getElementById("gamesPlayed").innerHTML = "Total Games Played: " + gamesPlayed;
-        document.getElementById("gamesWon").innerHTML = "Total Games Won: " + gamesWon + " (" + ((1.0 * gamesWon) / gamesPlayed) * 100 + "%)";
-        document.getElementById("gamesLost").innerHTML = "Total Games Lost: " + gamesLost + " (" + ((1.0 * gamesLost) / gamesPlayed) * 100 + "%)";
+        document.getElementById("gamesWon").innerHTML = "Total Games Won: " + gamesWon + " (" + (((1.0 * gamesWon) / gamesPlayed) * 100).toFixed(2) + "%)";
+        document.getElementById("gamesLost").innerHTML = "Total Games Lost: " + gamesLost + " (" + (((1.0 * gamesLost) / gamesPlayed) * 100).toFixed(2) + "%)";
 
 
         document.getElementById("switchDoorsGames").innerHTML = "Total games where switched door: " + switchDoorGames;
-        document.getElementById("switchDoorsWon").innerHTML = "Switched doors and won: " + switchDoors + " (" + ((1.0 * switchDoors) / switchDoorGames) * 100 + "%)";
-        document.getElementById("switchDoorsLose").innerHTML = "Switched doors and lost: " + switchDoorLost + " (" + ((1.0 * switchDoorLost) / switchDoorGames) * 100 + "%)";
+        document.getElementById("switchDoorsWon").innerHTML = "Switched doors and won: " + switchDoors + " (" + (((1.0 * switchDoors) / switchDoorGames) * 100).toFixed(2) + "%)";
+        document.getElementById("switchDoorsLose").innerHTML = "Switched doors and lost: " + switchDoorLost + " (" + (((1.0 * switchDoorLost) / switchDoorGames) * 100).toFixed(2) + "%)";
 
 
         document.getElementById("keptDoorsGames").innerHTML = "Total Games where kept door: " + keptDoorsGames;
-        document.getElementById("keptDoorsWon").innerHTML = "Kept doors and won: " + keptDoor + " (" + ((1.0 * keptDoor) / keptDoorsGames) * 100 + "%)";
-        document.getElementById("keptDoorsLose").innerHTML = "Kept doors and lost: " + keptDoorLost + " (" + ((1.0 * keptDoorLost) / keptDoorsGames) * 100 + "%)";
+        document.getElementById("keptDoorsWon").innerHTML = "Kept doors and won: " + keptDoor + " (" + (((1.0 * keptDoor) / keptDoorsGames) * 100).toFixed(2) + "%)";
+        document.getElementById("keptDoorsLose").innerHTML = "Kept doors and lost: " + keptDoorLost + " (" + (((1.0 * keptDoorLost) / keptDoorsGames) * 100).toFixed(2) + "%)";
 
 
     }
