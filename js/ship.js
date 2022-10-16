@@ -1,3 +1,32 @@
+
+// queue class used to store chips
+class Queue {
+  constructor() {
+    this.elements = {};
+    this.head;
+    this.tail;
+  }
+  enqueue(element) {
+    this.elements[this.tail] = element;
+    this.tail++;
+  }
+  dequeue() {
+    const item = this.elements[this.head];
+    delete this.elements[this.head];
+    this.head++;
+    return item;
+  }
+  top() {
+    return this.elements[this.head];
+  }
+  get length() {
+    return this.tail - this.head;
+  }
+  get isEmpty() {
+    return this.length === 0;
+  }
+}
+
 // $ http-server -c-1 -a localhost -p 8000 /directory/path/
 
 // write documentation
@@ -6,17 +35,9 @@
 // set a flag so that the function runs in the ticker function with the calculated values
 // continue
 
-// create the button first so it's at the top
-// some vars for moving the chips
-let pressCount = 0;
-let currChip = 9;
-let increasing = 1;
-let animating = false;
-let newPosX = 0;
-let newPosY = 0;
+// create the button first so its at the top
 
 var count = 0;
-
 
 let app = new PIXI.Application({
   backgroundColor: 0x548CC3
@@ -35,15 +56,16 @@ const Graphics = PIXI.Graphics;
 const TitleText = PIXI.Text;
 const PlayerText = PIXI.Text;
 
+// rectangle surrounding the cards
 let cardWindow = new Graphics;
 
 cardWindow.beginFill(0x35654d);
-cardWindow.lineStyle(20,0x725044);
-cardWindow.drawRoundedRect(0,0,windowWidth, 300);
+cardWindow.lineStyle(20, 0x725044);
+cardWindow.drawRoundedRect(0, 0, windowWidth, 300);
 app.stage.addChild(cardWindow);
 
 
-if(count == 10){
+if (count == 10) {
   console.log("fuck you");
 }
 //array to hold rectangle objects (cards) that go at the top of the page
@@ -68,62 +90,42 @@ for (i = 0; i < 11; i++) {
   cards[i] = new Graphics;
   cards[i].beginFill(cardColor);
   cards[i].lineStyle(1, cardBorderColor, 1);
-  cards[i].drawRoundedRect(((windowWidth / 11 * i)) + (windowWidth / 11 - cardWidth) / 2, 50, cardWidth, cardHeight, cornerRadius);
+  cards[i].drawRoundedRect(0, 0, cardWidth, cardHeight, cornerRadius);
+  cards[i].x = ((windowWidth / 11 * i)) + (windowWidth / 11 - cardWidth) / 2;
+  cards[i].y = 50;
   cards[i].interactive = true;
   cards[i].buttonMode = true;
-  cards[i].on('pointerdown', (event) => clickMove(j, cardChips));
+  cards[i].on('pointerdown', (event) => clickMove(j));
   cards[i].endFill();
 
   app.stage.addChild(cards[i]);
   app.stage.addChild(titles[i]);
 }
 
-
 // array to hold stack of chips
-let chips = [];
+let chips = {};
 
 // chip color vars
+const chipWidth = 24;
+const chipHeight = chipWidth / 2;
 const chipColor = 0xd4af37;
 const chipBorderColor = 0x000000;
 const numChips = 10;
 
 // create a stack of chips
 for (i = 0; i < numChips; i++) {
-  
+
   chips[i] = new Graphics();
   chips[i].beginFill(chipColor);              // ellipse color
   chips[i].lineStyle(1, chipBorderColor, 1);  // ellipse border
-  chips[i].drawEllipse(window.innerWidth / 2 - 12, window.innerHeight / 2 - i * 10, 24, 12);  // position + size of the ellipse (topleft x, topleft y, height, width)
+  chips[i].drawEllipse(0, 0, 24, 12);  // position + size of the ellipse (topleft x, topleft y, height, width)
+  // note: while rectangle has its x and y at the top left, ellipse's x and y are at its center
+  chips[i].x = windowWidth / 2;
+  chips[i].y = (windowHeight + 100) / 2 - i * 10;
   chips[i].endFill();                         // draws the ellipse
 
   app.stage.addChild(chips[i]);               // stage the ellipse
 }
-
-// styling for pixi text element
-const style = new PIXI.TextStyle({
-  fontFamily: 'Montserrat',
-  fontSize: 48,
-  fill: 'deepskyblue',
-  stroke: '#FFFFFF',
-  strokeThickness: 4,
-  dropShadow: true,
-  dropShadowDistance: 10,
-  dropShadowAngle: Math.PI / 2,
-  dropShadowBlur: 4,
-  dropShadowColor: '#000000'
-});
-
-// // create PIXI text element
-// const myText = new PIXI.Text('hello world!', style);
-
-// // staging one shape after another works like layers, later things are layerd on top of previous things
-// app.stage.addChild(myText);
-
-// // text can be changed even after it is changed
-// myText.text = 'text changed!';
-// myText.style.wordWrap = true;
-// myText.style.wordWrapWidth = 100;
-// myText.style.align = 'center';
 
 // loop is an arbitrary name for the funciton called by the ticker method which is a continuous loop
 app.ticker.add(delta => loop(delta));
@@ -134,23 +136,59 @@ let elapsed = 0.0;
 // main loop
 function loop(delta) {
   elapsed += delta;
-
-  objHeight = 180;
-  objWidth = 180;
-
-  // // factors: ending x or y value, range of movement, size of object, and speed of movement
-  // myText.x = (windowWidth - objWidth) / 2 + Math.cos(elapsed / 40.0) * (windowWidth - objWidth) / 2;
-  // myText.y = (windowHeight - objHeight) / 2 + Math.cos(elapsed / 15.0) * (windowHeight - objHeight) / 2;
-
 }
 
-//   // make sure the button says the right thing
-//   if (!pause)
-//     btn.innerHTML = "Pause";
-//   else
-//     btn.innerHTML = "Resume";
-// }
+// some vars for moving the chips
+let pressCount = 0;
+let currChip = 9;
+let increasing = 1;
 
-function clickMove(cardNumber, numberChips){
-  
+function clickMove(cardNumber) {
+
+  // get old chip's x and y to figure out it's old card
+  let oldX = chips[currChip].x - (cardWidth / 2);
+  let oldCard = -1;
+
+  for (i = 0; i < 11; i++) {
+    if (oldX == cards[i].x)
+      oldCard = i;
+  }
+
+  //decrement the chip counter on it's old card, if the chip came from a card
+  if (oldCard > 0)
+    cardChips[oldCard] -= 1;
+
+  // calculate new x val based on card position
+  chips[currChip].x = cards[cardNumber].x + (cardWidth / 2);
+
+  // calculate new y val based on how many chips are on the card
+  chips[currChip].y = cards[cardNumber].y + cardHeight - cardChips[cardNumber] * 10;
+
+  // increment the number of chips on card cardNumber
+  // but also have to find a way to decrement the card that lost it's chip
+  cardChips[cardNumber] += 1;
+
+  // increment/decrement counters
+  if (increasing == 1) {
+    pressCount++;
+    currChip--;
+  }
+  else {
+    pressCount--;
+    currChip++;
+  }
+
+  // if out of range start decrementing/incrementing
+  if (pressCount == 10) {
+    pressCount -= 1;
+    currChip = 0;
+    increasing = 0;
+  }
+  else if (pressCount == -1) {
+    pressCount += 1;
+    currChip = 9;
+    increasing = 1;
+
+  }
+
 }
