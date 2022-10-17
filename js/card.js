@@ -2,19 +2,6 @@ const totalCount = document.getElementById("total-count");
 const cards = [0,0,0,0,0,0,0,0,0,0,0];
 var count = 10;
 
-var app = new PIXI.Application({ width: window.innerWidth, height: window.innerHeight, backgroundColor: 0xe86b6b });
-document.getElementById("window").appendChild(app.view);
-
-const graphics = PIXI.Graphics;
-
-let rect1 = new graphics;
-
-rect1.beginFill(0xffffff);
-rect1.drawRect(50, 50, 100, 100);
-rect1.endFill();
-
-app.stage.addChild(rect1);
-
 for(let i = 0; i < 11; i++){
     let temp = 'card' + i;
     document.getElementById(temp).innerHTML = cards[i];
