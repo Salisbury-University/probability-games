@@ -57,6 +57,13 @@
 			font-size: 2rem;
 			color: #EBEBDD;
 		}
+
+		table{
+			font-family: "Calibri", cursive;
+			text-shadow: 2px 0 #33373c;
+			font-size: 2rem;
+			color: #EBEBDD;
+		}
 		</style>
 </head>
 
@@ -77,20 +84,24 @@
 		<label for="quantity" class = "lab">How Many Times To Flip?</label>
 		<input type="number" id="quantity" min="1" value=1 />
 	  	<button id="flip" type="button" class="butn" onClick="flipCoinMultiple()">Flip Coin Multiple Times</button>
-	  	<div id="result">
+		<h1>
+			Heads: <div id="headTotal" ></div> Tails: <div id="tailTotal"></div>
+		</h1>			
 	</div>
-
-	<script>
+	
+	<script> // start of java script
 		// Function to flip coin
 		function flipCoin() {
 			
 			let randomNumber = Math.random();
+			let weighted = Math.floor(Math.random() * 2) + 1;
 
-			if (randomNumber <= .3) {
+			// coin is heads
+			if (randomNumber < .5) {
 				document.querySelector("h1").innerHTML = "You got HEADS!";
 				document.querySelector("img").setAttribute("src", "coinHead.png");
-			}
-
+			} 
+			// coin is tails
 			else {
 				document.querySelector("h1").innerHTML = "You got TAILS!";
 				document.querySelector("img").setAttribute("src", "coinTail.png");
@@ -99,25 +110,84 @@
 
 		// Function to flip coin multiple times
 		function flipCoinMultiple() {
-			
-			let button = document.getElementById("flip");
-    		let result = document.getElementById("result");
+
+			// determines if coin is weighted or not
+			let isWeighted = Math.floor(Math.random() * 2) + 1;
+			// gets amount of flips from user
 			let qty = document.getElementById("quantity").value;
-      		let score = "";
 
-      		for (let i = 0; i < qty; i++) {
-       			let num = Math.random();
+			// if coin is weighted
+			if (isWeighted == 1) {
+				// counters for both sides
+				let headCount = 0;
+				let tailCount = 0;
 
-        		if (num <= 0.3) {
-          			score += "<p>You got HEADS!</p>";
-        		} else {
-          			score += "<p>You got TAILS!</p>";
-        		}
-      		}
+				// determines amount of weight for the heavier side 
+				// (anywhere from 70-30 to 57-43, with the higher number being the heavier side)
+				let min = 57;
+				let max = 71;
+				let difference = max - min;
+				let weightHeavierSide = Math.floor(Math.random() * difference) + min;
 
-      		result.innerHTML = score;
+				// determines if tails or heads is the heavier side (1 for heads and 2 for tails)
+				let heavierSide = Math.floor(Math.random() * 2) + 1;
+								
+      			if(heavierSide == 1) {
+					for (let i = 0; i < qty; i++) {
+       					let num = Math.floor(Math.random() * 100) + 1;
+					
+						// if weighted coin is heads
+        				if (num <= weightHeavierSide) {
+          					headCount += 1;
+        				} 
+						// if weighted coin is tails
+						else {
+          					tailCount += 1;
+        				}
+      				}
+      				document.getElementById("headTotal").innerHTML = headCount;
+					document.getElementById("tailTotal").innerHTML = tailCount;
+				}
+
+				else {
+					for (let i = 0; i < qty; i++) {
+       					let num = Math.floor(Math.random() * 100) + 1;
+					
+						// if weighted coin is tails
+        				if (num <= weightHeavierSide) {
+          					tailCount += 1;
+        				} 
+						// if weighted coin is heads
+						else {
+          					headCount += 1;
+        				}
+      				}
+      				document.getElementById("headTotal").innerHTML = headCount;
+					document.getElementById("tailTotal").innerHTML = tailCount;
+				}
+			} 
+
+			// if coin is not weighted
+			else {
+				let headCount = 0;
+				let tailCount = 0;
+
+      			for (let i = 0; i < qty; i++) {
+       				let num = Math.floor(Math.random() * 100) + 1;
+					
+					// if regular coin is heads
+        			if (num <= 50) {
+          				headCount += 1;
+        			} 
+					// if regular coin is tails
+					else {
+          				tailCount += 1;
+        			}
+      			}
+      			document.getElementById("headTotal").innerHTML = headCount;
+				document.getElementById("tailTotal").innerHTML = tailCount;
+			}
 		}
-
 	</script>
 </body>
 </html>
