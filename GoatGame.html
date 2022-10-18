@@ -26,6 +26,9 @@
 </div>
 
 <script>
+    const carImg = "https://github.com/Salisbury-University/probability-games/blob/main/images/car-49278_960_720.jpg?raw=true";
+    const goatImg = "https://github.com/Salisbury-University/probability-games/blob/main/images/animal-35521_960_720.png?raw=true";
+    const doorImg = "https://github.com/Salisbury-University/probability-games/blob/main/images/ClosedDoor.png?raw=true";
     var Doors = [0, 0, 0];
     var carLocation = Math.floor(Math.random() * 3);
     Doors[carLocation] = 1;
@@ -39,25 +42,25 @@
     var keptDoorLost = 0;
     var switchDoorLost = 0;
 </script>
-g
+
 
 <div style="background-color: aquamarine; padding-bottom: 20px;">
     <div class="row" style="width: 80%;margin-left: 15%;padding-bottom: 20px; padding-top: 20px;">
         <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
-            <img class="img-responsive" src="ClosedDoor.png" width="300px" alt="Door 1" id="door0">
+            <img class="img-responsive" src=doorImg width="300px" alt="Door 1" id="door0">
             <button onclick="chooseDoor(0)" class="btns" id="buttonDoor0"> Door 1</button>
 
         </div>
         <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
-            <img class="img-responsive" src="ClosedDoor.png" width="300px" alt="Door 2" id="door1">
+            <img class="img-responsive" src=doorImg width="300px" alt="Door 2" id="door1">
             <button onclick="chooseDoor(1)" class="btns" id="buttonDoor1"> Door 2</button>
 
         </div>
         <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
-            <img class="img-responsive" src="ClosedDoor.png" width="300px" alt="Door 3" id="door2">
+            <img class="img-responsive" src=doorImg width="300px" alt="Door 3" id="door2">
             <button onclick="chooseDoor(2)" class="btns" id="buttonDoor2"> Door 3</button>
         </div>
     </div>
@@ -92,6 +95,9 @@ g
 
 
 <script>
+    document.getElementById("door0").src = doorImg;
+    document.getElementById("door1").src = doorImg;
+    document.getElementById("door2").src = doorImg;
 
     /*
         //must be golive to run
@@ -130,9 +136,9 @@ g
         carLocation = Math.floor(Math.random() * 3);
         Doors[carLocation] = 1;
 
-        document.getElementById("door0").src = "ClosedDoor.png";
-        document.getElementById("door1").src = "ClosedDoor.png";
-        document.getElementById("door2").src = "ClosedDoor.png";
+        document.getElementById("door0").src = doorImg;
+        document.getElementById("door1").src = doorImg;
+        document.getElementById("door2").src = doorImg;
         document.getElementById("buttonDoor0").disabled = false;
         document.getElementById("buttonDoor1").disabled = false;
         document.getElementById("buttonDoor2").disabled = false;
@@ -160,23 +166,19 @@ g
         }
 
         if (Doors[0] == 0)
-            document.getElementById("door0").src = "goat.jfif";
+            document.getElementById("door0").src = goatImg;
         else
-            document.getElementById("door0").src = "car.jfif";
-
+            document.getElementById("door0").src = carImg;
 
         if (Doors[1] == 0)
-            document.getElementById("door1").src = "goat.jfif";
+            document.getElementById("door1").src =goatImg;
         else
-            document.getElementById("door1").src = "car.jfif";
-
+            document.getElementById("door1").src = carImg;
 
         if (Doors[2] == 0)
-            document.getElementById("door2").src = "goat.jfif";
+            document.getElementById("door2").src = goatImg;
         else
-            document.getElementById("door2").src = "car.jfif";
-
-
+            document.getElementById("door2").src = carImg;
 
         updateStats(doorChoice, choice);
         document.getElementById("buttonDoor0").disabled = true;
@@ -253,26 +255,26 @@ g
                 document.getElementById("buttonDoor0").disabled = false;
                 document.getElementById("buttonDoor1").disabled = false;
                 document.getElementById("buttonDoor2").disabled = false;
-                document.getElementById("door0").src = "ClosedDoor.png";
-                document.getElementById("door1").src = "ClosedDoor.png";
-                document.getElementById("door2").src = "ClosedDoor.png";
+                document.getElementById("door0").src = doorImg;
+                document.getElementById("door1").src = doorImg;
+                document.getElementById("door2").src = doorImg;
             }
 
             if (i == timesPlayed - 1) {
                 if (carLocation == 0)
-                    document.getElementById("door0").src = "car.jfif";
+                    document.getElementById("door0").src = carImg;
                 else
-                    document.getElementById("door0").src = "goat.jfif";
+                    document.getElementById("door0").src = goatImg;
 
                 if (carLocation == 1)
-                    document.getElementById("door1").src = "car.jfif";
+                    document.getElementById("door1").src = carImg;
                 else
-                    document.getElementById("door1").src = "goat.jfif";
+                    document.getElementById("door1").src = goatImg;
 
                 if (carLocation == 2)
-                    document.getElementById("door2").src = "car.jfif";
+                    document.getElementById("door2").src = carImg;
                 else
-                    document.getElementById("door2").src = "goat.jfif";
+                    document.getElementById("door2").src = goatImg;
 
                 document.getElementById("buttonDoor0").disabled = true;
                 document.getElementById("buttonDoor1").disabled = true;
