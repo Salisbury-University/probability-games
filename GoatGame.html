@@ -28,7 +28,7 @@
 </div>
 
 <script>
-    const carImg = "https://github.com/Salisbury-University/probability-games/blob/main/images/car-49278_960_720.jpg?raw=true";
+    const carImg = "https://github.com/Salisbury-University/probability-games/blob/main/images/carPNG.png?raw=true";
     const goatImg = "https://github.com/Salisbury-University/probability-games/blob/main/images/animal-35521_960_720.png?raw=true";
     const doorImg = "https://github.com/Salisbury-University/probability-games/blob/main/images/ClosedDoor.png?raw=true";
     var Doors = [0, 0, 0];
@@ -50,19 +50,19 @@
     <div class="row" style="width: 80%;margin-left: 15%;padding-bottom: 20px; padding-top: 20px;">
         <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
-            <img class="img-responsive" src=doorImg width="300px" alt="Door 1" id="door0">
+            <img class="img-responsive" src=doorImg width="300px" height="400px" alt="Door 1" id="door0">
             <button onclick="chooseDoor(0)" class="btns" id="buttonDoor0"> Door 1</button>
 
         </div>
         <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
-            <img class="img-responsive" src=doorImg width="300px" alt="Door 2" id="door1">
+            <img class="img-responsive" src=doorImg width="300px" height="400px" alt="Door 2" id="door1">
             <button onclick="chooseDoor(1)" class="btns" id="buttonDoor1"> Door 2</button>
 
         </div>
         <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
-            <img class="img-responsive" src=doorImg width="300px" alt="Door 3" id="door2">
+            <img class="img-responsive" src=doorImg width="300px" height="400px" alt="Door 3" id="door2">
             <button onclick="chooseDoor(2)" class="btns" id="buttonDoor2"> Door 3</button>
         </div>
     </div>
@@ -76,6 +76,10 @@
         <button type="button" class="btn btn-primary" onclick="playAgain()">Play Again</button>
         <input type="text" id="amountTimesToRun" placeholder="Number of Runs">
         <button type="button" class="btn btn-primary" onclick="simulateGame()">Simulate Runs</button>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Launch demo modal
+        </button>
     </div>
     <div class="row" style="text-align: center;">
         <div class="col-md-4">
@@ -96,256 +100,277 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Would you like to keep or switch doors?</h5>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        onclick="testModal('Switch Doors')">Switch</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        onclick="testModal('Keep Doors')">Keep</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<script>
-    document.getElementById("door0").src = doorImg;
-    document.getElementById("door1").src = doorImg;
-    document.getElementById("door2").src = doorImg;
 
-    /*
-        //must be golive to run
-        const app = new PIXI.Application({ backgroundColor: 0x1267bb });
-        document.body.appendChild(app.view);
-    
-        // create a new Sprite from an image path
-        const bunny = PIXI.Sprite.from('closedDoor.png');
-    
-        // center the sprite's anchor point
-        bunny.anchor.set(0.5);
-    
-        // move the sprite to the center of the screen
-        bunny.x = app.screen.width / 2;
-        bunny.y = app.screen.height / 2;
-    
-        app.stage.addChild(bunny);
-    
-        // Listen for animate update
-        app.ticker.add((delta) => {
-            // just for fun, let's rotate mr rabbit a little
-            // delta is 1 if running at 100% performance
-            // creates frame-independent transformation
-            bunny.rotation += 0.1 * delta;
-        });
-        //*/
-
-    var string = "Door Zero: " + Doors[0] + "-- Door One: " + Doors[1] + "-- Door Two: " + Doors[2];
-
-    function playAgain() {
-
-        Doors[0] = 0;
-        Doors[1] = 0;
-        Doors[2] = 0;
-
-        carLocation = Math.floor(Math.random() * 3);
-        Doors[carLocation] = 1;
-
+    <script>
         document.getElementById("door0").src = doorImg;
         document.getElementById("door1").src = doorImg;
         document.getElementById("door2").src = doorImg;
-        document.getElementById("buttonDoor0").disabled = false;
-        document.getElementById("buttonDoor1").disabled = false;
-        document.getElementById("buttonDoor2").disabled = false;
 
-    } //end of play again
-
-    function chooseDoor(x) {
-        var revealGoat = x;
-        //displays the other goat location
-        while (revealGoat == x || revealGoat == carLocation) {
-            revealGoat = Math.floor(Math.random() * 3);
+        function testModal(stringToAlert) {
+            window.alert("The string sent was: " + stringToAlert);
         }
 
-        var stringToDisplay = "You selected door: " + (x + 1) + " There is a goat at door: " + (revealGoat + 1) + " Do you want to switch doors?";
+        /*
+            //must be golive to run
+            const app = new PIXI.Application({ backgroundColor: 0x1267bb });
+            document.body.appendChild(app.view);
+        
+            // create a new Sprite from an image path
+            const bunny = PIXI.Sprite.from('closedDoor.png');
+        
+            // center the sprite's anchor point
+            bunny.anchor.set(0.5);
+        
+            // move the sprite to the center of the screen
+            bunny.x = app.screen.width / 2;
+            bunny.y = app.screen.height / 2;
+        
+            app.stage.addChild(bunny);
+        
+            // Listen for animate update
+            app.ticker.add((delta) => {
+                // just for fun, let's rotate mr rabbit a little
+                // delta is 1 if running at 100% performance
+                // creates frame-independent transformation
+                bunny.rotation += 0.1 * delta;
+            });
+            //*/
 
+        var string = "Door Zero: " + Doors[0] + "-- Door One: " + Doors[1] + "-- Door Two: " + Doors[2];
 
-        var choice = window.confirm(stringToDisplay);
+        function playAgain() {
 
-        var doorChoice = x;
-        if (choice) {
-            var remainderDoor = 5;
-            remainderDoor = remainderDoor - (x + 1);
-            remainderDoor = remainderDoor - (revealGoat + 1);
-            doorChoice = remainderDoor;
-        }
+            Doors[0] = 0;
+            Doors[1] = 0;
+            Doors[2] = 0;
 
-        if (Doors[0] == 0)
-            document.getElementById("door0").src = goatImg;
-        else
-            document.getElementById("door0").src = carImg;
-
-        if (Doors[1] == 0)
-            document.getElementById("door1").src = goatImg;
-        else
-            document.getElementById("door1").src = carImg;
-
-        if (Doors[2] == 0)
-            document.getElementById("door2").src = goatImg;
-        else
-            document.getElementById("door2").src = carImg;
-
-        updateStats(doorChoice, choice);
-        document.getElementById("buttonDoor0").disabled = true;
-        document.getElementById("buttonDoor1").disabled = true;
-        document.getElementById("buttonDoor2").disabled = true;
-        window.alert("Door selected: " + (doorChoice + 1) + "Car was located at door: " + (carLocation + 1));
-        printStatistics(gamesPlayed,gamesWon,gamesLost,switchDoorGames,switchDoors,switchDoorLost,keptDoorsGames,keptDoor,keptDoorLost);
-      
-    } //end of choose door
-
-    function updateStats(x, choice) {
-        gamesPlayed++;
-        if (choice)
-            switchDoorGames++;
-        else
-            keptDoorsGames++;
-
-        if (x == carLocation) {
-            gamesWon++;
-
-            if (choice)
-                switchDoors++;
-            else
-                keptDoor++;
-        } else {
-
-            if (choice)
-                switchDoorLost++;
-            else
-                keptDoorLost++;
-
-            gamesLost++;
-        }
-
-       // printStatistics(gamesPlayed,gamesWon,gamesLost,switchDoorGames,switchDoors,switchDoorLost,keptDoorsGames,keptDoor,keptDoorLost);
-       // printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoor, keptDoorLost);
-
-    } //end of update stats
-
-    function simulateGame() {
-        var switchDoor;
-        var timesPlayed = document.getElementById("amountTimesToRun").value;
-
-        switchDoor = window.confirm("Switch doors?");
-        for (var i = 0; i < timesPlayed; i++) {
-            playAgain();
             carLocation = Math.floor(Math.random() * 3);
-            var userChoice = Math.floor(Math.random() * 3);
-            var revealGoat = carLocation;
+            Doors[carLocation] = 1;
 
-            while (revealGoat == carLocation || revealGoat == userChoice) {
+            document.getElementById("door0").src = doorImg;
+            document.getElementById("door1").src = doorImg;
+            document.getElementById("door2").src = doorImg;
+            document.getElementById("buttonDoor0").disabled = false;
+            document.getElementById("buttonDoor1").disabled = false;
+            document.getElementById("buttonDoor2").disabled = false;
+
+        } //end of play again
+
+        function chooseDoor(x) {
+            var revealGoat = x;
+            //displays the other goat location
+            while (revealGoat == x || revealGoat == carLocation) {
                 revealGoat = Math.floor(Math.random() * 3);
             }
 
-            if (switchDoor) {
+            var stringToDisplay = "You selected door: " + (x + 1) + " There is a goat at door: " + (revealGoat + 1) + " Do you want to switch doors?";
+
+
+            var choice = window.confirm(stringToDisplay);
+
+            var doorChoice = x;
+            if (choice) {
                 var remainderDoor = 5;
-                remainderDoor = remainderDoor - (userChoice + 1);
+                remainderDoor = remainderDoor - (x + 1);
                 remainderDoor = remainderDoor - (revealGoat + 1);
-                userChoice = remainderDoor;
-            }
-            updateStats(userChoice, switchDoor);
-
-            if (i == 0) {
-                document.getElementById("buttonDoor0").disabled = false;
-                document.getElementById("buttonDoor1").disabled = false;
-                document.getElementById("buttonDoor2").disabled = false;
-                document.getElementById("door0").src = doorImg;
-                document.getElementById("door1").src = doorImg;
-                document.getElementById("door2").src = doorImg;
+                doorChoice = remainderDoor;
             }
 
-            if (i == timesPlayed - 1) {
-                if (carLocation == 0)
-                    document.getElementById("door0").src = carImg;
-                else
-                    document.getElementById("door0").src = goatImg;
+            if (Doors[0] == 0)
+                document.getElementById("door0").src = goatImg;
+            else
+                document.getElementById("door0").src = carImg;
 
-                if (carLocation == 1)
-                    document.getElementById("door1").src = carImg;
-                else
-                    document.getElementById("door1").src = goatImg;
+            if (Doors[1] == 0)
+                document.getElementById("door1").src = goatImg;
+            else
+                document.getElementById("door1").src = carImg;
 
-                if (carLocation == 2)
-                    document.getElementById("door2").src = carImg;
-                else
-                    document.getElementById("door2").src = goatImg;
+            if (Doors[2] == 0)
+                document.getElementById("door2").src = goatImg;
+            else
+                document.getElementById("door2").src = carImg;
 
-                document.getElementById("buttonDoor0").disabled = true;
-                document.getElementById("buttonDoor1").disabled = true;
-                document.getElementById("buttonDoor2").disabled = true;
+            updateStats(doorChoice, choice);
+            document.getElementById("buttonDoor0").disabled = true;
+            document.getElementById("buttonDoor1").disabled = true;
+            document.getElementById("buttonDoor2").disabled = true;
+            window.alert("Door selected: " + (doorChoice + 1) + "Car was located at door: " + (carLocation + 1));
+            printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoor, keptDoorLost);
+
+        } //end of choose door
+
+        function updateStats(x, choice) {
+            gamesPlayed++;
+            if (choice)
+                switchDoorGames++;
+            else
+                keptDoorsGames++;
+
+            if (x == carLocation) {
+                gamesWon++;
+
+                if (choice)
+                    switchDoors++;
+                else
+                    keptDoor++;
+            } else {
+
+                if (choice)
+                    switchDoorLost++;
+                else
+                    keptDoorLost++;
+
+                gamesLost++;
             }
-        }//end of for loop
 
-        printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoor, keptDoorLost);
-    }//end of simulate game
+            // printStatistics(gamesPlayed,gamesWon,gamesLost,switchDoorGames,switchDoors,switchDoorLost,keptDoorsGames,keptDoor,keptDoorLost);
+            // printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoor, keptDoorLost);
+
+        } //end of update stats
+
+        function simulateGame() {
+            var switchDoor;
+            var timesPlayed = document.getElementById("amountTimesToRun").value;
+
+            switchDoor = window.confirm("Switch doors?");
+            for (var i = 0; i < timesPlayed; i++) {
+                playAgain();
+                carLocation = Math.floor(Math.random() * 3);
+                var userChoice = Math.floor(Math.random() * 3);
+                var revealGoat = carLocation;
+
+                while (revealGoat == carLocation || revealGoat == userChoice) {
+                    revealGoat = Math.floor(Math.random() * 3);
+                }
+
+                if (switchDoor) {
+                    var remainderDoor = 5;
+                    remainderDoor = remainderDoor - (userChoice + 1);
+                    remainderDoor = remainderDoor - (revealGoat + 1);
+                    userChoice = remainderDoor;
+                }
+                updateStats(userChoice, switchDoor);
+
+                if (i == 0) {
+                    document.getElementById("buttonDoor0").disabled = false;
+                    document.getElementById("buttonDoor1").disabled = false;
+                    document.getElementById("buttonDoor2").disabled = false;
+                    document.getElementById("door0").src = doorImg;
+                    document.getElementById("door1").src = doorImg;
+                    document.getElementById("door2").src = doorImg;
+                }
+
+                if (i == timesPlayed - 1) {
+                    if (carLocation == 0)
+                        document.getElementById("door0").src = carImg;
+                    else
+                        document.getElementById("door0").src = goatImg;
+
+                    if (carLocation == 1)
+                        document.getElementById("door1").src = carImg;
+                    else
+                        document.getElementById("door1").src = goatImg;
+
+                    if (carLocation == 2)
+                        document.getElementById("door2").src = carImg;
+                    else
+                        document.getElementById("door2").src = goatImg;
+
+                    document.getElementById("buttonDoor0").disabled = true;
+                    document.getElementById("buttonDoor1").disabled = true;
+                    document.getElementById("buttonDoor2").disabled = true;
+                }
+            }//end of for loop
+
+            printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoor, keptDoorLost);
+        }//end of simulate game
 
 
-    function resetStats() {
-        gamesPlayed = 0;
-        gamesWon = 0;
-        gamesLost = 0;
-        keptDoor = 0;
-        switchDoors = 0;
-        switchDoorGames = 0;
-        keptDoorsGames = 0;
-        keptDoorLost = 0;
-        switchDoorLost = 0;
+        function resetStats() {
+            gamesPlayed = 0;
+            gamesWon = 0;
+            gamesLost = 0;
+            keptDoor = 0;
+            switchDoors = 0;
+            switchDoorGames = 0;
+            keptDoorsGames = 0;
+            keptDoorLost = 0;
+            switchDoorLost = 0;
 
-        document.getElementById("door0").src = doorImg;
-        document.getElementById("door1").src = doorImg;
-        document.getElementById("door2").src = doorImg;
-        document.getElementById("buttonDoor0").disabled = false;
-        document.getElementById("buttonDoor1").disabled = false;
-        document.getElementById("buttonDoor2").disabled = false;
+            document.getElementById("door0").src = doorImg;
+            document.getElementById("door1").src = doorImg;
+            document.getElementById("door2").src = doorImg;
+            document.getElementById("buttonDoor0").disabled = false;
+            document.getElementById("buttonDoor1").disabled = false;
+            document.getElementById("buttonDoor2").disabled = false;
 
-        printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoor, keptDoorLost);
+            printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoor, keptDoorLost);
 
-    }
+        }
 
-    function printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoor, keptDoorLost) {
-//*
-        document.getElementById("gamesPlayed").innerHTML = "Total Games Played: " + gamesPlayed;
-        if (gamesWon != 0)
-            document.getElementById("gamesWon").innerHTML = "Total Games Won: " + gamesWon + " (" + (((1.0 * gamesWon) / gamesPlayed) * 100).toFixed(2) + "%)";
-        else
-            document.getElementById("gamesWon").innerHTML = "Total Games Won: " + gamesWon + " (0%)";
+        function printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoor, keptDoorLost) {
+            //*
+            document.getElementById("gamesPlayed").innerHTML = "Total Games Played: " + gamesPlayed;
+            if (gamesWon != 0)
+                document.getElementById("gamesWon").innerHTML = "Total Games Won: " + gamesWon + " (" + (((1.0 * gamesWon) / gamesPlayed) * 100).toFixed(2) + "%)";
+            else
+                document.getElementById("gamesWon").innerHTML = "Total Games Won: " + gamesWon + " (0%)";
 
-        if (gamesLost != 0)
-            document.getElementById("gamesLost").innerHTML = "Total Games Lost: " + gamesLost + " (" + (((1.0 * gamesLost) / gamesPlayed) * 100).toFixed(2) + "%)";
-        else
-            document.getElementById("gamesLost").innerHTML = "Total Games Lost: " + gamesLost + " (0%)";
-
-
+            if (gamesLost != 0)
+                document.getElementById("gamesLost").innerHTML = "Total Games Lost: " + gamesLost + " (" + (((1.0 * gamesLost) / gamesPlayed) * 100).toFixed(2) + "%)";
+            else
+                document.getElementById("gamesLost").innerHTML = "Total Games Lost: " + gamesLost + " (0%)";
 
 
-        document.getElementById("switchDoorsGames").innerHTML = "Total games where switched door: " + switchDoorGames;
 
-        if (switchDoors != 0)
-            document.getElementById("switchDoorsWon").innerHTML = "Switched doors and won: " + switchDoors + " (" + (((1.0 * switchDoors) / switchDoorGames) * 100).toFixed(2) + "%)";
-        else
-            document.getElementById("switchDoorsWon").innerHTML = "Switched doors and won: " + switchDoors + " (0%)";
 
-        if (switchDoorLost != 0)
-            document.getElementById("switchDoorsLose").innerHTML = "Switched doors and lost: " + switchDoorLost + " (" + (((1.0 * switchDoorLost) / switchDoorGames) * 100).toFixed(2) + "%)";
-        else
-            document.getElementById("switchDoorsLose").innerHTML = "Switched doors and lost: " + switchDoorLost + " (0%)";
+            document.getElementById("switchDoorsGames").innerHTML = "Total games where switched door: " + switchDoorGames;
 
-      
+            if (switchDoors != 0)
+                document.getElementById("switchDoorsWon").innerHTML = "Switched doors and won: " + switchDoors + " (" + (((1.0 * switchDoors) / switchDoorGames) * 100).toFixed(2) + "%)";
+            else
+                document.getElementById("switchDoorsWon").innerHTML = "Switched doors and won: " + switchDoors + " (0%)";
+
+            if (switchDoorLost != 0)
+                document.getElementById("switchDoorsLose").innerHTML = "Switched doors and lost: " + switchDoorLost + " (" + (((1.0 * switchDoorLost) / switchDoorGames) * 100).toFixed(2) + "%)";
+            else
+                document.getElementById("switchDoorsLose").innerHTML = "Switched doors and lost: " + switchDoorLost + " (0%)";
+
+
 
 
             document.getElementById("keptDoorsGames").innerHTML = "Total Games where kept door: " + keptDoorsGames;
-        if (keptDoor != 0)
-            document.getElementById("keptDoorsWon").innerHTML = "Kept doors and won: " + keptDoor + " (" + (((1.0 * keptDoor) / keptDoorsGames) * 100).toFixed(2) + "%)";
-        else
-            document.getElementById("keptDoorsWon").innerHTML = "Kept doors and won: " + keptDoor + " (0%)";
+            if (keptDoor != 0)
+                document.getElementById("keptDoorsWon").innerHTML = "Kept doors and won: " + keptDoor + " (" + (((1.0 * keptDoor) / keptDoorsGames) * 100).toFixed(2) + "%)";
+            else
+                document.getElementById("keptDoorsWon").innerHTML = "Kept doors and won: " + keptDoor + " (0%)";
 
-        if (keptDoorLost != 0)
-            document.getElementById("keptDoorsLose").innerHTML = "Kept doors and lost: " + keptDoorLost + " (" + (((1.0 * keptDoorLost) / keptDoorsGames) * 100).toFixed(2) + "%)";
-        else
-            document.getElementById("keptDoorsLose").innerHTML = "Kept doors and lost: " + keptDoorLost + " (0%)";
-           // */
-    }//end print stats
+            if (keptDoorLost != 0)
+                document.getElementById("keptDoorsLose").innerHTML = "Kept doors and lost: " + keptDoorLost + " (" + (((1.0 * keptDoorLost) / keptDoorsGames) * 100).toFixed(2) + "%)";
+            else
+                document.getElementById("keptDoorsLose").innerHTML = "Kept doors and lost: " + keptDoorLost + " (0%)";
+            // */
+        }//end print stats
 
-</script>
+    </script>
 
 
 </html>
