@@ -188,6 +188,8 @@
         document.getElementById("buttonDoor1").disabled = true;
         document.getElementById("buttonDoor2").disabled = true;
         window.alert("Door selected: " + (doorChoice + 1) + "Car was located at door: " + (carLocation + 1));
+        printStatistics(gamesPlayed,gamesWon,gamesLost,switchDoorGames,switchDoors,switchDoorLost,keptDoorsGames,keptDoor,keptDoorLost);
+      
     } //end of choose door
 
     function updateStats(x, choice) {
@@ -214,6 +216,7 @@
             gamesLost++;
         }
 
+       // printStatistics(gamesPlayed,gamesWon,gamesLost,switchDoorGames,switchDoors,switchDoorLost,keptDoorsGames,keptDoor,keptDoorLost);
        // printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoor, keptDoorLost);
 
     } //end of update stats
@@ -270,7 +273,8 @@
                 document.getElementById("buttonDoor1").disabled = true;
                 document.getElementById("buttonDoor2").disabled = true;
             }
-        }//en
+        }//end of for loop
+
         printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoor, keptDoorLost);
     }//end of simulate game
 
@@ -286,14 +290,15 @@
         keptDoorLost = 0;
         switchDoorLost = 0;
 
-        printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoor, keptDoorLost);
-
         document.getElementById("door0").src = doorImg;
         document.getElementById("door1").src = doorImg;
         document.getElementById("door2").src = doorImg;
         document.getElementById("buttonDoor0").disabled = false;
         document.getElementById("buttonDoor1").disabled = false;
         document.getElementById("buttonDoor2").disabled = false;
+
+        printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoor, keptDoorLost);
+
     }
 
     function printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoor, keptDoorLost) {
@@ -310,8 +315,11 @@
             document.getElementById("gamesLost").innerHTML = "Total Games Lost: " + gamesLost + " (0%)";
 
 
+
+
         document.getElementById("switchDoorsGames").innerHTML = "Total games where switched door: " + switchDoorGames;
-        if (switchDoor != 0)
+
+        if (switchDoors != 0)
             document.getElementById("switchDoorsWon").innerHTML = "Switched doors and won: " + switchDoors + " (" + (((1.0 * switchDoors) / switchDoorGames) * 100).toFixed(2) + "%)";
         else
             document.getElementById("switchDoorsWon").innerHTML = "Switched doors and won: fortnite " + switchDoors + " (0%)";
@@ -319,11 +327,12 @@
         if (switchDoorLost != 0)
             document.getElementById("switchDoorsLose").innerHTML = "Switched doors and lost: " + switchDoorLost + " (" + (((1.0 * switchDoorLost) / switchDoorGames) * 100).toFixed(2) + "%)";
         else
-            document.getElementById("switchDoorsLose").innerHTML = "Switched doors and lost: " + switchDoorLost + " (0%)";
+            document.getElementById("switchDoorsLose").innerHTML = "Switched doors and lost fortnite: " + switchDoorLost + " (0%)";
 
-        document.getElementById("keptDoorsGames").innerHTML = "Total Games where kept door: " + keptDoorsGames;
+      
 
 
+            document.getElementById("keptDoorsGames").innerHTML = "Total Games where kept door: " + keptDoorsGames;
         if (keptDoor != 0)
             document.getElementById("keptDoorsWon").innerHTML = "Kept doors and won: " + keptDoor + " (" + (((1.0 * keptDoor) / keptDoorsGames) * 100).toFixed(2) + "%)";
         else
