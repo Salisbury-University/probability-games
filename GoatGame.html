@@ -43,6 +43,8 @@
     var keptDoorsGames = 0;
     var keptDoorLost = 0;
     var switchDoorLost = 0;
+    var isKept = false;
+    var choiceMade = 0;
 </script>
 
 
@@ -109,9 +111,9 @@
                 <h5 class="modal-title" id="exampleModalLabel">Would you like to keep or switch doors?</h5>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                        onclick="testModal('Switch Doors')">Switch</button>
+                        onclick="determineKeep(0)">Switch</button>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                        onclick="testModal('Keep Doors')">Keep</button>
+                        onclick="determineKeep(1)">Keep</button>
                 </div>
             </div>
         </div>
@@ -131,7 +133,7 @@
 
         function playAgain() {
 
-            $('#exampleModal').modal('show'); //reveals the modal without button being clicked
+            //$('#exampleModal').modal('show'); //reveals the modal without button being clicked
             Doors[0] = 0;
             Doors[1] = 0;
             Doors[2] = 0;
@@ -148,7 +150,22 @@
 
         } //end of play again
 
+
+        function determineKeep(number) {
+            if (number == 0)
+                isKept = true;
+            else
+                isKept = false;
+
+            choiceMade = 1;
+        }
+
         function chooseDoor(x) {
+
+            //while(choiceMade != 1){
+            $('#exampleModal').modal('show'); //will need seperate function for modal
+            //}
+
             var revealGoat = x;
             //displays the other goat location
             while (revealGoat == x || revealGoat == carLocation) {
@@ -156,12 +173,10 @@
             }
 
             var stringToDisplay = "You selected door: " + (x + 1) + " There is a goat at door: " + (revealGoat + 1) + " Do you want to switch doors?";
-
-
-            var choice = window.confirm(stringToDisplay);
+            //var isKept = window.confirm(stringToDisplay);
 
             var doorChoice = x;
-            if (choice) {
+            if (isKept) { //we switch
                 var remainderDoor = 5;
                 remainderDoor = remainderDoor - (x + 1);
                 remainderDoor = remainderDoor - (revealGoat + 1);
@@ -183,7 +198,7 @@
             else
                 document.getElementById("door2").src = carImg;
 
-            updateStats(doorChoice, choice);
+            updateStats(doorChoice, isKept);
             document.getElementById("buttonDoor0").disabled = true;
             document.getElementById("buttonDoor1").disabled = true;
             document.getElementById("buttonDoor2").disabled = true;
@@ -192,9 +207,9 @@
 
         } //end of choose door
 
-        function updateStats(x, choice) {
+        function updateStats(x, isKept) {
             gamesPlayed++;
-            if (choice)
+            if (isKept)
                 switchDoorGames++;
             else
                 keptDoorsGames++;
@@ -202,22 +217,19 @@
             if (x == carLocation) {
                 gamesWon++;
 
-                if (choice)
+                if (isKept)
                     switchDoors++;
                 else
                     keptDoor++;
             } else {
 
-                if (choice)
+                if (isKept)
                     switchDoorLost++;
                 else
                     keptDoorLost++;
 
                 gamesLost++;
             }
-
-            // printStatistics(gamesPlayed,gamesWon,gamesLost,switchDoorGames,switchDoors,switchDoorLost,keptDoorsGames,keptDoor,keptDoorLost);
-            // printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoor, keptDoorLost);
 
         } //end of update stats
 
