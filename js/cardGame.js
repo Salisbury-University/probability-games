@@ -1,29 +1,36 @@
+// ship.js: this file is the javascript implementation of
+// the 12-card dice game
+// it includes the pixijs code for generating the cards, chips, dice, scoreboards, and roll button
+// $ http-server -c-1 -a localhost -p 8000 /directory/path/
+
 const Graphics = PIXI.Graphics;
 const Text = PIXI.Text;
 const Sprite = PIXI.Sprite;
 const AnimatedSprite = PIXI.AnimatedSprite;
 
+// object colors
 let teal = 0x177e89;
 let oceanic = 0x084c61;
 let red = 0xdb3a34;
 let yellow = 0xffc857;
 let charcoal = 0x323031;
-// $ http-server -c-1 -a localhost -p 8000 /directory/path/
 
-// write documentation
-// create an animate function that is set when the position of a chip needs to be moved
-// calculate the new position in btn.onclick,
-// set a flag so that the function runs in the ticker function with the calculated values
-// continue
-
-
+// buttons / sheet
 let dice1, dice2, rollButton, dice1Roll, dice2Roll, sheet;
+
 //create Application Window
 let app = new PIXI.Application({
   backgroundColor: 0xffffff,
   resolution: 1
 });
 
+// create window height variable
+windowWidth = window.innerWidth - 17;
+windowHeight = window.innerHeight - 10;
+
+// resize the window to fit the whole screen
+app.renderer.resize(windowWidth, windowHeight);
+document.body.appendChild(app.view);
 
 app.loader.baseUrl = "./images";
 
@@ -37,15 +44,6 @@ app.loader.add("dice1", "dice1.png")
   .add("diceRoll", "dice.json");
 app.loader.onComplete.add(createGame);
 app.loader.load();
-
-// create window height variable
-windowWidth = window.innerWidth - 17;
-windowHeight = window.innerHeight - 10;
-
-// resize the windwo to fit the whole screen
-app.renderer.resize(windowWidth, windowHeight);
-
-document.body.appendChild(app.view);
 
 // rectangle surrounding the cards
 const cardWindow = new Graphics;
@@ -138,11 +136,9 @@ for (i = 0; i < 10; i++) {
   chips1[i].endFill();                         // draws the ellipse
   chips2[i].endFill();
 
-
   app.stage.addChild(chips1[i]);               // stage the ellipse
   app.stage.addChild(chips2[i]);
 }
-
 
 // some vars for moving the chips
 let currChip1 = 9;
@@ -153,10 +149,13 @@ var playerTurn = 0;
 
 function cardClick(cardNumber) {
 
+  // to stop the card from being interactive
+  let cardNum = cardNumber;
+
   // how many ticks take place in the animation
   let ticks = 25;
 
-  if (playerTurn <= 9) {//player 1s turn
+  if (playerTurn <= 10) {//player 1s turn
     // get old chip's x and y to figure out it's old card
     let oldX = chips1[currChip1].x - (cardWidth / 2);
     let oldCard = -1;
@@ -182,24 +181,32 @@ function cardClick(cardNumber) {
 
     let count = 0;
 
+    // ticker functino to move the chip
     app.ticker.add(() => {
 
       // only perform the specified number of steps
       if (count < ticks) {
         chips1[currChip1 + 1].x += xVelocity;
         chips1[currChip1 + 1].y += yVelocity;
+        // prevent double-clicking
+        for (let i = 0; i < 11; i++)
+          cards[i].interactive = false;
         count++;
+      }
+      else {
+        // once chip is moved, allow clicking again
+        for (let i = 0; i < 11; i++)
+          cards[i].interactive = true;
       }
 
     });
 
     // increment the number of chips on card cardNumber
-    // but also have to find a way to decrement the card that lost it's chip
     cardChips1[cardNumber] += 1;
 
-    // increment/decrement counters
-    currChip1--;
+    // increment current chip counter
     playerTurn++;
+    currChip1--;
 
   }
   else {
@@ -216,20 +223,31 @@ function cardClick(cardNumber) {
     if (oldCard > 0)
       cardChips2[oldCard] -= 1;
 
+    // calculate the new X value and Y value based on card size and location
     let newX = cards[cardNumber].x + (cardWidth / 2) + 25;
     let newY = cards[cardNumber].y + cardHeight - cardChips2[cardNumber] * 10;
 
     let xVelocity = (newX - chips2[currChip2].x) / ticks;
     let yVelocity = (newY - chips2[currChip2].y) / ticks;
 
+    // count the number of iteratoins through the loop
     let count = 0;
 
+    // ticker function to move the chip
     app.ticker.add(() => {
 
       if (count < ticks) {
         chips2[currChip2 + 1].x += xVelocity;
         chips2[currChip2 + 1].y += yVelocity;
+        // prevent double-clicking
+        for (let i = 0; i < 11; i++)
+          cards[i].interactive = false;
         count++;
+      }
+      else {
+        // once move is finished, allow clicking again
+        for (let i = 0; i < 11; i++)
+          cards[i].interactive = true;
       }
 
     });
@@ -238,7 +256,7 @@ function cardClick(cardNumber) {
     // but also have to find a way to decrement the card that lost it's chip
     cardChips2[cardNumber] += 1;
 
-    // increment/decrement counters
+    // decrement current chip counter
     currChip2--;
 
   }
@@ -287,19 +305,28 @@ function hoverOut(object) {
   object.alpha = 1;
 }
 
+playerTurn = 1;
+
+// upon click of roll button
 function roll() {
 
+  // making the dice interactive
   dice1.interactive = true;
   dice2.interactive = true;
 
   let ticks = 0;
 
+  // dice rolls
   let roll1 = 1;
   let roll2 = 1;
+
+  // ticker function to roll the dice
   app.ticker.add(() => {
 
+    // only roll dice every 5 ticks 10 times (50/5)
     if (ticks % 5 == 0 && ticks < 50) {
 
+      // gen rand num 1-6
       roll1 = Math.floor(Math.random() * 6) + 1;
       roll2 = Math.floor(Math.random() * 6) + 1;
 
@@ -307,7 +334,9 @@ function roll() {
       dice1.texture = app.loader.resources[`dice${roll1}`].texture;
       dice2.texture = app.loader.resources[`dice${roll2}`].texture;
     }
+
     ticks++;
 
   });
+
 }
