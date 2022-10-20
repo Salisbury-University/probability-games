@@ -163,7 +163,7 @@
         function chooseDoor(x) {
 
             //while(choiceMade != 1){
-            $('#exampleModal').modal('show'); //will need seperate function for modal
+           // $('#exampleModal').modal('show'); //will need seperate function for modal
             //}
 
             var revealGoat = x;
@@ -173,7 +173,7 @@
             }
 
             var stringToDisplay = "You selected door: " + (x + 1) + " There is a goat at door: " + (revealGoat + 1) + " Do you want to switch doors?";
-            //var isKept = window.confirm(stringToDisplay);
+            var isKept = window.confirm(stringToDisplay);
 
             var doorChoice = x;
             if (isKept) { //we switch
