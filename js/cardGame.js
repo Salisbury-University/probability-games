@@ -136,11 +136,9 @@ for (i = 0; i < 10; i++) {
   chips1[i].endFill();                         // draws the ellipse
   chips2[i].endFill();
 
-
   app.stage.addChild(chips1[i]);               // stage the ellipse
   app.stage.addChild(chips2[i]);
 }
-
 
 // some vars for moving the chips
 let currChip1 = 9;
@@ -183,22 +181,27 @@ function cardClick(cardNumber) {
 
     let count = 0;
 
+    // ticker functino to move the chip
     app.ticker.add(() => {
 
       // only perform the specified number of steps
       if (count < ticks) {
         chips1[currChip1 + 1].x += xVelocity;
         chips1[currChip1 + 1].y += yVelocity;
-        cards[cardNumber].interactive = false;
+        // prevent double-clicking
+        for (let i = 0; i < 11; i++)
+          cards[i].interactive = false;
         count++;
       }
-      else
-        cards[cardNum].interactive = true;
+      else {
+        // once chip is moved, allow clicking again
+        for (let i = 0; i < 11; i++)
+          cards[i].interactive = true;
+      }
 
     });
 
     // increment the number of chips on card cardNumber
-    // but also have to find a way to decrement the card that lost it's chip
     cardChips1[cardNumber] += 1;
 
     // increment current chip counter
@@ -230,17 +233,21 @@ function cardClick(cardNumber) {
     // count the number of iteratoins through the loop
     let count = 0;
 
+    // ticker function to move the chip
     app.ticker.add(() => {
 
       if (count < ticks) {
         chips2[currChip2 + 1].x += xVelocity;
         chips2[currChip2 + 1].y += yVelocity;
-        cards[cardNum].interactive = false
+        // prevent double-clicking
+        for (let i = 0; i < 11; i++)
+          cards[i].interactive = false;
         count++;
       }
       else {
-
-        cards[cardNum].interactive = true;
+        // once move is finished, allow clicking again
+        for (let i = 0; i < 11; i++)
+          cards[i].interactive = true;
       }
 
     });
@@ -313,6 +320,7 @@ function roll() {
   let roll1 = 1;
   let roll2 = 1;
 
+  // ticker function to roll the dice
   app.ticker.add(() => {
 
     // only roll dice every 5 ticks 10 times (50/5)
