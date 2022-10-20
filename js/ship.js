@@ -76,6 +76,7 @@ const cornerRadius = 6;
 const cardBorderColor = charcoal;
 const cardColor = yellow;
 
+// pixijs style object for card number text
 const style = new PIXI.TextStyle({
   dropShadow: true,
   dropShadowAlpha: 0.5,
@@ -199,6 +200,7 @@ function cardClick(cardNumber) {
     // increment/decrement counters
     currChip1--;
     playerTurn++;
+
   }
   else {
     // get old chip's x and y to figure out it's old card
@@ -238,6 +240,7 @@ function cardClick(cardNumber) {
 
     // increment/decrement counters
     currChip2--;
+
   }
   totalChipCount--;
   if (totalChipCount == 0) {
@@ -288,14 +291,23 @@ function roll() {
 
   dice1.interactive = true;
   dice2.interactive = true;
-  dice1.anchor.set(0.5);
-  dice2.anchor.set(0.5);
 
-  // change the face texture
-  dice1.texture = app.loader.resources[dieFaces[randNum]].texture;
-  dice2.texture = app.loader.resources[dieFaces[randNum]].texture;
+  let ticks = 0;
 
+  let roll1 = 1;
+  let roll2 = 1;
   app.ticker.add(() => {
+
+    if (ticks % 5 == 0 && ticks < 50) {
+
+      roll1 = Math.floor(Math.random() * 6) + 1;
+      roll2 = Math.floor(Math.random() * 6) + 1;
+
+      // change the face texture
+      dice1.texture = app.loader.resources[`dice${roll1}`].texture;
+      dice2.texture = app.loader.resources[`dice${roll2}`].texture;
+    }
+    ticks++;
 
   });
 }
