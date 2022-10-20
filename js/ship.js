@@ -144,21 +144,17 @@ for (i = 0; i < 10; i++) {
 
 
 // some vars for moving the chips
-let pressCount1 = 0;
 let currChip1 = 9;
-let increasing1 = 1;
-let pressCount2 = 0;
 let currChip2 = 9;
-let increasing2 = 1;
 
 var totalChipCount = 20;
 var playerTurn = 0;
-var newX = -1;
-var newY = -1;
-
-
 
 function cardClick(cardNumber) {
+
+  // how many ticks take place in the animation
+  let ticks = 25;
+
   if (playerTurn <= 9) {//player 1s turn
     // get old chip's x and y to figure out it's old card
     let oldX = chips1[currChip1].x - (cardWidth / 2);
@@ -179,15 +175,28 @@ function cardClick(cardNumber) {
     // calculate new y val based on how many chips are on the card
     let newY = cards[cardNumber].y + cardHeight - cardChips1[cardNumber] * 10;
 
-    chips1[currChip1].x = newX;
-    chips1[currChip1].y = newY;
+    // calculate how large each step is based on the difference between new and old positions
+    let xVelocity = (newX - chips1[currChip1].x) / ticks;
+    let yVelocity = (newY - chips1[currChip1].y) / ticks;
+
+    let count = 0;
+
+    app.ticker.add(() => {
+
+      // only perform the specified number of steps
+      if (count < ticks) {
+        chips1[currChip1 + 1].x += xVelocity;
+        chips1[currChip1 + 1].y += yVelocity;
+        count++;
+      }
+
+    });
 
     // increment the number of chips on card cardNumber
     // but also have to find a way to decrement the card that lost it's chip
     cardChips1[cardNumber] += 1;
 
     // increment/decrement counters
-    pressCount1++;
     currChip1--;
     playerTurn++;
   }
@@ -205,18 +214,29 @@ function cardClick(cardNumber) {
     if (oldCard > 0)
       cardChips2[oldCard] -= 1;
 
-    // calculate new x val based on card position
-    chips2[currChip2].x = cards[cardNumber].x + (cardWidth / 2) + 25;
+    let newX = cards[cardNumber].x + (cardWidth / 2) + 25;
+    let newY = cards[cardNumber].y + cardHeight - cardChips2[cardNumber] * 10;
 
-    // calculate new y val based on how many chips are on the card
-    chips2[currChip2].y = cards[cardNumber].y + cardHeight - cardChips2[cardNumber] * 10;
+    let xVelocity = (newX - chips2[currChip2].x) / ticks;
+    let yVelocity = (newY - chips2[currChip2].y) / ticks;
+
+    let count = 0;
+
+    app.ticker.add(() => {
+
+      if (count < ticks) {
+        chips2[currChip2 + 1].x += xVelocity;
+        chips2[currChip2 + 1].y += yVelocity;
+        count++;
+      }
+
+    });
 
     // increment the number of chips on card cardNumber
     // but also have to find a way to decrement the card that lost it's chip
     cardChips2[cardNumber] += 1;
 
     // increment/decrement counters
-    pressCount2++;
     currChip2--;
   }
   totalChipCount--;
@@ -231,17 +251,6 @@ function cardClick(cardNumber) {
     app.stage.addChild(rollButton);
   }
 }
-
-
-count = 0;
-
-app.ticker.add(() => {
-  count += 0.1;
-
-  // the function is Math.sin(count) * newY or newX
-  // chips1[0].x = (Math.cos(count) * 100) + 100;
-  // chips1[0].y = (Math.sin(count) * 100) + 100;
-});
 
 function createGame() {
   sheet = app.loader.resources["./images/dice.png"];
@@ -277,42 +286,16 @@ function hoverOut(object) {
 
 function roll() {
 
-  const textures = [];
+  dice1.interactive = true;
+  dice2.interactive = true;
+  dice1.anchor.set(0.5);
+  dice2.anchor.set(0.5);
 
-  for (let i = 1; i < 7; i++) {
-    const texture = app.loader.resources[`dice${i}`].texture;
-    textures.push(texture);
-  }
+  // change the face texture
+  dice1.texture = app.loader.resources[dieFaces[randNum]].texture;
+  dice2.texture = app.loader.resources[dieFaces[randNum]].texture;
 
-  const die = new PIXI.AnimatedSprite(textures);
-  die.position.set(dice1.x, dice1.y);
-  die.scale(2, 2);
-  app.stage.removeChild(dice1);
-  app.stage.addChild(die);
-  die.play();
+  app.ticker.add(() => {
 
-  // die.play();
-  // dice1.interactive = true;
-  // dice2.interactive = true;
-  // dice1.anchor.set(0.5);
-  // dice2.anchor.set(0.5);
-
-  // elapsed = 0.0;
-
-  // // change the face texture
-  // dice1.texture = app.loader.resources[dieFaces[randNum]].texture;
-  // dice2.texture = app.loader.resources[dieFaces[randNum]].texture;
-
-  // app.ticker.add((delta) => {
-  //   elapsed += 0.0;
-
-  //   let randNum = Math.floor(Math.random() * 6) + 1;
-
-  //   // spinning the dice
-  //   dice1.rotation += 0.1;
-  //   dice2.rotation += 0.1;
-
-  //   dice1 = new Sprite.from(app.loader.resources[`dice${randNum}`].texture);
-
-  // });
+  });
 }
