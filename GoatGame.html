@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="styleSheet.css">
+    <link rel="stylesheet" type="text/css" href="styleSheet.css">
 </head>
 
 <title> Monty Hall Problem</title>
@@ -24,13 +24,12 @@
 
 
 <div style="background-color: teal;padding-bottom: 5px; border-bottom: 6px solid black;">
-    <h1 class="centerText">Monty Hall Problem</h1>
-    <p>INFO ICON HERE</p>
+        <h1 class="centerText">Monty Hall Problem</h1>
 </div>
 
 <script>
-    const carImg = "https://github.com/Salisbury-University/probability-games/blob/main/images/carPNG.png?raw=true";
-    const goatImg = "https://github.com/Salisbury-University/probability-games/blob/main/images/animal-35521_960_720.png?raw=true";
+    const carImg = "https://github.com/Salisbury-University/probability-games/blob/main/images/car.png?raw=true";
+    const goatImg = "https://github.com/Salisbury-University/probability-games/blob/main/images/goat.png?raw=true";
     const doorImg = "https://github.com/Salisbury-University/probability-games/blob/main/images/ClosedDoor.png?raw=true";
     var Doors = [0, 0, 0];
     var carLocation = Math.floor(Math.random() * 3);
@@ -161,10 +160,10 @@
             choiceMade = 1;
         }
 
-        function chooseDoor(x) {
+     function chooseDoor(x) {
 
             //while(choiceMade != 1){
-           // $('#exampleModal').modal('show'); //will need seperate function for modal
+            // $('#exampleModal').modal('show'); //will need seperate function for modal
             //}
 
             var revealGoat = x;
@@ -173,6 +172,8 @@
                 revealGoat = Math.floor(Math.random() * 3);
             }
 
+            var go = "door"+revealGoat;
+            document.getElementById(go).src = goatImg;
             var stringToDisplay = "You selected door: " + (x + 1) + " There is a goat at door: " + (revealGoat + 1) + " Do you want to switch doors?";
             var isKept = window.confirm(stringToDisplay);
 
