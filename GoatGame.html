@@ -72,7 +72,7 @@
         </div>
         <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
-            <img class="img-responsive" src=doorImg width="300px" height="400px" alt="Door 2" id="door1">
+            <img class="img-responsive" onclick="chooseDoor(1)"  src=doorImg width="300px" height="400px" alt="Door 2" id="door1">
             <button onclick="chooseDoor(1)" class="btns" id="buttonDoor1"> Door 2</button>
 
         </div>
@@ -161,6 +161,9 @@
         //window.alert("The string sent was: " + stringToAlert);
     }
 
+    function test(st){
+        window.alert(st);
+    }
     var string = "Door Zero: " + Doors[0] + "-- Door One: " + Doors[1] + "-- Door Two: " + Doors[2];
 
     function playAgain() {
@@ -180,6 +183,9 @@
         document.getElementById("buttonDoor1").disabled = false;
         document.getElementById("buttonDoor2").disabled = false;
 
+        document.getElementById("door0").style.boxShadow = "none";
+        document.getElementById("door1").style.boxShadow = "none";
+        document.getElementById("door2").style.boxShadow = "none";
     } //end of play again
 
 
@@ -194,6 +200,7 @@
 
     function chooseDoor(x) {
 
+    
         //while(choiceMade != 1){
         // $('#exampleModal').modal('show'); //will need seperate function for modal
         //}
@@ -205,7 +212,9 @@
         }
 
         var go = "door" + revealGoat;
+        //document.getElementById(go).innerHTML = "jjj";
         document.getElementById(go).src = goatImg;
+       // document.getElementById(go).onclick = test("Ttt");
         var stringToDisplay = "You selected door: " + (x + 1) + " There is a goat at door: " + (revealGoat + 1) + " Do you want to switch doors?";
         var isKept = window.confirm(stringToDisplay);
 
@@ -216,6 +225,10 @@
             remainderDoor = remainderDoor - (revealGoat + 1);
             doorChoice = remainderDoor;
         }
+
+        var userDoorChoice = "door"+doorChoice;
+
+        document.getElementById(userDoorChoice).style.boxShadow = "0 0 100px greenyellow";
 
         if (Doors[0] == 0)
             document.getElementById("door0").src = goatImg;
@@ -343,6 +356,7 @@
         document.getElementById("buttonDoor1").disabled = false;
         document.getElementById("buttonDoor2").disabled = false;
 
+        playAgain();
         printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoor, keptDoorLost);
 
     }
