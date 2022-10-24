@@ -9,11 +9,11 @@ const Sprite = PIXI.Sprite;
 const AnimatedSprite = PIXI.AnimatedSprite;
 
 // object colors
-let teal = 0x177e89;
-let oceanic = 0x084c61;
-let red = 0xdb3a34;
-let yellow = 0xffc857;
-let charcoal = 0x323031;
+const teal = 0x177e89;
+const oceanic = 0x084c61;
+const red = 0xdb3a34;
+const yellow = 0xffc857;
+const charcoal = 0x323031;
 
 // buttons / sheet
 let dice1, dice2, rollButton, dice1Roll, dice2Roll, sheet;
@@ -25,8 +25,8 @@ let app = new PIXI.Application({
 });
 
 // create window height variable
-windowWidth = window.innerWidth - 17;
-windowHeight = window.innerHeight - 10;
+var windowWidth = document.body.clientWidth;
+var windowHeight = window.innerHeight;
 
 // resize the window to fit the whole screen
 app.renderer.resize(windowWidth, windowHeight);
@@ -46,18 +46,18 @@ app.loader.onComplete.add(createGame);
 app.loader.load();
 
 // rectangle surrounding the cards
-const cardWindow = new Graphics;
+var cardWindow = new Graphics;
 cardWindow.beginFill(charcoal);
-cardWindow.drawRect(0, 0, windowWidth, 300);
+cardWindow.drawRect(0, 0, windowWidth, windowHeight * .32);
 app.stage.addChild(cardWindow);
 
 //create player names
-const player1 = new Text("PLAYER 1", { fontSize: 40, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold" });
-const player2 = new Text("PLAYER 2", { fontSize: 40, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold" });
-player1.x = 150;
-player2.x = windowWidth - 350;
-player1.y = 325;
-player2.y = 325;
+var player1 = new Text("PLAYER 1", { fontSize: windowWidth * .02, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold" });
+var player2 = new Text("PLAYER 2", { fontSize: windowWidth * .02, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold" });
+player1.x = windowWidth * .08;
+player2.x = windowWidth * .81;
+player1.y = windowHeight * 0.35;
+player2.y = windowHeight * 0.35;
 app.stage.addChild(player1);
 app.stage.addChild(player2);
 
@@ -68,20 +68,20 @@ let cardChips1 = [];
 let cardChips2 = [];
 
 //constant card dimension values
-const cardHeight = 200;
-const cardWidth = 120;
-const cornerRadius = 6;
+var cardHeight = windowHeight * .21;
+var cardWidth = windowWidth * .06;
+var cornerRadius = 6;
 const cardBorderColor = charcoal;
 const cardColor = yellow;
 
 // pixijs style object for card number text
-const style = new PIXI.TextStyle({
+var style = new PIXI.TextStyle({
   dropShadow: true,
   dropShadowAlpha: 0.5,
   dropShadowDistance: 5,
   fill: red,
   fontFamily: "\"Arial Black\", Gadget, sans-serif",
-  fontSize: 35,
+  fontSize: windowWidth * .02,
   fontWeight: "bolder",
   lineJoin: "round",
   strokeThickness: 1
@@ -98,7 +98,7 @@ for (i = 0; i < 11; i++) {
   cards[i].lineStyle(2, cardBorderColor, 4);
   cards[i].drawRoundedRect(0, 0, cardWidth, cardHeight, cornerRadius);
   cards[i].x = ((windowWidth / 11 * i)) + (windowWidth / 11 - cardWidth) / 2;
-  cards[i].y = 50;
+  cards[i].y = windowHeight * .05;
   cards[i].interactive = true;
   cards[i].buttonMode = true;
   cards[i].on('pointerdown', (event) => cardClick(j))
@@ -107,8 +107,14 @@ for (i = 0; i < 11; i++) {
   cards[i].endFill();
 
   titles[i] = new Text(i + 2, style);
-  titles[i].x = cards[i].x + cardWidth / 2 - 10;
-  titles[i].y = 50;
+  if(i < 8){
+    titles[i].x = cards[i].x + ((cardWidth / 2) * .75);
+  } 
+  else{
+    titles[i].x = cards[i].x + ((cardWidth / 2) * .55);
+  }
+  
+  titles[i].y = windowHeight * .05;
 
   app.stage.addChild(cards[i]);
   app.stage.addChild(titles[i]);
@@ -127,12 +133,12 @@ for (i = 0; i < 10; i++) {
   chips2[i].beginFill(teal);
   chips1[i].lineStyle(1, charcoal, 1);    // ellipse border
   chips2[i].lineStyle(1, charcoal, 1);
-  chips1[i].drawEllipse(0, 0, 24, 12);    // position + size of the ellipse (topleft x, topleft y, height, width)
-  chips2[i].drawEllipse(0, 0, 24, 12);
-  chips1[i].x = 235;
-  chips2[i].x = windowWidth - 250;
-  chips1[i].y = (windowHeight + player1.y - 100) / 2 - i * 10;
-  chips2[i].y = (windowHeight + player1.y - 100) / 2 - i * 10;
+  chips1[i].drawEllipse(0, 0, windowWidth * .012, windowWidth * .013);    // position + size of the ellipse (topleft x, topleft y, height, width)
+  chips2[i].drawEllipse(0, 0, windowWidth * .012, windowWidth * .013);
+  chips1[i].x = windowWidth * .13;
+  chips2[i].x = windowWidth * .86;
+  chips1[i].y = (((windowHeight + player1.y - 100) * .55) - i * (windowHeight * .011)) * .85;
+  chips2[i].y = (((windowHeight + player2.y - 100) * .55) - i * (windowHeight * .011)) * .85;
   chips1[i].endFill();                         // draws the ellipse
   chips2[i].endFill();
 
@@ -145,7 +151,7 @@ let currChip1 = 9;
 let currChip2 = 9;
 
 var totalChipCount = 20;
-var playerTurn = 0;
+var playerTurn = true;
 
 function cardClick(cardNumber) {
 
@@ -155,7 +161,7 @@ function cardClick(cardNumber) {
   // how many ticks take place in the animation
   let ticks = 25;
 
-  if (playerTurn <= 10) {//player 1s turn
+  if (playerTurn) {//player 1s turn
     // get old chip's x and y to figure out it's old card
     let oldX = chips1[currChip1].x - (cardWidth / 2);
     let oldCard = -1;
@@ -170,10 +176,10 @@ function cardClick(cardNumber) {
       cardChips[oldCard] -= 1;
 
     // calculate new x val based on card position
-    let newX = cards[cardNumber].x + (cardWidth / 2) - 25;
+    let newX = cards[cardNumber].x + cardWidth *.25;
 
     // calculate new y val based on how many chips are on the card
-    let newY = cards[cardNumber].y + cardHeight - cardChips1[cardNumber] * 10;
+    let newY = (cards[cardNumber].y + cardHeight - cardChips1[cardNumber] * (windowHeight * .011)) * .9;
 
     // calculate how large each step is based on the difference between new and old positions
     let xVelocity = (newX - chips1[currChip1].x) / ticks;
@@ -205,7 +211,7 @@ function cardClick(cardNumber) {
     cardChips1[cardNumber] += 1;
 
     // increment current chip counter
-    playerTurn++;
+    playerTurn = false;
     currChip1--;
 
   }
@@ -224,8 +230,8 @@ function cardClick(cardNumber) {
       cardChips2[oldCard] -= 1;
 
     // calculate the new X value and Y value based on card size and location
-    let newX = cards[cardNumber].x + (cardWidth / 2) + 25;
-    let newY = cards[cardNumber].y + cardHeight - cardChips2[cardNumber] * 10;
+    let newX = cards[cardNumber].x + cardWidth * .75;
+    let newY = (cards[cardNumber].y + cardHeight - cardChips2[cardNumber] * (windowHeight * .011)) * .9;
 
     let xVelocity = (newX - chips2[currChip2].x) / ticks;
     let yVelocity = (newY - chips2[currChip2].y) / ticks;
@@ -257,6 +263,7 @@ function cardClick(cardNumber) {
     cardChips2[cardNumber] += 1;
 
     // decrement current chip counter
+    playerTurn = true;
     currChip2--;
 
   }
