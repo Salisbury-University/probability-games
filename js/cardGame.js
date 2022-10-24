@@ -286,12 +286,20 @@ function createGame() {
   dice2 = new Sprite.from(app.loader.resources["dice1"].texture);
   rollButton = new Sprite.from(app.loader.resources["rollButton"].texture);
 
-  dice1.x = windowWidth / 2 - 112;
-  dice1.y = 400;
-  dice2.x = windowWidth / 2 + 10;
-  dice2.y = 400;
-  rollButton.x = windowWidth / 2 - 95;
-  rollButton.y = 500;
+  dice1.width = windowWidth * .06;
+  dice1.height = windowHeight * .12;
+  dice2.width = windowWidth * .06;
+  dice2.height = windowHeight * .12;
+  dice1.x = windowWidth *.44;
+  dice1.y = windowHeight * .43;
+  dice2.x = windowWidth *.5;
+  dice2.y = windowHeight * .43;
+  
+
+  rollButton.width = windowWidth * .1;
+  rollButton.height = windowHeight * .1;
+  rollButton.x = windowWidth * .45;
+  rollButton.y = windowHeight * .53;
 
   rollButton.interactive = true;
   rollButton.buttonMode = true;
