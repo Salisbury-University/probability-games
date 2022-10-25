@@ -54,12 +54,24 @@ app.stage.addChild(cardWindow);
 //create player names
 var player1 = new Text("PLAYER 1", { fontSize: windowWidth * .02, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold" });
 var player2 = new Text("PLAYER 2", { fontSize: windowWidth * .02, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold" });
+var player1ScoreText = new Text("0", { fontSize: windowWidth * .07, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold" });
+var player2ScoreText = new Text("0", { fontSize: windowWidth * .07, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold" });
+var scoreboard = [0,0];
+
 player1.x = windowWidth * .08;
 player2.x = windowWidth * .81;
+player1ScoreText.x = windowWidth * .13;
+player2ScoreText.x = windowWidth * .8;
+
 player1.y = windowHeight * 0.35;
 player2.y = windowHeight * 0.35;
+player1ScoreText.y = windowHeight * .45;
+player2ScoreText.y = windowHeight * .45;
+
 app.stage.addChild(player1);
 app.stage.addChild(player2);
+app.stage.addChild(player1ScoreText);
+app.stage.addChild(player2ScoreText);
 
 //array to hold rectangle objects (cards) that go at the top of the page
 let cards = [];
@@ -135,8 +147,8 @@ for (i = 0; i < 10; i++) {
   chips2[i].lineStyle(1, charcoal, 1);
   chips1[i].drawEllipse(0, 0, windowWidth * .012, windowWidth * .013);    // position + size of the ellipse (topleft x, topleft y, height, width)
   chips2[i].drawEllipse(0, 0, windowWidth * .012, windowWidth * .013);
-  chips1[i].x = windowWidth * .13;
-  chips2[i].x = windowWidth * .86;
+  chips1[i].x = windowWidth * .09;
+  chips2[i].x = windowWidth * .9;
   chips1[i].y = (((windowHeight + player1.y - 100) * .55) - i * (windowHeight * .011)) * .85;
   chips2[i].y = (((windowHeight + player2.y - 100) * .55) - i * (windowHeight * .011)) * .85;
   chips1[i].endFill();                         // draws the ellipse
@@ -165,7 +177,9 @@ function cardClick(cardNumber) {
     // get old chip's x and y to figure out it's old card
     let oldX = chips1[currChip1].x - (cardWidth / 2);
     let oldCard = -1;
-
+    scoreboard[0]++;
+    player1ScoreText.text = scoreboard[0];
+    app.stage.addChild(player1ScoreText);
     for (i = 0; i < 11; i++) {
       if (oldX == cards[i].x)
         oldCard = i;
@@ -219,6 +233,10 @@ function cardClick(cardNumber) {
     // get old chip's x and y to figure out it's old card
     let oldX = chips2[currChip2].x - (cardWidth / 2);
     let oldCard = -1;
+
+    scoreboard[1]++;
+    player2ScoreText.text = scoreboard[1];
+    app.stage.addChild(player2ScoreText);
 
     for (i = 0; i < 11; i++) {
       if (oldX == cards[i].x)
