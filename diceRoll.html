@@ -90,17 +90,33 @@
 	</div>
 
 	<div class="container bottom">
+		
 		<label for="quantity" class = "lab">How Many Times To Roll?</label>
 		<input type="number" id="quantity" min="1" value=1 />
 	  	<button id="roll" type="button" class="butn" onClick="rollDiceMultiple()">Roll Dice Multiple Times</button>
-		<h1>
-			One: <div id="oneTotal" ></div> 
-            Two: <div id="twoTotal"></div>
-            Three: <div id="threeTotal"></div>
-            Four: <div id="fourTotal"></div>
-            Five: <div id="fiveTotal"></div>
-            Six: <div id="sixTotal"></div>
-		</h1>			
+		  <table class="table">
+			<thead class="thead-dark">
+			  <tr>
+				<th scope="col"><h1>1</h1></th>
+				<th scope="col"><h1>2</h1></th>
+				<th scope="col"><h1>3</h1></th>
+				<th scope="col"><h1>4</h1></th>
+				<th scope="col"><h1>5</h1></th>
+				<th scope="col"><h1>6</h1></th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr>
+				<td><h1><div id="oneTotal" ></div></h1></td>
+				<td><h1><div id="twoTotal"></div></h1></td>
+				<td><h1><div id="threeTotal"></div></h1></td>
+				<td><h1><div id="fourTotal"></div></h1></td>
+				<td><h1><div id="fiveTotal"></div></h1></td>
+				<td><h1><div id="sixTotal"></div></h1></td>
+			  </tr>
+			  
+			</tbody>
+		  </table>
 	</div>
 
 	

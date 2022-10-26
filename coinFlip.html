@@ -103,9 +103,21 @@
 		<label for="quantity" class = "lab">How Many Times To Flip?</label>
 		<input type="number" id="quantity" min="1" value=1 />
 	  	<button id="flip" type="button" class="butn" onClick="flipCoinMultiple()">Flip Coin Multiple Times</button>
-		<h1>
-			Heads: <div id="headTotal" ></div> Tails: <div id="tailTotal"></div>
-		</h1>			
+		  <table class="table">
+			<thead class="thead-dark">
+			  <tr>
+				<th scope="col"><h1>Heads</h1></th>
+				<th scope="col"><h1>Tails</h1></th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr>
+				<td><h1><div id="headTotal" ></div></h1></td>
+				<td><h1><div id="tailTotal"></div></h1></td>
+			  </tr>
+			  
+			</tbody>
+		  </table>
 	</div>
 	
 	<script> // start of java script
