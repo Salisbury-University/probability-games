@@ -7,65 +7,8 @@
 		="width=device-width, initial-scale=1.0">
 	<title>Coin Flip</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-	<style>
-		.container {
-			width: 70%;
-			margin: auto;
-			text-align: center;
-		}
-
-		body {
-			background-color: #E51E1E;
-			margin: 0;
-		}
-
-		h1 {
-			margin: 30px;
-			font-family: "Calibri", cursive;
-			text-shadow: 5px 0 #33373c;
-			font-size: 4.5rem;
-			color: #EBEBDD;
-			text-align: center;
-		}
-
-		#coin{
-			width: 25%;
-		}
-
-		.bottom {
-			padding-top: 30px;
-		}
-
-		.butn {
-			background: #A0A098;
-			font-family: "Calibri", cursive;
-			border-radius: 7px;
-			color: #ffff;
-			font-size: 30px;
-			padding: 16px 25px 16px 25px;
-			text-decoration: none;
-		}
-
-		.butn:hover {
-			background: #232931;
-			text-decoration: none;
-		}
-
-		.lab { 
-			font-family: "Calibri", cursive;
-			text-shadow: 2px 0 #33373c;
-			font-size: 2rem;
-			color: #EBEBDD;
-		}
-
-		table{
-			font-family: "Calibri", cursive;
-			text-shadow: 2px 0 #33373c;
-			font-size: 2rem;
-			color: #EBEBDD;
-		}
-		</style>
+	<link rel="stylesheet" href="css/coinFlip.css" type="text/css">
+	
 </head>
 
 <body>
@@ -86,10 +29,10 @@
 			</ul>
 		  </div>
 		</div>
-	  </nav>
+	</nav>
+
 	<div class="container">
 		<h1>Coin Flip</h1>
-
 		<div class="coin">
 			<img class="img" id="coin" src="images/coinHead.png">
 		</div>
@@ -115,110 +58,14 @@
 				<td><h1><div id="headTotal" ></div></h1></td>
 				<td><h1><div id="tailTotal"></div></h1></td>
 			  </tr>
-			  
 			</tbody>
 		  </table>
+		<button id="weighted" type="button" class="butn" onClick="ifWeighted()">Weighted</button>
+	  	<button id="notWeighted" type="button" class="butn" onClick="ifNotWeighted()">Not Weighted</button>
+		<h2> </h2>
 	</div>
 	
-	<script> // start of java script
-		// Function to flip coin
-		function flipCoin() {
-			
-			let randomNumber = Math.random();
-			let weighted = Math.floor(Math.random() * 2) + 1;
-
-			// coin is heads
-			if (randomNumber < .5) {
-				document.querySelector("h1").innerHTML = "You got HEADS!";
-				document.getElementById("coin").setAttribute("src", "images/coinHead.png");
-			} 
-			// coin is tails
-			else {
-				document.querySelector("h1").innerHTML = "You got TAILS!";
-				document.getElementById("coin").setAttribute("src", "images/coinTail.png");
-			}
-		}
-
-		// Function to flip coin multiple times
-		function flipCoinMultiple() {
-
-			// determines if coin is weighted or not
-			let isWeighted = Math.floor(Math.random() * 2) + 1;
-			// gets amount of flips from user
-			let qty = document.getElementById("quantity").value;
-
-			// if coin is weighted
-			if (isWeighted == 1) {
-				// counters for both sides
-				let headCount = 0;
-				let tailCount = 0;
-
-				// determines amount of weight for the heavier side 
-				// (anywhere from 70-30 to 57-43, with the higher number being the heavier side)
-				let min = 57;
-				let max = 71;
-				let difference = max - min;
-				let weightHeavierSide = Math.floor(Math.random() * difference) + min;
-
-				// determines if tails or heads is the heavier side (1 for heads and 2 for tails)
-				let heavierSide = Math.floor(Math.random() * 2) + 1;
-								
-      			if(heavierSide == 1) {
-					for (let i = 0; i < qty; i++) {
-       					let num = Math.floor(Math.random() * 100) + 1;
-					
-						// if weighted coin is heads
-        				if (num <= weightHeavierSide) {
-          					headCount += 1;
-        				} 
-						// if weighted coin is tails
-						else {
-          					tailCount += 1;
-        				}
-      				}
-      				document.getElementById("headTotal").innerHTML = headCount;
-					document.getElementById("tailTotal").innerHTML = tailCount;
-				}
-
-				else {
-					for (let i = 0; i < qty; i++) {
-       					let num = Math.floor(Math.random() * 100) + 1;
-					
-						// if weighted coin is tails
-        				if (num <= weightHeavierSide) {
-          					tailCount += 1;
-        				} 
-						// if weighted coin is heads
-						else {
-          					headCount += 1;
-        				}
-      				}
-      				document.getElementById("headTotal").innerHTML = headCount;
-					document.getElementById("tailTotal").innerHTML = tailCount;
-				}
-			} 
-
-			// if coin is not weighted
-			else {
-				let headCount = 0;
-				let tailCount = 0;
-
-      			for (let i = 0; i < qty; i++) {
-       				let num = Math.floor(Math.random() * 100) + 1;
-					
-					// if regular coin is heads
-        			if (num <= 50) {
-          				headCount += 1;
-        			} 
-					// if regular coin is tails
-					else {
-          				tailCount += 1;
-        			}
-      			}
-      			document.getElementById("headTotal").innerHTML = headCount;
-				document.getElementById("tailTotal").innerHTML = tailCount;
-			}
-		}
-	</script>
+	
+<script src="js/coinFlip.js" ></script>
 </body>
 </html>

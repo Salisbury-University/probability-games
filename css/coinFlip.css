@@ -1,0 +1,65 @@
+		.container {
+			width: 70%;
+			margin: auto;
+			text-align: center;
+		}
+
+		body {
+			background-color: #E51E1E;
+			margin: 0;
+		}
+
+		h1 {
+			margin: 25px;
+			font-family: "Calibri", cursive;
+			text-shadow: 4.5px 0 #33373c;
+			font-size: 4rem;
+			color: #EBEBDD;
+			text-align: center;
+		}
+
+		h2 {
+			margin: 25px;
+			font-family: "Calibri", cursive;
+			text-shadow: 4.5px 0 #33373c;
+			font-size: 4rem;
+			color: #EBEBDD;
+			text-align: center;
+		}
+
+		#coin{
+			width: 25%;
+		}
+
+		.bottom {
+			padding-top: 30px;
+		}
+
+		.butn {
+			background: #A0A098;
+			font-family: "Calibri", cursive;
+			border-radius: 7px;
+			color: #ffff;
+			font-size: 30px;
+			padding: 16px 25px 16px 25px;
+			text-decoration: none;
+		}
+
+		.butn:hover {
+			background: #232931;
+			text-decoration: none;
+		}
+
+		.lab { 
+			font-family: "Calibri", cursive;
+			text-shadow: 2px 0 #33373c;
+			font-size: 2rem;
+			color: #EBEBDD;
+		}
+
+		table{
+			font-family: "Calibri", cursive;
+			text-shadow: 2px 0 #33373c;
+			font-size: 2rem;
+			color: #EBEBDD;
+		}
