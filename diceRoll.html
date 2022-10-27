@@ -6,6 +6,7 @@
 	<meta name="viewport" content
 		="width=device-width, initial-scale=1.0">
 	<title>Dice Roll</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 	<style>
 		.container {
@@ -28,10 +29,7 @@
 			text-align: center;
 		}
 
-		img {
-			width: 25%;
-		}
-
+		
 		.bottom {
 			padding-top: 30px;
 		}
@@ -61,11 +59,29 @@
 </head>
 
 <body>
+	<nav class="navbar navbar-expand-lg" style="background-color: #8e0e02;">
+		<div class="container-fluid">
+		  <a class="navbar-brand" href="home.html" style="color:white"><img src="images/logo.png" style="max-height: 50px;"></a>
+		  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+			  <li class="nav-item">
+				<a class="nav-link active" aria-current="page" href="#">Home</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="#">Link</a>
+			  </li>
+			</ul>
+		  </div>
+		</div>
+	  </nav>
 	<div class="container">
 		<h1>Dice Roll</h1>
 
 		<div class="dice">
-			<img class="img" src="images/dice1.png">
+			<img class="img" id="dice" src="images/dice1.png">
 		</div>
 	</div>
 
@@ -74,17 +90,33 @@
 	</div>
 
 	<div class="container bottom">
+		
 		<label for="quantity" class = "lab">How Many Times To Roll?</label>
 		<input type="number" id="quantity" min="1" value=1 />
 	  	<button id="roll" type="button" class="butn" onClick="rollDiceMultiple()">Roll Dice Multiple Times</button>
-		<h1>
-			One: <div id="oneTotal" ></div> 
-            Two: <div id="twoTotal"></div>
-            Three: <div id="threeTotal"></div>
-            Four: <div id="fourTotal"></div>
-            Five: <div id="fiveTotal"></div>
-            Six: <div id="sixTotal"></div>
-		</h1>			
+		  <table class="table">
+			<thead class="thead-dark">
+			  <tr>
+				<th scope="col"><h1>1</h1></th>
+				<th scope="col"><h1>2</h1></th>
+				<th scope="col"><h1>3</h1></th>
+				<th scope="col"><h1>4</h1></th>
+				<th scope="col"><h1>5</h1></th>
+				<th scope="col"><h1>6</h1></th>
+			  </tr>
+			</thead>
+			<tbody>
+			  <tr>
+				<td><h1><div id="oneTotal" ></div></h1></td>
+				<td><h1><div id="twoTotal"></div></h1></td>
+				<td><h1><div id="threeTotal"></div></h1></td>
+				<td><h1><div id="fourTotal"></div></h1></td>
+				<td><h1><div id="fiveTotal"></div></h1></td>
+				<td><h1><div id="sixTotal"></div></h1></td>
+			  </tr>
+			  
+			</tbody>
+		  </table>
 	</div>
 
 	
@@ -98,32 +130,32 @@
 			// dice is one
 			if (randomNumber == 1) {
 				document.querySelector("h1").innerHTML = "You rolled a One!";
-				document.querySelector("img").setAttribute("src", "images/dice1.png");
+				document.getElementById("dice").setAttribute("src", "images/dice1.png");
 			} 
 			// dice is two
 			else if (randomNumber == 2) {
 				document.querySelector("h1").innerHTML = "You rolled a Two!";
-				document.querySelector("img").setAttribute("src", "images/dice2.png");
+				document.getElementById("dice").setAttribute("src", "images/dice2.png");
 			}
              // dice is three
 			else if (randomNumber == 3) {
 				document.querySelector("h1").innerHTML = "You rolled a Three!";
-				document.querySelector("img").setAttribute("src", "images/dice3.png");
+				document.getElementById("dice").setAttribute("src", "images/dice3.png");
 			}
             // dice is four
 			else if (randomNumber == 4) {
 				document.querySelector("h1").innerHTML = "You rolled a Four!";
-				document.querySelector("img").setAttribute("src", "images/dice4.png");
+				document.getElementById("dice").setAttribute("src", "images/dice4.png");
 			}
             // dice is five
 			else if (randomNumber == 5) {
 				document.querySelector("h1").innerHTML = "You rolled a Five!";
-				document.querySelector("img").setAttribute("src", "images/dice5.png");
+				document.getElementById("dice").setAttribute("src", "images/dice5.png");
 			}
             // dice is six
 			else if (randomNumber == 6) {
 				document.querySelector("h1").innerHTML = "You rolled a Six!";
-				document.querySelector("img").setAttribute("src", "images/dice6.png");
+				document.getElementById("dice").setAttribute("src", "images/dice6.png");
 			}
 		}
 

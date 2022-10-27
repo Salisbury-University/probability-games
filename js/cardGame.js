@@ -8,7 +8,7 @@ const Text = PIXI.Text;
 const Sprite = PIXI.Sprite;
 const AnimatedSprite = PIXI.AnimatedSprite;
 
-// object colors
+// color scheme
 const teal = 0x177e89;
 const oceanic = 0x084c61;
 const red = 0xdb3a34;
@@ -18,22 +18,24 @@ const charcoal = 0x323031;
 // buttons / sheet
 let dice1, dice2, rollButton, dice1Roll, dice2Roll, sheet;
 
-//create Application Window
-let app = new PIXI.Application({
-  backgroundColor: 0xffffff,
-  resolution: 1
-});
-
 // create window height variable
 var windowWidth = document.body.clientWidth;
 var windowHeight = window.innerHeight;
 
-// resize the window to fit the whole screen
-app.renderer.resize(windowWidth, windowHeight);
+//create Application Window
+let app = new PIXI.Application({
+  backgroundColor: 0xffffff,
+  width: windowWidth,
+  height: windowHeight
+});
+
+// append the application window to the page
 document.body.appendChild(app.view);
 
+// base url of dice images
 app.loader.baseUrl = "./images";
 
+// load and name all dice images
 app.loader.add("dice1", "dice1.png")
   .add("dice2", "dice2.png")
   .add("dice3", "dice3.png")
@@ -42,24 +44,38 @@ app.loader.add("dice1", "dice1.png")
   .add("dice6", "dice6.png")
   .add("rollButton", "rollButton.png")
   .add("diceRoll", "dice.json");
+
+// after images are loaded, create the game
 app.loader.onComplete.add(createGame);
 app.loader.load();
 
-// rectangle surrounding the cards
+// cards background
 var cardWindow = new Graphics;
 cardWindow.beginFill(charcoal);
 cardWindow.drawRect(0, 0, windowWidth, windowHeight * .32);
 app.stage.addChild(cardWindow);
 
 //create player names
-var player1 = new Text("PLAYER 1", { fontSize: windowWidth * .02, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold" });
-var player2 = new Text("PLAYER 2", { fontSize: windowWidth * .02, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold" });
+var player1 = new Text("PLAYER 1", { fontSize: windowWidth * .02, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold", fill: red });
+var player2 = new Text("PLAYER 2", { fontSize: windowWidth * .02, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold", fill: teal });
+var player1ScoreText = new Text("0", { fontSize: windowWidth * .07, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold" });
+var player2ScoreText = new Text("0", { fontSize: windowWidth * .07, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold" });
+var scoreboard = [0, 0];
+
 player1.x = windowWidth * .08;
 player2.x = windowWidth * .81;
+player1ScoreText.x = windowWidth * .13;
+player2ScoreText.x = windowWidth * .8;
+
 player1.y = windowHeight * 0.35;
 player2.y = windowHeight * 0.35;
+player1ScoreText.y = windowHeight * .45;
+player2ScoreText.y = windowHeight * .45;
+
 app.stage.addChild(player1);
 app.stage.addChild(player2);
+app.stage.addChild(player1ScoreText);
+app.stage.addChild(player2ScoreText);
 
 //array to hold rectangle objects (cards) that go at the top of the page
 let cards = [];
@@ -107,13 +123,13 @@ for (i = 0; i < 11; i++) {
   cards[i].endFill();
 
   titles[i] = new Text(i + 2, style);
-  if(i < 8){
+  if (i < 8) {
     titles[i].x = cards[i].x + ((cardWidth / 2) * .75);
-  } 
-  else{
+  }
+  else {
     titles[i].x = cards[i].x + ((cardWidth / 2) * .55);
   }
-  
+
   titles[i].y = windowHeight * .05;
 
   app.stage.addChild(cards[i]);
@@ -127,16 +143,19 @@ let chips2 = {};
 // create a stack of chips
 for (i = 0; i < 10; i++) {
 
+  const chipWidth = windowWidth * 0.012;
+  const chipHeight = windowWidth * 0.008;
+
   chips1[i] = new Graphics();
   chips2[i] = new Graphics();
   chips1[i].beginFill(red);              // ellipse color
   chips2[i].beginFill(teal);
   chips1[i].lineStyle(1, charcoal, 1);    // ellipse border
   chips2[i].lineStyle(1, charcoal, 1);
-  chips1[i].drawEllipse(0, 0, windowWidth * .012, windowWidth * .013);    // position + size of the ellipse (topleft x, topleft y, height, width)
-  chips2[i].drawEllipse(0, 0, windowWidth * .012, windowWidth * .013);
-  chips1[i].x = windowWidth * .13;
-  chips2[i].x = windowWidth * .86;
+  chips1[i].drawEllipse(0, 0, chipWidth, chipHeight);    // position + size of the ellipse (topleft x, topleft y, height, width)
+  chips2[i].drawEllipse(0, 0, chipWidth, chipHeight);
+  chips1[i].x = windowWidth * .09;
+  chips2[i].x = windowWidth * .9;
   chips1[i].y = (((windowHeight + player1.y - 100) * .55) - i * (windowHeight * .011)) * .85;
   chips2[i].y = (((windowHeight + player2.y - 100) * .55) - i * (windowHeight * .011)) * .85;
   chips1[i].endFill();                         // draws the ellipse
@@ -151,35 +170,26 @@ let currChip1 = 9;
 let currChip2 = 9;
 
 var totalChipCount = 20;
-var playerTurn = true;
+var playerTurn = 1;
 
 function cardClick(cardNumber) {
 
-  // to stop the card from being interactive
-  let cardNum = cardNumber;
-
   // how many ticks take place in the animation
-  let ticks = 25;
+  let ticks = 20;
 
-  if (playerTurn) {//player 1s turn
-    // get old chip's x and y to figure out it's old card
-    let oldX = chips1[currChip1].x - (cardWidth / 2);
-    let oldCard = -1;
+  if (playerTurn == 1) {//player 1s turn
 
-    for (i = 0; i < 11; i++) {
-      if (oldX == cards[i].x)
-        oldCard = i;
-    }
-
-    //decrement the chip counter on it's old card, if the chip came from a card
-    if (oldCard > 0)
-      cardChips[oldCard] -= 1;
+    // track score information
+    if (scoreboard[0] < 10)
+      scoreboard[0]++;
+    player1ScoreText.text = scoreboard[0];
+    app.stage.addChild(player1ScoreText);
 
     // calculate new x val based on card position
-    let newX = cards[cardNumber].x + cardWidth *.25;
+    let newX = cards[cardNumber].x + cardWidth * .25;
 
     // calculate new y val based on how many chips are on the card
-    let newY = (cards[cardNumber].y + cardHeight - cardChips1[cardNumber] * (windowHeight * .011)) * .9;
+    let newY = (cards[cardNumber].y + cardHeight - cardChips1[cardNumber] * (windowWidth * .006));
 
     // calculate how large each step is based on the difference between new and old positions
     let xVelocity = (newX - chips1[currChip1].x) / ticks;
@@ -211,27 +221,21 @@ function cardClick(cardNumber) {
     cardChips1[cardNumber] += 1;
 
     // increment current chip counter
-    playerTurn = false;
+    playerTurn = 2;
     currChip1--;
 
   }
   else {
-    // get old chip's x and y to figure out it's old card
-    let oldX = chips2[currChip2].x - (cardWidth / 2);
-    let oldCard = -1;
 
-    for (i = 0; i < 11; i++) {
-      if (oldX == cards[i].x)
-        oldCard = i;
-    }
-
-    //decrement the chip counter on it's old card, if the chip came from a card
-    if (oldCard > 0)
-      cardChips2[oldCard] -= 1;
+    // scoreboard information
+    if (scoreboard[1] < 10)
+      scoreboard[1]++;
+    player2ScoreText.text = scoreboard[1];
+    app.stage.addChild(player2ScoreText);
 
     // calculate the new X value and Y value based on card size and location
     let newX = cards[cardNumber].x + cardWidth * .75;
-    let newY = (cards[cardNumber].y + cardHeight - cardChips2[cardNumber] * (windowHeight * .011)) * .9;
+    let newY = (cards[cardNumber].y + cardHeight - cardChips2[cardNumber] * (windowWidth * .006));
 
     let xVelocity = (newX - chips2[currChip2].x) / ticks;
     let yVelocity = (newY - chips2[currChip2].y) / ticks;
@@ -259,11 +263,10 @@ function cardClick(cardNumber) {
     });
 
     // increment the number of chips on card cardNumber
-    // but also have to find a way to decrement the card that lost it's chip
     cardChips2[cardNumber] += 1;
 
     // decrement current chip counter
-    playerTurn = true;
+    playerTurn = 1;
     currChip2--;
 
   }
@@ -290,11 +293,11 @@ function createGame() {
   dice1.height = windowHeight * .12;
   dice2.width = windowWidth * .06;
   dice2.height = windowHeight * .12;
-  dice1.x = windowWidth *.44;
+  dice1.x = windowWidth * .44;
   dice1.y = windowHeight * .43;
-  dice2.x = windowWidth *.5;
+  dice2.x = windowWidth * .5;
   dice2.y = windowHeight * .43;
-  
+
 
   rollButton.width = windowWidth * .1;
   rollButton.height = windowHeight * .1;
@@ -319,8 +322,6 @@ function hover(object) {
 function hoverOut(object) {
   object.alpha = 1;
 }
-
-playerTurn = 1;
 
 // upon click of roll button
 function roll() {
@@ -348,10 +349,45 @@ function roll() {
       // change the face texture
       dice1.texture = app.loader.resources[`dice${roll1}`].texture;
       dice2.texture = app.loader.resources[`dice${roll2}`].texture;
+      rollButton.interactive = false;
+    }
+    // dice is finished rolling
+    else if (ticks == 50) {
+      let totalRolled = roll1 + roll2;
+
+      // player 1's turn
+      if (playerTurn == 1) {
+        // if there is a chip on the card, alter the score and number of chips on that card
+        if (cardChips1[totalRolled - 2] > 0) {
+          scoreboard[0] -= 1;
+          cardChips1[totalRolled - 2] -= 1;
+          player1ScoreText.text = scoreboard[0];
+          app.stage.addChild(player1ScoreText);
+        }
+        playerTurn = 2;
+      }
+      else {
+        if (cardChips2[totalRolled - 2] > 0) {
+          scoreboard[1] -= 1;
+          cardChips2[totalRolled - 2] -= 1;
+          player2ScoreText.text = scoreboard[1];
+          app.stage.addChild(player2ScoreText);
+        }
+        playerTurn = 1;
+      }
+
+      rollButton.interactive = true;
+      ticks++;
     }
 
     ticks++;
 
   });
+
+  // for now, just reload the page if someone wins
+  if (scoreboard[0] == 0 || scoreboard[1] == 0) {
+    rollButton.interactive = false;
+    location.reload();
+  }
 
 }
