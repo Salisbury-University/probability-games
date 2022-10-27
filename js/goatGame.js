@@ -18,9 +18,9 @@
     var isKept = false;
     var choiceMade = 0;
 
-    document.getElementById("door0").src = doorImg;
-    document.getElementById("door1").src = doorImg;
-    document.getElementById("door2").src = doorImg;
+   // document.getElementById("door0").src = doorImg;
+    //document.getElementById("door1").src = doorImg;
+    //document.getElementById("door2").src = doorImg;
 
     function testModal(stringToAlert) {
         $('#infoModal').modal('show');
