@@ -1,6 +1,6 @@
-    const carImg = "../probability-games\\images\\car.png";
-    const goatImg = "../probability-games\\images\\goat.png";
-    const doorImg = "../probability-games\\images\\ClosedDoor.png";
+    const carImg = "../images/car.png";
+    const goatImg = "../images/goat.png";
+    const doorImg = "../images/ClosedDoor.png";
 
 
     var Doors = [0, 0, 0];
