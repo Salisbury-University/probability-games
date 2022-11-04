@@ -40,10 +40,4 @@
 		   Else: Remove no chips from the cards and get no points.
 		6. Repeat steps 4 - 5 until either Player 1 or 2 reach 10
 		   points and Win the Game.
-	Two players take turn's placing 10 chips on cards ranging from
-	2-12. After both player's finish placing all their chips they 
-	will roll two standard dice. The player will then add up the
-	sum of the dice and remove a chip from the card that is equal
-	to the sum of the dice they have rolled. If no chip is on the
-	sum they rolled then the
 ### HTML/JavaScript
