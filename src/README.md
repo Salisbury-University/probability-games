@@ -7,37 +7,45 @@
 ---
 ## Monty Hall Problem
 ### How to Play
-### HTML/JavaScript
+### Features
+### Backlog
 
 ## Coin Flip
 ### How to Play
-### HTML/JavaScript
+### Features
+### Backlog
 
 ## Dice Roll
 ### How to Play
-### HTML/JavaScript
+### Features
+### Backlog
 
 ## 2-12 Card Game
 ### How to Play
-	- Materials:
+- Materials:
 		- 20 Chips (10 Chips per player)
 		- Two Standard Dice
 		- 11 Cards labeled from 2-12
-	- Instructions:
-		1. Player 1 adds a chip to a card.
-		2. Player 2 adds a chip to a card.
-		3. Repeat Steps 1-2 until both players have no chips
-		   remaining.
-		4. Player 1 rolls the two dice and adds the sum of the
-		   dice.
-		   If: Player 1 has a chip on the card equal to the
-			   sum of the dice remove the chip and get a point.
-		   Else: Remove no chips from the cards and get no points.
-		5. Player 2 rolls the two dice and adds the sum of the
-		   dice.
-		   If: Player 2 has a chip on the card equal to the
-			   sum of the dice remove the chip and get a point.
-		   Else: Remove no chips from the cards and get no points.
-		6. Repeat steps 4 - 5 until either Player 1 or 2 reach 10
+- Instructions:
+	1. Player 1 adds a chip to a card.
+	2. Player 2 adds a chip to a card.
+	3. Repeat Steps 1-2 until both players have no chips remaining.
+	4. Player 1 rolls the two dice and adds the sum of the dice.
+		  - If: Player 1 has a chip on the card equal to the sum of the dice remove the chip and get a point.
+		  - Else: Remove no chips from the cards and get no points.
+	5. Player 2 rolls the two dice and adds the sum of the dice.
+		  - If: Player 2 has a chip on the card equal to the sum of the dice remove the chip and get a point.
+		  - Else: Remove no chips from the cards and get no points.
+	6. Repeat steps 4 - 5 until either Player 1 or 2 reach 10
 		   points and Win the Game.
-### HTML/JavaScript
+### Features
+- Moving chips with click of card
+- Disappearing chips if dice roll equal to a card value of player's chip
+- Incrementing score value after player lands a roll on a card
+- Win Screen after player reaches 10 points
+- Animated Dice upon click of roll button
+### Backlog
+ - [ ] Graph to display results of the game
+ - [ ] How to play button on the page
+ - [ ] Replay Button
+ - [ ] Information about the game and statistics
