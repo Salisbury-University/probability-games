@@ -1,5 +1,5 @@
-// ship.js: this file is the javascript implementation of
-// the 12-card dice game
+// card.js: this file is the javascript implementation of
+// the 11-card dice game
 // it includes the pixijs code for generating the cards, chips, dice, scoreboards, and roll button
 // $ http-server -c-1 -a localhost -p 8000 /directory/path/
 
@@ -33,7 +33,7 @@ let app = new PIXI.Application({
 document.body.appendChild(app.view);
 
 // base url of dice images
-app.loader.baseUrl = "./images";
+app.loader.baseUrl = "../images";
 
 // load and name all dice images
 app.loader.add("dice1", "dice1.png")
