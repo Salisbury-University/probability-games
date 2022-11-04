@@ -277,7 +277,7 @@ function cardClick(cardNumber) {
   // how many ticks take place in the animation
   let ticks = 20;
 
-  if (playerTurn == 1) {//player 1s turn
+  if (playerTurn == 1 && totalChipCount > 0) {//player 1s turn
 
     // track score information
     if (scoreboard[0] < 10)
@@ -305,14 +305,18 @@ function cardClick(cardNumber) {
         chips1[currChip1 + 1].x += xVelocity;
         chips1[currChip1 + 1].y += yVelocity;
         // prevent double-clicking
-        for (let i = 0; i < 11; i++)
+        for (let i = 0; i < 11; i++) {
           cards[i].interactive = false;
+          cards[i].buttonMode = false;
+        }
         count++;
       }
       else {
         // once chip is moved, allow clicking again
-        for (let i = 0; i < 11; i++)
+        for (let i = 0; i < 11; i++) {
           cards[i].interactive = true;
+          cards[i].buttonMode = true;
+        }
       }
 
     });
@@ -329,7 +333,7 @@ function cardClick(cardNumber) {
     currChip1--;
 
   }
-  else {
+  else if (playerTurn == 2 && totalChipCount > 0) {
 
     // scoreboard information
     if (scoreboard[1] < 10)
@@ -354,14 +358,18 @@ function cardClick(cardNumber) {
         chips2[currChip2 + 1].x += xVelocity;
         chips2[currChip2 + 1].y += yVelocity;
         // prevent double-clicking
-        for (let i = 0; i < 11; i++)
+        for (let i = 0; i < 11; i++) {
           cards[i].interactive = false;
+          cards[i].buttonMode = false;
+        }
         count++;
       }
       else {
         // once move is finished, allow clicking again
-        for (let i = 0; i < 11; i++)
+        for (let i = 0; i < 11; i++) {
           cards[i].interactive = true;
+          cards[i].buttonMode = true;
+        }
       }
 
     });
@@ -379,11 +387,13 @@ function cardClick(cardNumber) {
 
   }
   totalChipCount--;
+
   if (totalChipCount == 0) {
     updatePrompt("Player 1's roll");
     for (i = 0; i < 10; i++) {
       let j = i;
-      cards[i].interactive = false;
+      cards[j].interactive = false;
+      cards[j].buttonMode = false;
       cards[i].on('pointerdown', (event) => clickRemove(j));
       cards[i].alpha = 1;
 
