@@ -1,7 +1,43 @@
-// card.js: this file is the javascript implementation of
-// the 11-card dice game
+// ship.js: this file is the javascript implementation of
+// the 12-card dice game
 // it includes the pixijs code for generating the cards, chips, dice, scoreboards, and roll button
 // $ http-server -c-1 -a localhost -p 8000 /directory/path/
+//
+// NEXT: Implement the chipNumbers1/2 as arrays of STACKS so that you can pop from the top of the card, not the bottom
+// ALSO: add win screen and for the users
+// ALSO: implement playing prompt
+
+// Stack class
+class Stack {
+
+  // Array is used to implement stack
+  constructor() {
+    this.items = [];
+  }
+
+  // Functions to be implemented
+  push(element) {
+    this.items.push(element);
+  }
+  pop() {
+    if (this.items.length == 0)
+      return "Underflow";
+    return this.items.pop();
+  }
+  peek() {
+    return this.items[this.items.length - 1];
+  }
+  isEmpty() {
+    return this.items.length == 0;
+  }
+  printStack() {
+    var str = "";
+    for (var i = 0; i < this.items.length; i++) {
+      str += this.items[i] + " ";
+    }
+    return str;
+  }
+}
 
 const Graphics = PIXI.Graphics;
 const Text = PIXI.Text;
@@ -29,11 +65,31 @@ let app = new PIXI.Application({
   height: windowHeight
 });
 
+//prompt's text style
+var promptStyle = new PIXI.TextStyle({
+  fontFamily: "\"Arial Black\", Gadget, sans-serif",
+  fontSize: windowWidth * .02,
+  fontWeight: "bold",
+});
+
+let originalPrompt = "Player 1 place a chip";
+
+let prompt = new Text(originalPrompt, promptStyle);
+
+prompt.x = windowWidth * 0.5 - (originalPrompt.length * (promptStyle.fontSize * 0.46) / 2);
+prompt.y = windowHeight * 0.34;
+
 // append the application window to the page
 document.body.appendChild(app.view);
 
+function updatePrompt(newMessage) {
+  prompt.text = newMessage;
+  prompt.x = windowWidth * 0.5 - (newMessage.length * (promptStyle.fontSize * 0.46) / 2);
+  app.stage.addChild(prompt);
+}
+
 // base url of dice images
-app.loader.baseUrl = "../images";
+app.loader.baseUrl = "../../images/";
 
 // load and name all dice images
 app.loader.add("dice1", "dice1.png")
@@ -55,13 +111,14 @@ cardWindow.beginFill(charcoal);
 cardWindow.drawRect(0, 0, windowWidth, windowHeight * .32);
 app.stage.addChild(cardWindow);
 
-//create player names
+//create player names with styling
 var player1 = new Text("PLAYER 1", { fontSize: windowWidth * .02, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold", fill: red });
 var player2 = new Text("PLAYER 2", { fontSize: windowWidth * .02, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold", fill: teal });
 var player1ScoreText = new Text("0", { fontSize: windowWidth * .07, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold" });
 var player2ScoreText = new Text("0", { fontSize: windowWidth * .07, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold" });
 var scoreboard = [0, 0];
 
+// position and size the text based on window size
 player1.x = windowWidth * .08;
 player2.x = windowWidth * .81;
 player1ScoreText.x = windowWidth * .13;
@@ -72,6 +129,7 @@ player2.y = windowHeight * 0.35;
 player1ScoreText.y = windowHeight * .45;
 player2ScoreText.y = windowHeight * .45;
 
+// add text to the screen
 app.stage.addChild(player1);
 app.stage.addChild(player2);
 app.stage.addChild(player1ScoreText);
@@ -82,6 +140,8 @@ let cards = [];
 let titles = [];
 let cardChips1 = [];
 let cardChips2 = [];
+var chipNumbers1 = new Array(11);
+var chipNumbers2 = new Array(11);
 
 //constant card dimension values
 var cardHeight = windowHeight * .21;
@@ -107,8 +167,10 @@ var style = new PIXI.TextStyle({
 for (i = 0; i < 11; i++) {
   let j = i;
 
-  cardChips1[i] = 0;
-  cardChips2[i] = 0;
+  cardChips1[j] = 0;
+  cardChips2[j] = 0;
+  chipNumbers1[j] = new Stack;
+  chipNumbers2[j] = new Stack;
   cards[i] = new Graphics;
   cards[i].beginFill(cardColor);
   cards[i].lineStyle(2, cardBorderColor, 4);
@@ -165,6 +227,43 @@ for (i = 0; i < 10; i++) {
   app.stage.addChild(chips2[i]);
 }
 
+// function creates the dice and roll button
+function createGame() {
+  sheet = app.loader.resources["./images/dice.png"];
+  dice1 = new Sprite.from(app.loader.resources["dice1"].texture);
+  dice2 = new Sprite.from(app.loader.resources["dice1"].texture);
+  rollButton = new Sprite.from(app.loader.resources["rollButton"].texture);
+
+  // size and positioning of each dice
+  dice1.width = windowWidth * .06;
+  dice1.height = windowWidth * .06;
+  dice2.width = windowWidth * .06;
+  dice2.height = windowWidth * .06;
+  dice1.x = windowWidth * .44;
+  dice1.y = windowHeight * .43;
+  dice2.x = windowWidth * .5;
+  dice2.y = windowHeight * .43;
+
+
+  // size and positioning of roll button
+  rollButton.width = windowWidth * .1;
+  rollButton.height = windowHeight * .1;
+  rollButton.x = windowWidth * .45;
+  rollButton.y = windowHeight * .53;
+
+  // make the objects interactive and assign functions to them
+  rollButton.interactive = true;
+  rollButton.buttonMode = true;
+  rollButton.on('pointerdown', (event) => roll())
+    .on('pointerover', (event) => hover(rollButton))
+    .on('pointerout', (event) => hoverOut(rollButton));
+
+  // add the objects to the screen
+  app.stage.addChild(dice1);
+  app.stage.addChild(dice2);
+
+}
+
 // some vars for moving the chips
 let currChip1 = 9;
 let currChip2 = 9;
@@ -172,6 +271,7 @@ let currChip2 = 9;
 var totalChipCount = 20;
 var playerTurn = 1;
 
+// players sending chips to their cards
 function cardClick(cardNumber) {
 
   // how many ticks take place in the animation
@@ -217,10 +317,14 @@ function cardClick(cardNumber) {
 
     });
 
+    // update which chip got sent to which card
+    chipNumbers1[cardNumber].push(currChip1);
+
     // increment the number of chips on card cardNumber
     cardChips1[cardNumber] += 1;
 
     // increment current chip counter
+    updatePrompt("Player 2 place a chip");
     playerTurn = 2;
     currChip1--;
 
@@ -262,16 +366,21 @@ function cardClick(cardNumber) {
 
     });
 
+    // update which chip got sent to which card
+    chipNumbers2[cardNumber].push(currChip2);
+
     // increment the number of chips on card cardNumber
     cardChips2[cardNumber] += 1;
 
     // decrement current chip counter
+    updatePrompt("Player 1 place a chip");
     playerTurn = 1;
     currChip2--;
 
   }
   totalChipCount--;
   if (totalChipCount == 0) {
+    updatePrompt("Player 1's roll");
     for (i = 0; i < 10; i++) {
       let j = i;
       cards[i].interactive = false;
@@ -281,38 +390,6 @@ function cardClick(cardNumber) {
     }
     app.stage.addChild(rollButton);
   }
-}
-
-function createGame() {
-  sheet = app.loader.resources["./images/dice.png"];
-  dice1 = new Sprite.from(app.loader.resources["dice1"].texture);
-  dice2 = new Sprite.from(app.loader.resources["dice1"].texture);
-  rollButton = new Sprite.from(app.loader.resources["rollButton"].texture);
-
-  dice1.width = windowWidth * .06;
-  dice1.height = windowHeight * .12;
-  dice2.width = windowWidth * .06;
-  dice2.height = windowHeight * .12;
-  dice1.x = windowWidth * .44;
-  dice1.y = windowHeight * .43;
-  dice2.x = windowWidth * .5;
-  dice2.y = windowHeight * .43;
-
-
-  rollButton.width = windowWidth * .1;
-  rollButton.height = windowHeight * .1;
-  rollButton.x = windowWidth * .45;
-  rollButton.y = windowHeight * .53;
-
-  rollButton.interactive = true;
-  rollButton.buttonMode = true;
-  rollButton.on('pointerdown', (event) => roll())
-    .on('pointerover', (event) => hover(rollButton))
-    .on('pointerout', (event) => hoverOut(rollButton));
-
-  app.stage.addChild(dice1);
-  app.stage.addChild(dice2);
-
 }
 
 function hover(object) {
@@ -357,22 +434,29 @@ function roll() {
 
       // player 1's turn
       if (playerTurn == 1) {
-        // if there is a chip on the card, alter the score and number of chips on that card
+        // chip is removed from the card
         if (cardChips1[totalRolled - 2] > 0) {
+          // remove the chip that was rolled
+          app.stage.removeChild(chips1[chipNumbers1[totalRolled - 2].pop()]);
           scoreboard[0] -= 1;
           cardChips1[totalRolled - 2] -= 1;
           player1ScoreText.text = scoreboard[0];
           app.stage.addChild(player1ScoreText);
         }
+        updatePrompt("Player 2's roll");
         playerTurn = 2;
       }
       else {
+        // chip is removed from the card
         if (cardChips2[totalRolled - 2] > 0) {
+          // remove the chip that was rolled
+          app.stage.removeChild(chips2[chipNumbers2[totalRolled - 2].pop()]);
           scoreboard[1] -= 1;
           cardChips2[totalRolled - 2] -= 1;
           player2ScoreText.text = scoreboard[1];
           app.stage.addChild(player2ScoreText);
         }
+        updatePrompt("Player 1's roll");
         playerTurn = 1;
       }
 
@@ -382,12 +466,14 @@ function roll() {
 
     ticks++;
 
+    // for now, just reload the page if someone wins
+    if (scoreboard[0] == 0 || scoreboard[1] == 0) {
+      rollButton.interactive = false;
+      location.reload();
+    }
+
   });
 
-  // for now, just reload the page if someone wins
-  if (scoreboard[0] == 0 || scoreboard[1] == 0) {
-    rollButton.interactive = false;
-    location.reload();
-  }
-
 }
+
+app.stage.addChild(prompt);
