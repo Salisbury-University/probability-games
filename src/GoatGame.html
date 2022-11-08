@@ -117,10 +117,10 @@
             <button type="button" class="btn btn-primary" onclick="playAgain()">Play Again</button>
             <input type="text" id="amountTimesToRun" placeholder="Number of Runs">
             <button type="button" class="btn btn-primary" onclick="simulateGame()">Simulate Runs</button>
-            <!-- Button trigger modal -->
+            <!-- Button trigger modal 
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Launch demo modal
-            </button>
+            </button>  leaving example here-->
         </div>
 
         <div class="row" style="text-align: center;">
@@ -142,19 +142,19 @@
         </div>
     </div>
 
-    <!-- Modal to be displayed for switching or keeping doors -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <!-- Modal to be displayed for where goat is located -->
+    <div class="modal fade" id="resultsModal" tabindex="-1" role="dialog" aria-labelledby="resultsModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Would you like to keep or switch doors?</h5>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                            onclick="determineKeep(0)">Switch</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                            onclick="determineKeep(1)">Keep</button>
-                    </div>
+                    <h5 class="modal-title">Results</h5>
+                </div>
+                <div class="modal-body">
+                    <p id="results">Temporary Text</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -169,11 +169,15 @@
                     <h5 class="modal-title">What to do next?</h5>
                 </div>
                 <div class="modal-body">
+                    <p id="currentDoorChosen">Temporary Text</p>
                     <p id="goatLocationDescription">Temporary Text</p>
                     <p id="whatToDoNext">Temporary Text</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        onclick="determineKeep(0)">Switch Doors</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        onclick="determineKeep(1)">Keep Current Door</button>
                 </div>
             </div>
         </div>

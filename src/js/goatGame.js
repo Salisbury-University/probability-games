@@ -18,6 +18,7 @@ var switchDoorLost = 0;
 var isKept = false;
 var choiceMade = 0;
 var globalDoorChose = 0;
+var revealGoat = 0;
 
 var string = "Door Zero: " + Doors[0] + "-- Door One: " + Doors[1] + "-- Door Two: " + Doors[2];
 
@@ -43,18 +44,8 @@ function playAgain() {
     document.getElementById("door2").style.boxShadow = "none";
 } //end of play again
 
-
-function determineKeep(number) {
-    if (number == 0)
-        isKept = true;
-    else
-        isKept = false;
-
-    choiceMade = 1;
-}
-
-function stepOne(doorChose){
-    var revealGoat = doorChose;
+function stepOne(doorChose) {
+    revealGoat = doorChose;
     globalDoorChose = doorChose;
     //displays the other goat location
     while (revealGoat == doorChose || revealGoat == carLocation) {
@@ -69,27 +60,17 @@ function stepOne(doorChose){
     doorChoice = remainderDoor;
 
     //now display modal with custom string
-    document.getElementById("goatLocationDescription").innerHTML = "Goat is located at Door " + (revealGoat+1);
-    document.getElementById("whatToDoNext").innerHTML = "Would you like to switch to Door " + (doorChoice+1); 
+    document.getElementById("currentDoorChosen").innerHTML = "You choose Door " + (doorChose + 1);
+    document.getElementById("goatLocationDescription").innerHTML = "Goat is located at Door " + (revealGoat + 1);
+    document.getElementById("whatToDoNext").innerHTML = "Would you like to switch to Door " + (doorChoice + 1);
     $('#goatLocationModal').modal('show');
 }
 
-function chooseDoor(x) {
-    var revealGoat = x;
-    //displays the other goat location
-    while (revealGoat == x || revealGoat == carLocation) {
-        revealGoat = Math.floor(Math.random() * 3);
-    }
-
-    var go = "door" + revealGoat;
-    document.getElementById(go).src = goatImg;
-    var stringToDisplay = "You selected door: " + (x + 1) + " There is a goat at door: " + (revealGoat + 1) + " Do you want to switch doors?";
-    var isKept = window.confirm(stringToDisplay);
-
-    var doorChoice = x;
-    if (isKept) { //we switch
+function stepTwo(keptDoor) {
+    var doorChoice = globalDoorChose;
+    if (keptDoor) {
         var remainderDoor = 5;
-        remainderDoor = remainderDoor - (x + 1);
+        remainderDoor = remainderDoor - (globalDoorChose + 1);
         remainderDoor = remainderDoor - (revealGoat + 1);
         doorChoice = remainderDoor;
     }
@@ -113,14 +94,29 @@ function chooseDoor(x) {
     else
         document.getElementById("door2").src = carImg;
 
-    updateStats(doorChoice, isKept);
+    updateStats(doorChoice, keptDoor);
     document.getElementById("buttonDoor0").disabled = true;
     document.getElementById("buttonDoor1").disabled = true;
     document.getElementById("buttonDoor2").disabled = true;
-    window.alert("Door selected: " + (doorChoice + 1) + "Car was located at door: " + (carLocation + 1));
     printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoor, keptDoorLost);
 
-} //end of choose door
+    if (doorChoice == carLocation) {
+        document.getElementById("results").innerHTML = "You Win!";
+    } else {
+        document.getElementById("results").innerHTML = "You Lose! HAHA";
+    }
+    $('#resultsModal').modal('show');
+}
+
+function determineKeep(number) {
+    if (number == 0)
+        isKept = true;
+    else
+        isKept = false;
+
+    stepTwo(isKept);
+}
+
 
 function updateStats(x, isKept) {
     gamesPlayed++;
