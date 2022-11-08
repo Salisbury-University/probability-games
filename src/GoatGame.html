@@ -18,9 +18,13 @@
         crossorigin="anonymous"></script>
 
     <script src="pixi.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#popUpModal').modal('show');
+        }); 
+    </script>
 </head>
-
-
 
 
 <title> Monty Hall Problem</title>
@@ -54,7 +58,7 @@
     <div style="background-color: teal;padding-bottom: 5px; border-bottom: 6px solid black;">
         <div class="row">
             <h1 class="centerText">Monty Hall Problem</h1>
-            <h5 class="centerText" style="font-size: 12pt; text-decoration: underline; " onclick="testModal('ge')">
+            <h5 class="centerText" style="font-size: 12pt; text-decoration: underline; " onclick="testModal()">
                 Click Here To Learn More About Monty Hall Problem!</h5>
         </div>
     </div>
@@ -116,7 +120,8 @@
             <button type="button" class="btn btn-primary" onclick="resetStats()">Reset Stats</button>
             <button type="button" class="btn btn-primary" onclick="playAgain()">Play Again</button>
             <input type="text" id="amountTimesToRun" placeholder="Number of Runs">
-            <button type="button" class="btn btn-primary" onclick="simulateGame()">Simulate Runs</button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#simulationModal">Simulate
+                Runs</button>
             <!-- Button trigger modal 
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Launch demo modal
@@ -142,73 +147,114 @@
         </div>
     </div>
 
-    <!-- Modal to be displayed for where goat is located -->
-    <div class="modal fade" id="resultsModal" tabindex="-1" role="dialog" aria-labelledby="resultsModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Results</h5>
-                </div>
-                <div class="modal-body">
-                    <p id="results">Temporary Text</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal to be displayed for where goat is located -->
-    <div class="modal fade" id="goatLocationModal" tabindex="-1" role="dialog" aria-labelledby="goatModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">What to do next?</h5>
-                </div>
-                <div class="modal-body">
-                    <p id="currentDoorChosen">Temporary Text</p>
-                    <p id="goatLocationDescription">Temporary Text</p>
-                    <p id="whatToDoNext">Temporary Text</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                        onclick="determineKeep(0)">Switch Doors</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                        onclick="determineKeep(1)">Keep Current Door</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Modal -->
-    <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Monty Hall was a TV and radio host most famous for
-                        hosting the game show Let’s Make a Deal which he produced and hosted for many years. The Monty
-                        Hall Problem was named after him because of it similarities with Let’s Make a Deal. The problem
-                        was first posted and solved a letter by Steve Selvin to the American Statistician in 1975.
-                        The original problem reading: “Suppose you're on a game show, and you're given the choice of
-                        three doors: Behind one door is a car; behind the others, goats. You pick a door, say No. 1, and
-                        the host, who knows what's behind the doors, opens another door, say No. 3, which has a goat. He
-                        then says to you, "Do you want to pick door No. 2?" Is it to your advantage to switch your
-                        choice?”
-                    </h5>
+    <div><!-- These are all modals-->
+        
+        <!-- Modal to be displayed for where goat is located -->
+        <div class="modal fade" id="resultsModal" tabindex="-1" role="dialog" aria-labelledby="resultsModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Results</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p id="results">Temporary Text</p>
+                    </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Modal to be displayed on page load up -->
+        <div class="modal fade" id="popUpModal" tabindex="-1" role="dialog" aria-labelledby="popUpModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Welcome to Goat Game!</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p>Text Here About The Game</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Start The Game!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal to be displayed for where goat is located -->
+        <div class="modal fade" id="goatLocationModal" tabindex="-1" role="dialog" aria-labelledby="goatModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">What to do next?</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p id="currentDoorChosen">Temporary Text</p>
+                        <p id="goatLocationDescription">Temporary Text</p>
+                        <p id="whatToDoNext">Temporary Text</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            onclick="determineKeep(0)">Switch Doors</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                            onclick="determineKeep(1)">Keep Current Door</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for simulating games -->
+        <div class="modal fade" id="simulationModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Would you like to switch doors?</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            onclick="determineKeepSimulation(0)">Switch Doors</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                            onclick="determineKeepSimulation(1)">Keep Current Door</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal for user to click on -->
+        <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Monty Hall was a TV and radio host most famous
+                            for
+                            hosting the game show Let’s Make a Deal which he produced and hosted for many years. The
+                            Monty
+                            Hall Problem was named after him because of it similarities with Let’s Make a Deal. The
+                            problem
+                            was first posted and solved a letter by Steve Selvin to the American Statistician in 1975.
+                            The original problem reading: “Suppose you're on a game show, and you're given the choice of
+                            three doors: Behind one door is a car; behind the others, goats. You pick a door, say No. 1,
+                            and
+                            the host, who knows what's behind the doors, opens another door, say No. 3, which has a
+                            goat. He
+                            then says to you, "Do you want to pick door No. 2?" Is it to your advantage to switch your
+                            choice?”
+                        </h5>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-
-
 </body>
 
 </html>

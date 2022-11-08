@@ -22,8 +22,11 @@ var revealGoat = 0;
 
 var string = "Door Zero: " + Doors[0] + "-- Door One: " + Doors[1] + "-- Door Two: " + Doors[2];
 
-function playAgain() {
+function testModal() {
+    $('#infoModal').modal('show');
+}
 
+function playAgain() {
     //$('#exampleModal').modal('show'); //reveals the modal without button being clicked
     Doors[0] = 0;
     Doors[1] = 0;
@@ -117,6 +120,13 @@ function determineKeep(number) {
     stepTwo(isKept);
 }
 
+function determineKeepSimulation(number) {
+    if (number == 0)
+        isKept = true;
+    else
+        isKept = false;
+    simulateGame();
+}
 
 function updateStats(x, isKept) {
     gamesPlayed++;
@@ -148,7 +158,9 @@ function simulateGame() {
     var switchDoor;
     var timesPlayed = document.getElementById("amountTimesToRun").value;
 
-    switchDoor = window.confirm("Switch doors?");
+    $('simulationModal').modal('show');
+    //switchDoor = window.confirm("Switch doors?");
+    switchDoor = isKept;
     for (var i = 0; i < timesPlayed; i++) {
         playAgain();
         carLocation = Math.floor(Math.random() * 3);
@@ -159,7 +171,7 @@ function simulateGame() {
             revealGoat = Math.floor(Math.random() * 3);
         }
 
-        if (switchDoor) {
+        if (switchDoor == 1) {
             var remainderDoor = 5;
             remainderDoor = remainderDoor - (userChoice + 1);
             remainderDoor = remainderDoor - (revealGoat + 1);
