@@ -1,11 +1,12 @@
 // ship.js: this file is the javascript implementation of
 // the 12-card dice game
 // it includes the pixijs code for generating the cards, chips, dice, scoreboards, and roll button
-// $ http-server -c-1 -a localhost -p 8000 /directory/path/
+// $ http-server -c-1 -a localhost -p 8000 /path/to/project
 //
-// NEXT: Implement the chipNumbers1/2 as arrays of STACKS so that you can pop from the top of the card, not the bottom
-// ALSO: add win screen and for the users
-// ALSO: implement playing prompt
+// NEXT: make chips of stacks clickable to remove chips
+
+const PLAYER_1 = 0;
+const PLAYER_2 = 1;
 
 // Stack class
 class Stack {
@@ -81,6 +82,7 @@ prompt.y = windowHeight * 0.34;
 
 // append the application window to the page
 document.body.appendChild(app.view);
+// app.ticker.stop();
 
 function updatePrompt(newMessage) {
   prompt.text = newMessage;
@@ -280,9 +282,9 @@ function cardClick(cardNumber) {
   if (playerTurn == 1 && totalChipCount > 0) {//player 1s turn
 
     // track score information
-    if (scoreboard[0] < 10)
-      scoreboard[0]++;
-    player1ScoreText.text = scoreboard[0];
+    if (scoreboard[PLAYER_1] < 10)
+      scoreboard[PLAYER_1]++;
+    player1ScoreText.text = scoreboard[PLAYER_1];
     app.stage.addChild(player1ScoreText);
 
     // calculate new x val based on card position
@@ -296,6 +298,7 @@ function cardClick(cardNumber) {
     let yVelocity = (newY - chips1[currChip1].y) / ticks;
 
     let count = 0;
+    // app.ticker.start();
 
     // ticker functino to move the chip
     app.ticker.add(() => {
@@ -336,9 +339,9 @@ function cardClick(cardNumber) {
   else if (playerTurn == 2 && totalChipCount > 0) {
 
     // scoreboard information
-    if (scoreboard[1] < 10)
-      scoreboard[1]++;
-    player2ScoreText.text = scoreboard[1];
+    if (scoreboard[PLAYER_2] < 10)
+      scoreboard[PLAYER_2]++;
+    player2ScoreText.text = scoreboard[PLAYER_2];
     app.stage.addChild(player2ScoreText);
 
     // calculate the new X value and Y value based on card size and location
@@ -388,6 +391,7 @@ function cardClick(cardNumber) {
   }
   totalChipCount--;
 
+  // if all chips are placed on the board
   if (totalChipCount == 0) {
     updatePrompt("Player 1's roll");
     for (i = 0; i < 10; i++) {
@@ -409,6 +413,11 @@ function hover(object) {
 function hoverOut(object) {
   object.alpha = 1;
 }
+
+// array to track the number of rolls for each player
+var numRolls = new Array(2);
+numRolls[PLAYER_1] = 0;
+numRolls[PLAYER_2] = 0;
 
 // upon click of roll button
 function roll() {
@@ -444,26 +453,28 @@ function roll() {
 
       // player 1's turn
       if (playerTurn == 1) {
+        numRolls[PLAYER_1] += 1;
         // chip is removed from the card
         if (cardChips1[totalRolled - 2] > 0) {
           // remove the chip that was rolled
           app.stage.removeChild(chips1[chipNumbers1[totalRolled - 2].pop()]);
-          scoreboard[0] -= 1;
+          scoreboard[PLAYER_1] -= 1;
           cardChips1[totalRolled - 2] -= 1;
-          player1ScoreText.text = scoreboard[0];
+          player1ScoreText.text = scoreboard[PLAYER_1];
           app.stage.addChild(player1ScoreText);
         }
         updatePrompt("Player 2's roll");
         playerTurn = 2;
       }
       else {
+        numRolls[PLAYER_2] += 1;
         // chip is removed from the card
         if (cardChips2[totalRolled - 2] > 0) {
           // remove the chip that was rolled
           app.stage.removeChild(chips2[chipNumbers2[totalRolled - 2].pop()]);
-          scoreboard[1] -= 1;
+          scoreboard[PLAYER_2] -= 1;
           cardChips2[totalRolled - 2] -= 1;
-          player2ScoreText.text = scoreboard[1];
+          player2ScoreText.text = scoreboard[PLAYER_2];
           app.stage.addChild(player2ScoreText);
         }
         updatePrompt("Player 1's roll");
@@ -477,9 +488,38 @@ function roll() {
     ticks++;
 
     // for now, just reload the page if someone wins
-    if (scoreboard[0] == 0 || scoreboard[1] == 0) {
+    if (scoreboard[PLAYER_1] == 0 || scoreboard[PLAYER_2] == 0) {
+
       rollButton.interactive = false;
-      location.reload();
+      app.stage.removeChild(dice1);
+      app.stage.removeChild(dice2);
+      app.stage.removeChild(prompt);
+      app.stage.removeChild(rollButton);
+
+      // this part is broken, should it be in the ticker function?, probably not
+      // also, the fstring literals aren't working right
+      if (scoreboard[PLAYER_1] == 0) {
+        winStr = `Player 1 won in ${numRolls[PLAYER_1]} rolls!`;
+        style.fill = red;
+        style.dropShadow = false;
+      }
+      else if (scoreboard[PLAYER_2] == 0) {
+        winStr = `Player 2 won in ${numRolls[PLAYER_2]} rolls!`;
+        style.fill = teal;
+        style.dropShadow = false;
+      }
+
+      console.log(winStr);
+      winText = new Text(winStr, style);
+      winText.x = windowWidth * 0.5 - (winStr.length * (style.fontSize * 0.46) / 2);
+      winText.y = windowHeight * 0.34;
+
+      // so this if condition will not be entered again
+      scoreboard[PLAYER_1] = -1;
+      scoreboard[PLAYER_2] = -1;
+
+      app.stage.addChild(winText);
+
     }
 
   });
