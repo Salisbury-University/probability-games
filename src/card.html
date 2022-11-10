@@ -1,40 +1,109 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/card.css" type="text/css">
-    
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Card Test</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/card.css" type="text/css">
 
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg" style="background-color: #8e0e02;">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="home.html" style="color:white"><img src="../images/logo.png" style="max-height: 50px;"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
-          </ul>
-        </div>
+
+  <title>2-12 Card Game</title>
+
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg" style="background-color: #8e0e02;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="home.html" style="color:white"><img src="../images/logo.png"
+          style="max-height: 50px;"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li>
+        </ul>
       </div>
-    </nav>
-    <script src="js/pixi.min.js"></script>
-    <script src="js/cardGame.js"></script>
+    </div>
+  </nav>
 
-    
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <span class="border-top border-right border-left" id="border" hidden>
+    <div class="p-3 text-center bg-light">
+      <h1 class="mb-2" id="win-header">Player Chip Placements</h1>
+    </div>
+    <div class="p-2 text-center bg-light">
+      <h3 class="mb-2">Player Chip Placements</h3>
+    </div>
+    <table class="table table-bordered" id="table1">
+      <thead>
+        <tr>
+          <th scope="col">Player #</th>
+          <th scope="col">2</th>
+          <th scope="col">3</th>
+          <th scope="col">4</th>
+          <th scope="col">5</th>
+          <th scope="col">6</th>
+          <th scope="col">7</th>
+          <th scope="col">8</th>
+          <th scope="col">9</th>
+          <th scope="col">10</th>
+          <th scope="col">11</th>
+          <th scope="col">12</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td id="r1c1">0</td>
+          <td id="r1c2">0</td>
+          <td id="r1c3">0</td>
+          <td id="r1c4">0</td>
+          <td id="r1c5">0</td>
+          <td id="r1c6">0</td>
+          <td id="r1c7">0</td>
+          <td id="r1c8">0</td>
+          <td id="r1c9">0</td>
+          <td id="r1c10">0</td>
+          <td id="r1c11">0</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td id="r2c1">0</td>
+          <td id="r2c2">0</td>
+          <td id="r2c3">0</td>
+          <td id="r2c4">0</td>
+          <td id="r2c5">0</td>
+          <td id="r2c6">0</td>
+          <td id="r2c7">0</td>
+          <td id="r2c8">0</td>
+          <td id="r2c9">0</td>
+          <td id="r2c10">0</td>
+          <td id="r2c11">0</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="col text-center">
+      <button type="button" class="btn btn-primary" id="play-again-button">Play Again</button>
+    </div>
+  </span>
 
-  </body>
+  <script src="js/pixi.min.js"></script>
+
+  <script src="js/cardGame.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+
+</body>
+
 </html>
