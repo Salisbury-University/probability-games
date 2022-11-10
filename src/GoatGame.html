@@ -2,16 +2,16 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="css/GoatGame.css">
+    <link rel="stylesheet" type="text/css" href="../css/GoatGame.css">
 </head>
 <title> Monty Hall Problem</title>
 
 <body>
     <script src="js/goatGame.js"></script>
 
-    <nav class="navbar navbar-expand-lg" style="background-color: #8e0e02;">
+    <nav class="navbar navbar-expand-lg" style="background-color: #124E78;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="home.html" style="color:white"><img src="images/logo.png"
+            <a class="navbar-brand" href="home.html" style="color:white"><img src="../images/logo.png"
                     style="max-height: 50px;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -63,21 +63,21 @@
         <div class="row" style="width: 80%;margin-left: 15%;padding-bottom: 20px; padding-top: 20px;">
             <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
-                <img class="img-responsive" src="../probability-games\\images\\ClosedDoor.png" width="300px"
+                <img class="img-responsive" src="../images/ClosedDoor.png" width="300px"
                     height="400px" alt="Door 1" id="door0">
                 <button onclick="chooseDoor(0)" class="btns" id="buttonDoor0"> Door 1</button>
 
             </div>
             <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
-                <img class="img-responsive" onclick="chooseDoor(1)" src="../probability-games\\images\\ClosedDoor.png"
+                <img class="img-responsive" onclick="chooseDoor(1)" src="../images/ClosedDoor.png"
                     width="300px" height="400px" alt="Door 2" id="door1">
                 <button onclick="chooseDoor(1)" class="btns" id="buttonDoor1"> Door 2</button>
 
             </div>
             <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
-                <img class="img-responsive" src="../probability-games\\images\\ClosedDoor.png" width="300px"
+                <img class="img-responsive" src="../images/ClosedDoor.png" width="300px"
                     height="400px" alt="Door 3" id="door2">
                 <button onclick="chooseDoor(2)" class="btns" id="buttonDoor2"> Door 3</button>
             </div>
@@ -124,12 +124,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Would you like to keep or switch doors?</h5>
-                    <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                             onclick="determineKeep(0)">Switch</button>
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
                             onclick="determineKeep(1)">Keep</button>
-                    </div>
                 </div>
             </div>
         </div>
