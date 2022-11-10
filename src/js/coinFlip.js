@@ -106,7 +106,7 @@
 			if(isWeighted == 1)
 				document.querySelector("h2").innerHTML = "You are Correct!";
 			else
-				document.querySelector("h2").innerHTML = "You are Inorrect";
+				document.querySelector("h2").innerHTML = "You are Incorrect";
 		}
 
 		function ifNotWeighted() {

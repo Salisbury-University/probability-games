@@ -7,7 +7,30 @@
 ---
 ## Monty Hall Problem
 ### How to Play
+- Materials:
+		- Three Closed Doors
+		- Two Goats (or unwanted outcome)
+		- One Car (or desired outcome)
+- Instructions:
+	1. Pick a starting door
+	2. A different door than the chosen will be opened revealing a goat 
+	3. A prompt will then appear asking the player if they want to stay with their orginal door or switch to the other unopened door
+	4. After the player finalizes their door selection all the doors will be opened and a win or lose screen will show
+	5. The player then has the option to play again or simulate the game or to reset the statistics    
 ### Features
+- Counts the statistics which include:
+	- Number of overall games played
+	- Number of overall games won
+	- Number of overall games lost
+	- Number of games where door was kept
+	- Number of games won when door was kept
+	- Number of games lost when door was kept
+	- Number of games where door was switched
+	- Number of games won when door was switched
+	- Number of games lost when door was switched
+- Doors that dissapear and reveal whats behind them
+- Modals that pop up with prompts for the user
+- The abilty to simulate the game
 ### Backlog
 
 ## Coin Flip
