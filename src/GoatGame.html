@@ -68,28 +68,7 @@
 
     <div style="background-color: aquamarine; padding-bottom: 20px;">
         <div class="row" style="width: 80%;margin-left: 15%;padding-bottom: 20px; padding-top: 20px;">
-            <!-- ORIGINAL FUNCTION CALLS
-            <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
-                <img class="img-responsive" src="../images/ClosedDoor.png" width="300px"
-                    height="400px" alt="Door 1" id="door0">
-                <button onclick="chooseDoor(0)" class="btns" id="buttonDoor0"> Door 1</button>
-
-            </div>
-            <div class="col-lg-4 col-md-4 col-xs-4 thumb">
-
-                <img class="img-responsive" onclick="chooseDoor(1)" src="../images/ClosedDoor.png"
-                    width="300px" height="400px" alt="Door 2" id="door1">
-                <button onclick="chooseDoor(1)" class="btns" id="buttonDoor1"> Door 2</button>
-
-            </div>
-            <div class="col-lg-4 col-md-4 col-xs-4 thumb">
-
-                <img class="img-responsive" src="../images/ClosedDoor.png" width="300px"
-                    height="400px" alt="Door 3" id="door2">
-                <button onclick="chooseDoor(2)" class="btns" id="buttonDoor2"> Door 3</button>
-            </div>
-         below are the new function calls-->
             <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
                 <img class="img-responsive" src="../images/ClosedDoor.png" width="300px" height="400px" alt="Door 1"
@@ -120,7 +99,8 @@
             <button type="button" class="btn btn-primary" onclick="resetStats()">Reset Stats</button>
             <button type="button" class="btn btn-primary" onclick="playAgain()">Play Again</button>
             <input type="text" id="amountTimesToRun" placeholder="Number of Runs">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#simulationModal">Simulate
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#simulationModal">Simulate
                 Runs</button>
             <!-- Button trigger modal 
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -147,8 +127,9 @@
         </div>
     </div>
 
-    <div><!-- These are all modals-->
-        
+    <div>
+        <!-- These are all modals-->
+
         <!-- Modal to be displayed for where goat is located -->
         <div class="modal fade" id="resultsModal" tabindex="-1" role="dialog" aria-labelledby="resultsModalLabel"
             aria-hidden="true">
@@ -213,13 +194,12 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Would you like to switch doors?</h5>
+                        <h5 class="modal-title" id="howManyTimesSwitchDoors">How many times would you like to switch doors? </h5>
+                        <input type="text" id="amountToSwitch" placeholder="Number Times To Switch">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                            onclick="determineKeepSimulation(0)">Switch Doors</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                            onclick="determineKeepSimulation(1)">Keep Current Door</button>
+                            onclick="determineKeepSimulation(0)">Continue</button>
                     </div>
                 </div>
             </div>
