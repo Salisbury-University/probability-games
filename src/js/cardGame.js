@@ -1,13 +1,12 @@
 // ship.js: this file is the javascript implementation of
 // the 12-card dice game
 // it includes the pixijs code for generating the cards, chips, dice, scoreboards, and roll button
+// run http-server like this on linux: 
 // $ http-server -c-1 -a localhost -p 8000 /path/to/project
-//
+// -c-1 so that the cache refreshes and page is updated when javascript is
+
 // TODO:
-// make a table
-//  contains: originally placed chips, and amount of times certain sums were rolled
 // make chips of stacks clickable to remove chips
-// make play again button
 // rework the file be more structured
 
 // constants for arrays holding values for p1 and p2
@@ -29,7 +28,6 @@ const AnimatedSprite = PIXI.AnimatedSprite;
 // create window height variable
 const windowWidth = document.body.clientWidth;
 const windowHeight = window.innerHeight;
-
 
 // text styles
 // sytle for the numbers on the cards
@@ -101,7 +99,7 @@ class Stack {
 let app = new PIXI.Application({
   backgroundColor: 0xffffff,
   width: windowWidth,
-  height: windowHeight
+  height: windowHeight * .63
 });
 
 let originalPrompt = "Player 1 place a chip";
@@ -173,8 +171,8 @@ let cards = [];
 let titles = [];
 let cardChips1 = [];
 let cardChips2 = [];
-var chipNumbers1 = new Array(11);
-var chipNumbers2 = new Array(11);
+var chipStack1 = new Array(11);
+var chipStack2 = new Array(11);
 let chipsPlaced1 = new Array(11);
 let chipsPlaced2 = new Array(11);
 for (let i = 0; i < 11; i++) {
@@ -195,8 +193,8 @@ for (i = 0; i < 11; i++) {
 
   cardChips1[j] = 0;
   cardChips2[j] = 0;
-  chipNumbers1[j] = new Stack;
-  chipNumbers2[j] = new Stack;
+  chipStack1[j] = new Stack;
+  chipStack2[j] = new Stack;
   cards[i] = new Graphics;
   cards[i].beginFill(cardColor);
   cards[i].lineStyle(2, cardBorderColor, 4);
@@ -351,7 +349,7 @@ function cardClick(cardNumber) {
     });
 
     // update which chip got sent to which card
-    chipNumbers1[cardNumber].push(currChip1);
+    chipStack1[cardNumber].push(currChip1);
 
     // increment the number of chips on card cardNumber
     cardChips1[cardNumber] += 1;
@@ -405,7 +403,7 @@ function cardClick(cardNumber) {
     });
 
     // update which chip got sent to which card
-    chipNumbers2[cardNumber].push(currChip2);
+    chipStack2[cardNumber].push(currChip2);
 
     // increment the number of chips on card cardNumber
     cardChips2[cardNumber] += 1;
@@ -485,7 +483,7 @@ function roll() {
         // chip is removed from the card
         if (cardChips1[totalRolled - 2] > 0) {
           // remove the chip that was rolled
-          app.stage.removeChild(chips1[chipNumbers1[totalRolled - 2].pop()]);
+          app.stage.removeChild(chips1[chipStack1[totalRolled - 2].pop()]);
           scoreboard[PLAYER_1] -= 1;
           cardChips1[totalRolled - 2] -= 1;
           player1ScoreText.text = scoreboard[PLAYER_1];
@@ -499,7 +497,7 @@ function roll() {
         // chip is removed from the card
         if (cardChips2[totalRolled - 2] > 0) {
           // remove the chip that was rolled
-          app.stage.removeChild(chips2[chipNumbers2[totalRolled - 2].pop()]);
+          app.stage.removeChild(chips2[chipStack2[totalRolled - 2].pop()]);
           scoreboard[PLAYER_2] -= 1;
           cardChips2[totalRolled - 2] -= 1;
           player2ScoreText.text = scoreboard[PLAYER_2];
