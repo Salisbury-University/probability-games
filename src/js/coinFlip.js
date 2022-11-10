@@ -7,12 +7,12 @@
 			// coin is heads
 			if (randomNumber < .5) {
 				document.querySelector("h1").innerHTML = "You got HEADS!";
-				document.getElementById("coin").setAttribute("src", "images/coinHead.png");
+				document.getElementById("coin").setAttribute("src", "../images/coinHead.png");
 			} 
 			// coin is tails
 			else {
 				document.querySelector("h1").innerHTML = "You got TAILS!";
-				document.getElementById("coin").setAttribute("src", "images/coinTail.png");
+				document.getElementById("coin").setAttribute("src", "../images/coinTail.png");
 			}
 		}
 
@@ -106,7 +106,7 @@
 			if(isWeighted == 1)
 				document.querySelector("h2").innerHTML = "You are Correct!";
 			else
-				document.querySelector("h2").innerHTML = "You are Inorrect";
+				document.querySelector("h2").innerHTML = "You are Incorrect";
 		}
 
 		function ifNotWeighted() {
