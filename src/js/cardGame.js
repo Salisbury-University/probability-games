@@ -119,6 +119,12 @@ function updatePrompt(newMessage) {
   app.stage.addChild(prompt);
 }
 
+function updatePrompt(newMessage) {
+  prompt.text = newMessage;
+  prompt.x = windowWidth * 0.5 - (newMessage.length * (promptStyle.fontSize * 0.46) / 2);
+  app.stage.addChild(prompt);
+}
+
 // base url of dice images
 app.loader.baseUrl = "../images/";
 
@@ -195,6 +201,7 @@ for (i = 0; i < 11; i++) {
   cardChips2[j] = 0;
   chipStack1[j] = new Stack;
   chipStack2[j] = new Stack;
+
   cards[i] = new Graphics;
   cards[i].beginFill(cardColor);
   cards[i].lineStyle(2, cardBorderColor, 4);
@@ -568,3 +575,5 @@ app.stage.addChild(prompt);
 function playAgain() {
   location.reload();
 }
+
+app.stage.addChild(prompt);
