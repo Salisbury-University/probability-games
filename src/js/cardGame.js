@@ -3,10 +3,67 @@
 // it includes the pixijs code for generating the cards, chips, dice, scoreboards, and roll button
 // $ http-server -c-1 -a localhost -p 8000 /path/to/project
 //
-// NEXT: make chips of stacks clickable to remove chips
+// TODO:
+// make a table
+//  contains: originally placed chips, and amount of times certain sums were rolled
+// make chips of stacks clickable to remove chips
+// make play again button
+// rework the file be more structured
 
+// constants for arrays holding values for p1 and p2
 const PLAYER_1 = 0;
 const PLAYER_2 = 1;
+
+// color scheme
+const teal = 0x177e89;
+const oceanic = 0x084c61;
+const red = 0xdb3a34;
+const yellow = 0xffc857;
+const charcoal = 0x323031;
+
+const Graphics = PIXI.Graphics;
+const Text = PIXI.Text;
+const Sprite = PIXI.Sprite;
+const AnimatedSprite = PIXI.AnimatedSprite;
+
+// create window height variable
+const windowWidth = document.body.clientWidth;
+const windowHeight = window.innerHeight;
+
+
+// text styles
+// sytle for the numbers on the cards
+var cardStyle = new PIXI.TextStyle({
+  dropShadow: true,
+  dropShadowAlpha: 0.5,
+  dropShadowDistance: 5,
+  fill: red,
+  fontFamily: "\"Arial Black\", Gadget, sans-serif",
+  fontSize: windowWidth * .02,
+  fontWeight: "bolder",
+  lineJoin: "round",
+  strokeThickness: 1
+});
+
+// winning text's style
+var winStyle = new PIXI.TextStyle({
+  fill: red,
+  fontFamily: "\"Arial Black\", Gadget, sans-serif",
+  fontSize: windowWidth * .02,
+  fontWeight: "bolder",
+  lineJoin: "round",
+  strokeThickness: 1
+});
+
+//prompt's text style
+var promptStyle = new PIXI.TextStyle({
+  fontFamily: "\"Arial Black\", Gadget, sans-serif",
+  fontSize: windowWidth * .02,
+  fontWeight: "bold",
+});
+
+// buttons / sheet
+let dice1, dice2, rollButton, dice1oll, dice2Roll, sheet;
 
 // Stack class
 class Stack {
@@ -40,37 +97,11 @@ class Stack {
   }
 }
 
-const Graphics = PIXI.Graphics;
-const Text = PIXI.Text;
-const Sprite = PIXI.Sprite;
-const AnimatedSprite = PIXI.AnimatedSprite;
-
-// color scheme
-const teal = 0x177e89;
-const oceanic = 0x084c61;
-const red = 0xdb3a34;
-const yellow = 0xffc857;
-const charcoal = 0x323031;
-
-// buttons / sheet
-let dice1, dice2, rollButton, dice1Roll, dice2Roll, sheet;
-
-// create window height variable
-var windowWidth = document.body.clientWidth;
-var windowHeight = window.innerHeight;
-
 //create Application Window
 let app = new PIXI.Application({
   backgroundColor: 0xffffff,
   width: windowWidth,
   height: windowHeight
-});
-
-//prompt's text style
-var promptStyle = new PIXI.TextStyle({
-  fontFamily: "\"Arial Black\", Gadget, sans-serif",
-  fontSize: windowWidth * .02,
-  fontWeight: "bold",
 });
 
 let originalPrompt = "Player 1 place a chip";
@@ -91,7 +122,7 @@ function updatePrompt(newMessage) {
 }
 
 // base url of dice images
-app.loader.baseUrl = "../../images/";
+app.loader.baseUrl = "../images/";
 
 // load and name all dice images
 app.loader.add("dice1", "dice1.png")
@@ -114,15 +145,15 @@ cardWindow.drawRect(0, 0, windowWidth, windowHeight * .32);
 app.stage.addChild(cardWindow);
 
 //create player names with styling
-var player1 = new Text("PLAYER 1", { fontSize: windowWidth * .02, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold", fill: red });
-var player2 = new Text("PLAYER 2", { fontSize: windowWidth * .02, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold", fill: teal });
-var player1ScoreText = new Text("0", { fontSize: windowWidth * .07, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold" });
-var player2ScoreText = new Text("0", { fontSize: windowWidth * .07, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold" });
+var player1 = new Text("PLAYER 1\nRemaining Chips:", { fontSize: windowWidth * .02, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold", fill: red, align: 'center' });
+var player2 = new Text("PLAYER 2\nRemaining Chips:", { fontSize: windowWidth * .02, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold", fill: teal, align: 'center' });
+var player1ScoreText = new Text("0", { fontSize: windowWidth * .07, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold", align: 'center' });
+var player2ScoreText = new Text("0", { fontSize: windowWidth * .07, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold", align: 'center' });
 var scoreboard = [0, 0];
 
 // position and size the text based on window size
-player1.x = windowWidth * .08;
-player2.x = windowWidth * .81;
+player1.x = windowWidth * .06;
+player2.x = windowWidth * .73;
 player1ScoreText.x = windowWidth * .13;
 player2ScoreText.x = windowWidth * .8;
 
@@ -144,6 +175,12 @@ let cardChips1 = [];
 let cardChips2 = [];
 var chipNumbers1 = new Array(11);
 var chipNumbers2 = new Array(11);
+let chipsPlaced1 = new Array(11);
+let chipsPlaced2 = new Array(11);
+for (let i = 0; i < 11; i++) {
+  chipsPlaced1[i] = 0;
+  chipsPlaced2[i] = 0;
+}
 
 //constant card dimension values
 var cardHeight = windowHeight * .21;
@@ -151,19 +188,6 @@ var cardWidth = windowWidth * .06;
 var cornerRadius = 6;
 const cardBorderColor = charcoal;
 const cardColor = yellow;
-
-// pixijs style object for card number text
-var style = new PIXI.TextStyle({
-  dropShadow: true,
-  dropShadowAlpha: 0.5,
-  dropShadowDistance: 5,
-  fill: red,
-  fontFamily: "\"Arial Black\", Gadget, sans-serif",
-  fontSize: windowWidth * .02,
-  fontWeight: "bolder",
-  lineJoin: "round",
-  strokeThickness: 1
-});
 
 // create the cards at the top of the application screen
 for (i = 0; i < 11; i++) {
@@ -186,7 +210,7 @@ for (i = 0; i < 11; i++) {
     .on('pointerout', (event) => hoverOut(cards[j]));
   cards[i].endFill();
 
-  titles[i] = new Text(i + 2, style);
+  titles[i] = new Text(i + 2, cardStyle);
   if (i < 8) {
     titles[i].x = cards[i].x + ((cardWidth / 2) * .75);
   }
@@ -219,7 +243,7 @@ for (i = 0; i < 10; i++) {
   chips1[i].drawEllipse(0, 0, chipWidth, chipHeight);    // position + size of the ellipse (topleft x, topleft y, height, width)
   chips2[i].drawEllipse(0, 0, chipWidth, chipHeight);
   chips1[i].x = windowWidth * .09;
-  chips2[i].x = windowWidth * .9;
+  chips2[i].x = windowWidth * .88;
   chips1[i].y = (((windowHeight + player1.y - 100) * .55) - i * (windowHeight * .011)) * .85;
   chips2[i].y = (((windowHeight + player2.y - 100) * .55) - i * (windowHeight * .011)) * .85;
   chips1[i].endFill();                         // draws the ellipse
@@ -276,6 +300,8 @@ var playerTurn = 1;
 // players sending chips to their cards
 function cardClick(cardNumber) {
 
+  // document.getElementById("border").hidden = false;
+
   // how many ticks take place in the animation
   let ticks = 20;
 
@@ -329,6 +355,7 @@ function cardClick(cardNumber) {
 
     // increment the number of chips on card cardNumber
     cardChips1[cardNumber] += 1;
+    chipsPlaced1[cardNumber] += 1;
 
     // increment current chip counter
     updatePrompt("Player 2 place a chip");
@@ -382,6 +409,7 @@ function cardClick(cardNumber) {
 
     // increment the number of chips on card cardNumber
     cardChips2[cardNumber] += 1;
+    chipsPlaced2[cardNumber] += 1;
 
     // decrement current chip counter
     updatePrompt("Player 1 place a chip");
@@ -500,26 +528,37 @@ function roll() {
       // also, the fstring literals aren't working right
       if (scoreboard[PLAYER_1] == 0) {
         winStr = `Player 1 won in ${numRolls[PLAYER_1]} rolls!`;
-        style.fill = red;
-        style.dropShadow = false;
+        winStyle.fill = red;
       }
       else if (scoreboard[PLAYER_2] == 0) {
         winStr = `Player 2 won in ${numRolls[PLAYER_2]} rolls!`;
-        style.fill = teal;
-        style.dropShadow = false;
+        winStyle.fill = teal;
       }
 
       console.log(winStr);
-      winText = new Text(winStr, style);
-      winText.x = windowWidth * 0.5 - (winStr.length * (style.fontSize * 0.46) / 2);
+      winText = new Text(winStr, winStyle);
+      winText.x = windowWidth * 0.5 - (winStr.length * (winStyle.fontSize * 0.46) / 2);
       winText.y = windowHeight * 0.34;
 
       // so this if condition will not be entered again
       scoreboard[PLAYER_1] = -1;
       scoreboard[PLAYER_2] = -1;
 
-      app.stage.addChild(winText);
+      app.height = 100;
+      for (var i = app.stage.children.length - 1; i >= 0; i--) { app.stage.removeChild(app.stage.children[i]); };
 
+      // app.stage.addChild(winText);
+      document.getElementById("win-header").innerHTML = winStr;
+      document.getElementById("play-again-button").onclick = function() { playAgain(); };
+
+      // get rid of all the gameplay objects
+      for (let i = 0; i < 11; i++) {
+        let j = i;
+        document.getElementById(`r1c${j + 1}`).innerHTML = chipsPlaced1[j];
+        document.getElementById(`r2c${j + 1}`).innerHTML = chipsPlaced2[j];
+      }
+
+      document.getElementById("border").hidden = false;
     }
 
   });
@@ -527,3 +566,7 @@ function roll() {
 }
 
 app.stage.addChild(prompt);
+
+function playAgain() {
+  location.reload();
+}
