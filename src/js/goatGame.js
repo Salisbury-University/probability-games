@@ -62,11 +62,25 @@ function stepOne(doorChose) {
     remainderDoor = remainderDoor - (revealGoat + 1);
     doorChoice = remainderDoor;
 
-    //now display modal with custom string
+    var goatButton = "buttonDoor" + revealGoat;
+    var switchDoorButton = "buttonDoor" + doorChoice;
+    document.getElementById(goatButton).disabled = true;
+    document.getElementById(switchDoorButton).disabled = true;
+    document.getElementById("revealGoatText").innerHTML = "Goat is located at Door " + (revealGoat + 1);
+
     document.getElementById("currentDoorChosen").innerHTML = "You choose Door " + (doorChose + 1);
     document.getElementById("goatLocationDescription").innerHTML = "Goat is located at Door " + (revealGoat + 1);
     document.getElementById("whatToDoNext").innerHTML = "Would you like to switch to Door " + (doorChoice + 1);
+
+    $('#goatRevealModal').modal('show');
+}
+
+function intermediateStep() {
     $('#goatLocationModal').modal('show');
+}
+
+function secondIntermediate(){
+    $('#resultsModal').modal('show');
 }
 
 function stepTwo(keptDoor) {
@@ -79,28 +93,14 @@ function stepTwo(keptDoor) {
     }
 
     var userDoorChoice = "door" + doorChoice;
+if(doorChoice == carLocation){
+    document.getElementById(userDoorChoice).src = carImg;
+}else
+    document.getElementById(userDoorChoice).src = goatImg;
 
     document.getElementById(userDoorChoice).style.boxShadow = "0 0 100px greenyellow";
 
-    if (Doors[0] == 0)
-        document.getElementById("door0").src = goatImg;
-    else
-        document.getElementById("door0").src = carImg;
-
-    if (Doors[1] == 0)
-        document.getElementById("door1").src = goatImg;
-    else
-        document.getElementById("door1").src = carImg;
-
-    if (Doors[2] == 0)
-        document.getElementById("door2").src = goatImg;
-    else
-        document.getElementById("door2").src = carImg;
-
     updateStats(doorChoice, keptDoor);
-    document.getElementById("buttonDoor0").disabled = true;
-    document.getElementById("buttonDoor1").disabled = true;
-    document.getElementById("buttonDoor2").disabled = true;
     printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoor, keptDoorLost);
 
     if (doorChoice == carLocation) {
@@ -108,7 +108,25 @@ function stepTwo(keptDoor) {
     } else {
         document.getElementById("results").innerHTML = "You Lose!";
     }
-    $('#resultsModal').modal('show');
+   
+    setTimeout(secondIntermediate,500);
+}
+
+function finalFunction(){
+    if (Doors[0] == 0)
+    document.getElementById("door0").src = goatImg;
+else
+    document.getElementById("door0").src = carImg;
+
+if (Doors[1] == 0)
+    document.getElementById("door1").src = goatImg;
+else
+    document.getElementById("door1").src = carImg;
+
+if (Doors[2] == 0)
+    document.getElementById("door2").src = goatImg;
+else
+    document.getElementById("door2").src = carImg;
 }
 
 function determineKeep(number) {
@@ -159,8 +177,8 @@ function simulateGame() {
     var timesPlayed = document.getElementById("amountTimesToRun").value;
 
     var timesSwitched = document.getElementById("amountToSwitch").value;
-   $('simulationModal').modal('show');
- 
+    $('simulationModal').modal('show');
+
     switchDoor = isKept;
     for (var i = 0; i < timesPlayed; i++) {
         playAgain();

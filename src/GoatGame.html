@@ -72,7 +72,7 @@
             </div>
             <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
-                <img class="img-responsive" onclick="chooseDoor(1)" src="../images/ClosedDoor.png" width="300px"
+                <img class="img-responsive" src="../images/ClosedDoor.png" width="300px"
                     height="400px" alt="Door 2" id="door1">
                 <button onclick="stepOne(1)" class="btns" id="buttonDoor1"> Door 2</button>
 
@@ -124,7 +124,7 @@
     <div>
         <!-- These are all modals-->
 
-        <!-- Modal to be displayed for where goat is located -->
+        <!-- Modal to be displayed for results -->
         <div class="modal fade" id="resultsModal" tabindex="-1" role="dialog" aria-labelledby="resultsModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -136,7 +136,7 @@
                         <p id="results">Temporary Text</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="setTimeout(finalFunction,500)">Close</button>
                     </div>
                 </div>
             </div>
@@ -155,6 +155,23 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Start The Game!</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Displays goat is located at door X-->
+        <div class="modal fade" id="goatRevealModal" tabindex="-1" role="dialog"  aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Where is One Goat Located</h5>
+                    </div>
+                    <div class="modal-body">
+                        <p id="revealGoatText">Temporary Text</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" onclick="setTimeout(intermediateStep,1000)" class="btn btn-secondary" data-bs-dismiss="modal">Continue</button>
                     </div>
                 </div>
             </div>
