@@ -111,7 +111,6 @@ class Stack {
   }
   contains(val) {
     for (let i = 0; i < this.items.length; i++) {
-      console.log(this.items[i]);
       if (this.items[i] == val) {
         return true;
       }
@@ -513,7 +512,7 @@ function roll() {
 
           clickableCard = totalRolled - 2;
         }
-        else {
+        else { // move to player 2's turn
           updatePrompt("Player 2's roll", PLAYER_2);
           playerTurn = 2;
           rollButton.interactive = true;
@@ -529,7 +528,7 @@ function roll() {
 
           clickableCard = totalRolled - 2;
         }
-        else {
+        else { // move to player 1's turn
           updatePrompt("Player 1's roll", PLAYER_1);
           playerTurn = 1;
           rollButton.interactive = true;
@@ -602,35 +601,34 @@ function chipClick(chipNo, player) {
   console.log("player 2: ", chipStack2[clickableCard].contains(chipNo));
 
   if (clickableCard != -1) {
-    if (player == PLAYER_1) {
+    if (playerTurn == 1 && playerTurn == player + 1) {
       if (chipStack1[clickableCard].contains(chipNo)) {
-        rollButton.interactive = false;
-        updatePrompt("Player 1 remove chip", PLAYER_1);
-        console.log("removing ", chipNo);
 
-        // remove the chip that was rolled
+        // remove the chip
         app.stage.removeChild(chips1[chipStack1[clickableCard].pop()]);
         scoreboard[PLAYER_1] -= 1;
         cardChips1[clickableCard] -= 1;
         player1ScoreText.text = scoreboard[PLAYER_1];
         app.stage.addChild(player1ScoreText);
 
+        // allow game to continue
         rollButton.interactive = true;
         updatePrompt("Player 2's roll", PLAYER_2);
         playerTurn = 2;
         clickableCard = -1;
       }
     }
-    else if (player == PLAYER_2) {
+    else if (playerTurn == 2 && playerTurn == player + 1) {
       if (chipStack2[clickableCard].contains(chipNo)) {
 
-        //remove the chips
+        //remove the chip
         app.stage.removeChild(chips2[chipStack2[clickableCard].pop()]);
         scoreboard[PLAYER_2] -= 1;
         cardChips2[clickableCard] -= 1;
         player2ScoreText.text = scoreboard[PLAYER_2];
         app.stage.addChild(player2ScoreText);
 
+        // allow game to continue
         rollButton.interactive = true;
         updatePrompt("Player 1's roll", PLAYER_1);
         playerTurn = 1;
