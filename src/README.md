@@ -35,11 +35,19 @@
 
 ## Coin Flip
 ### How to Play
+- Instructions
+	1. The player can flip the coin as many times as they'd like
+	2. The results of the amount of times each side (heads or tails) was landed on will display
+	3. The player must then guess if the coin is weighted or not weighted based on the results
 ### Features
 ### Backlog
 
 ## Dice Roll
 ### How to Play
+- Instructions
+	1. The player can flip the dice as many times as they'd like
+	2. The results of the amount of times each side (1-6) was landed on will display
+	3. The player must then guess if the dice is weighted or not weighted based on the results
 ### Features
 ### Backlog
 
