@@ -108,7 +108,9 @@ if(doorChoice == carLocation){
     } else {
         document.getElementById("results").innerHTML = "You Lose!";
     }
-   
+    document.getElementById("buttonDoor0").disabled = true;
+    document.getElementById("buttonDoor1").disabled = true;
+    document.getElementById("buttonDoor2").disabled = true;
     setTimeout(secondIntermediate,500);
 }
 
