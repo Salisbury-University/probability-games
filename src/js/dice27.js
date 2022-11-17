@@ -1,4 +1,7 @@
 const baseTotal = 27;
+const windowWidth = document.body.clientWidth;
+const windowHeight = window.innerHeight;
+
 var currTotal = 27;
 var turn = true;
 var rolls = [];
@@ -11,6 +14,14 @@ document.getElementById("player1").innerHTML = scoreboard[1];
 for(let i = 0; i <= baseTotal; i++){
     rolls[i] = 0;
 }
+
+let app = new PIXI.Application({
+    backgroundColor: 0x00000,
+    width: windowWidth,
+    height: windowHeight * .25
+  });
+
+  document.getElementById("app").appendChild(app.view);
 
 
 function roll(){
