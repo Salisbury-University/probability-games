@@ -22,11 +22,11 @@ function roll(){
 
     //determine whos turn it is and prep for next roll
     if(turn){
-        player = 1;
+        player = 0;
         turn = false;
     }
     else{
-        player = 0;
+        player = 1;
         turn = true;
     }
 
