@@ -57,10 +57,12 @@
             </div>
         </div>
         <div class="row">
-            <img id="dice" src="../images/dice1.png">
+            <img id="dice" src="../images/dice1.png" hidden>
         </div>
+        <br>
         <div class="row">
-            <button id="rollButton" type="button" class="btn btn-primary btn-lg" onclick="roll()">Roll</button>
+            <button id="createGame" type="button" class="btn btn-success btn-lg" onclick="createGame()">Play Game</button>
+            <button id="rollButton" type="button" class="btn btn-primary btn-lg" onclick="roll()" hidden>Roll</button>
             <button id="resetButton" type="button" class="btn btn-danger btn-lg" onclick="reset()" hidden>Reset</button>
         </div>
         <br>
