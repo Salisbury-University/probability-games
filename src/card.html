@@ -7,7 +7,7 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <link rel="stylesheet" href="css/card.css" type="text/css">
+  <link rel="stylesheet" href="../css/card.css" type="text/css">
 
 
   <title>2-12 Card Game</title>
@@ -31,60 +31,58 @@
   </nav>
 
   <span class="border-top border-right border-left" id="border" hidden>
-    <div class="p-3 text-center bg-light">
-      <h1 class="mb-2" id="win-header">Player Chip Placements</h1>
+    <h1 class="mb-2 p-3 text-center bg-light" id="win-header">Player _ Won in _ rolls!</h1>
+    <h3 class="mb-2 p-2 text-center">Player Chip Placements:</h3>
+    <div class="col text-center">
+      <table class="table table-hover table-sm" id="table1">
+        <thead>
+          <tr>
+            <th scope="col">Player #</th>
+            <th scope="col">Card 2</th>
+            <th scope="col">Card 3</th>
+            <th scope="col">Card 4</th>
+            <th scope="col">Card 5</th>
+            <th scope="col">Card 6</th>
+            <th scope="col">Card 7</th>
+            <th scope="col">Card 8</th>
+            <th scope="col">Card 9</th>
+            <th scope="col">Card 10</th>
+            <th scope="col">Card 11</th>
+            <th scope="col">Card 12</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td id="r1c1">-</td>
+            <td id="r1c2">-</td>
+            <td id="r1c3">-</td>
+            <td id="r1c4">-</td>
+            <td id="r1c5">-</td>
+            <td id="r1c6">-</td>
+            <td id="r1c7">-</td>
+            <td id="r1c8">-</td>
+            <td id="r1c9">-</td>
+            <td id="r1c10">-</td>
+            <td id="r1c11">-</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td id="r2c1">-</td>
+            <td id="r2c2">-</td>
+            <td id="r2c3">-</td>
+            <td id="r2c4">-</td>
+            <td id="r2c5">-</td>
+            <td id="r2c6">-</td>
+            <td id="r2c7">-</td>
+            <td id="r2c8">-</td>
+            <td id="r2c9">-</td>
+            <td id="r2c10">-</td>
+            <td id="r2c11">-</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="p-2 text-center bg-light">
-      <h3 class="mb-2">Player Chip Placements</h3>
-    </div>
-    <table class="table table-bordered" id="table1">
-      <thead>
-        <tr>
-          <th scope="col">Player #</th>
-          <th scope="col">2</th>
-          <th scope="col">3</th>
-          <th scope="col">4</th>
-          <th scope="col">5</th>
-          <th scope="col">6</th>
-          <th scope="col">7</th>
-          <th scope="col">8</th>
-          <th scope="col">9</th>
-          <th scope="col">10</th>
-          <th scope="col">11</th>
-          <th scope="col">12</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td id="r1c1">0</td>
-          <td id="r1c2">0</td>
-          <td id="r1c3">0</td>
-          <td id="r1c4">0</td>
-          <td id="r1c5">0</td>
-          <td id="r1c6">0</td>
-          <td id="r1c7">0</td>
-          <td id="r1c8">0</td>
-          <td id="r1c9">0</td>
-          <td id="r1c10">0</td>
-          <td id="r1c11">0</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td id="r2c1">0</td>
-          <td id="r2c2">0</td>
-          <td id="r2c3">0</td>
-          <td id="r2c4">0</td>
-          <td id="r2c5">0</td>
-          <td id="r2c6">0</td>
-          <td id="r2c7">0</td>
-          <td id="r2c8">0</td>
-          <td id="r2c9">0</td>
-          <td id="r2c10">0</td>
-          <td id="r2c11">0</td>
-        </tr>
-      </tbody>
-    </table>
     <div class="col text-center">
       <button type="button" class="btn btn-primary" id="play-again-button">Play Again</button>
     </div>
@@ -98,41 +96,48 @@
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
 
-    <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  How to Play
-</button>
+  <!-- Button trigger modal -->
+  <br></br>
+  <br></br>
+  <br></br>
+  <div class="col text-center" id="helpButton">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      How to Play
+    </button>
+  </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">How to Play</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <ol>
-          <li>Player 1 adds a chip to a card.</li>
-          <li>Player 2 adds a chip to a card.</li>
-          <li>Repeat Steps 1-2 until both players have no chips remaining.</li>
-          <li>Player 1 rolls the two dice and adds the sum of the dice.</li>
-          <dl>If: Player 1 has a chip on the card equal to the sum of the dice remove the chip and get a point.</dl>
-          <dl>Else: Remove no chips from the cards and get no points.</dl>
-          <li>Player 2 rolls the two dice and adds the sum of the dice.</li>
-          <dl>If: Player 2 has a chip on the card equal to the sum of the dice remove the chip and get a point.</dl>
-          <dl>Else: Remove no chips from the cards and get no points.</dl>
-          <li>Repeat steps 4 - 5 until either Player 1 or 2 reach 10 points and Win the Game.</li>
-        </ol>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">How to Play</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ol>
+            <li>Player 1 adds a chip to a card.</li>
+            <li>Player 2 adds a chip to a card.</li>
+            <li>Repeat Steps 1-2 until both players have no chips remaining.</li>
+            <li>Player 1 rolls the two dice and adds the sum of the dice.</li>
+            <dl>If: Player 1 has a chip on the card equal to the sum of the dice remove the chip and get a point.</dl>
+            <dl>Else: Remove no chips from the cards and get no points.</dl>
+            <li>Player 2 rolls the two dice and adds the sum of the dice.</li>
+            <dl>If: Player 2 has a chip on the card equal to the sum of the dice remove the chip and get a point.</dl>
+            <dl>Else: Remove no chips from the cards and get no points.</dl>
+            <li>Repeat steps 4 - 5 until either Player 1 or 2 reach 10 points and Win the Game.</li>
+          </ol>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-    
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

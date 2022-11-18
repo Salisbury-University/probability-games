@@ -9,7 +9,8 @@ Doors[carLocation] = 1;
 var gamesPlayed = 0;
 var gamesWon = 0;
 var gamesLost = 0;
-var keptDoor = 0;
+var keptDoor = false;
+var keptDoorWon = 0;
 var switchDoors = 0;
 var switchDoorGames = 0;
 var keptDoorsGames = 0;
@@ -45,6 +46,13 @@ function playAgain() {
     document.getElementById("door0").style.boxShadow = "none";
     document.getElementById("door1").style.boxShadow = "none";
     document.getElementById("door2").style.boxShadow = "none";
+
+    document.getElementById("titleSentence").innerHTML = "Welcome to Monty Hall's Problem!"
+    document.getElementById("firstSentenceID").innerHTML = "There are <b>three</b> doors in front of you. There are <b>two</b> goats, and <b>one</b> car";
+    document.getElementById("continueButton").setAttribute("hidden", "hidden");
+    document.getElementById("switchDoorsButton").setAttribute("hidden", "hidden");
+    document.getElementById("keepDoorsButton").setAttribute("hidden", "hidden");
+
 } //end of play again
 
 function stepOne(doorChose) {
@@ -66,21 +74,24 @@ function stepOne(doorChose) {
     var switchDoorButton = "buttonDoor" + doorChoice;
     document.getElementById(goatButton).disabled = true;
     document.getElementById(switchDoorButton).disabled = true;
-    document.getElementById("revealGoatText").innerHTML = "Goat is located at Door " + (revealGoat + 1);
 
-    document.getElementById("currentDoorChosen").innerHTML = "You choose Door " + (doorChose + 1);
-    document.getElementById("goatLocationDescription").innerHTML = "Goat is located at Door " + (revealGoat + 1);
-    document.getElementById("whatToDoNext").innerHTML = "Would you like to switch to Door " + (doorChoice + 1);
-
-    $('#goatRevealModal').modal('show');
+    document.getElementById("titleSentence").innerHTML = "Here is a goat!"
+    document.getElementById("firstSentenceID").innerHTML = "This Goat is Located at Door " + (revealGoat + 1);
+    document.getElementById("continueButton").removeAttribute("hidden");
 }
 
 function intermediateStep() {
-    $('#goatLocationModal').modal('show');
+    document.getElementById("continueButton").setAttribute("hidden", "hidden");
+    document.getElementById("titleSentence").innerHTML = "What to do next!"
+    document.getElementById("firstSentenceID").innerHTML = "You choose <b>Door " + (globalDoorChose + 1) +
+        "</b><br> There is a Goat located at <b>Door " + (revealGoat + 1) + "</b><br> Would you like to switch to <b>Door " + (doorChoice + 1) + "</b>";
+    document.getElementById("switchDoorsButton").removeAttribute("hidden");
+    document.getElementById("keepDoorsButton").removeAttribute("hidden");
+
 }
 
-function secondIntermediate(){
-    $('#resultsModal').modal('show');
+function secondIntermediate() {
+    document.getElementById("titleSentence").innerHTML = "Results!"
 }
 
 function stepTwo(keptDoor) {
@@ -93,43 +104,47 @@ function stepTwo(keptDoor) {
     }
 
     var userDoorChoice = "door" + doorChoice;
-if(doorChoice == carLocation){
-    document.getElementById(userDoorChoice).src = carImg;
-}else
-    document.getElementById(userDoorChoice).src = goatImg;
+    if (doorChoice == carLocation) {
+        document.getElementById(userDoorChoice).src = carImg;
+    } else
+        document.getElementById(userDoorChoice).src = goatImg;
 
     document.getElementById(userDoorChoice).style.boxShadow = "0 0 100px greenyellow";
 
     updateStats(doorChoice, keptDoor);
-    printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoor, keptDoorLost);
+    printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
 
     if (doorChoice == carLocation) {
-        document.getElementById("results").innerHTML = "You Win!";
+        document.getElementById("firstSentenceID").innerHTML = "You Win!";
     } else {
-        document.getElementById("results").innerHTML = "You Lose!";
+        document.getElementById("firstSentenceID").innerHTML = "You Lose!";
     }
-   
-    setTimeout(secondIntermediate,500);
+    document.getElementById("buttonDoor0").disabled = true;
+    document.getElementById("buttonDoor1").disabled = true;
+    document.getElementById("buttonDoor2").disabled = true;
+    setTimeout(secondIntermediate, 500);
 }
 
-function finalFunction(){
+function finalFunction() {
     if (Doors[0] == 0)
-    document.getElementById("door0").src = goatImg;
-else
-    document.getElementById("door0").src = carImg;
+        document.getElementById("door0").src = goatImg;
+    else
+        document.getElementById("door0").src = carImg;
 
-if (Doors[1] == 0)
-    document.getElementById("door1").src = goatImg;
-else
-    document.getElementById("door1").src = carImg;
+    if (Doors[1] == 0)
+        document.getElementById("door1").src = goatImg;
+    else
+        document.getElementById("door1").src = carImg;
 
-if (Doors[2] == 0)
-    document.getElementById("door2").src = goatImg;
-else
-    document.getElementById("door2").src = carImg;
+    if (Doors[2] == 0)
+        document.getElementById("door2").src = goatImg;
+    else
+        document.getElementById("door2").src = carImg;
 }
 
 function determineKeep(number) {
+    document.getElementById("switchDoorsButton").setAttribute("hidden", "hidden");
+    document.getElementById("keepDoorsButton").setAttribute("hidden", "hidden");
     if (number == 0)
         isKept = true;
     else
@@ -159,7 +174,7 @@ function updateStats(x, isKept) {
         if (isKept)
             switchDoors++;
         else
-            keptDoor++;
+            keptDoorWon++;
     } else {
 
         if (isKept)
@@ -234,7 +249,7 @@ function simulateGame() {
         }
     }//end of for loop
 
-    printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoor, keptDoorLost);
+    printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
 }//end of simulate game
 
 
@@ -242,7 +257,7 @@ function resetStats() {
     gamesPlayed = 0;
     gamesWon = 0;
     gamesLost = 0;
-    keptDoor = 0;
+    keptDoorWon = 0;
     switchDoors = 0;
     switchDoorGames = 0;
     keptDoorsGames = 0;
@@ -257,11 +272,11 @@ function resetStats() {
     document.getElementById("buttonDoor2").disabled = false;
 
     playAgain();
-    printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoor, keptDoorLost);
+    printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
 
 }
 
-function printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoor, keptDoorLost) {
+function printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost) {
 
     document.getElementById("gamesPlayed").innerHTML = "Total Games Played: " + gamesPlayed;
     if (gamesWon != 0)
@@ -293,10 +308,10 @@ function printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, swit
 
 
     document.getElementById("keptDoorsGames").innerHTML = "Total Games where kept door: " + keptDoorsGames;
-    if (keptDoor != 0)
-        document.getElementById("keptDoorsWon").innerHTML = "Kept doors and won: " + keptDoor + " (" + (((1.0 * keptDoor) / keptDoorsGames) * 100).toFixed(2) + "%)";
+    if (keptDoorWon != 0)
+        document.getElementById("keptDoorsWon").innerHTML = "Kept doors and won: " + keptDoorWon + " (" + (((1.0 * keptDoorWon) / keptDoorsGames) * 100).toFixed(2) + "%)";
     else
-        document.getElementById("keptDoorsWon").innerHTML = "Kept doors and won: " + keptDoor + " (0%)";
+        document.getElementById("keptDoorsWon").innerHTML = "Kept doors and won: " + keptDoorWon + " (0%)";
 
     if (keptDoorLost != 0)
         document.getElementById("keptDoorsLose").innerHTML = "Kept doors and lost: " + keptDoorLost + " (" + (((1.0 * keptDoorLost) / keptDoorsGames) * 100).toFixed(2) + "%)";

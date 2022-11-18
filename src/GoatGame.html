@@ -19,11 +19,6 @@
 
     <script src="pixi.min.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            $('#popUpModal').modal('show');
-        }); 
-    </script>
 </head>
 
 
@@ -34,7 +29,7 @@
 
     <nav class="navbar navbar-expand-lg" style="background-color: #124E78;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="home.html" style="color:white"><img src="../../images/logo.png"
+            <a class="navbar-brand" href="home.html" style="color:white"><img src="../images/logo.png"
                     style="max-height: 50px;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -60,7 +55,7 @@
 
 
 
-    <div style="background-color: aquamarine; padding-bottom: 20px;">
+    <div style="background-color: aquamarine;">
         <div class="row" style="width: 80%;margin-left: 15%;padding-bottom: 20px; padding-top: 20px;">
 
             <div class="col-lg-4 col-md-4 col-xs-4 thumb">
@@ -72,8 +67,8 @@
             </div>
             <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
-                <img class="img-responsive" src="../images/ClosedDoor.png" width="300px"
-                    height="400px" alt="Door 2" id="door1">
+                <img class="img-responsive" src="../images/ClosedDoor.png" width="300px" height="400px" alt="Door 2"
+                    id="door1">
                 <button onclick="stepOne(1)" class="btns" id="buttonDoor1"> Door 2</button>
 
             </div>
@@ -82,6 +77,25 @@
                 <img class="img-responsive" src="../images/ClosedDoor.png" width="300px" height="400px" alt="Door 3"
                     id="door2">
                 <button onclick="stepOne(2)" class="btns" id="buttonDoor2"> Door 3</button>
+            </div>
+        </div>
+
+        <div class="stageSection">
+            <div class="centerText">
+                <h2 id="titleSentence">Welcome to Monty Hall's Problem!</h2>
+                <p class="firstSentence" id="firstSentenceID">There are <b>three</b> doors in front of you. There are
+                    <b>two</b> goats, and <b>one</b> car.
+                    <br>
+                    Select A Door!
+                </p>
+                <button type="button" class="btn btn-primary" onclick="intermediateStep()" hidden="hidden"
+                    id="continueButton">Continue</button>
+
+                <button id="switchDoorsButton" type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    onclick="determineKeep(0)" hidden="hidden">Switch Doors</button>
+                <button id="keepDoorsButton" type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                    onclick="determineKeep(1)" hidden="hidden">Keep
+                    Current Door</button>
             </div>
         </div>
     </div>
@@ -123,99 +137,6 @@
 
     <div>
         <!-- These are all modals-->
-
-        <!-- Modal to be displayed for results -->
-        <div class="modal fade" id="resultsModal" tabindex="-1" role="dialog" aria-labelledby="resultsModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Results</h5>
-                    </div>
-                    <div class="modal-body">
-                        <p id="results">Temporary Text</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="setTimeout(finalFunction,500)">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal to be displayed on page load up -->
-        <div class="modal fade" id="popUpModal" tabindex="-1" role="dialog" aria-labelledby="popUpModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Welcome to Goat Game!</h5>
-                    </div>
-                    <div class="modal-body">
-                        <p>Text Here About The Game</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Start The Game!</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Displays goat is located at door X-->
-        <div class="modal fade" id="goatRevealModal" tabindex="-1" role="dialog"  aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Where is One Goat Located</h5>
-                    </div>
-                    <div class="modal-body">
-                        <p id="revealGoatText">Temporary Text</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" onclick="setTimeout(intermediateStep,1000)" class="btn btn-secondary" data-bs-dismiss="modal">Continue</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal to be displayed for where goat is located -->
-        <div class="modal fade" id="goatLocationModal" tabindex="-1" role="dialog" aria-labelledby="goatModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">What to do next?</h5>
-                    </div>
-                    <div class="modal-body">
-                        <p id="currentDoorChosen">Temporary Text</p>
-                        <p id="goatLocationDescription">Temporary Text</p>
-                        <p id="whatToDoNext">Temporary Text</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                            onclick="determineKeep(0)">Switch Doors</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                            onclick="determineKeep(1)">Keep Current Door</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal for simulating games -->
-        <div class="modal fade" id="simulationModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="howManyTimesSwitchDoors">How many times would you like to switch doors? </h5>
-                        <input type="text" id="amountToSwitch" placeholder="Number Times To Switch">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                            onclick="determineKeepSimulation(0)">Continue</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Modal for user to click on -->
         <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
