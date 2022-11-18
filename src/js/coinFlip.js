@@ -20,6 +20,7 @@
 			// reset answer
 			document.querySelector("h2").innerHTML = "";
 
+			// coin is weighted
 			if(isWeighted == 1) {
 				// heavier side is heads
 				if(heavierSide == 1) {
@@ -62,6 +63,7 @@
 				}
 			}
 
+			// coin is not weighted
 			else {
 				let num = Math.floor(Math.random() * 100) + 1;
 					

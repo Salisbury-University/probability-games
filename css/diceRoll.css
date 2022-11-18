@@ -10,7 +10,7 @@
 		}
 
 		h1 {
-			margin: 17px;
+			margin: 15px;
 			font-family: "Calibri", cursive;
 			text-shadow: 4px 0 #33373c;
 			font-size: 3.5rem;
@@ -19,7 +19,7 @@
 		}
 
 		h2 {
-			margin: 17px;
+			margin: 1px;
 			font-family: "Calibri", cursive;
 			text-shadow: 4px 0 #33373c;
 			font-size: 3.5rem;
@@ -28,7 +28,7 @@
 		}
 		
 		.bottom {
-			padding-top: 25px;
+			padding-top: 20px;
 		}
 
 		.butn {
