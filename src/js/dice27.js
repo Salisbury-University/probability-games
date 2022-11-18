@@ -78,12 +78,12 @@ function roll() {
     document.getElementById("dice").src = "../images/dice" + rollValue + ".png";
 
     //determine whos turn it is and prep for next roll
-    if (turn) {
-        player = 1;
+    if(turn){
+        player = 0;
         turn = false;
     }
-    else {
-        player = 0;
+    else{
+        player = 1;
         turn = true;
     }
 
