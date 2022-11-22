@@ -15,6 +15,7 @@ let app = new PIXI.Application({
     const line = new PIXI.Graphics();
     
     let lineSpace = windowHeight / 10;
+    console.log(lineSpace);
     let yValue = lineSpace;
     for(let i = 0; i < 10; i++)
     {
@@ -35,11 +36,19 @@ let app = new PIXI.Application({
         x = Math.floor(Math.random() * windowWidth);
         y = Math.floor(Math.random() * windowHeight);
         dots.lineStyle(0); // draw a circle, set the lineStyle to zero so the circle doesn't have an outline
-        dots.beginFill(0xAA4F08, 2);
-        dots.drawCircle(x, y, 2);
+        dots.beginFill(0xAA4F08);
+        dots.drawRect(x, y, 35, 2);
+        dots.endFill();
+        app.stage.addChild(dots);
+        dots.beginFill(0xAA4F08);
+        dots.drawRect(x - 35, y, 35, 2);
         dots.endFill();
         app.stage.addChild(dots);
 
       }
 
+    }
+    function toRadians(angle)
+    {
+      return angle * (Math.PI / 180);
     }
