@@ -17,6 +17,7 @@
 		
 		// Function to flip coin
 		function flipCoin() {
+			
 			// reset answer
 			document.querySelector("h2").innerHTML = "";
 
