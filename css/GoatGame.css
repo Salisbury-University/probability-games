@@ -19,6 +19,17 @@
     font-size: 24pt;
 }
 
+.stageSection{
+  border-top: 4pt solid black;
+  background-color: aqua;
+  padding-bottom: 15px;
+}
+
+.firstSentence{
+  color: black;
+  font-size: 18pt;
+}
+
 .contn{
     position: relative;
     width: 30%;
