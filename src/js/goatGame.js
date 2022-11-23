@@ -105,13 +105,13 @@ function intermediateStep() {
 
 function secondIntermediate() {
     document.getElementById("titleSentence").innerHTML = "Results!"
-    setTimeout(finalFunction,800);
+    setTimeout(finalFunction, 800);
 }
 
-function midStepTwo(imgType, userDoorChoice){
-    if(imgType == 1){
+function midStepTwo(imgType, userDoorChoice) {
+    if (imgType == 1) {
         document.getElementById(userDoorChoice).src = carImg;
-    }else{
+    } else {
         document.getElementById(userDoorChoice).src = goatImg;
     }
 }
@@ -127,10 +127,10 @@ function stepTwo(keptDoor) {
 
     var userDoorChoice = "door" + doorChoice;
     if (doorChoice == carLocation) {
-        setTimeout(midStepTwo, 400, 1,userDoorChoice);
-     
+        setTimeout(midStepTwo, 400, 1, userDoorChoice);
+
     } else {
-        setTimeout(midStepTwo, 400, 2,userDoorChoice);
+        setTimeout(midStepTwo, 400, 2, userDoorChoice);
 
     }
 
@@ -225,6 +225,8 @@ function preSimulate() {
     //reveal new input and continue
     document.getElementById("amountTimesToSwitch").removeAttribute("hidden");
     document.getElementById("continueSimulation").removeAttribute("hidden");
+    document.getElementById("simulateInfo").innerHTML = "Enter in the textbox below how many times you would like to switch doors.";
+    
 
 }
 
@@ -234,11 +236,11 @@ function simulateGame() {
 
     var timesSwitched = document.getElementById("amountTimesToSwitch").value;
 
-
+    document.getElementById("simulateInfo").innerHTML = "Enter how many times would you like to simulate the game in the textbox below.";
 
     document.getElementById("amountTimesToSwitch").setAttribute("hidden", "hidden");
     document.getElementById("continueSimulation").setAttribute("hidden", "hidden");
-    //reveal new input and continue
+   //reveal new input and continue
     document.getElementById("simulateRunButton").removeAttribute("hidden");
     document.getElementById("amountTimesToRun").removeAttribute("hidden");
 
