@@ -36,9 +36,6 @@ function playAgain() {
     document.getElementById("door0").src = doorImg;
     document.getElementById("door1").src = doorImg;
     document.getElementById("door2").src = doorImg;
-    document.getElementById("buttonDoor0").disabled = false;
-    document.getElementById("buttonDoor1").disabled = false;
-    document.getElementById("buttonDoor2").disabled = false;
 
     document.getElementById("door0").style.boxShadow = "none";
     document.getElementById("door1").style.boxShadow = "none";
@@ -49,7 +46,7 @@ function playAgain() {
     document.getElementById("continueButton").setAttribute("hidden", "hidden");
     document.getElementById("switchDoorsButton").setAttribute("hidden", "hidden");
     document.getElementById("keepDoorsButton").setAttribute("hidden", "hidden");
-    
+
     document.getElementById("amountTimesToSwitch").setAttribute("hidden", "hidden");
     document.getElementById("continueSimulation").setAttribute("hidden", "hidden");
     //reveal new input and continue
@@ -57,10 +54,10 @@ function playAgain() {
     document.getElementById("amountTimesToRun").removeAttribute("hidden");
 
     document.getElementById("door0").setAttribute("onclick", "stepOne(0)");
-    document.getElementById("door1").setAttribute("onclick","stepOne(1)");
-    document.getElementById("door2").setAttribute("onclick","stepOne(2)");
+    document.getElementById("door1").setAttribute("onclick", "stepOne(1)");
+    document.getElementById("door2").setAttribute("onclick", "stepOne(2)");
 
-    
+
 
 } //end of play again
 
@@ -71,20 +68,12 @@ function stepOne(doorChose) {
     while (revealGoat == doorChose || revealGoat == carLocation) {
         revealGoat = Math.floor(Math.random() * 3);
     }
-    var go = "door" + revealGoat;
-    document.getElementById(go).src = goatImg;
+
 
     let remainderDoor = 5;
     remainderDoor = remainderDoor - (doorChose + 1);
     remainderDoor = remainderDoor - (revealGoat + 1);
     doorChoice = remainderDoor;
-
-    var goatButton = "buttonDoor" + revealGoat;
-    var switchDoorButton = "buttonDoor" + doorChoice;
-
-    //remove the ability to choose doors from buttons
-    document.getElementById(goatButton).disabled = true;
-    document.getElementById(switchDoorButton).disabled = true;
 
     //remove ability to choose doors from imgs
     var goatDoor = "door" + revealGoat;
@@ -93,7 +82,12 @@ function stepOne(doorChose) {
     document.getElementById(switchDoorLoc).removeAttribute("onclick");
 
     document.getElementById("door" + doorChose).style.boxShadow = "0 0 100px greenyellow";
+    setTimeout(afterStepOne, 400, revealGoat);
+}
 
+function afterStepOne(revealGoat) {
+    var go = "door" + revealGoat;
+    document.getElementById(go).src = goatImg;
     document.getElementById("titleSentence").innerHTML = "Here is a goat!"
     document.getElementById("firstSentenceID").innerHTML = "This Goat is Located at Door " + (revealGoat + 1);
     document.getElementById("continueButton").removeAttribute("hidden");
@@ -111,6 +105,15 @@ function intermediateStep() {
 
 function secondIntermediate() {
     document.getElementById("titleSentence").innerHTML = "Results!"
+    setTimeout(finalFunction,800);
+}
+
+function midStepTwo(imgType, userDoorChoice){
+    if(imgType == 1){
+        document.getElementById(userDoorChoice).src = carImg;
+    }else{
+        document.getElementById(userDoorChoice).src = goatImg;
+    }
 }
 
 function stepTwo(keptDoor) {
@@ -124,9 +127,12 @@ function stepTwo(keptDoor) {
 
     var userDoorChoice = "door" + doorChoice;
     if (doorChoice == carLocation) {
-        document.getElementById(userDoorChoice).src = carImg;
-    } else
-        document.getElementById(userDoorChoice).src = goatImg;
+        setTimeout(midStepTwo, 400, 1,userDoorChoice);
+     
+    } else {
+        setTimeout(midStepTwo, 400, 2,userDoorChoice);
+
+    }
 
     document.getElementById("door0").style.boxShadow = "none";
     document.getElementById("door1").style.boxShadow = "none";
@@ -141,10 +147,6 @@ function stepTwo(keptDoor) {
     } else {
         document.getElementById("firstSentenceID").innerHTML = "You Lose!";
     }
-    //remove button ability to click
-    document.getElementById("buttonDoor0").disabled = true;
-    document.getElementById("buttonDoor1").disabled = true;
-    document.getElementById("buttonDoor2").disabled = true;
 
     //remove IMG clickness
     document.getElementById("door0").removeAttribute("onclick");
@@ -216,7 +218,7 @@ function updateStats(x, isKept) {
 
 } //end of update stats
 
-function preSimulate(){
+function preSimulate() {
     //hide old input and simulate runs
     document.getElementById("simulateRunButton").setAttribute("hidden", "hidden");
     document.getElementById("amountTimesToRun").setAttribute("hidden", "hidden");
@@ -232,8 +234,8 @@ function simulateGame() {
 
     var timesSwitched = document.getElementById("amountTimesToSwitch").value;
 
-    
-    
+
+
     document.getElementById("amountTimesToSwitch").setAttribute("hidden", "hidden");
     document.getElementById("continueSimulation").setAttribute("hidden", "hidden");
     //reveal new input and continue
@@ -265,9 +267,6 @@ function simulateGame() {
         }
 
         if (i == 0) {
-            document.getElementById("buttonDoor0").disabled = false;
-            document.getElementById("buttonDoor1").disabled = false;
-            document.getElementById("buttonDoor2").disabled = false;
             document.getElementById("door0").src = doorImg;
             document.getElementById("door1").src = doorImg;
             document.getElementById("door2").src = doorImg;
@@ -291,14 +290,6 @@ function simulateGame() {
                 document.getElementById("door2").src = carImg;
             else
                 document.getElementById("door2").src = goatImg;
-
-            document.getElementById("buttonDoor0").disabled = true;
-            document.getElementById("buttonDoor1").disabled = true;
-            document.getElementById("buttonDoor2").disabled = true;
-
-          //  document.getElementById("door0").setAttribute("onclick", "stepOne(0)");
-            //document.getElementById("door1").setAttribute("onclick","stepOne(1)");
-            //document.getElementById("door2").setAttribute("onclick","stepOne(2)");
         }
     }//end of for loop
 
@@ -320,9 +311,6 @@ function resetStats() {
     document.getElementById("door0").src = doorImg;
     document.getElementById("door1").src = doorImg;
     document.getElementById("door2").src = doorImg;
-    document.getElementById("buttonDoor0").disabled = false;
-    document.getElementById("buttonDoor1").disabled = false;
-    document.getElementById("buttonDoor2").disabled = false;
 
     playAgain();
     printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
