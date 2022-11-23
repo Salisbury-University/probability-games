@@ -21,14 +21,11 @@ var choiceMade = 0;
 var globalDoorChose = 0;
 var revealGoat = 0;
 
-var string = "Door Zero: " + Doors[0] + "-- Door One: " + Doors[1] + "-- Door Two: " + Doors[2];
-
 function testModal() {
     $('#infoModal').modal('show');
 }
 
 function playAgain() {
-    //$('#exampleModal').modal('show'); //reveals the modal without button being clicked
     Doors[0] = 0;
     Doors[1] = 0;
     Doors[2] = 0;
@@ -52,6 +49,18 @@ function playAgain() {
     document.getElementById("continueButton").setAttribute("hidden", "hidden");
     document.getElementById("switchDoorsButton").setAttribute("hidden", "hidden");
     document.getElementById("keepDoorsButton").setAttribute("hidden", "hidden");
+    
+    document.getElementById("amountTimesToSwitch").setAttribute("hidden", "hidden");
+    document.getElementById("continueSimulation").setAttribute("hidden", "hidden");
+    //reveal new input and continue
+    document.getElementById("simulateRunButton").removeAttribute("hidden");
+    document.getElementById("amountTimesToRun").removeAttribute("hidden");
+
+    document.getElementById("door0").setAttribute("onclick", "stepOne(0)");
+    document.getElementById("door1").setAttribute("onclick","stepOne(1)");
+    document.getElementById("door2").setAttribute("onclick","stepOne(2)");
+
+    
 
 } //end of play again
 
@@ -72,8 +81,18 @@ function stepOne(doorChose) {
 
     var goatButton = "buttonDoor" + revealGoat;
     var switchDoorButton = "buttonDoor" + doorChoice;
+
+    //remove the ability to choose doors from buttons
     document.getElementById(goatButton).disabled = true;
     document.getElementById(switchDoorButton).disabled = true;
+
+    //remove ability to choose doors from imgs
+    var goatDoor = "door" + revealGoat;
+    var switchDoorLoc = "door" + doorChoice;
+    document.getElementById(goatDoor).removeAttribute("onclick");
+    document.getElementById(switchDoorLoc).removeAttribute("onclick");
+
+    document.getElementById("door" + doorChose).style.boxShadow = "0 0 100px greenyellow";
 
     document.getElementById("titleSentence").innerHTML = "Here is a goat!"
     document.getElementById("firstSentenceID").innerHTML = "This Goat is Located at Door " + (revealGoat + 1);
@@ -109,6 +128,9 @@ function stepTwo(keptDoor) {
     } else
         document.getElementById(userDoorChoice).src = goatImg;
 
+    document.getElementById("door0").style.boxShadow = "none";
+    document.getElementById("door1").style.boxShadow = "none";
+    document.getElementById("door2").style.boxShadow = "none";
     document.getElementById(userDoorChoice).style.boxShadow = "0 0 100px greenyellow";
 
     updateStats(doorChoice, keptDoor);
@@ -119,9 +141,16 @@ function stepTwo(keptDoor) {
     } else {
         document.getElementById("firstSentenceID").innerHTML = "You Lose!";
     }
+    //remove button ability to click
     document.getElementById("buttonDoor0").disabled = true;
     document.getElementById("buttonDoor1").disabled = true;
     document.getElementById("buttonDoor2").disabled = true;
+
+    //remove IMG clickness
+    document.getElementById("door0").removeAttribute("onclick");
+    document.getElementById("door1").removeAttribute("onclick");
+    document.getElementById("door2").removeAttribute("onclick");
+
     setTimeout(secondIntermediate, 500);
 }
 
@@ -187,16 +216,33 @@ function updateStats(x, isKept) {
 
 } //end of update stats
 
+function preSimulate(){
+    //hide old input and simulate runs
+    document.getElementById("simulateRunButton").setAttribute("hidden", "hidden");
+    document.getElementById("amountTimesToRun").setAttribute("hidden", "hidden");
+    //reveal new input and continue
+    document.getElementById("amountTimesToSwitch").removeAttribute("hidden");
+    document.getElementById("continueSimulation").removeAttribute("hidden");
+
+}
+
 function simulateGame() {
     var switchDoor;
     var timesPlayed = document.getElementById("amountTimesToRun").value;
 
-    var timesSwitched = document.getElementById("amountToSwitch").value;
-    $('simulationModal').modal('show');
+    var timesSwitched = document.getElementById("amountTimesToSwitch").value;
+
+    
+    
+    document.getElementById("amountTimesToSwitch").setAttribute("hidden", "hidden");
+    document.getElementById("continueSimulation").setAttribute("hidden", "hidden");
+    //reveal new input and continue
+    document.getElementById("simulateRunButton").removeAttribute("hidden");
+    document.getElementById("amountTimesToRun").removeAttribute("hidden");
 
     switchDoor = isKept;
     for (var i = 0; i < timesPlayed; i++) {
-        playAgain();
+        //playAgain();
         carLocation = Math.floor(Math.random() * 3);
         var userChoice = Math.floor(Math.random() * 3);
         var revealGoat = carLocation;
@@ -225,6 +271,9 @@ function simulateGame() {
             document.getElementById("door0").src = doorImg;
             document.getElementById("door1").src = doorImg;
             document.getElementById("door2").src = doorImg;
+            document.getElementById("door0").removeAttribute("onclick");
+            document.getElementById("door1").removeAttribute("onclick");
+            document.getElementById("door2").removeAttribute("onclick");
         }
 
         if (i == timesPlayed - 1) {
@@ -246,6 +295,10 @@ function simulateGame() {
             document.getElementById("buttonDoor0").disabled = true;
             document.getElementById("buttonDoor1").disabled = true;
             document.getElementById("buttonDoor2").disabled = true;
+
+          //  document.getElementById("door0").setAttribute("onclick", "stepOne(0)");
+            //document.getElementById("door1").setAttribute("onclick","stepOne(1)");
+            //document.getElementById("door2").setAttribute("onclick","stepOne(2)");
         }
     }//end of for loop
 
