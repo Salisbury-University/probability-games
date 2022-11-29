@@ -45,7 +45,7 @@
         <div class="row">
             <h1 class="centerText">Monty Hall Problem</h1>
             <h5 class="centerText" style="font-size: 12pt; text-decoration: underline; " onclick="testModal()">
-                Click Here To Learn More About Monty Hall Problem!</h5>
+                Click Here To Learn More About Monty Hall Problem And How To Play the Game!</h5>
         </div>
     </div>
 
@@ -98,7 +98,8 @@
 
     <div class="statsSection">
         <h1 class="centerText"> Statistics For Game </h1>
-        <p id="simulateInfo" style="text-align:center;"> Enter how many times would you like to simulate the game in the textbox below.</p>
+        <p id="simulateInfo" style="text-align:center;"> Enter how many times would you like to simulate the game in the
+            textbox below.</p>
         <div class="text-center">
             <button type="button" class="btn btn-primary" onclick="resetStats()">Reset Stats</button>
             <button type="button" class="btn btn-primary" onclick="playAgain()">Play Again</button>
@@ -137,28 +138,31 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Monty Hall was a TV and radio host most famous
-                            for
-                            hosting the game show Let’s Make a Deal which he produced and hosted for many years. The
-                            Monty
-                            Hall Problem was named after him because of it similarities with Let’s Make a Deal. The
-                            problem
-                            was first posted and solved a letter by Steve Selvin to the American Statistician in 1975.
-                            The original problem reading: “Suppose you're on a game show, and you're given the choice of
-                            three doors: Behind one door is a car; behind the others, goats. You pick a door, say No. 1,
-                            and
-                            the host, who knows what's behind the doors, opens another door, say No. 3, which has a
-                            goat. He
-                            then says to you, "Do you want to pick door No. 2?" Is it to your advantage to switch your
-                            choice?”
-                        </h5>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                        </div>
+                        <h3 class="modal-title">How To Play</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h5 id="mainTitleSection"><b>This is how you play our game.</b></h5>
+                       <p id="mainInfoSection">
+                        Below there are <b>three doors</b>, and there are <b>two goats</b> and <b>one car</b> hidden behind the doors. 
+                        <br>
+                        You select <b>one door</b> and then <b>a goat</b> is revealed. You are then given an option to either 
+                        <b>keep your current door</b> or <b>switch to the other unopened door</b>. 
+                        After which the door you choose is revealed.
+                        <br>
+                        The purpose of this game is to help educate you on probability.
+
+
+                       </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="buttonHistory" class="btn btn-primary" onclick="changeToHistory()">History of the Game</button>
+                        <button type="button" id="buttonHowToPlay" class="btn btn-primary" onclick="changeToHowToPlay()" hidden>How To Play</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="changeToHowToPlay()">Close</button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
     </div>
     <script src="js/goatGame.js"></script>
