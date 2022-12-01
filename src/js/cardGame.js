@@ -149,7 +149,8 @@ function updatePrompt(newMessage, turn) {
 app.loader.baseUrl = "../images/";
 
 // load and name all dice images
-app.loader.add("dice1", "dice1.png")
+app.loader.add("dice0", "dice0.png")
+  .add("dice1", "dice1.png")
   .add("dice2", "dice2.png")
   .add("dice3", "dice3.png")
   .add("dice4", "dice4.png")
