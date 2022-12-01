@@ -1,6 +1,7 @@
 // create window height variable
 const windowWidth = document.body.clientWidth;
 const windowHeight = window.innerHeight;
+const needleLength = 70;
 
 //create Application Window
 let app = new PIXI.Application({
@@ -28,14 +29,13 @@ let app = new PIXI.Application({
 
     function needleCenter()
     {
-      const dots = new PIXI.Graphics()
+      const dots = new PIXI.Graphics();
       let x = 0;
       let y = 0;
       for(let j =0; j < 10; j++)
       {
         x = Math.floor(Math.random() * windowWidth);
         y = Math.floor(Math.random() * windowHeight);
-        dots.lineStyle(0); // draw a circle, set the lineStyle to zero so the circle doesn't have an outline
         dots.beginFill(0xAA4F08);
         dots.drawRect(x, y, 35, 2);
         dots.endFill();
@@ -51,4 +51,60 @@ let app = new PIXI.Application({
     function toRadians(angle)
     {
       return angle * (Math.PI / 180);
+    }
+    function needleXY()
+    {
+      
+      let xCenter, yCenter;
+      let topX, topY, botX, botY;
+      let x, y;
+      for(let j = 0; j < 10; j++)
+      {
+        xCenter = Math.floor(Math.random() * windowWidth);
+        yCenter = Math.floor(Math.random() * windowHeight);
+
+        //create dots here
+        /*line.beginFill(0xAA4F08, 2);
+        line.drawRect(x, y, 2, 2);
+        line.endFill();
+        app.stage.addChild(line);*/
+
+        //calculate the angle
+        let angle = Math.floor(Math.random() * 180);
+        angle = toRadians(angle);
+
+
+        //creating angle/line
+        y = (needleLength/2) * (Math.sin(angle));
+        x = (needleLength/2) * (Math.cos(angle));
+        if(angle > (Math.PI / 2)){
+          topX = xCenter - x;
+          topY = yCenter + y;
+          botX = xCenter + x;
+          botY = yCenter - y;
+        }
+        else{
+          topX = xCenter + x;
+          topY = yCenter + y;
+          botX = xCenter - x;
+          botY = yCenter - y;
+
+        }
+        line.beginFill(0xAA4F08, 2);
+        line.lineStyle(4, 0xffd900, 1);
+        line.moveTo(xCenter, yCenter);
+        line.lineTo(topX, topY);
+        line.closePath();
+        line.endFill();
+        app.stage.addChild(line);
+        line.beginFill(0xAA4F08, 2);
+        line.moveTo(xCenter, yCenter);
+        line.lineTo(botX, botY);
+        line.closePath();
+        line.endFill();
+        app.stage.addChild(line);
+
+      } 
+
+
     }
