@@ -17,9 +17,6 @@
 		
 		// Function to flip coin
 		function flipCoin() {
-			
-			// reset answer
-			document.querySelector("h2").innerHTML = "";
 
 			// coin is weighted
 			if(isWeighted == 1) {
@@ -87,8 +84,6 @@
 
 		// Function to flip coin multiple times
 		function flipCoinMultiple() {
-			// reset answer
-			document.querySelector("h2").innerHTML = "";
 
 			// gets amount of flips from user
 			let qty = document.getElementById("quantity").value;
@@ -151,9 +146,9 @@
 
 		function ifWeighted() {
 			if(isWeighted == 1)
-				document.querySelector("h2").innerHTML = "You are Correct!";
+				document.querySelector("h1").innerHTML = "You are Correct!";
 			else
-				document.querySelector("h2").innerHTML = "You are Incorrect";
+				document.querySelector("h1").innerHTML = "You are Incorrect";
 
 			document.getElementById("headTotal").innerHTML = 0;
 			document.getElementById("tailTotal").innerHTML = 0;
@@ -166,9 +161,9 @@
 
 		function ifNotWeighted() {
 			if(isWeighted == 1)
-				document.querySelector("h2").innerHTML = "You are Incorrect";
+				document.querySelector("h1").innerHTML = "You are Incorrect";
 			else
-				document.querySelector("h2").innerHTML = "You are Correct!";
+				document.querySelector("h1").innerHTML = "You are Correct!";
 
 			document.getElementById("headTotal").innerHTML = 0;
 			document.getElementById("tailTotal").innerHTML = 0;

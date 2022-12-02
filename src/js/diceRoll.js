@@ -25,9 +25,6 @@
 		// Function to roll dice
 		function rollDice() {
 
-			// reset answer
-			document.querySelector("h2").innerHTML = "";
-
 			// if dice is weighted
 			if (isWeighted == 1) {
 
@@ -339,26 +336,38 @@
 					
 					// if nonweighted dice is one
         			if (num == 1) {
+						document.querySelector("h1").innerHTML = "You rolled a One!";
+						document.getElementById("dice").setAttribute("src", "../images/dice1.png");
           				oneCount += 1;
         			} 
 					// if nonweighted dice is two
         			else if (num == 2) {
+						document.querySelector("h1").innerHTML = "You rolled a Two!";
+						document.getElementById("dice").setAttribute("src", "../images/dice2.png");
           				twoCount += 1;
         			} 
                     // if nonweighted dice is three
         			else if (num == 3) {
+						document.querySelector("h1").innerHTML = "You rolled a Three!";
+						document.getElementById("dice").setAttribute("src", "../images/dice3.png");
           				threeCount += 1;
         			} 
                     // if nonweighted dice is four
         			else if (num == 4) {
+						document.querySelector("h1").innerHTML = "You rolled a Four!";
+						document.getElementById("dice").setAttribute("src", "../images/dice4.png");
           				fourCount += 1;
         			} 
                     // if nonweighted dice is five
         			else if (num == 5) {
+						document.querySelector("h1").innerHTML = "You rolled a Five!";
+						document.getElementById("dice").setAttribute("src", "../images/dice5.png");
           				fiveCount += 1;
         			} 
                     // if nonweighted dice is six
         			else if (num == 6) {
+						document.querySelector("h1").innerHTML = "You rolled a Six!";
+						document.getElementById("dice").setAttribute("src", "../images/dice6.png");
           				sixCount += 1;
         			}
       			
@@ -373,8 +382,6 @@
 
 		// Function to roll dice multiple times
 		function rollDiceMultiple() {
-			// reset answer
-			document.querySelector("h2").innerHTML = "";
 
 			// amount of rolls user specifies
 			let qty = document.getElementById("quantity").value;
@@ -385,7 +392,7 @@
       			if(heavierSide == 1) {
 
 					for (let i = 0; i < qty; i++) {
-						
+
 						let num = Math.floor(Math.random() * 100) + 1;
 					
 						// if weighted dice lands on one
@@ -665,9 +672,9 @@
 
 		function ifWeighted() {
 			if(isWeighted == 1)
-				document.querySelector("h2").innerHTML = "You are Correct!";
+				document.querySelector("h1").innerHTML = "You are Correct!";
 			else
-				document.querySelector("h2").innerHTML = "You are Incorrect";
+				document.querySelector("h1").innerHTML = "You are Incorrect";
 
 			document.getElementById("oneTotal").innerHTML = 0;
 			document.getElementById("twoTotal").innerHTML = 0;
@@ -689,9 +696,9 @@
 
 		function ifNotWeighted() {
 			if(isWeighted == 1)
-				document.querySelector("h2").innerHTML = "You are Incorrect";
+				document.querySelector("h1").innerHTML = "You are Incorrect";
 			else
-				document.querySelector("h2").innerHTML = "You are Correct!";
+				document.querySelector("h1").innerHTML = "You are Correct!";
 
 			document.getElementById("oneTotal").innerHTML = 0;
 			document.getElementById("twoTotal").innerHTML = 0;
