@@ -7,11 +7,6 @@
 // $ http-server -c-1 -a localhost -p 8000 /path/to/project
 // -c-1 so that the cache refreshes and page is updated when javascript is
 
-// TODO:
-// make chips of stacks clickable to remove chips
-// rework the file be more structured
-// make the prompt stand out more
-
 // constants for arrays holding values for p1 and p2
 const PLAYER_1 = 0;
 const PLAYER_2 = 1;
@@ -57,8 +52,13 @@ var winStyle = new PIXI.TextStyle({
 
 //prompt's text style
 var promptStyle = new PIXI.TextStyle({
+  dropShadow: true,
+  dropShadowAlpha: 0.5,
+  dropShadowAngle: 0.5,
+  dropShadowBlur: 2,
+  dropShadowColor: "#f9f06b",
   fontFamily: "\"Arial Black\", Gadget, sans-serif",
-  fontSize: windowWidth * .03,
+  fontSize: windowWidth * .02,
   fontWeight: "bold",
   fill: red
 });
@@ -127,7 +127,7 @@ class Stack {
 }
 
 // initialize instruction
-let originalPrompt = "Player 1 place a chip";
+let originalPrompt = "Player 1 click on a card to place your chip.";
 let prompt = new Text(originalPrompt, promptStyle);
 
 // instructional prompt
@@ -149,7 +149,8 @@ function updatePrompt(newMessage, turn) {
 app.loader.baseUrl = "../images/";
 
 // load and name all dice images
-app.loader.add("dice1", "dice1.png")
+app.loader.add("dice0", "dice0.png")
+  .add("dice1", "dice1.png")
   .add("dice2", "dice2.png")
   .add("dice3", "dice3.png")
   .add("dice4", "dice4.png")
@@ -168,15 +169,15 @@ cardWindow.drawRect(0, 0, windowWidth, windowHeight * .32);
 app.stage.addChild(cardWindow);
 
 //create player names with styling
-var player1 = new Text("PLAYER 1\nRemaining Chips:", { fontSize: windowWidth * .017, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold", fill: red, align: 'center' });
-var player2 = new Text("PLAYER 2\nRemaining Chips:", { fontSize: windowWidth * .017, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold", fill: teal, align: 'center' });
+var player1 = new Text("PLAYER 1\nRemaining Chips:", { fontSize: windowWidth * .015, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold", fill: red, align: 'center' });
+var player2 = new Text("PLAYER 2\nRemaining Chips:", { fontSize: windowWidth * .015, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold", fill: teal, align: 'center' });
 var player1ScoreText = new Text("0", scoreStyle);
 var player2ScoreText = new Text("0", scoreStyle);
 var scoreboard = [0, 0];
 
 // position and size the text based on window size
-player1.x = windowWidth * .06;
-player2.x = windowWidth * .73;
+player1.x = windowWidth * .07;
+player2.x = windowWidth * .74;
 player1ScoreText.x = windowWidth * .13;
 player2ScoreText.x = windowWidth * .8;
 
@@ -287,8 +288,8 @@ function createGame() {
   app.stage.addChild(prompt);
 
   sheet = app.loader.resources["./images/dice.png"];
-  dice1 = new Sprite.from(app.loader.resources["dice1"].texture);
-  dice2 = new Sprite.from(app.loader.resources["dice1"].texture);
+  dice1 = new Sprite.from(app.loader.resources["dice0"].texture);
+  dice2 = new Sprite.from(app.loader.resources["dice0"].texture);
   rollButton = new Sprite.from(app.loader.resources["rollButton"].texture);
 
   // size and positioning of each dice
@@ -305,7 +306,7 @@ function createGame() {
   rollButton.width = windowWidth * .1;
   rollButton.height = windowHeight * .1;
   rollButton.x = windowWidth * .45;
-  rollButton.y = windowHeight * .53;
+  rollButton.y = windowHeight * .54;
 
   // make the objects interactive and assign functions to them
   rollButton.interactive = true;
@@ -381,7 +382,7 @@ function cardClick(cardNumber) {
     chipsPlaced1[cardNumber] += 1;
 
     // increment current chip counter
-    updatePrompt("Player 2 place a chip", PLAYER_2);
+    updatePrompt("Player 2 click on a card to place your chip", PLAYER_2);
     playerTurn = 2;
     currChip1--;
 
@@ -434,7 +435,7 @@ function cardClick(cardNumber) {
     chipsPlaced2[cardNumber] += 1;
 
     // decrement current chip counter
-    updatePrompt("Player 1 place a chip", PLAYER_1);
+    updatePrompt("Player 1, click on a card to place your chip", PLAYER_1);
     playerTurn = 1;
     currChip2--;
 
