@@ -70,7 +70,7 @@ let app = new PIXI.Application({
         app.stage.addChild(line);*/
 
         //calculate the angle
-        let angle = Math.floor(Math.random() * 180);
+        let angle = Math.floor(Math.random() * 360);
         angle = toRadians(angle);
 
 
