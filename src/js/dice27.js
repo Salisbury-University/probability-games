@@ -187,10 +187,11 @@ function hover(object, alphaVal) {
   */
   function numberPilesCheck(answer){
     if(answer == numberPiles){
-
+        
+        document.getElementById("mainPrompt") = "Correct!";
     }
     else{
-        
+        document.getElementById("mainPrompt") = "Wrong try again";
     }
   }
 
@@ -207,10 +208,12 @@ function hover(object, alphaVal) {
   */
   function remainderCheck(answer){
     if(answer == remainder){
-
+        
+        document.getElementById("mainPrompt") = "Correct!";
+        //remove chips here
     }
     else{
-
+        document.getElementById("mainPrompt") = "Wrong try again";
     }
   }
 
