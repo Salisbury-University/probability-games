@@ -17,6 +17,12 @@ let app = new PIXI.Application({
     height: windowHeight * .15
 });
 
+let diceApp = new PIXI.Application({
+    backgroundAlpha: 0,
+    width: windowWidth,
+    height: windowHeight * .15
+});
+
 document.getElementById("overalScore").innerHTML = currTotal;
 document.getElementById("player0").innerHTML = scoreboard[0];
 document.getElementById("player1").innerHTML = scoreboard[1];
