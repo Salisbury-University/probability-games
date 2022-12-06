@@ -1,5 +1,5 @@
 		.container {
-			width: 70%;
+			width: 60%;
 			margin: auto;
 			text-align: center;
 		}
@@ -10,37 +10,37 @@
 		}
 
 		h1 {
-			margin: 17px;
+			margin: 3px;
 			font-family: "Calibri", cursive;
-			text-shadow: 4px 0 #33373c;
-			font-size: 3.5rem;
+			text-shadow: 3px 0 #33373c;
+			font-size: 3rem;
 			color: #EBEBDD;
 			text-align: center;
 		}
 
 		h2 {
-			margin: 17px;
+			margin: 1px;
 			font-family: "Calibri", cursive;
-			text-shadow: 4px 0 #33373c;
-			font-size: 3.5rem;
+			text-shadow: 1px 0 #33373c;
+			font-size: 1rem;
 			color: #EBEBDD;
 			text-align: center;
 		}
 
 		#coin{
-			width: 20%;
+			width: 15%;
 		}
 
 		.bottom {
-			padding-top: 25px;
+			padding-top: 20px;
 		}
 
 		.butn {
 			background: #A0A098;
 			font-family: "Calibri", cursive;
-			border-radius: 5px;
+			border-radius: 10px;
 			color: #ffff;
-			font-size: 20px;
+			font-size: 18px;
 			text-decoration: none;
 		}
 
