@@ -172,3 +172,45 @@ function hover(object, alphaVal) {
   function hoverOut(object) {
     object.alpha = 1;
   }
+
+  /*numberPilesCheck(answer)
+    This fucntion is used to check if the students answer
+    for the number of piles question prompt is correct
+    
+    if: answer is equal to numberPiles 
+        correct message pops up 
+        displays the next questions
+    else: 
+        wrong message pops up try again
+
+    dont let the user go on until correct
+  */
+  function numberPilesCheck(answer){
+    if(answer == numberPiles){
+
+    }
+    else{
+        
+    }
+  }
+
+  /*remaindercheck(answer)
+    This function is used to check if the students answer
+    for the remainder of chips questions is correct
+
+    if:answer is equal to remainder
+        correct message pops up
+        display roll button again and have next player roll
+    else:
+        wrong message pops up try again
+    don't let the user go on until correct
+  */
+  function remainderCheck(answer){
+    if(answer == remainder){
+
+    }
+    else{
+
+    }
+  }
+
