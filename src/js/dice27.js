@@ -4,12 +4,13 @@ const windowHeight = window.innerHeight;
 const Graphics = PIXI.Graphics;
 const Sprite = PIXI.Sprite;
 
+var numberCoins;
 var currTotal = 27;
 var turn = true;
 var rolls = [];
 var scoreboard = [0, 0];
 var coins = [];
-var coinStack = new Array(13);
+var lines = [];
 
 let app = new PIXI.Application({
     backgroundAlpha: 0,
@@ -17,52 +18,11 @@ let app = new PIXI.Application({
     height: windowHeight * .15
 });
 
-// Stack class
-class Stack {
-
-    // Array is used to implement stack
-    constructor() {
-        this.items = [];
-    }
-
-    // Functions to be implemented
-    push(element) {
-        this.items.push(element);
-    }
-    pop() {
-        if (this.items.length == 0)
-            return "Underflow";
-        return this.items.pop();
-    }
-    peek() {
-        return this.items[this.items.length - 1];
-    }
-    isEmpty() {
-        return this.items.length == 0;
-    }
-    contains(val) {
-        for (let i = 0; i < this.items.length; i++) {
-            if (this.items[i] == val) {
-                return true;
-            }
-        }
-        return false;
-    }
-    printStack() {
-        var str = "";
-        for (var i = 0; i < this.items.length; i++) {
-            str += this.items[i] + " ";
-        }
-        return str;
-    }
-}
-
-
-
-
 document.getElementById("overalScore").innerHTML = currTotal;
 document.getElementById("player0").innerHTML = scoreboard[0];
 document.getElementById("player1").innerHTML = scoreboard[1];
+
+
 //set array to size
 for (let i = 0; i <= baseTotal; i++) {
     rolls[i] = 0;
@@ -74,6 +34,10 @@ function roll() {
     //get random number between 1-6
     let rollValue = Math.floor(Math.random() * 6) + 1;
     let player;
+
+    for(let i = 0; i < baseTotal; i++){
+        app.stage.removeChild(lines[i]);
+    }
 
     document.getElementById("dice").src = "../images/dice" + rollValue + ".png";
 
@@ -94,16 +58,30 @@ function roll() {
     document.getElementById("player" + player).innerHTML = scoreboard[player];
 
     checkScore();
-
 }
 
 function calculateScore(rollValue) {
     let points = currTotal % rollValue;
     currTotal = currTotal - points;
+    numberCoins = points;
+
     document.getElementById("overalScore").innerHTML = currTotal;
-    for(i = currTotal; i < baseTotal; i++){
+
+    for(let i = rollValue - 1; i < currTotal; i = i + rollValue){
+        app.stage.addChild(lines[i]);
+    }
+
+    for(let i = currTotal; i < baseTotal; i++){
         app.stage.removeChild(coins[i]);
     }
+
+    /*
+    if(points != 0){
+        document.getElementById("rollButton").hidden = true;
+        for(let i = currTotal; i < currTotal + points; i++){
+            coins[i].interactive = true;
+        }
+    }*/
     return points;
 }
 
@@ -147,24 +125,44 @@ function createGame(){
     
     //place the chips on the board
     for (i = 0, dist = 40; i < baseTotal; i++) {
+        let j = i;
     
         const chipWidth = 30;
-        const chipHeight = 20;
+        const chipHeight = 30;
+
+        lines[i] = new Graphics;
+        lines[i].beginFill("0x000000");
+        lines[i].drawRect(dist + 33, 0, 5, 5000);
+        lines[i].endFill();
     
         coins[i] = new Graphics();
         coins[i].beginFill("0xFFD700");              // ellipse color
         coins[i].lineStyle(1, "0x000000", 1);    // ellipse border
-        coins[i].drawEllipse(0, 0, chipWidth, chipHeight);    // position + size of the ellipse (topleft x, topleft y, height, width)
-        coins[i].x = dist;
-        coins[i].y = 75;
-        coins[i].interactive = true;
+        coins[i].drawEllipse(dist, 75, chipWidth, chipHeight);    // position + size of the ellipse (topleft x, topleft y, height, width)
+        coins[i].interactive = false;
         coins[i].buttonMode = true;
-        coins[i].endFill();                      // draws the ellipse
+        coins[i].on('poniterdown', (event) => removeChip(j));
+        coins[i].endFill();                 // draws the ellipse
     
         app.stage.addChild(coins[i]);               // stage the ellipse
         dist = dist + 70;
     }
+
+
     document.getElementById("createGame").hidden = true;
     document.getElementById("rollButton").hidden = false;
     document.getElementById("dice").hidden = false;
 }
+
+function removeChip(chipNumber){
+    //app.stage.removeChild(coins[chipNumber]);
+    console.log("Hello");
+}
+
+function hover(object, alphaVal) {
+    object.alpha = alphaVal;
+  }
+  
+  function hoverOut(object) {
+    object.alpha = 1;
+  }
