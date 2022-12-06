@@ -3,7 +3,6 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="../css/GoatGame.css">
-    <script src="js/goatGame.js"></script>
 
     <!-- Latest compiled and minified CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -16,8 +15,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
-
-    <script src="pixi.min.js"></script>
 
 </head>
 
@@ -48,7 +45,7 @@
         <div class="row">
             <h1 class="centerText">Monty Hall Problem</h1>
             <h5 class="centerText" style="font-size: 12pt; text-decoration: underline; " onclick="testModal()">
-                Click Here To Learn More About Monty Hall Problem!</h5>
+                Click Here To Learn More About Monty Hall Problem And How To Play the Game!</h5>
         </div>
     </div>
 
@@ -60,23 +57,21 @@
 
             <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
-                <img class="img-responsive" src="../images/ClosedDoor.png" width="300px" height="400px" alt="Door 1"
-                    id="door0">
-                <button onclick="stepOne(0)" class="btns" id="buttonDoor0"> Door 1</button>
+                <img class="img-responsive" onclick="stepOne(0)" src="../images/ClosedDoor.png" width="300px"
+                    height="400px" alt="Door 1" id="door0">
 
             </div>
             <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
-                <img class="img-responsive" src="../images/ClosedDoor.png" width="300px" height="400px" alt="Door 2"
-                    id="door1">
-                <button onclick="stepOne(1)" class="btns" id="buttonDoor1"> Door 2</button>
+                <img class="img-responsive" onclick="stepOne(1)" src="../images/ClosedDoor.png" width="300px"
+                    height="400px" alt="Door 2" id="door1">
 
             </div>
             <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
-                <img class="img-responsive" src="../images/ClosedDoor.png" width="300px" height="400px" alt="Door 3"
-                    id="door2">
-                <button onclick="stepOne(2)" class="btns" id="buttonDoor2"> Door 3</button>
+                <img class="img-responsive" onclick="stepOne(2)" src="../images/ClosedDoor.png" width="300px"
+                    height="400px" alt="Door 3" id="door2">
+
             </div>
         </div>
 
@@ -103,17 +98,17 @@
 
     <div class="statsSection">
         <h1 class="centerText"> Statistics For Game </h1>
+        <p id="simulateInfo" style="text-align:center;"> Enter how many times would you like to simulate the game in the
+            textbox below.</p>
         <div class="text-center">
             <button type="button" class="btn btn-primary" onclick="resetStats()">Reset Stats</button>
             <button type="button" class="btn btn-primary" onclick="playAgain()">Play Again</button>
-            <input type="text" id="amountTimesToRun" placeholder="Number of Runs">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                data-bs-target="#simulationModal">Simulate
+            <input type="number" id="amountTimesToRun" placeholder="Number of Runs">
+            <button type="button" class="btn btn-primary" onclick="preSimulate()" id="simulateRunButton">Simulate
                 Runs</button>
-            <!-- Button trigger modal 
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                Launch demo modal
-            </button>  leaving example here-->
+            <input type="number" id="amountTimesToSwitch" placeholder="# Times To Switch Doors" hidden="hidden">
+            <button type="button" class="btn btn-primary" onclick="simulateGame()" id="continueSimulation"
+                hidden="hidden">Continue</button>
         </div>
 
         <div class="row" style="text-align: center;">
@@ -143,30 +138,34 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Monty Hall was a TV and radio host most famous
-                            for
-                            hosting the game show Let’s Make a Deal which he produced and hosted for many years. The
-                            Monty
-                            Hall Problem was named after him because of it similarities with Let’s Make a Deal. The
-                            problem
-                            was first posted and solved a letter by Steve Selvin to the American Statistician in 1975.
-                            The original problem reading: “Suppose you're on a game show, and you're given the choice of
-                            three doors: Behind one door is a car; behind the others, goats. You pick a door, say No. 1,
-                            and
-                            the host, who knows what's behind the doors, opens another door, say No. 3, which has a
-                            goat. He
-                            then says to you, "Do you want to pick door No. 2?" Is it to your advantage to switch your
-                            choice?”
-                        </h5>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                        </div>
+                        <h3 class="modal-title">How To Play</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h5 id="mainTitleSection"><b>This is how you play our game.</b></h5>
+                       <p id="mainInfoSection">
+                        Below there are <b>three doors</b>, and there are <b>two goats</b> and <b>one car</b> hidden behind the doors. 
+                        <br>
+                        You select <b>one door</b> and then <b>a goat</b> is revealed. You are then given an option to either 
+                        <b>keep your current door</b> or <b>switch to the other unopened door</b>. 
+                        After which the door you choose is revealed.
+                        <br>
+                        The purpose of this game is to help educate you on probability.
+
+
+                       </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="buttonHistory" class="btn btn-primary" onclick="changeToHistory()">History of the Game</button>
+                        <button type="button" id="buttonHowToPlay" class="btn btn-primary" onclick="changeToHowToPlay()" hidden>How To Play</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="changeToHowToPlay()">Close</button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
     </div>
+    <script src="js/goatGame.js"></script>
 </body>
 
 </html>
