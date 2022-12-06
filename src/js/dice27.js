@@ -4,6 +4,7 @@ const windowHeight = window.innerHeight;
 const Graphics = PIXI.Graphics;
 const Sprite = PIXI.Sprite;
 
+var numberCoins;
 var currTotal = 27;
 var turn = true;
 var rolls = [];
@@ -57,23 +58,30 @@ function roll() {
     document.getElementById("player" + player).innerHTML = scoreboard[player];
 
     checkScore();
-
 }
 
 function calculateScore(rollValue) {
     let points = currTotal % rollValue;
-    let tempTotal = currTotal - points;
-    currTotal = tempTotal;
+    currTotal = currTotal - points;
+    numberCoins = points;
+
     document.getElementById("overalScore").innerHTML = currTotal;
-    for(let i = rollValue - 1; i < tempTotal; i = i + rollValue){
+
+    for(let i = rollValue - 1; i < currTotal; i = i + rollValue){
         app.stage.addChild(lines[i]);
     }
-
-    //wait for the chips to be rmemoved here
 
     for(let i = currTotal; i < baseTotal; i++){
         app.stage.removeChild(coins[i]);
     }
+
+    /*
+    if(points != 0){
+        document.getElementById("rollButton").hidden = true;
+        for(let i = currTotal; i < currTotal + points; i++){
+            coins[i].interactive = true;
+        }
+    }*/
     return points;
 }
 
@@ -147,6 +155,14 @@ function createGame(){
 }
 
 function removeChip(chipNumber){
-    app.stage.removeChild(coins[chipNumber]);
-    currTotal--;
+    //app.stage.removeChild(coins[chipNumber]);
+    console.log("Hello");
 }
+
+function hover(object, alphaVal) {
+    object.alpha = alphaVal;
+  }
+  
+  function hoverOut(object) {
+    object.alpha = 1;
+  }
