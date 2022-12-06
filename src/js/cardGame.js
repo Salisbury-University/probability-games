@@ -84,6 +84,7 @@ document.body.appendChild(app.view);
 // gameplay objects
 let dice1, dice2, rollButton, dice1oll, dice2Roll, sheet;
 
+// initialize turn
 var playerTurn = 1;
 
 // Stack class
@@ -127,8 +128,9 @@ class Stack {
 }
 
 // initialize instruction
-let originalPrompt = "Player 1 click on a card to place your chip.";
+let originalPrompt = "Player 1 click on a card to place your chip";
 let prompt = new Text(originalPrompt, promptStyle);
+prompt.resolution = 2;
 
 // instructional prompt
 prompt.x = windowWidth * 0.5 - (originalPrompt.length * (promptStyle.fontSize * 0.46) / 2);
@@ -147,6 +149,13 @@ function updatePrompt(newMessage, turn) {
 
 // base url of dice images
 app.loader.baseUrl = "../images/";
+
+let audio_pop = new Audio('../images/pop.mp3');
+audio_pop.volume = 0.5;
+let audio_roll = new Audio('../images/dice_roll.mp3');
+let audio_woosh = new Audio('../images/short_woosh.mp3');
+let audio_point = new Audio('../images/point_2.mp3');
+let audio_misclick = new Audio('../images/wrong.mp3');
 
 // load and name all dice images
 app.loader.add("dice0", "dice0.png")
@@ -227,18 +236,19 @@ for (i = 0; i < 11; i++) {
   cards[i].y = windowHeight * .05;
   cards[i].interactive = true;
   cards[i].buttonMode = true;
-  cards[i].on('pointerdown', (event) => cardClick(j))
-    .on('pointerover', (event) => hover(cards[j], 0.82))
-    .on('pointerout', (event) => hoverOut(cards[j]));
+  cards[i].on('pointerdown', () => cardClick(j))
+    .on('pointerover', () => hover(cards[j], 0.82))
+    .on('pointerout', () => hoverOut(cards[j]));
   cards[i].endFill();
 
   // add the numbers to cards
   titles[i] = new Text(i + 2, cardStyle);
+  titles[i].resolution = 2;
   if (i < 8) {
     titles[i].x = cards[i].x + ((cardWidth / 2) * .75);
   }
   else {
-    titles[i].x = cards[i].x + ((cardWidth / 2) * .55);
+    titles[i].x = cards[i].x + ((cardWidth / 2) * .65);
   }
 
   titles[i].y = windowHeight * .05;
@@ -274,8 +284,8 @@ for (i = 0; i < 10; i++) {
   chips2[j].interactive = true;
   chips1[j].buttonMode = true;
   chips2[j].buttonMode = true;
-  chips1[j].on('pointerdown', (event) => chipClick(j, PLAYER_1))
-  chips2[j].on('pointerdown', (event) => chipClick(j, PLAYER_2))
+  chips1[j].on('pointerdown', () => chipClick(j, PLAYER_1))
+  chips2[j].on('pointerdown', () => chipClick(j, PLAYER_2))
   chips1[i].endFill();                         // draws the ellipse
   chips2[i].endFill();
 
@@ -311,9 +321,9 @@ function createGame() {
   // make the objects interactive and assign functions to them
   rollButton.interactive = true;
   rollButton.buttonMode = true;
-  rollButton.on('pointerdown', (event) => roll())
-    .on('pointerover', (event) => hover(rollButton, 0.82))
-    .on('pointerout', (event) => hoverOut(rollButton));
+  rollButton.on('pointerdown', () => roll())
+    .on('pointerover', () => hover(rollButton, 0.82))
+    .on('pointerout', () => hoverOut(rollButton));
 
   // add the objects to the screen
   app.stage.addChild(dice1);
@@ -329,11 +339,13 @@ var totalChipCount = 20;
 
 // players sending chips to their cards
 function cardClick(cardNumber) {
-
   // how many ticks take place in the animation
   let ticks = 20;
 
   if (playerTurn == 1 && totalChipCount > 0) {//player 1s turn
+    audio_woosh.pause();
+    audio_woosh.currentTime = 0;
+    audio_woosh.play();
 
     // track score information
     if (scoreboard[PLAYER_1] < 10)
@@ -388,6 +400,9 @@ function cardClick(cardNumber) {
 
   }
   else if (playerTurn == 2 && totalChipCount > 0) {
+    audio_woosh.pause();
+    audio_woosh.currentTime = 0;
+    audio_woosh.play();
 
     // scoreboard information
     if (scoreboard[PLAYER_2] < 10)
@@ -449,7 +464,7 @@ function cardClick(cardNumber) {
       let j = i;
       cards[j].interactive = false;
       cards[j].buttonMode = false;
-      cards[j].on('pointerover', (event) => hover(cards[j], 1));
+      cards[j].on('pointerover', () => hover(cards[j], 1));
     }
     app.stage.addChild(rollButton);
   }
@@ -472,6 +487,9 @@ var clickableCard = -1;
 
 // upon click of roll button
 function roll() {
+  audio_roll.pause();
+  audio_roll.currentTime = 0;
+  audio_roll.play()
 
   // making the dice interactive
   dice1.interactive = true;
@@ -509,7 +527,7 @@ function roll() {
         // a card is rolled with chips on it
         if (cardChips1[totalRolled - 2] > 0) {
           rollButton.interactive = false;
-          updatePrompt("Player 1 remove chip", PLAYER_1);
+          updatePrompt("Player 1 click on your pile to remove the chip", PLAYER_1);
 
           clickableCard = totalRolled - 2;
         }
@@ -525,7 +543,7 @@ function roll() {
         numRolls[PLAYER_2] += 1;
         if (cardChips2[totalRolled - 2] > 0) {
           rollButton.interactive = false;
-          updatePrompt("Player 2 remove chip", PLAYER_2);
+          updatePrompt("Player 2 click on your pile to remove the chip", PLAYER_2);
 
           clickableCard = totalRolled - 2;
         }
@@ -543,6 +561,8 @@ function roll() {
 
     // for now, just reload the page if someone wins
     if (scoreboard[PLAYER_1] == 0 || scoreboard[PLAYER_2] == 0) {
+
+      audio_point.play();
 
       rollButton.interactive = false;
       app.stage.removeChild(dice1);
@@ -606,23 +626,31 @@ function chipClick(chipNo, player) {
       if (chipStack1[clickableCard].contains(chipNo)) {
 
         // remove the chip
+        audio_pop.play();
         app.stage.removeChild(chips1[chipStack1[clickableCard].pop()]);
         scoreboard[PLAYER_1] -= 1;
         cardChips1[clickableCard] -= 1;
         player1ScoreText.text = scoreboard[PLAYER_1];
         app.stage.addChild(player1ScoreText);
 
-        // allow game to continue
+        // allow game to continue5
         rollButton.interactive = true;
         updatePrompt("Player 2's roll", PLAYER_2);
         playerTurn = 2;
         clickableCard = -1;
+      }
+      else {
+        audio_misclick.pause();
+        audio_misclick.time = 0;
+        audio_misclick.play();
       }
     }
     else if (playerTurn == 2 && playerTurn == player + 1) {
       if (chipStack2[clickableCard].contains(chipNo)) {
 
         //remove the chip
+        audio_pop.play(); // play audio
+
         app.stage.removeChild(chips2[chipStack2[clickableCard].pop()]);
         scoreboard[PLAYER_2] -= 1;
         cardChips2[clickableCard] -= 1;
@@ -635,6 +663,16 @@ function chipClick(chipNo, player) {
         playerTurn = 1;
         clickableCard = -1;
       }
+      else {
+        audio_misclick.pause();
+        audio_misclick.time = 0;
+        audio_misclick.play();
+      }
+    }
+    else {
+      audio_misclick.pause();
+      audio_misclick.time = 0;
+      audio_misclick.play();
     }
   }
 }
