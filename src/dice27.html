@@ -161,6 +161,36 @@
               </table>
         </div>
     </div>
+
+    <div class="col text-center" id="helpButton">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          How to Play
+        </button>
+      </div>
+    
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">How to Play</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ol>
+            <li>Player rolls dice.</li>
+            <li>Player asked what is the max number of piles that can be made based on dice roll.</li>
+            <li>Player asked how many chips remain after creating piles.</li>
+            <li>If the remainder is greater than 0 the player gets those chips as points.</li>
+            <li>Swap to the other player.</li>
+            <li>Repeat steps 1 - 5 until the total number of chips is 0 then the player with the most chips wins.</li>
+          </ol>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
     
     <script src="js/pixi.min.js"></script>
     <script src="js/dice27.js"></script>
