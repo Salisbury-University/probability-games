@@ -16,7 +16,7 @@ const teal = 0x177e89;
 const oceanic = 0x084c61;
 const red = 0xdb3a34;
 const yellow = 0xffc857;
-const charcoal = 0x323031;
+const charcoal = 0xd3d3d3;
 
 const Graphics = PIXI.Graphics;
 const Text = PIXI.Text;
@@ -73,9 +73,9 @@ var scoreStyle = new PIXI.TextStyle({
 
 //create Application Window
 let app = new PIXI.Application({
-  backgroundColor: 0xffffff,
+  backgroundColor: charcoal,
   width: windowWidth,
-  height: windowHeight * .63
+  height: windowHeight * .63,
 });
 
 // append the application window to the page
@@ -128,7 +128,7 @@ class Stack {
 }
 
 // initialize instruction
-let originalPrompt = "Player 1 click on a card to place your chip";
+let originalPrompt = "click on a card to place your chip";
 let prompt = new Text(originalPrompt, promptStyle);
 prompt.resolution = 2;
 
@@ -150,12 +150,12 @@ function updatePrompt(newMessage, turn) {
 // base url of dice images
 app.loader.baseUrl = "../images/";
 
-let audio_pop = new Audio('../images/pop.mp3');
+let audio_pop = new Audio('../sounds/pop.mp3');
 audio_pop.volume = 0.5;
-let audio_roll = new Audio('../images/dice_roll.mp3');
-let audio_woosh = new Audio('../images/short_woosh.mp3');
-let audio_point = new Audio('../images/point_2.mp3');
-let audio_misclick = new Audio('../images/wrong.mp3');
+let audio_roll = new Audio('../sounds/dice_roll.mp3');
+let audio_woosh = new Audio('../sounds/short_woosh.mp3');
+let audio_point = new Audio('../sounds/point_2.mp3');
+let audio_misclick = new Audio('../sounds/wrong.mp3');
 
 // load and name all dice images
 app.loader.add("dice0", "dice0.png")
@@ -185,10 +185,10 @@ var player2ScoreText = new Text("0", scoreStyle);
 var scoreboard = [0, 0];
 
 // position and size the text based on window size
-player1.x = windowWidth * .07;
-player2.x = windowWidth * .74;
-player1ScoreText.x = windowWidth * .13;
-player2ScoreText.x = windowWidth * .8;
+player1.x = (windowWidth * .05);
+player2.x = (windowWidth * .95) - player2.width;
+player1ScoreText.x = player1.x + (player1.width / 2) - player1ScoreText.width / 2;
+player2ScoreText.x = player2.x + (player2.width / 2) - player2ScoreText.width / 2;
 
 player1.y = windowHeight * 0.35;
 player2.y = windowHeight * 0.35;
@@ -272,14 +272,14 @@ for (i = 0; i < 10; i++) {
   chips2[i] = new Graphics();
   chips1[i].beginFill(red);              // ellipse color
   chips2[i].beginFill(teal);
-  chips1[i].lineStyle(1, charcoal, 1);    // ellipse border
-  chips2[i].lineStyle(1, charcoal, 1);
+  chips1[i].lineStyle(1, 0x000000, 1);    // ellipse border
+  chips2[i].lineStyle(1, 0x000000, 1);
   chips1[i].drawEllipse(0, 0, chipWidth, chipHeight);    // position + size of the ellipse (topleft x, topleft y, height, width)
   chips2[i].drawEllipse(0, 0, chipWidth, chipHeight);
-  chips1[i].x = windowWidth * .09;
-  chips2[i].x = windowWidth * .88;
-  chips1[i].y = (((windowHeight + player1.y - 100) * .55) - i * (windowHeight * .011)) * .85;
-  chips2[i].y = (((windowHeight + player2.y - 100) * .55) - i * (windowHeight * .011)) * .85;
+  chips1[i].x = player1ScoreText.x - chips1[0].width;
+  chips2[i].x = player2ScoreText.x + player2ScoreText.width + chips1[0].width;
+  chips1[i].y = player1.y + chips1[0].height * 6 - (chips1[0].height / 4) * i;
+  chips2[i].y = player2.y + chips1[0].height * 6 - (chips1[0].height / 4) * i;
   chips1[j].interactive = true;
   chips2[j].interactive = true;
   chips1[j].buttonMode = true;
@@ -329,6 +329,37 @@ function createGame() {
   app.stage.addChild(dice1);
   app.stage.addChild(dice2);
 
+  switchTurns(1);
+}
+
+function switchTurns(turn) {
+  if (turn == 1) {
+    //grey out the other player's text
+    player2.alpha = 0.5;
+    player2ScoreText.alpha = 0.5;
+    player1.alpha = 1;
+    player1ScoreText.alpha = 1;
+
+    //gray out the other player's chips
+    // for (let i = 0; i < 10; i++) {
+    //   chips1[i].alpha = 1;
+    //   chips2[i].alpha = 0.5;
+    // }
+  }
+  else if (turn == 2) {
+    //grey out the other player's text
+    player1.alpha = 0.5;
+    player1ScoreText.alpha = 0.5;
+    player2.alpha = 1;
+    player2ScoreText.alpha = 1;
+
+    //gray out the other player's chips
+    // for (let i = 0; i < 10; i++) {
+    //   chips2[i].alpha = 1;
+    //   chips1[i].alpha = 0.5;
+    // }
+
+  }
 }
 
 // some vars for moving the chips
@@ -394,8 +425,9 @@ function cardClick(cardNumber) {
     chipsPlaced1[cardNumber] += 1;
 
     // increment current chip counter
-    updatePrompt("Player 2 click on a card to place your chip", PLAYER_2);
+    updatePrompt("click on a card to place your chip", PLAYER_2);
     playerTurn = 2;
+    switchTurns(2);
     currChip1--;
 
   }
@@ -450,8 +482,9 @@ function cardClick(cardNumber) {
     chipsPlaced2[cardNumber] += 1;
 
     // decrement current chip counter
-    updatePrompt("Player 1, click on a card to place your chip", PLAYER_1);
+    updatePrompt("click on a card to place your chip", PLAYER_1);
     playerTurn = 1;
+    switchTurns(1);
     currChip2--;
 
   }
@@ -527,13 +560,14 @@ function roll() {
         // a card is rolled with chips on it
         if (cardChips1[totalRolled - 2] > 0) {
           rollButton.interactive = false;
-          updatePrompt("Player 1 click on your pile to remove the chip", PLAYER_1);
+          updatePrompt("click on the correct pile to remove the chip", PLAYER_1);
 
           clickableCard = totalRolled - 2;
         }
         else { // move to player 2's turn
           updatePrompt("Player 2's roll", PLAYER_2);
           playerTurn = 2;
+          switchTurns(2);
           rollButton.interactive = true;
         }
       }
@@ -543,13 +577,14 @@ function roll() {
         numRolls[PLAYER_2] += 1;
         if (cardChips2[totalRolled - 2] > 0) {
           rollButton.interactive = false;
-          updatePrompt("Player 2 click on your pile to remove the chip", PLAYER_2);
+          updatePrompt("click on the correct pile to remove the chip", PLAYER_2);
 
           clickableCard = totalRolled - 2;
         }
         else { // move to player 1's turn
           updatePrompt("Player 1's roll", PLAYER_1);
           playerTurn = 1;
+          switchTurns(1);
           rollButton.interactive = true;
         }
       }
@@ -637,6 +672,7 @@ function chipClick(chipNo, player) {
         rollButton.interactive = true;
         updatePrompt("Player 2's roll", PLAYER_2);
         playerTurn = 2;
+        switchTurns(2);
         clickableCard = -1;
       }
       else {
@@ -661,6 +697,7 @@ function chipClick(chipNo, player) {
         rollButton.interactive = true;
         updatePrompt("Player 1's roll", PLAYER_1);
         playerTurn = 1;
+        switchTurn(1);
         clickableCard = -1;
       }
       else {
@@ -675,4 +712,4 @@ function chipClick(chipNo, player) {
       audio_misclick.play();
     }
   }
-}
+} 
