@@ -8,12 +8,18 @@
   <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css">
   <link href="../css/home.css" rel="stylesheet">
 
+  <!-- favicon stuff -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png">
+  <link rel="manifest" href="../images/site.webmanifest">
+
 
   <title>2-12 Card Game</title>
 
 </head>
 
-<body>
+<body style="background-color: #d3d3d3">
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="home.html" style="color:white"><img src="../images/logo.png"
@@ -28,6 +34,10 @@
       </div>
     </div>
   </nav>
+
+
+  <!-- possible header -->
+  <!-- <h1 class="display-3 text-center p-3"><strong>12 Card Game</strong></h1> -->
 
   <span class="border-top border-right border-left" id="border" hidden>
     <h1 class="mb-2 p-3 text-center bg-light" id="win-header">Player _ Won in _ rolls!</h1>
@@ -88,22 +98,13 @@
   </span>
 
   <script src="js/pixi.min.js"></script>
-
   <script src="js/cardGame.js"></script>
 
   <!-- Button trigger modal -->
-  <br></br>
-  <br></br>
-  <br></br>
-  <div class="col text-center" id="helpButton">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      How to Play
-    </button>
-  </div>
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">How to Play</h1>
@@ -111,16 +112,18 @@
         </div>
         <div class="modal-body">
           <ol>
-            <li>Player 1 adds a chip to a card.</li>
-            <li>Player 2 adds a chip to a card.</li>
-            <li>Repeat Steps 1-2 until both players have no chips remaining.</li>
+            <li>Player's each take turns adding their chips to the numbered cards, until there are no chips remaining in
+              their piles</li>
             <li>Player 1 rolls the two dice and adds the sum of the dice.</li>
-            <dl>If: Player 1 has a chip on the card equal to the sum of the dice remove the chip and get a point.</dl>
-            <dl>Else: Remove no chips from the cards and get no points.</dl>
+            <dl>If Player 1 has a chip on the card equal to the sum of the dice remove the chip and get a point.</dl>
+            <dl>Otherwise, move onto player 2's roll</dl>
             <li>Player 2 rolls the two dice and adds the sum of the dice.</li>
-            <dl>If: Player 2 has a chip on the card equal to the sum of the dice remove the chip and get a point.</dl>
-            <dl>Else: Remove no chips from the cards and get no points.</dl>
-            <li>Repeat steps 4 - 5 until either Player 1 or 2 reach 10 points and Win the Game.</li>
+            <dl>Now, if Player 2 has a chip on the card equal to the sum of the dice remove the chip and get a point.
+            </dl>
+            <dl>Otherwise, it becomes player 1's turn to roll again</dl>
+            <li>Continue rolling the dice and removing chips, until one player removes all of their chips</li>
+            <li>First player to remove all of their chips from their cards wins!</li>
+            <li>Try to place your chips where you think the dice will roll more often than not!</li>
           </ol>
         </div>
         <div class="modal-footer">
@@ -130,6 +133,15 @@
     </div>
   </div>
 
+  <br></br>
+  <br></br>
+  <br></br>
+
+  <hr class="featurette-divider">
+  <footer class="container">
+    <p class="float-end" data-bs-toggle="modal" data-bs-target="#exampleModal"><a href="#">How to Play</a></p>
+    <p> &middot; Salisbury University &middot; </p>
+  </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
