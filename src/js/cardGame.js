@@ -171,12 +171,6 @@ app.loader.add("dice0", "dice0.png")
 app.loader.onComplete.add(createGame);
 app.loader.load();
 
-// cards background
-var cardWindow = new Graphics;
-cardWindow.beginFill(charcoal);
-cardWindow.drawRect(0, 0, windowWidth, windowHeight * .32);
-app.stage.addChild(cardWindow);
-
 //create player names with styling
 var player1 = new Text("PLAYER 1\nRemaining Chips:", { fontSize: windowWidth * .015, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold", fill: red, align: 'center' });
 var player2 = new Text("PLAYER 2\nRemaining Chips:", { fontSize: windowWidth * .015, fontFamily: "\"Arial Black\", Gadget, sans-serif", fontWeight: "bold", fill: teal, align: 'center' });
@@ -597,7 +591,7 @@ function roll() {
     // for now, just reload the page if someone wins
     if (scoreboard[PLAYER_1] == 0 || scoreboard[PLAYER_2] == 0) {
 
-      audio_point.play();
+      // audio_point.play();
 
       rollButton.interactive = false;
       app.stage.removeChild(dice1);
@@ -624,7 +618,7 @@ function roll() {
       scoreboard[PLAYER_1] = -1;
       scoreboard[PLAYER_2] = -1;
 
-      app.height = 10;
+      app.height = 1;
       for (let i = app.stage.children.length - 1; i >= 0; i--) { app.stage.removeChild(app.stage.children[i]); };
 
       // app.stage.addChild(winText);
@@ -639,7 +633,6 @@ function roll() {
       }
 
       document.getElementById("border").hidden = false;
-      document.getElementById("helpButton").hidden = true;
     }
 
   });
@@ -651,10 +644,6 @@ function playAgain() {
 }
 
 function chipClick(chipNo, player) {
-  console.log("card rolled: ", clickableCard + 2);
-  console.log("chip no: ", chipNo);
-  console.log("Player 1: ", chipStack1[clickableCard].contains(chipNo));
-  console.log("player 2: ", chipStack2[clickableCard].contains(chipNo));
 
   if (clickableCard != -1) {
     if (playerTurn == 1 && playerTurn == player + 1) {
@@ -697,7 +686,7 @@ function chipClick(chipNo, player) {
         rollButton.interactive = true;
         updatePrompt("Player 1's roll", PLAYER_1);
         playerTurn = 1;
-        switchTurn(1);
+        switchTurns(1);
         clickableCard = -1;
       }
       else {
