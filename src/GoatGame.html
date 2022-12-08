@@ -16,12 +16,14 @@
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
 
+        <script src="js/goatGame.js"></script>
+
 </head>
 
 
 <title> Monty Hall Problem</title>
 
-<body>
+<body style="margin: 0px; padding: 0px;">
 
 
     <nav class="navbar navbar-expand-lg" style="background-color: #124E78;">
@@ -52,30 +54,30 @@
 
 
 
-    <div style="background-color: aquamarine;">
+    <div style="background-color: aquamarine;border-bottom: 1px solid black;">
         <div class="row" style="width: 80%;margin-left: 15%;padding-bottom: 20px; padding-top: 20px;">
 
             <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
                 <img class="img-responsive" onclick="stepOne(0)" src="../images/ClosedDoor.png" width="300px"
-                    height="400px" alt="Door 1" id="door0">
+                    height="300px" alt="Door 1" id="door0">
 
             </div>
             <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
                 <img class="img-responsive" onclick="stepOne(1)" src="../images/ClosedDoor.png" width="300px"
-                    height="400px" alt="Door 2" id="door1">
+                    height="300px" alt="Door 2" id="door1">
 
             </div>
             <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
                 <img class="img-responsive" onclick="stepOne(2)" src="../images/ClosedDoor.png" width="300px"
-                    height="400px" alt="Door 3" id="door2">
+                    height="300px" alt="Door 3" id="door2">
 
             </div>
         </div>
 
-        <div class="stageSection">
+        <div class="stageSection" id="stageSectionID">
             <div class="centerText">
                 <h2 id="titleSentence">Welcome to Monty Hall's Problem!</h2>
                 <p class="firstSentence" id="firstSentenceID">There are <b>three</b> doors in front of you. There are
@@ -97,23 +99,24 @@
 
 
     <div class="statsSection">
-        <h1 class="centerText"> Statistics For Game </h1>
+        <!--<h1 class="centerText"> Statistics For Game </h1>-->
         <p id="simulateInfo" style="text-align:center;"> Enter how many times would you like to simulate the game in the
             textbox below.</p>
         <div class="text-center">
+            <button type="button" class="btn btn-primary" onclick="showStats()" id="showStatsButton">Show Stats</button>
+            <button type="button" class="btn btn-primary" onclick="hideStats()" id="hideStatsButton" hidden="hidden">Hide Stats</button>
             <button type="button" class="btn btn-primary" onclick="resetStats()">Reset Stats</button>
             <button type="button" class="btn btn-primary" onclick="playAgain()">Play Again</button>
             <input type="number" id="amountTimesToRun" placeholder="Number of Runs">
-            <button type="button" class="btn btn-primary" onclick="preSimulate()" id="simulateRunButton">Simulate
-                Runs</button>
+            <button type="button" class="btn btn-primary" onclick="preSimulate()" id="simulateRunButton">Simulate Runs</button>
             <input type="number" id="amountTimesToSwitch" placeholder="# Times To Switch Doors" hidden="hidden">
             <button type="button" class="btn btn-primary" onclick="simulateGame()" id="continueSimulation"
                 hidden="hidden">Continue</button>
         </div>
 
-        <div class="row" style="text-align: center;">
+        <div class="row" style="text-align: center;" id="statShow&Hide" hidden="hidden">
             <div class="col-md-4">
-                <h3 id="gamesPlayed">Total Games Played: 0 </h3>
+                <h3 id="gamesPlayed"  title="Hello, this is the tooltip">Total Games Played: 0 </h3>
                 <h3 id="gamesWon">Total Games Won: 0</h3>
                 <h3 id="gamesLost">Total Games Lost: 0</h3>
             </div>
@@ -142,22 +145,27 @@
                     </div>
                     <div class="modal-body">
                         <h5 id="mainTitleSection"><b>This is how you play our game.</b></h5>
-                       <p id="mainInfoSection">
-                        Below there are <b>three doors</b>, and there are <b>two goats</b> and <b>one car</b> hidden behind the doors. 
-                        <br>
-                        You select <b>one door</b> and then <b>a goat</b> is revealed. You are then given an option to either 
-                        <b>keep your current door</b> or <b>switch to the other unopened door</b>. 
-                        After which the door you choose is revealed.
-                        <br>
-                        The purpose of this game is to help educate you on probability.
+                        <p id="mainInfoSection">
+                            Below there are <b>three doors</b>, and there are <b>two goats</b> and <b>one car</b> hidden
+                            behind the doors.
+                            <br>
+                            You select <b>one door</b> and then <b>a goat</b> is revealed. You are then given an option
+                            to either
+                            <b>keep your current door</b> or <b>switch to the other unopened door</b>.
+                            After which the door you choose is revealed.
+                            <br>
+                            The purpose of this game is to help educate you on probability.
 
 
-                       </p>
+                        </p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" id="buttonHistory" class="btn btn-primary" onclick="changeToHistory()">History of the Game</button>
-                        <button type="button" id="buttonHowToPlay" class="btn btn-primary" onclick="changeToHowToPlay()" hidden>How To Play</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="changeToHowToPlay()">Close</button>
+                        <button type="button" id="buttonHistory" class="btn btn-primary"
+                            onclick="changeToHistory()">History of the Game</button>
+                        <button type="button" id="buttonHowToPlay" class="btn btn-primary" onclick="changeToHowToPlay()"
+                            hidden>How To Play</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                            onclick="changeToHowToPlay()">Close</button>
                     </div>
                 </div>
             </div>
@@ -165,7 +173,7 @@
     </div>
 
     </div>
-    <script src="js/goatGame.js"></script>
+
 </body>
 
 </html>
