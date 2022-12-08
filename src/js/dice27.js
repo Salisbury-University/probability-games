@@ -126,6 +126,7 @@ function reset() {
 }
 
 function createGame(){
+    document.getElementById("mainPrompt").textContent = "Player 1 Roll";
     
     document.getElementById("app").appendChild(app.view);
     
@@ -153,7 +154,6 @@ function createGame(){
         app.stage.addChild(coins[i]);               // stage the ellipse
         dist = dist + 70;
     }
-
 
     document.getElementById("createGame").hidden = true;
     document.getElementById("rollButton").hidden = false;

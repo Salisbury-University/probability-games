@@ -47,15 +47,15 @@
             </div>
             <div class="col">
                 <h2 id="mainPrompt">Press Play Game to Play!</h2>
-                <div class="customCard">
+                <div class="customCard" hidden>
                     <div class="card" style="width: 18rem;">
-                        <div id="pilesQuestion" class="card-body">
+                        <div id="pilesQuestion" class="card-body" hidden>
                             <div>How many piles of <div id="rollNumber"></div> can be made?</div>
                             <label for="remainderInput" class="visually-hidden">Number of Piles</label>
                             <input type="password" class="form-control" id="pilesInput" placeholder="Remainder">
                             <button type="button" class="btn btn-primary mb-3">Submit</button>
                         </div>
-                        <div id="reminaderQuestion" class="card-body">
+                        <div id="reminaderQuestion" class="card-body" hidden>
                             <div>How many chips are left over?</div>
                             <label for="remainderInput" class="visually-hidden">Remainder</label>
                             <input type="password" class="form-control" id="remainderInput" placeholder="Remainder">
