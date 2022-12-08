@@ -17,6 +17,9 @@ const oceanic = 0x084c61;
 const red = 0xdb3a34;
 const yellow = 0xffc857;
 const charcoal = 0xd3d3d3;
+const green = 0x3bb143;
+const black = 0x000000;
+const white = 0xffffff;
 
 const Graphics = PIXI.Graphics;
 const Text = PIXI.Text;
@@ -33,7 +36,6 @@ var cardStyle = new PIXI.TextStyle({
   dropShadowAlpha: 0.5,
   dropShadowDistance: 5,
   fill: red,
-  //fontFamily: '"Arial Black", Gadget, sans-serif',
   fontFamily: "Comic Sans MS",
   fontSize: windowWidth * 0.02,
   fontWeight: "bolder",
@@ -44,7 +46,6 @@ var cardStyle = new PIXI.TextStyle({
 // winning text's style
 var winStyle = new PIXI.TextStyle({
   fill: red,
-  //fontFamily: '"Arial Black", Gadget, sans-serif',
   fontFamily: "Helvetica",
   fontSize: windowWidth * 0.02,
   fontWeight: "bolder",
@@ -68,7 +69,6 @@ var promptStyle = new PIXI.TextStyle({
 // score text style beneach player sides
 var scoreStyle = new PIXI.TextStyle({
   fontSize: windowWidth * 0.03,
-  //fontFamily: '"Arial Black", Gadget, sans-serif',
   fontFamily: "Comic Sans MS",
   fontWeight: "bold",
   align: "center",
@@ -85,7 +85,17 @@ let app = new PIXI.Application({
 document.body.appendChild(app.view);
 
 // gameplay objects
-let dice1, dice2, rollButton, dice1oll, dice2Roll, sheet;
+let dice1,
+  dice2,
+  rollButton,
+  powerBar,
+  powerBarIndicator,
+  dice1oll,
+  dice2Roll,
+  sheet;
+
+// flag to move powerBarIndicator
+var powerBarMove = false;
 
 // initialize turn
 var playerTurn = 1;
@@ -316,7 +326,7 @@ for (i = 0; i < 10; i++) {
   app.stage.addChild(chips2[i]);
 }
 
-// function creates the dice and roll button
+// function creates the dice, roll button, and power bar
 function createGame() {
   app.stage.addChild(promptBackdrop);
   app.stage.addChild(prompt);
@@ -340,7 +350,7 @@ function createGame() {
   rollButton.width = windowWidth * 0.1;
   rollButton.height = windowHeight * 0.1;
   rollButton.x = (windowWidth - rollButton.width) / 2;
-  rollButton.y = dice1.y + dice1.height * 1.01;
+  rollButton.y = dice1.y + dice1.height * 1.15;
 
   // make the objects interactive and assign functions to them
   rollButton.interactive = true;
@@ -350,10 +360,47 @@ function createGame() {
     .on("pointerover", () => hover(rollButton, 0.82))
     .on("pointerout", () => hoverOut(rollButton));
 
+  // draw the powerbar for dice power as a gradient
+  const quality = 256;
+  const canvas = document.createElement("canvas");
+  canvas.width = quality;
+  canvas.height = 1;
+  const ctx = canvas.getContext("2d");
+  const grd = ctx.createLinearGradient(0, 0, quality, 0);
+  grd.addColorStop(0, "white");
+  grd.addColorStop(0.05, "red");
+  grd.addColorStop(0.5, "yellow");
+  grd.addColorStop(0.95, "green");
+  grd.addColorStop(1, "white");
+
+  ctx.fillStyle = grd;
+  ctx.fillRect(0, 0, quality, 1);
+
+  const gradTexture = PIXI.Texture.from(canvas);
+  powerBar = new Sprite(gradTexture);
+  powerBar.position.set(dice1.x, dice1.y + dice1.height * 1.03);
+  powerBar.width = dice1.width * 2;
+  powerBar.height = dice1.height / 4;
+
+  // draw power bar indicator
+  powerBarIndicator = new Graphics();
+  powerBarIndicator.beginFill(red);
+  powerBarIndicator.drawRoundedRect(
+    0,
+    0,
+    powerBar.width / 20,
+    dice1.height / 3,
+    4
+  );
+  powerBarIndicator.x = dice1.x;
+  powerBarIndicator.y = dice1.y + dice1.height * 0.99;
+  powerBarIndicator.endFill();
+
   // add the objects to the screen
   app.stage.addChild(dice1);
   app.stage.addChild(dice2);
 
+  // only staged for testing, remove from testing when done
   switchTurns(1);
 }
 
@@ -385,6 +432,7 @@ function cardClick(cardNumber) {
 
   if (playerTurn == 1 && totalChipCount > 0) {
     //player 1s turn
+    // play chip moving audio
     audio_woosh.pause();
     audio_woosh.currentTime = 0;
     audio_woosh.play();
@@ -506,6 +554,24 @@ function cardClick(cardNumber) {
       cards[j].on("pointerover", () => hover(cards[j], 1));
     }
     app.stage.addChild(rollButton);
+    app.stage.addChild(powerBar);
+    app.stage.addChild(powerBarIndicator);
+    powerBarMove = true;
+
+    // move the power bar indicator up and down the power bar
+    let elapsed = 0.0;
+    app.ticker.add((delta) => {
+      // move the powerBar if the move is set to true
+      if (powerBarMove == true) {
+        elapsed += delta;
+        powerBarIndicator.x =
+          Math.cos(elapsed / 20) * (powerBar.width / 2) +
+          (powerBar.width / 2 + powerBar.x * 0.99);
+      } else if (elapsed > 0) {
+        // fix this part, if resetting, the powerBarIndicator should go back to the original x value, while still being able ot freeze
+        elapsed -= delta;
+      }
+    });
   }
 }
 
@@ -529,6 +595,8 @@ function roll() {
   audio_roll.pause();
   audio_roll.currentTime = 0;
   audio_roll.play();
+
+  powerBarMove = false;
 
   // making the dice interactive
   dice1.interactive = true;
@@ -576,6 +644,10 @@ function roll() {
           playerTurn = 2;
           switchTurns(2);
           rollButton.interactive = true;
+
+          // reset power bar, and continue to move it
+          powerBarIndicator.x = dice1.x;
+          powerBarMove = true;
         }
       } else {
         // a card is rolled with chips on it
@@ -594,6 +666,10 @@ function roll() {
           playerTurn = 1;
           switchTurns(1);
           rollButton.interactive = true;
+
+          // reset power bar, and continue to move it
+          powerBarIndicator.x = dice1.x;
+          powerBarMove = true;
         }
       }
 
@@ -604,8 +680,6 @@ function roll() {
 
     // for now, just reload the page if someone wins
     if (scoreboard[PLAYER_1] == 0 || scoreboard[PLAYER_2] == 0) {
-      // audio_point.play();
-
       rollButton.interactive = false;
       app.stage.removeChild(dice1);
       app.stage.removeChild(dice2);
@@ -676,6 +750,10 @@ function chipClick(chipNo, player) {
         playerTurn = 2;
         switchTurns(2);
         clickableCard = -1;
+
+        //reset powerbar indicator
+        powerBarIndicator.x = dice1.x;
+        powerBarMove = true;
       } else {
         audio_misclick.pause();
         audio_misclick.time = 0;
@@ -698,6 +776,10 @@ function chipClick(chipNo, player) {
         playerTurn = 1;
         switchTurns(1);
         clickableCard = -1;
+
+        //reset powerbar indicator
+        powerBarIndicator.x = dice1.x;
+        powerBarMove = true;
       } else {
         audio_misclick.pause();
         audio_misclick.time = 0;
