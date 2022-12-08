@@ -21,6 +21,7 @@ const green = 0x3bb143;
 const black = 0x000000;
 const white = 0xffffff;
 
+//pixi objs
 const Graphics = PIXI.Graphics;
 const Text = PIXI.Text;
 const Sprite = PIXI.Sprite;
@@ -139,7 +140,7 @@ class Stack {
 }
 
 // instructional propmt x and y coordinates, size, and colors
-let originalPrompt = "click on a card to place your chip";
+let originalPrompt = "Player 1 click on a card to place your chip";
 let prompt = new Text(originalPrompt, promptStyle);
 prompt.resolution = 2;
 prompt.x = (windowWidth - prompt.width) / 2;
@@ -160,6 +161,7 @@ promptBackdrop.y = prompt.y - prompt.height * 0.02;
 promptBackdrop.alpha = 0.6;
 promptBackdrop.endFill();
 
+// function to update the prompt message throughout the game
 function updatePrompt(newMessage, turn) {
   if (turn == PLAYER_1)
     // color prompt for each player
@@ -176,6 +178,7 @@ function updatePrompt(newMessage, turn) {
 // base url of dice images
 app.loader.baseUrl = "../images/";
 
+// load in the sound files
 let audio_pop = new Audio("../sounds/pop.mp3");
 audio_pop.volume = 0.5;
 let audio_roll = new Audio("../sounds/dice_roll.mp3");
@@ -227,12 +230,6 @@ player1.y = windowHeight * 0.35;
 player2.y = windowHeight * 0.35;
 player1ScoreText.y = windowHeight * 0.45;
 player2ScoreText.y = windowHeight * 0.45;
-
-// add player info to the screen
-app.stage.addChild(player1);
-app.stage.addChild(player2);
-app.stage.addChild(player1ScoreText);
-app.stage.addChild(player2ScoreText);
 
 //array to hold rectangle objects (cards) that go at the top of the page
 let cards = []; // all the card objects
@@ -440,7 +437,6 @@ function cardClick(cardNumber) {
     // track score information
     if (scoreboard[PLAYER_1] < 10) scoreboard[PLAYER_1]++;
     player1ScoreText.text = scoreboard[PLAYER_1];
-    app.stage.addChild(player1ScoreText);
 
     // calculate new x val based on card position
     let newX = cards[cardNumber].x + cardWidth * 0.25;
@@ -483,7 +479,7 @@ function cardClick(cardNumber) {
     chipsPlaced1[cardNumber] += 1;
 
     // increment current chip counter
-    updatePrompt("click on a card to place your chip", PLAYER_2);
+    updatePrompt("Player 2 click on a card to place your chip", PLAYER_2);
     playerTurn = 2;
     switchTurns(2);
     currChip1--;
@@ -496,7 +492,6 @@ function cardClick(cardNumber) {
     if (scoreboard[PLAYER_2] < 10) scoreboard[PLAYER_2]++;
 
     player2ScoreText.text = scoreboard[PLAYER_2];
-    app.stage.addChild(player2ScoreText);
 
     // calculate the new X value and Y value based on card size and location
     let newX = cards[cardNumber].x + cardWidth * 0.75;
@@ -537,7 +532,7 @@ function cardClick(cardNumber) {
     chipsPlaced2[cardNumber] += 1;
 
     // decrement current chip counter
-    updatePrompt("click on a card to place your chip", PLAYER_1);
+    updatePrompt("Player 1 click on a card to place your chip", PLAYER_1);
     playerTurn = 1;
     switchTurns(1);
     currChip2--;
@@ -553,6 +548,11 @@ function cardClick(cardNumber) {
       cards[j].buttonMode = false;
       cards[j].on("pointerover", () => hover(cards[j], 1));
     }
+    app.stage.addChild(player1);
+    app.stage.addChild(player2);
+    app.stage.addChild(player1ScoreText);
+    app.stage.addChild(player2ScoreText);
+
     app.stage.addChild(rollButton);
     app.stage.addChild(powerBar);
     app.stage.addChild(powerBarIndicator);
