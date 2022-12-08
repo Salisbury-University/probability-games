@@ -33,7 +33,8 @@ var cardStyle = new PIXI.TextStyle({
   dropShadowAlpha: 0.5,
   dropShadowDistance: 5,
   fill: red,
-  fontFamily: '"Arial Black", Gadget, sans-serif',
+  //fontFamily: '"Arial Black", Gadget, sans-serif',
+  fontFamily: "Comic Sans MS",
   fontSize: windowWidth * 0.02,
   fontWeight: "bolder",
   lineJoin: "round",
@@ -43,7 +44,8 @@ var cardStyle = new PIXI.TextStyle({
 // winning text's style
 var winStyle = new PIXI.TextStyle({
   fill: red,
-  fontFamily: '"Arial Black", Gadget, sans-serif',
+  //fontFamily: '"Arial Black", Gadget, sans-serif',
+  fontFamily: "Helvetica",
   fontSize: windowWidth * 0.02,
   fontWeight: "bolder",
   lineJoin: "round",
@@ -57,7 +59,7 @@ var promptStyle = new PIXI.TextStyle({
   dropShadowAngle: 0.5,
   dropShadowBlur: 2,
   dropShadowColor: "#f9f06b",
-  fontFamily: '"Arial Black", Gadget, sans-serif',
+  fontFamily: "Helvetica",
   fontSize: windowWidth * 0.02,
   fontWeight: "bold",
   fill: red,
@@ -66,7 +68,8 @@ var promptStyle = new PIXI.TextStyle({
 // score text style beneach player sides
 var scoreStyle = new PIXI.TextStyle({
   fontSize: windowWidth * 0.03,
-  fontFamily: '"Arial Black", Gadget, sans-serif',
+  //fontFamily: '"Arial Black", Gadget, sans-serif',
+  fontFamily: "Comic Sans MS",
   fontWeight: "bold",
   align: "center",
 });
