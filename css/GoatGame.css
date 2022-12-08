@@ -1,9 +1,13 @@
 
 .centerText {
     text-align: center;
-    font-size: 42pt;
+    font-size: 32pt;
     color: black;
     margin-bottom: .3em;
+  }
+
+  body {
+    overflow: scroll; /* Show scrollbars */
   }
 
 .border{
@@ -14,6 +18,7 @@
 .statsSection{
     border-top: 4pt solid black;
     background-color: grey;
+    padding-bottom: 6px;
 }
 .biggerText{
     font-size: 24pt;
