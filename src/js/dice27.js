@@ -1,4 +1,9 @@
 const baseTotal = 27;
+const PLAYER_1 = 0;
+const PLAYER_2 = 1;
+const AUDIO_ROLL = new Audio("../sounds/dice_roll.mp3");
+const AUDIO_WRONG = new Audio("../sounds/wrong.mp3");
+const AUDIO_CORRECT = new Audio("../sounds/point_2.mp3");
 const windowWidth = document.body.clientWidth;
 const windowHeight = window.innerHeight;
 const Graphics = PIXI.Graphics;
@@ -6,17 +11,40 @@ const Sprite = PIXI.Sprite;
 
 var numberCoins;
 var currTotal = 27;
-var turn = true;
 var rolls = [];
+var rollValue = 1;
+var playerTurn = 0;
 var scoreboard = [0, 0];
 var coins = [];
 var lines = [];
+var dice;
+
+
 
 let app = new PIXI.Application({
     backgroundAlpha: 0,
     width: windowWidth,
     height: windowHeight * .15
 });
+
+let diceApp = new PIXI.Application({
+    backgroundAlpha: 0,
+    width: windowWidth,
+    height: windowHeight * .15
+});
+
+diceApp.loader.baseUrl = "../images/";
+
+diceApp.loader
+  .add("dice0", "dice0.png")
+  .add("dice1", "dice1.png")
+  .add("dice2", "dice2.png")
+  .add("dice3", "dice3.png")
+  .add("dice4", "dice4.png")
+  .add("dice5", "dice5.png")
+  .add("dice6", "dice6.png");
+
+diceApp.loader.load();
 
 document.getElementById("overalScore").innerHTML = currTotal;
 document.getElementById("player0").innerHTML = scoreboard[0];
@@ -31,33 +59,34 @@ for (let i = 0; i <= baseTotal; i++) {
 
 
 function roll() {
-    //get random number between 1-6
-    let rollValue = Math.floor(Math.random() * 6) + 1;
-    let player;
 
-    for(let i = 0; i < baseTotal; i++){
-        app.stage.removeChild(lines[i]);
-    }
+    //roll audio
+    playAudio(AUDIO_ROLL);
 
-    document.getElementById("dice").src = "../images/dice" + rollValue + ".png";
+    let ticks = 0;
 
-    //determine whos turn it is and prep for next roll
-    if(turn){
-        player = 0;
-        turn = false;
-    }
-    else{
-        player = 1;
-        turn = true;
-    }
+    diceApp.ticker.add(() => {
+        //rolling swap images
+        if(ticks % 5 == 0 && ticks < 50){
+            rollValue = Math.floor(Math.random() * 6) + 1;
 
+            dice.texture = diceApp.loader.resources[`dice${rollValue}`].texture;
+        }
+        //done rolling
+        else if(ticks == 50){
+                document.getElementById("rollButton").hidden = true;
+                document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Answer";
+                document.getElementById("questionCard").hidden = false;
+                document.getElementById("rollNumber").textContent = rollValue;
+                document.getElementById("pilesQuestion").hidden = false;
+            ticks++;
+        }
+
+        ticks++;
+    });
+    
     rolls[0]++;
     rolls[currTotal]++;
-
-    scoreboard[player] = scoreboard[player] + calculateScore(rollValue);
-    document.getElementById("player" + player).innerHTML = scoreboard[player];
-
-    checkScore();
 }
 
 function calculateScore(rollValue) {
@@ -88,7 +117,9 @@ function calculateScore(rollValue) {
 function checkScore() {
     if (currTotal == 0) {
         document.getElementById("app").removeChild(app.view);
+        document.getElementById("diceApp").removeChild(diceApp.view);
         document.getElementById("rollButton").hidden = true;
+        document.getElementById("mainPrompt").hidden = true;
         if (scoreboard[0] > scoreboard[1]) {
             document.getElementById("overalScore").innerHTML = "Player 1 Wins!";
         }
@@ -100,8 +131,7 @@ function checkScore() {
         for (let i = 0; i <= baseTotal; i++) {
             document.getElementById("roll" + i).innerHTML = rolls[i];
         }
-        document.getElementById("results").hidden = false;
-
+        document.getElementById("results").hidden = false;    
     }
 }
 
@@ -109,19 +139,22 @@ function reset() {
     currTotal = baseTotal;
     scoreboard[0] = 0;
     scoreboard[1] = 0;
-    turn = true;
+    playerTurn = 0;
     document.getElementById("resetButton").hidden = true;
     document.getElementById("rollButton").hidden = false;
     document.getElementById("overalScore").innerHTML = currTotal;
     document.getElementById("player0").innerHTML = scoreboard[0];
     document.getElementById("player1").innerHTML = scoreboard[1];
     document.getElementById("results").hidden = true;
+    document.getElementById("mainPrompt").hidden = false;
     createGame();
 }
 
 function createGame(){
+    document.getElementById("mainPrompt").textContent = "Player 1 Roll";
     
     document.getElementById("app").appendChild(app.view);
+    document.getElementById("diceApp").appendChild(diceApp.view);
     
     //place the chips on the board
     for (i = 0, dist = 40; i < baseTotal; i++) {
@@ -141,28 +174,121 @@ function createGame(){
         coins[i].drawEllipse(dist, 75, chipWidth, chipHeight);    // position + size of the ellipse (topleft x, topleft y, height, width)
         coins[i].interactive = false;
         coins[i].buttonMode = true;
-        coins[i].on('poniterdown', (event) => removeChip(j));
+        //coins[i].on('poniterdown', (event) => removeChip(j));
         coins[i].endFill();                 // draws the ellipse
     
         app.stage.addChild(coins[i]);               // stage the ellipse
         dist = dist + 70;
     }
 
+    //create dice
+    dice = new Sprite.from(diceApp.loader.resources["dice0"].texture);
+    dice.x = windowWidth * .3;
+
+    diceApp.stage.addChild(dice);
 
     document.getElementById("createGame").hidden = true;
     document.getElementById("rollButton").hidden = false;
-    document.getElementById("dice").hidden = false;
-}
-
-function removeChip(chipNumber){
-    //app.stage.removeChild(coins[chipNumber]);
-    console.log("Hello");
 }
 
 function hover(object, alphaVal) {
     object.alpha = alphaVal;
-  }
+}
   
-  function hoverOut(object) {
+function hoverOut(object) {
     object.alpha = 1;
+}
+
+  /*numberPilesCheck(answer)
+    This fucntion is used to check if the students answer
+    for the number of piles question prompt is correct
+    
+    if: answer is equal to numberPiles 
+        correct message pops up 
+        displays the next questions
+    else: 
+        wrong message pops up try again
+
+    dont let the user go on until correct
+  */
+  function numberPilesCheck(){
+    let userInput = document.getElementById("pilesInput").value;
+    if(userInput == Math.floor(currTotal / rollValue)){
+        playAudio(AUDIO_CORRECT);
+        document.getElementById("pilesQuestion").hidden = true;
+        document.getElementById("reminaderQuestion").hidden = false;
+        addLines();
+        document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Answer";
+        document.getElementById("pilesInput").value = "";
+    }
+    else{
+        playAudio(AUDIO_WRONG);
+        document.getElementById("mainPrompt").textContent = "Wrong try again";
+    }
   }
+
+  /*remaindercheck(answer)
+    This function is used to check if the students answer
+    for the remainder of chips questions is correct
+
+    if:answer is equal to remainder
+        correct message pops up
+        display roll button again and have next player roll
+    else:
+        wrong message pops up try again
+    don't let the user go on until correct
+  */
+  function remainderCheck(){
+    let userInput = document.getElementById("remainderInput").value;
+    let remainder = currTotal % rollValue;
+    if(userInput == remainder){
+        playAudio(AUDIO_CORRECT);
+        removeChips(remainder);
+        if(playerTurn == PLAYER_1){
+            playerTurn = PLAYER_2;
+        }
+        else{
+            playerTurn = PLAYER_1;
+        }
+        document.getElementById("reminaderQuestion").hidden = true;
+        document.getElementById("remainderInput").value = "";
+        document.getElementById("questionCard").hidden = true;
+        document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Roll";
+        document.getElementById("rollButton").hidden = false;
+        removeLines();
+        checkScore();
+    }
+    else{
+        playAudio(AUDIO_WRONG);
+        document.getElementById("mainPrompt").textContent = "Wrong try again";
+    }
+  }
+
+  //add lines to the game window
+function addLines(){   
+    for(let i = rollValue - 1; i < currTotal; i = i + rollValue){
+        app.stage.addChild(lines[i]);
+    }
+}
+
+function removeLines(){
+    for(let i = rollValue - 1; i < currTotal; i = i + rollValue){
+        app.stage.removeChild(lines[i]);
+    }
+}
+
+function playAudio(audioName){
+    audioName.pause();
+    audioName.currentTime = 0;
+    audioName.play();
+}
+
+function removeChips(remainder){
+    currTotal = currTotal - remainder;
+    for(let i = currTotal; i < baseTotal; i++){
+        app.stage.removeChild(coins[i]);
+    }
+    document.getElementById("overalScore").innerHTML = currTotal;
+    scoreboard[playerTurn] += remainder;
+    document.getElementById("player" + playerTurn).innerHTML = scoreboard[playerTurn];
+}
