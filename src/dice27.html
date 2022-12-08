@@ -47,19 +47,19 @@
             </div>
             <div class="col">
                 <h2 id="mainPrompt">Press Play Game to Play!</h2>
-                <div class="customCard" hidden>
+                <div id="questionCard" class="customCard" hidden>
                     <div class="card" style="width: 18rem;">
                         <div id="pilesQuestion" class="card-body" hidden>
-                            <div>How many piles of <div id="rollNumber"></div> can be made?</div>
+                            <div>How many piles of <strong><span id="rollNumber"></span></strong> can be made?</div>
                             <label for="remainderInput" class="visually-hidden">Number of Piles</label>
-                            <input type="password" class="form-control" id="pilesInput" placeholder="Remainder">
-                            <button type="button" class="btn btn-primary mb-3">Submit</button>
+                            <input type="number" min="0" class="form-control" id="pilesInput" placeholder="Number of Piles" required>
+                            <button type="button" class="btn btn-success" onclick="numberPilesCheck()">Submit</button>
                         </div>
                         <div id="reminaderQuestion" class="card-body" hidden>
                             <div>How many chips are left over?</div>
                             <label for="remainderInput" class="visually-hidden">Remainder</label>
-                            <input type="password" class="form-control" id="remainderInput" placeholder="Remainder">
-                            <button type="button" class="btn btn-primary mb-3">Submit</button>
+                            <input type="number" min="0" class="form-control" id="remainderInput" placeholder="Remainder" required>
+                            <button type="button" class="btn btn-success" onclick="remainderCheck()">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
             </div>
         </div>
         <div class="row">
-            <img id="dice" src="../images/dice0.png" hidden>
+            <div id="diceApp"></div>
         </div>
         <br>
         <div class="row">
