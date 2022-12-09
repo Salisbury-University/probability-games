@@ -1,8 +1,8 @@
 // create window height variable
 const windowWidth = document.body.clientWidth;
-const windowHeight = window.innerHeight;
+const windowHeight = window.innerHeight * .8;
 const needleLength = 70;
-
+const numberOfLines = 7;
 //create Application Window
 let app = new PIXI.Application({
     backgroundColor: 0x323031,
@@ -14,16 +14,18 @@ let app = new PIXI.Application({
     document.body.appendChild(app.view);
 
     const line = new PIXI.Graphics();
+    let lines = [];
     
-    let lineSpace = windowHeight / 10;
+    let lineSpace = windowHeight / 7;
     console.log(lineSpace);
     let yValue = lineSpace;
-    for(let i = 0; i < 10; i++)
+    for(let i = 0; i < 7; i++)
     {
       line.beginFill(0xDE3249);
       line.drawRect(0, yValue, windowWidth, 2);
       line.endFill();
       app.stage.addChild(line);
+      lines[i] = yValue;
       yValue = yValue + lineSpace;
     }
 
