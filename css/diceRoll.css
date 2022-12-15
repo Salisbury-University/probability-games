@@ -11,7 +11,7 @@
 
 		h1 {
 			margin: 3px;
-			font-family: "Calibri", cursive;
+			font-family: "Calibri";
 			text-shadow: 3px 0 #33373c;
 			font-size: 3rem;
 			color: #EBEBDD;
@@ -20,7 +20,7 @@
 
 		h2 {
 			margin: 1px;
-			font-family: "Calibri", cursive;
+			font-family: "Calibri";
 			text-shadow: 1px 0 #33373c;
 			font-size: 1rem;
 			color: #EBEBDD;
@@ -37,7 +37,7 @@
 
 		.butn {
 			background: #A0A098;
-			font-family: "Calibri", cursive;
+			font-family: "Calibri";
 			border-radius: 10px;
 			color: #ffff;
 			font-size: 18px;
@@ -50,14 +50,14 @@
 		}
 
 		.lab { 
-			font-family: "Calibri", cursive;
+			font-family: "Calibri";
 			text-shadow: 2px 0 #33373c;
 			font-size: 2rem;
 			color: #EBEBDD;
 		}
 
 		table{
-			font-family: "Calibri", cursive;
+			font-family: "Calibri";
 			text-shadow: 2px 0 #33373c;
 			font-size: 2rem;
 			color: #EBEBDD;
