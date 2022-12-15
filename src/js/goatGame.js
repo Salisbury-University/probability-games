@@ -329,34 +329,6 @@ function simulateGame() {
         } else {
             updateStats(userChoice, false);
         }
-
-        /*if (i == 0) {
-            document.getElementById("door0").src = doorImg;
-            document.getElementById("door1").src = doorImg;
-            document.getElementById("door2").src = doorImg;
-            document.getElementById("door0").removeAttribute("onclick");
-            document.getElementById("door1").removeAttribute("onclick");
-            document.getElementById("door2").removeAttribute("onclick");
-        }*/
-
-        /*
-        if (i == timesPlayed - 1) {
-            if (carLocation == 0)
-                document.getElementById("door0").src = carImg;
-            else
-                document.getElementById("door0").src = goatImg;
-
-            if (carLocation == 1)
-                document.getElementById("door1").src = carImg;
-            else
-                document.getElementById("door1").src = goatImg;
-
-            if (carLocation == 2)
-                document.getElementById("door2").src = carImg;
-            else
-                document.getElementById("door2").src = goatImg;
-        }
-        */
     }//end of for loop
 
     printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);

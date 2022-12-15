@@ -85,6 +85,7 @@
                     <br>
                     Select A Door!
                 </p>
+
                 <button type="button" class="btn btn-primary" onclick="intermediateStep()" hidden="hidden"
                     id="continueButton">Continue</button>
 
@@ -107,9 +108,9 @@
             <button type="button" class="btn btn-primary" onclick="hideStats()" id="hideStatsButton" hidden="hidden">Hide Stats</button>
             <button type="button" class="btn btn-primary" onclick="resetStats()">Reset Stats</button>
             <button type="button" class="btn btn-primary" onclick="playAgain()">Play Again</button>
-            <input type="number" id="amountTimesToRun" placeholder="Number of Runs">
-            <button type="button" class="btn btn-primary" onclick="preSimulate()" id="simulateRunButton">Simulate Runs</button>
             <input type="number" id="amountTimesToSwitch" placeholder="# Times To Switch Doors" hidden="hidden">
+            <input type="number" id="amountTimesToRun" placeholder="Number of Runs" hidden="hidden">
+            <button type="button" class="btn btn-primary" onclick="preSimulate()" id="simulateRunButton">Simulate Runs</button>
             <button type="button" class="btn btn-primary" onclick="simulateGame()" id="continueSimulation"
                 hidden="hidden">Continue</button>
         </div>
