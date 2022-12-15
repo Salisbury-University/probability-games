@@ -26,13 +26,13 @@
 					
 					// if weighted coin is heads
         			if (num <= weightHeavierSide) {
-          				document.querySelector("h1").innerHTML = "You got HEADS!";
+          				document.querySelector("h1").innerHTML = "You got Heads!";
 						document.getElementById("coin").setAttribute("src", "../images/coinHead.png");
 						headCount += 1;
         			} 
 					// if weighted coin is tails
 					else {
-						document.querySelector("h1").innerHTML = "You got TAILS!";
+						document.querySelector("h1").innerHTML = "You got Tails!";
 						document.getElementById("coin").setAttribute("src", "../images/coinTail.png");
 						tailCount += 1;
         			}
@@ -46,13 +46,13 @@
 					let num = Math.floor(Math.random() * 100) + 1;
 					// weighted coin is tails
 					if (num <= weightHeavierSide) {
-						document.querySelector("h1").innerHTML = "You got TAILS!";
+						document.querySelector("h1").innerHTML = "You got Tails!";
 						document.getElementById("coin").setAttribute("src", "../images/coinTail.png");
 						tailCount += 1;
 					} 
 					// weighted coin is heads
 					else {
-						document.querySelector("h1").innerHTML = "You got HEADS!";
+						document.querySelector("h1").innerHTML = "You got Heads!";
 						document.getElementById("coin").setAttribute("src", "../images/coinHead.png");
 						headCount += 1;
 					}
@@ -67,13 +67,13 @@
 					
 				// if regular coin is heads
         		if (num <= 50) {
-					document.querySelector("h1").innerHTML = "You got HEADS!";
+					document.querySelector("h1").innerHTML = "You got Heads!";
 					document.getElementById("coin").setAttribute("src", "../images/coinHead.png");
           			headCount += 1;
         		} 
 				// if regular coin is tails
 				else {
-					document.querySelector("h1").innerHTML = "You got TAILS!";
+					document.querySelector("h1").innerHTML = "You got Tails!";
 					document.getElementById("coin").setAttribute("src", "../images/coinTail.png");
           			tailCount += 1;
 				}
@@ -88,6 +88,10 @@
 			// gets amount of flips from user
 			let qty = document.getElementById("quantity").value;
 
+			// for displaying amount of times each side was landed on in each individual set of flips
+			let headAmount = 0;
+			let tailAmount = 0;
+
 			// if coin is weighted
 			if (isWeighted == 1) {								
       			if(heavierSide == 1) {
@@ -97,14 +101,17 @@
 						// if weighted coin is heads
         				if (num <= weightHeavierSide) {
           					headCount += 1;
-        				} 
+							headAmount += 1;
+        				}
 						// if weighted coin is tails
 						else {
           					tailCount += 1;
+							tailAmount += 1;
         				}
       				}
       				document.getElementById("headTotal").innerHTML = headCount;
 					document.getElementById("tailTotal").innerHTML = tailCount;
+					document.querySelector("h1").innerHTML = "You got Heads " + headAmount + " times, and got Tails " + tailAmount + " times";
 				}
 
 				else {
@@ -114,14 +121,17 @@
 						// if weighted coin is tails
         				if (num <= weightHeavierSide) {
           					tailCount += 1;
+							tailAmount += 1;
         				} 
 						// if weighted coin is heads
 						else {
           					headCount += 1;
+							headAmount += 1;
         				}
       				}
       				document.getElementById("headTotal").innerHTML = headCount;
 					document.getElementById("tailTotal").innerHTML = tailCount;
+					document.querySelector("h1").innerHTML = "You got Heads " + headAmount + " times, and got Tails " + tailAmount + " times";
 				}
 			} 
 
@@ -133,23 +143,27 @@
 					// if regular coin is heads
         			if (num <= 50) {
           				headCount += 1;
+						headAmount += 1;
         			} 
 					// if regular coin is tails
 					else {
           				tailCount += 1;
+						tailAmount += 1;
         			}
       			}
       			document.getElementById("headTotal").innerHTML = headCount;
 				document.getElementById("tailTotal").innerHTML = tailCount;
+				document.querySelector("h1").innerHTML = "You got Heads " + headAmount + " times, and got Tails " + tailAmount + " times";
 			}
 		}
-
+		
 		function ifWeighted() {
 			if(isWeighted == 1)
 				document.querySelector("h1").innerHTML = "You are Correct!";
 			else
 				document.querySelector("h1").innerHTML = "You are Incorrect";
-
+			
+			// resetting global variables
 			document.getElementById("headTotal").innerHTML = 0;
 			document.getElementById("tailTotal").innerHTML = 0;
 			headCount = 0;
@@ -164,7 +178,8 @@
 				document.querySelector("h1").innerHTML = "You are Incorrect";
 			else
 				document.querySelector("h1").innerHTML = "You are Correct!";
-
+			
+			// resetting global variables
 			document.getElementById("headTotal").innerHTML = 0;
 			document.getElementById("tailTotal").innerHTML = 0;
 			headCount = 0;
