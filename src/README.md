@@ -1,8 +1,8 @@
 # Probability Games
 ### Table of Contents: 
 1. [Monty Hall Problem](#Monty-Hall-Problem)
-2. [Coin Flip](#Coin-Flip)
-3. [Dice Roll](#Dice-Roll)
+2. [Weighted Coin Flip](#Coin-Flip)
+3. [Weighted Dice Roll](#Dice-Roll)
 4. [2-12 Card Game](#2-12-Card-Game)
 ---
 ## Monty Hall Problem
@@ -33,7 +33,7 @@
 - The abilty to simulate the game
 ### Backlog
 
-## Coin Flip
+## Weighted Coin Flip
 ### How to Play
 - Instructions
 	1. The player can flip the coin as many times as they'd like
@@ -42,7 +42,7 @@
 ### Features
 ### Backlog
 
-## Dice Roll
+## Weighted Dice Roll
 ### How to Play
 - Instructions
 	1. The player can flip the dice as many times as they'd like

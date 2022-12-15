@@ -249,7 +249,8 @@ function preSimulate() {
     //reveal new input and continue
     document.getElementById("amountTimesToSwitch").removeAttribute("hidden");
     document.getElementById("continueSimulation").removeAttribute("hidden");
-    document.getElementById("simulateInfo").innerHTML = "Enter in the textbox below how many times you would like to switch doors.";
+    document.getElementById("simulateInfo").innerHTML = "Enter in the textbox below how many times you would like to switch doors. " +
+    "Enter up to " + document.getElementById("amountTimesToRun").value;
 
     document.getElementById("stageSectionID").setAttribute("hidden","hidden");
     //document.getElementById("titleSentence").innerHTML = ""
@@ -329,6 +330,7 @@ function simulateGame() {
         } else {
             updateStats(userChoice, false);
         }
+
     }//end of for loop
 
     printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
@@ -349,6 +351,9 @@ function resetStats() {
     document.getElementById("door0").src = doorImg;
     document.getElementById("door1").src = doorImg;
     document.getElementById("door2").src = doorImg;
+
+    document.getElementById("amountTimesToRun").value="";
+    document.getElementById("amountTimesToSwitch").value="";
 
     playAgain();
     printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
