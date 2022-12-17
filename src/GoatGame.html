@@ -16,7 +16,7 @@
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
 
-        <script src="js/goatGame.js"></script>
+    <script src="js/goatGame.js"></script>
 
 </head>
 
@@ -43,7 +43,8 @@
     </nav>
 
 
-    <div style="background-color: teal;padding-bottom: 5px; border-bottom: 6px solid black;">
+    <div
+        style="background-color: teal;padding-bottom: 5px; border-bottom: 6px solid black;border-top: 6px solid black;">
         <div class="row">
             <h1 class="centerText">Monty Hall Problem</h1>
             <h5 class="centerText" style="font-size: 12pt; text-decoration: underline; " onclick="testModal()">
@@ -59,19 +60,19 @@
 
             <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
-                <img class="img-responsive" onclick="stepOne(0)" src="../images/ClosedDoor.png" width="300px"
+                <img class="img-responsive" onclick="stepOne(0)" src="../images/ClosedDoor1.png" width="300px"
                     height="300px" alt="Door 1" id="door0">
 
             </div>
             <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
-                <img class="img-responsive" onclick="stepOne(1)" src="../images/ClosedDoor.png" width="300px"
+                <img class="img-responsive" onclick="stepOne(1)" src="../images/ClosedDoor2.png" width="300px"
                     height="300px" alt="Door 2" id="door1">
 
             </div>
             <div class="col-lg-4 col-md-4 col-xs-4 thumb">
 
-                <img class="img-responsive" onclick="stepOne(2)" src="../images/ClosedDoor.png" width="300px"
+                <img class="img-responsive" onclick="stepOne(2)" src="../images/ClosedDoor3.png" width="300px"
                     height="300px" alt="Door 3" id="door2">
 
             </div>
@@ -85,15 +86,11 @@
                     <br>
                     Select A Door!
                 </p>
-
+                <button type="button" class="btn btn-primary" onclick="playAgain()" hidden="hidden" id="playAgainButton">Play Again</button>
                 <button type="button" class="btn btn-primary" onclick="intermediateStep()" hidden="hidden"
                     id="continueButton">Continue</button>
 
-                <button id="switchDoorsButton" type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                    onclick="determineKeep(0)" hidden="hidden">Switch Doors</button>
-                <button id="keepDoorsButton" type="button" class="btn btn-primary" data-bs-dismiss="modal"
-                    onclick="determineKeep(1)" hidden="hidden">Keep
-                    Current Door</button>
+
             </div>
         </div>
     </div>
@@ -105,19 +102,20 @@
             textbox below.</p>
         <div class="text-center">
             <button type="button" class="btn btn-primary" onclick="showStats()" id="showStatsButton">Show Stats</button>
-            <button type="button" class="btn btn-primary" onclick="hideStats()" id="hideStatsButton" hidden="hidden">Hide Stats</button>
+            <button type="button" class="btn btn-primary" onclick="hideStats()" id="hideStatsButton"
+                hidden="hidden">Hide Stats</button>
             <button type="button" class="btn btn-primary" onclick="resetStats()">Reset Stats</button>
-            <button type="button" class="btn btn-primary" onclick="playAgain()">Play Again</button>
             <input type="number" id="amountTimesToSwitch" placeholder="# Times To Switch Doors" hidden="hidden">
             <input type="number" id="amountTimesToRun" placeholder="Number of Runs" hidden="hidden">
-            <button type="button" class="btn btn-primary" onclick="preSimulate()" id="simulateRunButton">Simulate Runs</button>
+            <button type="button" class="btn btn-primary" onclick="preSimulate()" id="simulateRunButton">Simulate
+                Runs</button>
             <button type="button" class="btn btn-primary" onclick="simulateGame()" id="continueSimulation"
                 hidden="hidden">Continue</button>
         </div>
 
         <div class="row" style="text-align: center;" id="statShow&Hide" hidden="hidden">
             <div class="col-md-4">
-                <h3 id="gamesPlayed"  title="Hello, this is the tooltip">Total Games Played: 0 </h3>
+                <h3 id="gamesPlayed" title="Hello, this is the tooltip">Total Games Played: 0 </h3>
                 <h3 id="gamesWon">Total Games Won: 0</h3>
                 <h3 id="gamesLost">Total Games Lost: 0</h3>
             </div>
