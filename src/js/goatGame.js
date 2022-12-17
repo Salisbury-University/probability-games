@@ -58,10 +58,10 @@ function playAgain() {
     document.getElementById("door1").setAttribute("onclick", "stepOne(1)");
     document.getElementById("door2").setAttribute("onclick", "stepOne(2)");
 
-    document.getElementById("stageSectionID").setAttribute("class", "stageSection");
-    document.getElementById("simulateInfo").innerHTML = "Enter how many times would you like to simulate the game in the textbox below.";
+    // document.getElementById("stageSectionID").setAttribute("class", "stageSection");
+    document.getElementById("simulateInfo").innerHTML = "Beep beep boop boop.";
 
-    document.getElementById("playAgainButton").setAttribute("hidden","hidden");
+    document.getElementById("playAgainButton").setAttribute("hidden", "hidden");
 
 } //end of play again
 
@@ -157,8 +157,7 @@ function intermediateStep() {
 }
 
 function secondIntermediate() {
-    document.getElementById("titleSentence").innerHTML = "Results!"
-    document.getElementById("playAgainButton").removeAttribute("hidden");
+    document.getElementById("titleSentence").innerHTML = ""
     setTimeout(finalFunction, 800);
 }
 
@@ -207,9 +206,9 @@ function stepTwo(keptDoor) {
     }
 
     //remove IMG clickness
-   document.getElementById("door0").removeAttribute("onclick");
-   document.getElementById("door1").removeAttribute("onclick");
-   document.getElementById("door2").removeAttribute("onclick");
+    document.getElementById("door0").removeAttribute("onclick");
+    document.getElementById("door1").removeAttribute("onclick");
+    document.getElementById("door2").removeAttribute("onclick");
 
     setTimeout(secondIntermediate, 700);
 }
@@ -229,6 +228,7 @@ function finalFunction() {
         document.getElementById("door2").src = goatImg;
     else
         document.getElementById("door2").src = carImg;
+    document.getElementById("playAgainButton").removeAttribute("hidden");
 }
 
 function determineKeep(number) {
@@ -278,8 +278,6 @@ function updateStats(x, isKept) {
 
 //sets up simulate section -- rename
 function preSimulate() {
-    //shows stats info
-    showStats();
 
     //hide old input and simulate runs
     document.getElementById("simulateRunButton").setAttribute("hidden", "hidden");
@@ -290,7 +288,7 @@ function preSimulate() {
     document.getElementById("simulateInfo").innerHTML = "Enter in the textbox below how many times you would like to switch doors. " +
         "Enter up to " + document.getElementById("amountTimesToRun").value;
 
-    document.getElementById("stageSectionID").setAttribute("hidden", "hidden");
+    // document.getElementById("stageSectionID").setAttribute("hidden", "hidden");
 }
 
 
@@ -328,8 +326,8 @@ function changeToHistory() {
 
 function simulateGame() {
     var switchDoor;
-    showStats();
-   
+    //showStats();
+
     var timesPlayed = document.getElementById("amountTimesToRun").value;
 
     var timesSwitched = document.getElementById("amountTimesToSwitch").value;

@@ -78,18 +78,37 @@
             </div>
         </div>
 
-        <div class="stageSection" id="stageSectionID">
-            <div class="centerText">
+        <div class="stageSection">
+
+            <div class="row" style="text-align: center;" id="statShow&Hide" hidden="hidden">
+                <div class="col-md-4">
+                    <h3 id="gamesPlayed" title="Hello, this is the tooltip">Total Games Played: 0 </h3>
+                    <h3 id="gamesWon">Total Games Won: 0</h3>
+                    <h3 id="gamesLost">Total Games Lost: 0</h3>
+                </div>
+                <div class="col-md-4">
+                    <h3 id="switchDoorsGames">Total games where switched door: 0</h3>
+                    <h3 id="switchDoorsWon"> Switched doors and won: 0</h3>
+                    <h3 id="switchDoorsLose">Switched doors and lost: 0</h3>
+                </div>
+                <div class="col-md-4">
+                    <h3 id="keptDoorsGames">Total Games where kept door: 0 </h3>
+                    <h3 id="keptDoorsWon"> Kept door and won: 0</h3>
+                    <h3 id="keptDoorsLose">Kept door and lost: 0 </h3>
+                </div>
+            </div>
+
+            <div class="centerText" id="stageSectionID">
                 <h2 id="titleSentence">Welcome to Monty Hall's Problem!</h2>
                 <p class="firstSentence" id="firstSentenceID">There are <b>three</b> doors in front of you. There are
                     <b>two</b> goats, and <b>one</b> car.
                     <br>
                     Select A Door!
                 </p>
-                <button type="button" class="btn btn-primary" onclick="playAgain()" hidden="hidden" id="playAgainButton">Play Again</button>
+                <button type="button" class="btn btn-primary" onclick="playAgain()" hidden="hidden"
+                    id="playAgainButton">Play Again</button>
                 <button type="button" class="btn btn-primary" onclick="intermediateStep()" hidden="hidden"
                     id="continueButton">Continue</button>
-
 
             </div>
         </div>
@@ -112,25 +131,8 @@
             <button type="button" class="btn btn-primary" onclick="simulateGame()" id="continueSimulation"
                 hidden="hidden">Continue</button>
         </div>
-
-        <div class="row" style="text-align: center;" id="statShow&Hide" hidden="hidden">
-            <div class="col-md-4">
-                <h3 id="gamesPlayed" title="Hello, this is the tooltip">Total Games Played: 0 </h3>
-                <h3 id="gamesWon">Total Games Won: 0</h3>
-                <h3 id="gamesLost">Total Games Lost: 0</h3>
-            </div>
-            <div class="col-md-4">
-                <h3 id="switchDoorsGames">Total games where switched door: 0</h3>
-                <h3 id="switchDoorsWon"> Switched doors and won: 0</h3>
-                <h3 id="switchDoorsLose">Switched doors and lost: 0</h3>
-            </div>
-            <div class="col-md-4">
-                <h3 id="keptDoorsGames">Total Games where kept door: 0 </h3>
-                <h3 id="keptDoorsWon"> Kept door and won: 0</h3>
-                <h3 id="keptDoorsLose">Kept door and lost: 0 </h3>
-            </div>
-        </div>
     </div>
+
 
     <div>
         <!-- These are all modals-->
