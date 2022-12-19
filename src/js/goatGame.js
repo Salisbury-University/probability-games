@@ -23,6 +23,8 @@ var choiceMade = 0;
 var globalDoorChose = 0;
 var revealGoat = 0;
 var doorOpenSound = new Audio('../sounds/dooropening.mp3');
+var correctSound = new Audio('../sounds/correctChoice.mp3');
+var wrongSound = new Audio('../sounds/wrong.mp3');
 
 function testModal() {
     $('#infoModal').modal('show');
@@ -49,17 +51,18 @@ function playAgain() {
     document.getElementById("continueButton").setAttribute("hidden", "hidden");
 
     document.getElementById("amountTimesToSwitch").setAttribute("hidden", "hidden");
+    document.getElementById("amountTimesToRun").setAttribute("hidden", "hidden");
     document.getElementById("continueSimulation").setAttribute("hidden", "hidden");
     //reveal new input and continue
     document.getElementById("simulateRunButton").removeAttribute("hidden");
-    document.getElementById("amountTimesToRun").removeAttribute("hidden");
+   // document.getElementById("amountTimesToRun").removeAttribute("hidden");
 
     document.getElementById("door0").setAttribute("onclick", "stepOne(0)");
     document.getElementById("door1").setAttribute("onclick", "stepOne(1)");
     document.getElementById("door2").setAttribute("onclick", "stepOne(2)");
 
     // document.getElementById("stageSectionID").setAttribute("class", "stageSection");
-    document.getElementById("simulateInfo").innerHTML = "Beep beep boop boop.";
+    document.getElementById("simulateInfo").innerHTML = "Click Simulate Runs to simulate the game!";
 
     document.getElementById("playAgainButton").setAttribute("hidden", "hidden");
 
@@ -107,7 +110,7 @@ function stepOne(doorChose) {
 
     //please click door when goat is located
     document.getElementById("titleSentence").innerHTML = "The goat is located at Door " + (revealGoat + 1) + "!"
-    document.getElementById("firstSentenceID").innerHTML = "Can you click on that door?";
+    document.getElementById("firstSentenceID").innerHTML = "Can you click on Door " + (revealGoat + 1) + "?";
     document.getElementById(goatDoor).removeAttribute("onclick");
     document.getElementById(goatDoor).setAttribute("onclick", "afterStepOne(" + revealGoat + ")");
 
@@ -125,7 +128,7 @@ function afterStepOne(revealGoat) {
 
         document.getElementById(go).src = goatImg;
         document.getElementById("titleSentence").innerHTML = "Great Job!"
-        document.getElementById("firstSentenceID").innerHTML = "Click continue to continue!";
+        document.getElementById("firstSentenceID").innerHTML = "There is now one goat and one car left!";
         document.getElementById("continueButton").removeAttribute("hidden");
     }, 250);
 
@@ -139,7 +142,7 @@ function intermediateStep() {
 
     document.getElementById("continueButton").setAttribute("hidden", "hidden");
     document.getElementById("firstSentenceID").innerHTML = "If you want to keep the Door you choose, then click on <b>Door "
-        + (globalDoorChose + 1) + ". </b><br> Otherwise click on <b>Door " + (doorChoice + 1) + " </b>to switch to that door!";
+        + (globalDoorChose + 1) + ". </b><br> Otherwise click on <b>Door " + (doorChoice + 1) + " </b>to switch doors!";
 
     //remove onclick for other two doors
     let totalDoor = 5;
@@ -163,12 +166,12 @@ function secondIntermediate() {
 
 function midStepTwo(imgType, userDoorChoice) {
     if (imgType == 1) {
-        doorOpenSound.loop = false;
-        doorOpenSound.play();
+        correctSound.loop = false;
+        correctSound.play();
         document.getElementById(userDoorChoice).src = carImg;
     } else {
-        doorOpenSound.loop = false;
-        doorOpenSound.play();
+        wrongSound.loop = false;
+        wrongSound.play();
         document.getElementById(userDoorChoice).src = goatImg;
     }
 }
@@ -228,6 +231,9 @@ function finalFunction() {
         document.getElementById("door2").src = goatImg;
     else
         document.getElementById("door2").src = carImg;
+
+        doorOpenSound.loop = false;
+        doorOpenSound.play();
     document.getElementById("playAgainButton").removeAttribute("hidden");
 }
 
@@ -275,6 +281,11 @@ function updateStats(x, isKept) {
 
 } //end of update stats
 
+function prepreSimulate(){
+    document.getElementById("simulateInfo").innerHTML = "Enter how many times would you like to simulate the game in the textbox below.";
+    document.getElementById("simulateRunButton").setAttribute("onclick", "preSimulate()");
+    document.getElementById("amountTimesToRun").removeAttribute("hidden");
+}
 
 //sets up simulate section -- rename
 function preSimulate() {
