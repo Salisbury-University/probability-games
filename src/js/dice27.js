@@ -9,8 +9,8 @@ const windowHeight = window.innerHeight;
 const Graphics = PIXI.Graphics;
 const Sprite = PIXI.Sprite;
 
-var numberCoins;
 var currTotal = 27;
+var newTotal = 27;
 var rolls = [];
 var rollValue = 1;
 var playerTurn = 0;
@@ -18,8 +18,6 @@ var scoreboard = [0, 0];
 var coins = [];
 var lines = [];
 var dice;
-
-
 
 let app = new PIXI.Application({
     backgroundAlpha: 0,
@@ -56,8 +54,6 @@ for (let i = 0; i <= baseTotal; i++) {
     rolls[i] = 0;
 }
 
-
-
 function roll() {
 
     //roll audio
@@ -87,31 +83,6 @@ function roll() {
     
     rolls[0]++;
     rolls[currTotal]++;
-}
-
-function calculateScore(rollValue) {
-    let points = currTotal % rollValue;
-    currTotal = currTotal - points;
-    numberCoins = points;
-
-    document.getElementById("overalScore").innerHTML = currTotal;
-
-    for(let i = rollValue - 1; i < currTotal; i = i + rollValue){
-        app.stage.addChild(lines[i]);
-    }
-
-    for(let i = currTotal; i < baseTotal; i++){
-        app.stage.removeChild(coins[i]);
-    }
-
-    /*
-    if(points != 0){
-        document.getElementById("rollButton").hidden = true;
-        for(let i = currTotal; i < currTotal + points; i++){
-            coins[i].interactive = true;
-        }
-    }*/
-    return points;
 }
 
 function checkScore() {
@@ -174,7 +145,9 @@ function createGame(){
         coins[i].drawEllipse(dist, 75, chipWidth, chipHeight);    // position + size of the ellipse (topleft x, topleft y, height, width)
         coins[i].interactive = false;
         coins[i].buttonMode = true;
-        //coins[i].on('poniterdown', (event) => removeChip(j));
+        coins[i].on("pointerdown", () => removeCoin(j))
+                .on("pointerover", () => hover(coins[j]))
+                .on("pointerout", () => hoverOut(coins[j]));
         coins[i].endFill();                 // draws the ellipse
     
         app.stage.addChild(coins[i]);               // stage the ellipse
@@ -191,8 +164,8 @@ function createGame(){
     document.getElementById("rollButton").hidden = false;
 }
 
-function hover(object, alphaVal) {
-    object.alpha = alphaVal;
+function hover(object) {
+    object.alpha = .5;
 }
   
 function hoverOut(object) {
@@ -243,20 +216,14 @@ function hoverOut(object) {
     let remainder = currTotal % rollValue;
     if(userInput == remainder){
         playAudio(AUDIO_CORRECT);
-        removeChips(remainder);
-        if(playerTurn == PLAYER_1){
-            playerTurn = PLAYER_2;
+
+        //make coins clickable if remainder is there
+        if(remainder > 0){
+            makeClickable(remainder);
         }
         else{
-            playerTurn = PLAYER_1;
+            swapPlayer();
         }
-        document.getElementById("reminaderQuestion").hidden = true;
-        document.getElementById("remainderInput").value = "";
-        document.getElementById("questionCard").hidden = true;
-        document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Roll";
-        document.getElementById("rollButton").hidden = false;
-        removeLines();
-        checkScore();
     }
     else{
         playAudio(AUDIO_WRONG);
@@ -283,12 +250,37 @@ function playAudio(audioName){
     audioName.play();
 }
 
-function removeChips(remainder){
-    currTotal = currTotal - remainder;
-    for(let i = currTotal; i < baseTotal; i++){
-        app.stage.removeChild(coins[i]);
+function makeClickable(remainder){
+    newTotal = currTotal - remainder;
+    for(let i = currTotal - 1; i >= newTotal; i--){
+        coins[i].interactive = true;
     }
+    document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Remove you Chips";
+}
+
+function swapPlayer(){
+    if(playerTurn == PLAYER_1){
+        playerTurn = PLAYER_2;
+    }
+    else{
+        playerTurn = PLAYER_1;
+    }
+    document.getElementById("reminaderQuestion").hidden = true;
+    document.getElementById("remainderInput").value = "";
+    document.getElementById("questionCard").hidden = true;
+    document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Roll";
+    document.getElementById("rollButton").hidden = false;
+    removeLines();
+    checkScore();
+}
+
+function removeCoin(coinNumber){
+    app.stage.removeChild(coins[coinNumber]);
+    currTotal--;
+    scoreboard[playerTurn]++;
     document.getElementById("overalScore").innerHTML = currTotal;
-    scoreboard[playerTurn] += remainder;
     document.getElementById("player" + playerTurn).innerHTML = scoreboard[playerTurn];
+    if(currTotal == newTotal){
+        swapPlayer(); 
+    }
 }

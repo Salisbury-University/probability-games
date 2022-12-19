@@ -27,10 +27,11 @@
     />
     <link rel="manifest" href="../images/site.webmanifest" />
 
-    <title>2-12 Card Game</title>
+    <title>Sum of Two Dice Game</title>
   </head>
 
   <body>
+    <!-- add this for a header -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="home.html" style="color: white"
@@ -44,9 +45,6 @@
         </div>
       </div>
     </nav>
-
-    <!-- possible header -->
-    <!-- <h1 class="display-3 text-center p-3"><strong>12 Card Game</strong></h1> -->
 
     <span class="border-top border-right border-left" id="border" hidden>
       <h1 class="mb-2 p-3 text-center bg-light" id="win-header">
@@ -113,8 +111,6 @@
     <script src="js/pixi.min.js"></script>
     <script src="js/cardGame.js"></script>
 
-    <!-- Button trigger modal -->
-
     <!-- Modal -->
     <div
       class="modal fade"
@@ -178,17 +174,20 @@
       </div>
     </div>
 
-    <hr class="featurette-divider" />
-    <footer class="container">
-      <p
-        class="float-end"
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-      >
-        <a href="#">How to Play</a>
-      </p>
-      <p>&middot; Salisbury University &middot;</p>
-    </footer>
+    <!-- add this for a footer -->
+    <div class="fixed-bottom">
+      <hr class="featurette-divider" />
+      <footer class="container">
+        <p
+          class="float-end"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          <a href="#">How to Play</a>
+        </p>
+        <p>&middot; Salisbury University &middot;</p>
+      </footer>
+    </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
