@@ -3,7 +3,9 @@
     text-align: center;
     font-size: 32pt;
     color: black;
-    margin-bottom: .3em;
+    width: 100%;
+    margin: 0;
+    padding: 0;
   }
 
   html{
@@ -11,6 +13,7 @@
     padding: 0px; 
     height: 100%; 
     width: 100%;
+    padding-bottom: 100px;
     background-color: grey;
   }
 
@@ -18,6 +21,7 @@
     overflow: scroll; /* Show scrollbars */
     margin: 0px; 
     padding: 0px; 
+    padding-bottom: 100px;
     height: 100%; 
     width: 100%;
     background-color: grey;
@@ -26,6 +30,10 @@
 .border{
     background-color: aqua;
     border-top: 4pt solid black;
+    margin: 0px; 
+    padding: 0px; 
+    width: 100%;
+    height: 100%;
 }
 
 .statsSection{
@@ -41,6 +49,8 @@
   border-top: 4pt solid black;
   background-color: aqua;
   padding-bottom: 10px;
+  width: 100%;
+  height: 100%;
 }
 
 .firstSentence{
@@ -64,14 +74,13 @@
     background-color: rgb(58, 5, 5);
     color: white;
     font-size: 16px;
-    padding: 12px 24px;
+   
     border: none;
     cursor: pointer;
     border-radius: 5px;
   }
 
   .imgHolder{
-    background-color: teal;
     width: 100%;
   }
   
