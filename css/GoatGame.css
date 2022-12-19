@@ -13,7 +13,6 @@
     padding: 0px; 
     height: 100%; 
     width: 100%;
-    padding-bottom: 100px;
     background-color: grey;
   }
 
@@ -21,7 +20,6 @@
     overflow: scroll; /* Show scrollbars */
     margin: 0px; 
     padding: 0px; 
-    padding-bottom: 100px;
     height: 100%; 
     width: 100%;
     background-color: grey;
