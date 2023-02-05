@@ -1,6 +1,6 @@
 // create window height variable
 const windowWidth = document.body.clientWidth;
-const windowHeight = window.innerHeight * .8;
+const windowHeight = window.innerHeight * .85;
 const needleLength = 70;
 const numberOfLines = 7;
 //create Application Window
@@ -14,14 +14,15 @@ let app = new PIXI.Application({
     document.body.appendChild(app.view);
 
     const line = new PIXI.Graphics();
-    let lines = [];
-    
+    const lines = [];
+    let needles = [];
+    let nextEmpty = 0;
     let lineSpace = windowHeight / 7;
-    console.log(lineSpace);
+    //console.log(lineSpace);
     let yValue = lineSpace;
     for(let i = 0; i < 7; i++)
     {
-      line.beginFill(0xDE3249);
+      line.beginFill(0x0096FF);
       line.drawRect(0, yValue, windowWidth, 2);
       line.endFill();
       app.stage.addChild(line);
@@ -29,7 +30,7 @@ let app = new PIXI.Application({
       yValue = yValue + lineSpace;
     }
 
-    function needleCenter()
+    /*function needleCenter()
     {
       const dots = new PIXI.Graphics();
       let x = 0;
@@ -38,18 +39,18 @@ let app = new PIXI.Application({
       {
         x = Math.floor(Math.random() * windowWidth);
         y = Math.floor(Math.random() * windowHeight);
-        dots.beginFill(0xAA4F08);
+        dots.beginFill(0xFFFF00);
         dots.drawRect(x, y, 35, 2);
         dots.endFill();
         app.stage.addChild(dots);
-        dots.beginFill(0xAA4F08);
+        dots.beginFill(0xFFFF00);
         dots.drawRect(x - 35, y, 35, 2);
         dots.endFill();
         app.stage.addChild(dots);
 
       }
 
-    }
+    }*/
     function toRadians(angle)
     {
       return angle * (Math.PI / 180);
@@ -60,7 +61,9 @@ let app = new PIXI.Application({
       let xCenter, yCenter;
       let topX, topY, botX, botY;
       let x, y;
-      for(let j = 0; j < 10; j++)
+      let myneedle;
+      
+      for(let j = 0; j < 100; j++)
       {
         xCenter = Math.floor(Math.random() * windowWidth);
         yCenter = Math.floor(Math.random() * windowHeight);
@@ -92,21 +95,81 @@ let app = new PIXI.Application({
           botY = yCenter - y;
 
         }
-        line.beginFill(0xAA4F08, 2);
+        myneedle = new Needle(topX,topY,botX,botY);
+        needles[nextEmpty] = myneedle;
+        nextEmpty ++;
+        console.log(nextEmpty);
+
+        //let fillColor;
+        for(let k = 0; k < lines.length; k++)
+        {
+          if ((topY < lines[k] && botY < lines[k]) || (topY  > lines[k] && botY > lines[k]))
+          {
+            //fillColor = FF0000;
+            //line.beginFill(fillColor);
+            line.lineStyle(4, 0xFF0000, 1);
+            line.moveTo(xCenter, yCenter);
+            line.lineTo(topX, topY);
+            line.closePath();
+            //line.endFill();
+            app.stage.addChild(line);
+            //line.beginFill(0x454B1B);
+            line.moveTo(xCenter, yCenter);
+            line.lineTo(botX, botY);
+            line.closePath();
+            //line.endFill();
+            app.stage.addChild(line);
+          }
+          else if((topY > lines[k] && botY < lines[k]) || (topY < lines[k] && botY > lines[k]))
+          {
+            //line.beginFill();
+            line.lineStyle(4, 0xAAFF00, 1);
+            line.moveTo(xCenter, yCenter);
+            line.lineTo(topX, topY);
+            line.closePath();
+            //line.endFill();
+            app.stage.addChild(line);
+            //line.beginFill(0x454B1B);
+            line.moveTo(xCenter, yCenter);
+            line.lineTo(botX, botY);
+            line.closePath();
+            //line.endFill();
+            app.stage.addChild(line);
+          }
+          
+        }
+        /*line.beginFill(fillColor);
         line.lineStyle(4, 0xffd900, 1);
         line.moveTo(xCenter, yCenter);
         line.lineTo(topX, topY);
         line.closePath();
         line.endFill();
         app.stage.addChild(line);
-        line.beginFill(0xAA4F08, 2);
+        line.beginFill(fillColor);
         line.moveTo(xCenter, yCenter);
         line.lineTo(botX, botY);
         line.closePath();
         line.endFill();
-        app.stage.addChild(line);
+        app.stage.addChild(line);*/
 
       } 
 
 
+    }
+    function clear()
+    {
+      for (let k = 0; k < nextEmpty; k++)
+      {
+
+      }
+    }
+    class Needle
+    {
+      constructor(topX, topY, botX, botY)
+      {
+        this.topX = topX;
+        this.topY = topY;
+        this.botX = botX;
+        this.botY = botY;
+      }
     }
