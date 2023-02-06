@@ -160,7 +160,7 @@ let app = new PIXI.Application({
     {
       for (let k = 0; k < nextEmpty; k++)
       {
-
+        app.stage.removeChild(needles[k]);
       }
     }
     class Needle
