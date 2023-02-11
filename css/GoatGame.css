@@ -6,6 +6,12 @@
     margin-bottom: .3em;
   }
 
+  input[type=number]{
+    border-radius: 5px;
+    border: 2px solid green;
+  }
+
+
   html{
     margin: 0px; 
     padding: 0px; 
