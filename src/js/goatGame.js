@@ -1,5 +1,5 @@
-const carImg = "../images/car.png";
-const goatImg = "../images/goat.png";
+const carImg = "../images/iceCream.png";
+const goatImg = "../images/aspargus.png";
 const doorImg1 = "../images/ClosedDoor1.png";
 const doorImg2 = "../images/ClosedDoor2.png";
 const doorImg3 = "../images/ClosedDoor3.png";
@@ -23,8 +23,8 @@ var choiceMade = 0;
 var globalDoorChose = 0;
 var revealGoat = 0;
 var doorOpenSound = new Audio('../sounds/dooropening.mp3');
-var correctSound = new Audio('../sounds/correctChoice.mp3');
-var wrongSound = new Audio('../sounds/wrong.mp3');
+var correctSound = new Audio('../sounds/yay.mp3');
+var wrongSound = new Audio('../sounds/boo.mp3');
 
 function testModal() {
     $('#infoModal').modal('show');
@@ -34,6 +34,10 @@ function playAgain() {
     Doors[0] = 0;
     Doors[1] = 0;
     Doors[2] = 0;
+
+    document.getElementById("door0").style.borderRadius = "0%";
+    document.getElementById("door1").style.borderRadius = "0%";
+    document.getElementById("door2").style.borderRadius = "0%";
 
     carLocation = Math.floor(Math.random() * 3);
     Doors[carLocation] = 1;
@@ -47,7 +51,7 @@ function playAgain() {
     document.getElementById("door2").style.boxShadow = "none";
 
     document.getElementById("titleSentence").innerHTML = "Welcome to Monty Hall's Problem!"
-    document.getElementById("firstSentenceID").innerHTML = "There are <b>three</b> doors in front of you. There are <b>two</b> goats, and <b>one</b> car <br> Select A Door!";
+    document.getElementById("firstSentenceID").innerHTML = "There are <b>three</b> doors in front of you. There are <b>two</b> vegetables, and <b>one</b> dessert <br> Select A Door!";
     document.getElementById("continueButton").setAttribute("hidden", "hidden");
 
     document.getElementById("amountTimesToSwitch").setAttribute("hidden", "hidden");
@@ -55,7 +59,9 @@ function playAgain() {
     document.getElementById("continueSimulation").setAttribute("hidden", "hidden");
     //reveal new input and continue
     document.getElementById("simulateRunButton").removeAttribute("hidden");
-   // document.getElementById("amountTimesToRun").removeAttribute("hidden");
+    document.getElementById("endSimButton").setAttribute("hidden","hidden");
+    document.getElementById("simulateRunButton").setAttribute("onclick","prepreSimulate()");///wtrhjie
+    // document.getElementById("amountTimesToRun").removeAttribute("hidden");
 
     document.getElementById("door0").setAttribute("onclick", "stepOne(0)");
     document.getElementById("door1").setAttribute("onclick", "stepOne(1)");
@@ -63,6 +69,7 @@ function playAgain() {
 
     // document.getElementById("stageSectionID").setAttribute("class", "stageSection");
     document.getElementById("simulateInfo").innerHTML = "Click Simulate Runs to simulate the game!";
+    document.getElementById("simulateInfo2").innerHTML = "";
 
     document.getElementById("playAgainButton").setAttribute("hidden", "hidden");
 
@@ -102,6 +109,7 @@ function stepOne(doorChose) {
     //remove ability to choose doors from imgs
     var goatDoor = "door" + revealGoat;
     var switchDoorLoc = "door" + doorChoice;
+    var OGdoorChoice = "door" + doorChose;
 
     //document.getElementById(goatDoor).removeAttribute("onclick");
     document.getElementById(switchDoorLoc).removeAttribute("onclick");
@@ -109,9 +117,10 @@ function stepOne(doorChose) {
     document.getElementById("door" + doorChose).style.boxShadow = "0 0 100px greenyellow";
 
     //please click door when goat is located
-    document.getElementById("titleSentence").innerHTML = "The goat is located at Door " + (revealGoat + 1) + "!"
+    document.getElementById("titleSentence").innerHTML = "One vegetable is located at Door " + (revealGoat + 1) + "!"
     document.getElementById("firstSentenceID").innerHTML = "Can you click on Door " + (revealGoat + 1) + "?";
     document.getElementById(goatDoor).removeAttribute("onclick");
+    document.getElementById(OGdoorChoice).removeAttribute("onclick");
     document.getElementById(goatDoor).setAttribute("onclick", "afterStepOne(" + revealGoat + ")");
 
 }
@@ -121,14 +130,23 @@ function afterStepOne(revealGoat) {
     doorOpenSound.play();
     var go = "door" + revealGoat;
     var userDoor = "door" + globalDoorChose;
+
     document.getElementById(go).removeAttribute("onclick");
     document.getElementById(userDoor).removeAttribute("onclick");
 
     setTimeout(function () {
 
         document.getElementById(go).src = goatImg;
+
+        if (revealGoat == 0)
+            document.getElementById("door0").style.borderRadius = "99%";
+        else if (revealGoat == 1)
+            document.getElementById("door1").style.borderRadius = "99%";
+        else
+            document.getElementById("door2").style.borderRadius = "99%";
+
         document.getElementById("titleSentence").innerHTML = "Great Job!"
-        document.getElementById("firstSentenceID").innerHTML = "There is now one goat and one car left!";
+        document.getElementById("firstSentenceID").innerHTML = "There is now one vegetable and one dessert left!";
         document.getElementById("continueButton").removeAttribute("hidden");
     }, 250);
 
@@ -160,7 +178,7 @@ function intermediateStep() {
 }
 
 function secondIntermediate() {
-    document.getElementById("titleSentence").innerHTML = ""
+    document.getElementById("titleSentence").innerHTML = "";
     setTimeout(finalFunction, 800);
 }
 
@@ -168,11 +186,28 @@ function midStepTwo(imgType, userDoorChoice) {
     if (imgType == 1) {
         correctSound.loop = false;
         correctSound.play();
+
         document.getElementById(userDoorChoice).src = carImg;
+        if (userDoorChoice == "door0")
+            document.getElementById("door0").style.borderRadius = "99%";
+        else if (userDoorChoice == "door1")
+            document.getElementById("door1").style.borderRadius = "99%";
+        else
+            document.getElementById("door2").style.borderRadius = "99%";
+
+
     } else {
         wrongSound.loop = false;
         wrongSound.play();
+
         document.getElementById(userDoorChoice).src = goatImg;
+
+        if (userDoorChoice == "door0")
+            document.getElementById("door0").style.borderRadius = "99%";
+        else if (userDoorChoice == "door1")
+            document.getElementById("door1").style.borderRadius = "99%";
+        else
+            document.getElementById("door2").style.borderRadius = "99%";
     }
 }
 
@@ -197,6 +232,7 @@ function stepTwo(keptDoor) {
     document.getElementById("door1").style.boxShadow = "none";
     document.getElementById("door2").style.boxShadow = "none";
     document.getElementById(userDoorChoice).style.boxShadow = "0 0 100px greenyellow";
+
 
     updateStats(doorChoice, keptDoor);
     printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
@@ -232,8 +268,9 @@ function finalFunction() {
     else
         document.getElementById("door2").src = carImg;
 
-        doorOpenSound.loop = false;
-        doorOpenSound.play();
+
+    doorOpenSound.loop = false;
+    doorOpenSound.play();
     document.getElementById("playAgainButton").removeAttribute("hidden");
 }
 
@@ -281,10 +318,17 @@ function updateStats(x, isKept) {
 
 } //end of update stats
 
-function prepreSimulate(){
-    document.getElementById("simulateInfo").innerHTML = "Enter how many times would you like to simulate the game in the textbox below.";
-    document.getElementById("simulateRunButton").setAttribute("onclick", "preSimulate()");
+function prepreSimulate() {
+    document.getElementById("simulateInfo").innerHTML = "Enter how many times would you like to simulate the game in the first textbox below.";
+    document.getElementById("simulateInfo2").innerHTML = "Enter in the second textbox below how many times you would like to switch doors. You can only switch as many times as you play the game.";
+    
+    document.getElementById("simulateRunButton").setAttribute("onclick", "prepreSimulate()");
+    //document.getElementById("simulateRunButton").innerHTML ="Run simulation";
     document.getElementById("amountTimesToRun").removeAttribute("hidden");
+    document.getElementById("amountTimesToSwitch").removeAttribute("hidden");
+    document.getElementById("simulateRunButton").setAttribute("hidden", "hidden");
+    document.getElementById("continueSimulation").removeAttribute("hidden");
+    document.getElementById("endSimButton").removeAttribute("hidden");
 }
 
 //sets up simulate section -- rename
@@ -292,12 +336,12 @@ function preSimulate() {
 
     //hide old input and simulate runs
     document.getElementById("simulateRunButton").setAttribute("hidden", "hidden");
-    document.getElementById("amountTimesToRun").setAttribute("hidden", "hidden");
+    //document.getElementById("amountTimesToRun").setAttribute("hidden", "hidden");
     //reveal new input and continue
-    document.getElementById("amountTimesToSwitch").removeAttribute("hidden");
+    //document.getElementById("amountTimesToSwitch").removeAttribute("hidden");
     document.getElementById("continueSimulation").removeAttribute("hidden");
-    document.getElementById("simulateInfo").innerHTML = "Enter in the textbox below how many times you would like to switch doors. " +
-        "Enter up to " + document.getElementById("amountTimesToRun").value;
+  //  document.getElementById("simulateInfo").innerHTML = "Enter in the textbox below how many times you would like to switch doors. " +
+    //    "Enter up to " + document.getElementById("amountTimesToRun").value;
 
     // document.getElementById("stageSectionID").setAttribute("hidden", "hidden");
 }
@@ -306,8 +350,8 @@ function preSimulate() {
 
 //these functions good -- rework simulateGame later
 function changeToHowToPlay() {
-    document.getElementById("mainInfoSection").innerHTML = "Below there are <b>three doors</b>, and there are <b>two goats</b> and"
-        + " <b>one car</b> hidden behind the doors.  <br> You select <b>one door</b> and then <b>a goat</b> is revealed. " +
+    document.getElementById("mainInfoSection").innerHTML = "Below there are <b>three doors</b>, and there are <b>two vegetables</b> and"
+        + " <b>one dessert</b> hidden behind the doors.  <br> You select <b>one door</b> and then <b>a vegetable</b> is revealed. " +
         " You are then given an option to either <b>keep your current door</b> or <b>switch to the other unopened door</b>. " +
         " After which the door you choose is revealed. <br> The purpose of this game is to help educate you on probability.";
 
@@ -335,6 +379,14 @@ function changeToHistory() {
     document.getElementById("buttonHowToPlay").removeAttribute("hidden");
 }
 
+function endSimulation(){
+    document.getElementById("amountTimesToSwitch").setAttribute("hidden", "hidden");
+    document.getElementById("amountTimesToRun").setAttribute("hidden", "hidden");
+    document.getElementById("simulateRunButton").removeAttribute("hidden");
+    document.getElementById("endSimButton").setAttribute("hidden","hidden");
+    document.getElementById("continueSimulation").setAttribute("hidden","hidden");
+}
+
 function simulateGame() {
     var switchDoor;
     //showStats();
@@ -343,13 +395,13 @@ function simulateGame() {
 
     var timesSwitched = document.getElementById("amountTimesToSwitch").value;
 
-    document.getElementById("simulateInfo").innerHTML = "Enter how many times would you like to simulate the game in the textbox below.";
+    document.getElementById("simulateInfo").innerHTML = "Enter how many times would you like to simulate the game in the first textbox below.";
 
-    document.getElementById("amountTimesToSwitch").setAttribute("hidden", "hidden");
-    document.getElementById("continueSimulation").setAttribute("hidden", "hidden");
+    //document.getElementById("amountTimesToSwitch").setAttribute("hidden", "hidden");
+    //document.getElementById("continueSimulation").setAttribute("hidden", "hidden");
     //reveal new input and continue
-    document.getElementById("simulateRunButton").removeAttribute("hidden");
-    document.getElementById("amountTimesToRun").removeAttribute("hidden");
+    //document.getElementById("simulateRunButton").removeAttribute("hidden");
+   // document.getElementById("amountTimesToRun").removeAttribute("hidden");
 
     switchDoor = isKept;
     for (var i = 0; i < timesPlayed; i++) {

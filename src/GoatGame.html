@@ -23,30 +23,39 @@
 
 <title> Monty Hall Problem</title>
 
-<body>
 
-    <body>
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="./home.html"><img src="../images/logo.png" id="logo_img"
-                        style="max-height: 50px;"></img></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="home.html">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link"
-                                href="https://github.com/Salisbury-University/probability-games.git">GitHub</a>
-                        </li>
-                    </ul>
-                </div>
+<body style="margin: 0px; padding: 0px;background-color: grey;">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./home.html"><img src="../images/logo.png" id="logo_img"
+                    style="max-height: 50px;"></img></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                            href="https://github.com/Salisbury-University/probability-games.git">GitHub</a>
+                    </li>
+                </ul>
             </div>
-        </nav>
+        </div>
+    </nav>
+
+
+
+    <div style="background-color: teal;padding-bottom: 5px; border-bottom: 6px solid black;border-top: 6px solid black;">
+
+        <h1 class="centerText">Monty Hall Problem</h1>
+
+        <h5 class="centerText" style="font-size: 12pt; text-decoration: underline; " onclick="testModal()">
+            Click Here To Learn More About Monty Hall Problem And How To Play the Game!</h5>
+    </div>
 
 
 
@@ -90,6 +99,19 @@
                 </div>
             </div>
 
+
+            <div class="centerText" id="stageSectionID">
+                <h2 id="titleSentence">Welcome to Monty Hall's Problem!</h2>
+                <p class="firstSentence" id="firstSentenceID">There are <b>three</b> doors in front of you. There are
+                    <b>two</b> vegetables, and <b>one</b> dessert.
+                    <br>
+                    Select A Door!
+                </p>
+                <button type="button" class="btn btn-primary" onclick="playAgain()" hidden="hidden"
+                    id="playAgainButton">Play Again</button>
+                <button type="button" class="btn btn-primary" onclick="intermediateStep()" hidden="hidden"
+                    id="continueButton">Continue</button>
+
             <div class="stageSection">
 
                 <div class="row" style="text-align: center;;width: 100%;" id="statShow&Hide" hidden="hidden">
@@ -119,9 +141,44 @@
                     <button type="button" class="btn btn-primary" onclick="intermediateStep()" hidden="hidden"
                         id="continueButton">Continue</button>
 
+
                 </div>
             </div>
         </div>
+        
+    </div>
+
+    <div>
+        <!-- These are all modals-->
+        <!-- Modal for user to click on -->
+        <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">How To Play</h3>
+                    </div>
+                    <div class="modal-body">
+                        <h5 id="mainTitleSection"><b>This is how you play our game.</b></h5>
+                        <p id="mainInfoSection">
+                            Below there are <b>three doors</b>, and there are <b>two vegetables</b> and <b>one dessert</b> hidden
+                            behind the doors.
+                            <br>
+                            You select <b>one door</b> and then <b>a vegetable</b> is revealed. You are then given an option
+                            to either
+                            <b>keep your current door</b> or <b>switch to the other unopened door</b>.
+                            After which the door you choose is revealed.
+                            <br>
+                            The purpose of this game is to help educate you on probability.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="buttonHistory" class="btn btn-primary"
+                            onclick="changeToHistory()">History of the Game</button>
+                        <button type="button" id="buttonHowToPlay" class="btn btn-primary" onclick="changeToHowToPlay()"
+                            hidden>How To Play</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                            onclick="changeToHowToPlay()">Close</button>
 
         <div class="statsSection">
             <!--<h1 class="centerText"> Statistics For Game </h1>-->
@@ -183,8 +240,37 @@
             </div>
         </div>
 
+    <div class="statsSection">
+        <!--<h1 class="centerText"> Statistics For Game </h1>-->
+        <p id="simulateInfo" style="text-align:center;color: white;">Click Simulate Runs to simulate the game!</p>
+        <p id="simulateInfo2" style="text-align: center;color: white"></p>;
+        <div class="text-center">
+            <button type="button" class="btn btn-primary" onclick="showStats()" id="showStatsButton">Show Stats</button>
+            <button type="button" class="btn btn-primary" onclick="hideStats()" id="hideStatsButton"
+                hidden="hidden">Hide Stats</button>
+            <button type="button" class="btn btn-primary" onclick="resetStats()">Reset Stats</button>
+    
+            <button type="button" class="btn btn-primary" onclick="prepreSimulate()" id="simulateRunButton">Simulation</button>
+            <button type="button" class="btn btn-primary" onclick="simulateGame()" id="continueSimulation"
+                hidden="hidden">Run Simulation</button>
+            <button type="button" class="btn btn-primary" onclick="endSimulation()" id="endSimButton" hidden="hidden">End simulation</button>
         </div>
+        <br />
 
+        <div class="text-center">
+            <div>
+                <input type="number" id="amountTimesToRun" placeholder="Number of Runs" hidden="hidden" style="margin-bottom: 10px;">
+            </div>
+
+            <div>
+            <input type="number" id="amountTimesToSwitch" placeholder="# Times To Switch Doors" hidden="hidden" style="margin-top:0px;">
+            </div>
+
+        </div>
+    </div>
+
+
+
+        </div>
     </body>
-
 </html>
