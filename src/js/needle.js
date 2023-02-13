@@ -17,6 +17,10 @@ const line = new PIXI.Graphics();
 const lines = [];
 let needles = [];
 let nextEmpty = 0;
+
+const lineInArray = new PIXI.Graphics(); //new temp one
+const lineArray = [];//temp
+
 let lineSpace = windowHeight / 7;
 //console.log(lineSpace);
 let yValue = lineSpace;
@@ -77,14 +81,30 @@ function needleXY() {
       //checks to see if the needle dropped not crosses the grid lines and changes color red
       if ((topY < lines[k] && botY < lines[k]) || (topY > lines[k] && botY > lines[k])) {
         line.lineStyle(4, 0xFF0000, 1);
+        lineInArray.lineStyle(4, 0xFF0000, 1);
       }
       //checks to see if the needle does dropped crosses the grid line and changes color green
       else {
         line.lineStyle(4, 0xAAFF00, 1);
+        lineInArray.lineStyle(4, 0xAAFF00, 1);
         k = 8;
       }
     }
+    //temp one
+    lineInArray.moveTo(xCenter, yCenter);
+    lineInArray.lineTo(topX, topY);
+    lineInArray.closePath();
+    //line.endFill();
+    app.stage.addChild(lineInArray);
+    //line.beginFill(0x454B1B);
+    lineInArray.moveTo(xCenter, yCenter);
+    lineInArray.lineTo(botX, botY);
+    lineInArray.closePath();
+    //line.endFill();
+    app.stage.addChild(lineInArray);
+    lineArray.push(lineInArray);
 
+    /*
     //only create line once, so we moved out of inner for loop
     line.moveTo(xCenter, yCenter);
     line.lineTo(topX, topY);
@@ -97,13 +117,24 @@ function needleXY() {
     line.closePath();
     //line.endFill();
     app.stage.addChild(line);
+    */
   }
 }
-function clear() {
+
+function clearNeedles() {
+  console.log("Next Empty size: " + nextEmpty);
+
+  lineArray.forEach(lineInArray =>{
+    app.stage.removeChild(lineInArray);
+  });
+  /*
   for (let k = 0; k < nextEmpty; k++) {
     app.stage.removeChild(needles[k]);
+    console.log("K stored data: " + needles[k]);
   }
+  */
 }
+
 class Needle {
   constructor(topX, topY, botX, botY) {
     this.topX = topX;
