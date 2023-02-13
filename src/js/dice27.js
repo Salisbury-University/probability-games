@@ -18,6 +18,7 @@ var scoreboard = [0, 0];
 var coins = [];
 var lines = [];
 var dice;
+var clickedCount;
 
 let app = new PIXI.Application({
     backgroundAlpha: 0,
@@ -73,7 +74,7 @@ function roll() {
             document.getElementById("questionCard").hidden = false;
             document.getElementById("rollNumber").textContent = rollValue;
             document.getElementById("pilesQuestion").hidden = false;
-            document.getElementById("pilesInput").focus();
+            //document.getElementById("pilesInput").focus();
             ticks++;
         }
 
@@ -143,7 +144,8 @@ function createGame(){
         coins[i].drawEllipse(dist, 75, chipWidth, chipHeight);    // position + size of the ellipse (topleft x, topleft y, height, width)
         coins[i].interactive = false;
         coins[i].buttonMode = true;
-        coins[i].on("pointerdown", () => removeCoin(j))
+        coins[i].on("pointerdown", () => mark(coins[j]))
+                /*.on("pointerdown", () => removeCoin(j))*/
                 .on("pointerover", () => hover(coins[j]))
                 .on("pointerout", () => hoverOut(coins[j]));
         coins[i].endFill();                 // draws the ellipse
@@ -183,15 +185,16 @@ function hoverOut(object) {
     dont let the user go on until correct
   */
 function numberPilesCheck(){
-    let userInput = document.getElementById("pilesInput").value;
+    
+    //let userInput = document.getElementById("pilesInput").value;
     if(userInput == Math.floor(currTotal / rollValue)){
         playAudio(AUDIO_CORRECT);
         document.getElementById("pilesQuestion").hidden = true;
         document.getElementById("reminaderQuestion").hidden = false;
         addLines();
         document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Answer";
-        document.getElementById("pilesInput").value = "";
-        document.getElementById("remainderInput").focus();
+        //document.getElementById("pilesInput").value = "";
+        //document.getElementById("remainderInput").focus();
     }
     else{
         playAudio(AUDIO_WRONG);
@@ -288,4 +291,12 @@ function removeCoin(coinNumber){
     if(currTotal == newTotal){
         swapPlayer(); 
     }
+}
+
+function mark(coin){
+    coin.tint = 0x788cf0;
+}
+
+function pileSubmit(){
+
 }
