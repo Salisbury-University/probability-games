@@ -31,27 +31,6 @@ let app = new PIXI.Application({
       yValue = yValue + lineSpace;
     }
 
-    /*function needleCenter()
-    {
-      const dots = new PIXI.Graphics();
-      let x = 0;
-      let y = 0;
-      for(let j =0; j < 10; j++)
-      {
-        x = Math.floor(Math.random() * windowWidth);
-        y = Math.floor(Math.random() * windowHeight);
-        dots.beginFill(0xFFFF00);
-        dots.drawRect(x, y, 35, 2);
-        dots.endFill();
-        app.stage.addChild(dots);
-        dots.beginFill(0xFFFF00);
-        dots.drawRect(x - 35, y, 35, 2);
-        dots.endFill();
-        app.stage.addChild(dots);
-
-      }
-
-    }*/
     function toRadians(angle)
     {
       return angle * (Math.PI / 180);
@@ -70,12 +49,6 @@ let app = new PIXI.Application({
       {
         xCenter = Math.floor(Math.random() * windowWidth);
         yCenter = Math.floor(Math.random() * windowHeight);
-
-        //create dots here
-        /*line.beginFill(0xAA4F08, 2);
-        line.drawRect(x, y, 2, 2);
-        line.endFill();
-        app.stage.addChild(line);*/
 
         //calculate the angle
         let angle = Math.floor(Math.random() * 360);
@@ -148,19 +121,6 @@ let app = new PIXI.Application({
           }
  
         }
-        /*line.beginFill(fillColor);
-        line.lineStyle(4, 0xffd900, 1);
-        line.moveTo(xCenter, yCenter);
-        line.lineTo(topX, topY);
-        line.closePath();
-        line.endFill();
-        app.stage.addChild(line);
-        line.beginFill(fillColor);
-        line.moveTo(xCenter, yCenter);
-        line.lineTo(botX, botY);
-        line.closePath();
-        line.endFill();
-        app.stage.addChild(line);*/
 
       } 
 
