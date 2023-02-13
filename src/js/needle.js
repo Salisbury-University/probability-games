@@ -20,6 +20,7 @@ let app = new PIXI.Application({
     let lineSpace = windowHeight / 7;
     //console.log(lineSpace);
     let yValue = lineSpace;
+    
     for(let i = 0; i < 7; i++)
     {
       line.beginFill(0x0096FF);
@@ -55,6 +56,8 @@ let app = new PIXI.Application({
     {
       return angle * (Math.PI / 180);
     }
+
+
     function needleXY()
     {
       
@@ -97,12 +100,17 @@ let app = new PIXI.Application({
         }
         myneedle = new Needle(topX,topY,botX,botY);
         needles[nextEmpty] = myneedle;
-        nextEmpty ++;
-        console.log(nextEmpty);
+        nextEmpty += 1;
+        //console.log("Needle Number: " + nextEmpty);
 
         //let fillColor;
         for(let k = 0; k < lines.length; k++)
         {
+          console.log("K height: " + lines[k]);
+          console.log("Y Top:" + topY);
+          console.log("Y Bottom:" + botY);
+          console.log();
+          //checks to see if the needle dropped not crosses the grid lines
           if ((topY < lines[k] && botY < lines[k]) || (topY  > lines[k] && botY > lines[k]))
           {
             //fillColor = FF0000;
@@ -120,7 +128,8 @@ let app = new PIXI.Application({
             //line.endFill();
             app.stage.addChild(line);
           }
-          else if((topY > lines[k] && botY < lines[k]) || (topY < lines[k] && botY > lines[k]))
+                    //checks to see if the needle does dropped crosses the grid line
+          else// if((topY > lines[k] && botY < lines[k]) || (topY < lines[k] && botY > lines[k]))
           {
             //line.beginFill();
             line.lineStyle(4, 0xAAFF00, 1);
@@ -135,8 +144,9 @@ let app = new PIXI.Application({
             line.closePath();
             //line.endFill();
             app.stage.addChild(line);
+            k = 8;
           }
-          
+ 
         }
         /*line.beginFill(fillColor);
         line.lineStyle(4, 0xffd900, 1);
