@@ -1,19 +1,19 @@
 .container {
-	width: 75%;
+	width: 80%;
 	margin: auto;
 	text-align: center;
 }
 
 body {
 	background-color: #E51E1E;
-	margin: 0;
+	margin: auto;
 }
 
 h1 {
-	margin: 3px;
+	margin: 2px;
 	font-family: "Calibri";
 	text-shadow: 2px 0 #33373c;
-	font-size: 3rem;
+	font-size: 2rem;
 	color: #EBEBDD;
 	text-align: center;
 }
@@ -23,7 +23,7 @@ h1 {
 }
 
 .bottom {
-	padding-top: 20px;
+	padding-top: 10px;
 }
 
 .butn {
@@ -43,13 +43,13 @@ h1 {
 .lab { 
 	font-family: "Calibri";
 	text-shadow: 2px 0 #33373c;
-	font-size: 2rem;
+	font-size: 1.5rem;
 	color: #EBEBDD;
 }
 
 table{
 	font-family: "Calibri";
 	text-shadow: 2px 0 #33373c;
-	font-size: 2rem;
+	font-size: 1.5rem;
 	color: #EBEBDD;
 }

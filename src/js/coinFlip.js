@@ -17,6 +17,12 @@ var heavierSide = Math.floor(Math.random() * 2) + 1;
 
 // Function to flip coin
 function flipCoin() {
+	// reset weight display
+	document.getElementById("weightAmount").innerHTML = "Weight: ";
+
+	// reset counts display
+	document.getElementById("headTotal").innerHTML = 0;
+	document.getElementById("tailTotal").innerHTML = 0;
 
 	// coin is weighted
 	if(isWeighted == 1) {
@@ -84,6 +90,12 @@ function flipCoin() {
 
 // Function to flip coin multiple times
 function flipCoinMultiple() {
+	// reset weight display
+	document.getElementById("weightAmount").innerHTML = "Weight: ";
+
+	// reset counts display
+	document.getElementById("headTotal").innerHTML = 0;
+	document.getElementById("tailTotal").innerHTML = 0;
 
 	// gets amount of flips from user
 	let qty = document.getElementById("quantity").value;
@@ -157,15 +169,21 @@ function flipCoinMultiple() {
 	}
 }
 
-function ifWeighted() {
-	if(isWeighted == 1)
-		document.querySelector("h1").innerHTML = "You are Correct!";
-	else
-		document.querySelector("h1").innerHTML = "You are Incorrect";
+function weightedGuess() {
+	if(isWeighted == 1) {
+		document.querySelector("h1").innerHTML = "Your guess was correct, the coin was weighted";
+
+		if(heavierSide == 1)
+			document.getElementById("weightAmount").innerHTML = "Weight: " + weightHeavierSide + "/" + (100 - weightHeavierSide);
+		else
+			document.getElementById("weightAmount").innerHTML = "Weight: " + (100 - weightHeavierSide) + "/" + weightHeavierSide;
+	}
+	else {
+		document.querySelector("h1").innerHTML = "Your guess was incorrect, the coin was not weighted";
+		document.getElementById("weightAmount").innerHTML = "Weight: 50/50";
+	}
 	
 	// resetting global variables
-	document.getElementById("headTotal").innerHTML = 0;
-	document.getElementById("tailTotal").innerHTML = 0;
 	headCount = 0;
 	tailCount = 0;
 	isWeighted = Math.floor(Math.random() * 2) + 1;
@@ -173,15 +191,21 @@ function ifWeighted() {
 	heavierSide = Math.floor(Math.random() * 2) + 1;
 }
 
-function ifNotWeighted() {
-	if(isWeighted == 1)
-		document.querySelector("h1").innerHTML = "You are Incorrect";
-	else
-		document.querySelector("h1").innerHTML = "You are Correct!";
+function notWeightedGuess() {
+	if(isWeighted == 1) {
+		document.querySelector("h1").innerHTML = "Your guess was incorrect, the coin was weighted";
+
+		if(heavierSide == 1)
+			document.getElementById("weightAmount").innerHTML = "Weight: " + weightHeavierSide + "/" + (100 - weightHeavierSide);
+		else
+			document.getElementById("weightAmount").innerHTML = "Weight: " + (100 - weightHeavierSide) + "/" + weightHeavierSide;
+	}
+	else {
+		document.querySelector("h1").innerHTML = "Your guess was correct, the coin was not weighted";
+		document.getElementById("weightAmount").innerHTML = "Weight: 50/50";
+	}
 	
 	// resetting global variables
-	document.getElementById("headTotal").innerHTML = 0;
-	document.getElementById("tailTotal").innerHTML = 0;
 	headCount = 0;
 	tailCount = 0;
 	isWeighted = Math.floor(Math.random() * 2) + 1;
