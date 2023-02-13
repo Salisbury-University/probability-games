@@ -55,12 +55,11 @@ for (let i = 0; i <= baseTotal; i++) {
 }
 
 function roll() {
-
     //roll audio
+    document.getElementById("rollButton").hidden = true;
     playAudio(AUDIO_ROLL);
 
     let ticks = 0;
-
     diceApp.ticker.add(() => {
         //rolling swap images
         if(ticks % 5 == 0 && ticks < 50){
@@ -69,18 +68,17 @@ function roll() {
             dice.texture = diceApp.loader.resources[`dice${rollValue}`].texture;
         }
         //done rolling
-        else if(ticks == 50){
-                document.getElementById("rollButton").hidden = true;
-                document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Answer";
-                document.getElementById("questionCard").hidden = false;
-                document.getElementById("rollNumber").textContent = rollValue;
-                document.getElementById("pilesQuestion").hidden = false;
+        else if(ticks == 50){         
+            document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Answer";
+            document.getElementById("questionCard").hidden = false;
+            document.getElementById("rollNumber").textContent = rollValue;
+            document.getElementById("pilesQuestion").hidden = false;
+            document.getElementById("pilesInput").focus();
             ticks++;
         }
 
         ticks++;
     });
-    
     rolls[0]++;
     rolls[currTotal]++;
 }
@@ -172,7 +170,7 @@ function hoverOut(object) {
     object.alpha = 1;
 }
 
-  /*numberPilesCheck(answer)
+/*numberPilesCheck(answer)
     This fucntion is used to check if the students answer
     for the number of piles question prompt is correct
     
@@ -184,7 +182,7 @@ function hoverOut(object) {
 
     dont let the user go on until correct
   */
-  function numberPilesCheck(){
+function numberPilesCheck(){
     let userInput = document.getElementById("pilesInput").value;
     if(userInput == Math.floor(currTotal / rollValue)){
         playAudio(AUDIO_CORRECT);
@@ -193,14 +191,15 @@ function hoverOut(object) {
         addLines();
         document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Answer";
         document.getElementById("pilesInput").value = "";
+        document.getElementById("remainderInput").focus();
     }
     else{
         playAudio(AUDIO_WRONG);
         document.getElementById("mainPrompt").textContent = "Wrong try again";
     }
-  }
+}
 
-  /*remaindercheck(answer)
+/*remaindercheck(answer)
     This function is used to check if the students answer
     for the remainder of chips questions is correct
 
@@ -211,7 +210,7 @@ function hoverOut(object) {
         wrong message pops up try again
     don't let the user go on until correct
   */
-  function remainderCheck(){
+function remainderCheck(){
     let userInput = document.getElementById("remainderInput").value;
     let remainder = currTotal % rollValue;
     if(userInput == remainder){
@@ -221,15 +220,20 @@ function hoverOut(object) {
         if(remainder > 0){
             makeClickable(remainder);
         }
+        //else just change players
         else{
+            document.getElementById("reminaderQuestion").hidden = true;
+            document.getElementById("remainderInput").value = "";
+            document.getElementById("questionCard").hidden = true;        
             swapPlayer();
         }
     }
     else{
         playAudio(AUDIO_WRONG);
+        document.getElementById("remainderInput").click();
         document.getElementById("mainPrompt").textContent = "Wrong try again";
     }
-  }
+}
 
   //add lines to the game window
 function addLines(){   
@@ -245,9 +249,9 @@ function removeLines(){
 }
 
 function playAudio(audioName){
-    audioName.pause();
+    /*audioName.pause();
     audioName.currentTime = 0;
-    audioName.play();
+    audioName.play();*/
 }
 
 function makeClickable(remainder){
@@ -255,6 +259,9 @@ function makeClickable(remainder){
     for(let i = currTotal - 1; i >= newTotal; i--){
         coins[i].interactive = true;
     }
+    document.getElementById("reminaderQuestion").hidden = true;
+    document.getElementById("remainderInput").value = "";
+    document.getElementById("questionCard").hidden = true;
     document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Remove you Chips";
 }
 
@@ -265,9 +272,7 @@ function swapPlayer(){
     else{
         playerTurn = PLAYER_1;
     }
-    document.getElementById("reminaderQuestion").hidden = true;
-    document.getElementById("remainderInput").value = "";
-    document.getElementById("questionCard").hidden = true;
+    dice.texture = diceApp.loader.resources[`dice0`].texture;
     document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Roll";
     document.getElementById("rollButton").hidden = false;
     removeLines();
