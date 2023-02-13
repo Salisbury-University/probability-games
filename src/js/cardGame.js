@@ -17,7 +17,11 @@ const oceanic = 0x084c61;
 const red = 0xdb3a34;
 const yellow = 0xffc857;
 const charcoal = 0xd3d3d3;
+const green = 0x3bb143;
+const black = 0x000000;
+const white = 0xffffff;
 
+//pixi objs
 const Graphics = PIXI.Graphics;
 const Text = PIXI.Text;
 const Sprite = PIXI.Sprite;
@@ -33,7 +37,6 @@ var cardStyle = new PIXI.TextStyle({
   dropShadowAlpha: 0.5,
   dropShadowDistance: 5,
   fill: red,
-  //fontFamily: '"Arial Black", Gadget, sans-serif',
   fontFamily: "Comic Sans MS",
   fontSize: windowWidth * 0.02,
   fontWeight: "bolder",
@@ -44,7 +47,6 @@ var cardStyle = new PIXI.TextStyle({
 // winning text's style
 var winStyle = new PIXI.TextStyle({
   fill: red,
-  //fontFamily: '"Arial Black", Gadget, sans-serif',
   fontFamily: "Helvetica",
   fontSize: windowWidth * 0.02,
   fontWeight: "bolder",
@@ -68,7 +70,6 @@ var promptStyle = new PIXI.TextStyle({
 // score text style beneach player sides
 var scoreStyle = new PIXI.TextStyle({
   fontSize: windowWidth * 0.03,
-  //fontFamily: '"Arial Black", Gadget, sans-serif',
   fontFamily: "Comic Sans MS",
   fontWeight: "bold",
   align: "center",
@@ -85,7 +86,16 @@ let app = new PIXI.Application({
 document.body.appendChild(app.view);
 
 // gameplay objects
-let dice1, dice2, rollButton, dice1oll, dice2Roll, sheet;
+let dice1,
+  dice2,
+  rollButton,
+  powerBar,
+  powerBarIndicator,
+  promptBackdrop,
+  prompt;
+
+// flag to move powerBarIndicator
+var powerBarMove = false;
 
 // initialize turn
 var playerTurn = 1;
@@ -128,28 +138,13 @@ class Stack {
   }
 }
 
-// instructional propmt x and y coordinates, size, and colors
-let originalPrompt = "click on a card to place your chip";
-let prompt = new Text(originalPrompt, promptStyle);
-prompt.resolution = 2;
-prompt.x = (windowWidth - prompt.width) / 2;
-prompt.y = windowHeight * 0.34;
-
-// backdrop to the prompt x and y coords, size, and colors
-let promptBackdrop = new Graphics();
-promptBackdrop.beginFill(yellow);
-promptBackdrop.drawRoundedRect(
-  0,
-  0,
-  prompt.width * 1.02, // width
-  prompt.height * 1.02, //height
-  6 // corner radius
-);
-promptBackdrop.x = prompt.x - prompt.width * 0.01;
-promptBackdrop.y = prompt.y - prompt.height * 0.02;
-promptBackdrop.alpha = 0.6;
-promptBackdrop.endFill();
-
+// have everything run from the main funciton eventually
+function main() {
+  // create game
+  // play game
+  // show results
+}
+// function to update the prompt message throughout the game
 function updatePrompt(newMessage, turn) {
   if (turn == PLAYER_1)
     // color prompt for each player
@@ -166,6 +161,7 @@ function updatePrompt(newMessage, turn) {
 // base url of dice images
 app.loader.baseUrl = "../images/";
 
+// load in the sound files
 let audio_pop = new Audio("../sounds/pop.mp3");
 audio_pop.volume = 0.5;
 let audio_roll = new Audio("../sounds/dice_roll.mp3");
@@ -188,42 +184,7 @@ app.loader
 app.loader.onComplete.add(createGame);
 app.loader.load();
 
-//create player names with styling
-var player1 = new Text("PLAYER 1\nRemaining Chips:", {
-  fontSize: windowWidth * 0.015,
-  fontFamily: '"Arial Black", Gadget, sans-serif',
-  fontWeight: "bold",
-  fill: red,
-  align: "center",
-});
-var player2 = new Text("PLAYER 2\nRemaining Chips:", {
-  fontSize: windowWidth * 0.015,
-  fontFamily: '"Arial Black", Gadget, sans-serif',
-  fontWeight: "bold",
-  fill: teal,
-  align: "center",
-});
-var player1ScoreText = new Text("0", scoreStyle);
-var player2ScoreText = new Text("0", scoreStyle);
-var scoreboard = [0, 0];
-
-// position and size the text based on window size
-player1.x = windowWidth * 0.05;
-player2.x = windowWidth * 0.95 - player2.width;
-player1ScoreText.x = player1.x + player1.width / 2 - player1ScoreText.width / 2;
-player2ScoreText.x = player2.x + player2.width / 2 - player2ScoreText.width / 2;
-
-player1.y = windowHeight * 0.35;
-player2.y = windowHeight * 0.35;
-player1ScoreText.y = windowHeight * 0.45;
-player2ScoreText.y = windowHeight * 0.45;
-
-// add player info to the screen
-app.stage.addChild(player1);
-app.stage.addChild(player2);
-app.stage.addChild(player1ScoreText);
-app.stage.addChild(player2ScoreText);
-
+var player1, player2, player1ScoreText, player2ScoreText, scoreboard;
 //array to hold rectangle objects (cards) that go at the top of the page
 let cards = []; // all the card objects
 let titles = []; // all the card number text objects
@@ -243,88 +204,178 @@ const cardHeight = windowHeight * 0.23;
 const cardWidth = windowWidth * 0.07;
 const cornerRadius = 6;
 
-// create the cards at the top of the application screen
-for (i = 0; i < 11; i++) {
-  let j = i;
-
-  cardChips1[j] = 0;
-  cardChips2[j] = 0;
-  chipStack1[j] = new Stack();
-  chipStack2[j] = new Stack();
-  cards[i] = new Graphics();
-  cards[i].beginFill(yellow);
-  cards[i].lineStyle(2, charcoal, 4);
-  cards[i].drawRoundedRect(0, 0, cardWidth, cardHeight, cornerRadius);
-  cards[i].x = (windowWidth / 11) * i + (windowWidth / 11 - cardWidth) / 2;
-  cards[i].y = windowHeight * 0.05;
-  cards[i].interactive = true;
-  cards[i].buttonMode = true;
-  cards[i]
-    .on("pointerdown", () => cardClick(j))
-    .on("pointerover", () => hover(cards[j], 0.82))
-    .on("pointerout", () => hoverOut(cards[j]));
-  cards[i].endFill();
-
-  // add the numbers to cards
-  titles[i] = new Text(i + 2, cardStyle);
-  titles[i].resolution = 2;
-  if (i < 8) {
-    titles[i].x = cards[i].x + (cardWidth / 2) * 0.75;
-  } else {
-    titles[i].x = cards[i].x + (cardWidth / 2) * 0.65;
-  }
-
-  titles[i].y = windowHeight * 0.05;
-
-  app.stage.addChild(cards[i]);
-  app.stage.addChild(titles[i]);
-}
-
 // array to hold each players chips
 var chips1 = {};
 var chips2 = {};
 
-// create a stack of chips
-for (i = 0; i < 10; i++) {
-  let j = i;
+// function creates the dice, roll button, and power bar
+function createGame() {
+  // create the gameplay prompt
+  createPrompt();
 
-  const chipWidth = windowWidth * 0.012;
-  const chipHeight = windowWidth * 0.008;
+  // create the user's score and label
+  createPlayerScores();
 
-  chips1[i] = new Graphics();
-  chips2[i] = new Graphics();
-  chips1[i].beginFill(red); // ellipse color
-  chips2[i].beginFill(teal);
-  chips1[i].lineStyle(1, 0x000000, 1); // ellipse border
-  chips2[i].lineStyle(1, 0x000000, 1);
-  chips1[i].drawEllipse(0, 0, chipWidth, chipHeight); // position + size of the ellipse (topleft x, topleft y, height, width)
-  chips2[i].drawEllipse(0, 0, chipWidth, chipHeight);
-  chips1[i].x = player1ScoreText.x - chips1[0].width;
-  chips2[i].x = player2ScoreText.x + player2ScoreText.width + chips1[0].width;
-  chips1[i].y = player1.y + chips1[0].height * 6 - (chips1[0].height / 4) * i;
-  chips2[i].y = player2.y + chips1[0].height * 6 - (chips1[0].height / 4) * i;
-  chips1[j].interactive = true;
-  chips2[j].interactive = true;
-  chips1[j].buttonMode = true;
-  chips2[j].buttonMode = true;
-  chips1[j].on("pointerdown", () => chipClick(j, PLAYER_1));
-  chips2[j].on("pointerdown", () => chipClick(j, PLAYER_2));
-  chips1[i].endFill(); // draws the ellipse
-  chips2[i].endFill();
+  // create the cards in the game
+  createCards();
 
-  app.stage.addChild(chips1[i]); // stage the ellipse
-  app.stage.addChild(chips2[i]);
+  // create the game chips
+  createChips();
+
+  // create the dice for the game
+  createDice();
+
+  // create the roll button
+  createRollButton();
+
+  // create power bar
+  createPowerBar();
+
+  // add the objects to the screen
+  app.stage.addChild(dice1);
+  app.stage.addChild(dice2);
 }
 
-// function creates the dice and roll button
-function createGame() {
+function createChips() {
+  // create a stack of chips
+  for (i = 0; i < 10; i++) {
+    let j = i;
+
+    const chipWidth = windowWidth * 0.012;
+    const chipHeight = windowWidth * 0.008;
+
+    chips1[i] = new Graphics();
+    chips2[i] = new Graphics();
+    chips1[i].beginFill(red); // ellipse color
+    chips2[i].beginFill(teal);
+    chips1[i].lineStyle(1, 0x000000, 1); // ellipse border
+    chips2[i].lineStyle(1, 0x000000, 1);
+    chips1[i].drawEllipse(0, 0, chipWidth, chipHeight); // position + size of the ellipse (topleft x, topleft y, height, width)
+    chips2[i].drawEllipse(0, 0, chipWidth, chipHeight);
+    chips1[i].x = player1ScoreText.x - chips1[0].width;
+    chips2[i].x = player2ScoreText.x + player2ScoreText.width + chips1[0].width;
+    chips1[i].y = player1.y + chips1[0].height * 6 - (chips1[0].height / 4) * i;
+    chips2[i].y = player2.y + chips1[0].height * 6 - (chips1[0].height / 4) * i;
+    chips1[j].interactive = true;
+    chips2[j].interactive = true;
+    chips1[j].buttonMode = true;
+    chips2[j].buttonMode = true;
+    chips1[j].on("pointerdown", () => chipClick(j, PLAYER_1));
+    chips2[j].on("pointerdown", () => chipClick(j, PLAYER_2));
+    chips1[i].endFill(); // draws the ellipse
+    chips2[i].endFill();
+
+    app.stage.addChild(chips1[i]); // stage the ellipse
+    app.stage.addChild(chips2[i]);
+  }
+}
+
+function createPrompt() {
+  // create the original game prompt
+  // instructional propmt x and y coordinates, size, and colors
+  let originalPrompt = "Player 1 click on a card to place your chip";
+  prompt = new Text(originalPrompt, promptStyle);
+  prompt.resolution = 2;
+  prompt.x = (windowWidth - prompt.width) / 2;
+  prompt.y = windowHeight * 0.34;
+
+  // create prompt highlighting
+  // backdrop to the prompt x and y coords, size, and colors
+  promptBackdrop = new Graphics();
+  promptBackdrop.beginFill(yellow);
+  promptBackdrop.drawRoundedRect(
+    0,
+    0,
+    prompt.width * 1.02, // width
+    prompt.height * 1.02, //height
+    6 // corner radius
+  );
+  promptBackdrop.x = prompt.x - prompt.width * 0.01;
+  promptBackdrop.y = prompt.y - prompt.height * 0.02;
+  promptBackdrop.alpha = 0.6;
+  promptBackdrop.endFill();
+
   app.stage.addChild(promptBackdrop);
   app.stage.addChild(prompt);
+}
 
-  sheet = app.loader.resources["./images/dice.png"];
+function createPlayerScores() {
+  //create player names with styling
+  player1 = new Text("PLAYER 1\nRemaining Chips:", {
+    fontSize: windowWidth * 0.015,
+    fontFamily: '"Arial Black", Gadget, sans-serif',
+    fontWeight: "bold",
+    fill: red,
+    align: "center",
+  });
+  player2 = new Text("PLAYER 2\nRemaining Chips:", {
+    fontSize: windowWidth * 0.015,
+    fontFamily: '"Arial Black", Gadget, sans-serif',
+    fontWeight: "bold",
+    fill: teal,
+    align: "center",
+  });
+  player1ScoreText = new Text("0", scoreStyle);
+  player2ScoreText = new Text("0", scoreStyle);
+  scoreboard = [0, 0];
+
+  // position and size the text based on window size
+  player1.x = windowWidth * 0.05;
+  player2.x = windowWidth * 0.95 - player2.width;
+  player1ScoreText.x =
+    player1.x + player1.width / 2 - player1ScoreText.width / 2;
+  player2ScoreText.x =
+    player2.x + player2.width / 2 - player2ScoreText.width / 2;
+
+  player1.y = windowHeight * 0.35;
+  player2.y = windowHeight * 0.35;
+  player1ScoreText.y = windowHeight * 0.45;
+  player2ScoreText.y = windowHeight * 0.45;
+}
+
+function createCards() {
+  // create the cards at the top of the application screen
+  for (i = 0; i < 11; i++) {
+    let j = i;
+
+    cardChips1[j] = 0;
+    cardChips2[j] = 0;
+    chipStack1[j] = new Stack();
+    chipStack2[j] = new Stack();
+    cards[i] = new Graphics();
+    cards[i].beginFill(yellow);
+    cards[i].lineStyle(2, charcoal, 4);
+    cards[i].drawRoundedRect(0, 0, cardWidth, cardHeight, cornerRadius);
+    cards[i].x = (windowWidth / 11) * i + (windowWidth / 11 - cardWidth) / 2;
+    cards[i].y = windowHeight * 0.05;
+    cards[i].interactive = true;
+    cards[i].buttonMode = true;
+    cards[i]
+      .on("pointerdown", () => cardClick(j))
+      .on("pointerover", () => hover(cards[j], 0.82))
+      .on("pointerout", () => hoverOut(cards[j]));
+    cards[i].endFill();
+
+    // add the numbers to cards
+    titles[i] = new Text(i + 2, cardStyle);
+    titles[i].resolution = 2;
+    if (i < 8) {
+      titles[i].x = cards[i].x + (cardWidth / 2) * 0.75;
+    } else {
+      titles[i].x = cards[i].x + (cardWidth / 2) * 0.65;
+    }
+
+    titles[i].y = windowHeight * 0.05;
+
+    app.stage.addChild(cards[i]);
+    app.stage.addChild(titles[i]);
+  }
+}
+
+function createDice() {
+  // load in the dice images
   dice1 = new Sprite.from(app.loader.resources["dice0"].texture);
   dice2 = new Sprite.from(app.loader.resources["dice0"].texture);
-  rollButton = new Sprite.from(app.loader.resources["rollButton"].texture);
 
   // size and positioning of each dice
   dice1.width = windowWidth * 0.06;
@@ -335,12 +386,16 @@ function createGame() {
   dice1.y = windowHeight * 0.47;
   dice2.x = windowWidth / 2;
   dice2.y = windowHeight * 0.47;
+}
+
+function createRollButton() {
+  rollButton = new Sprite.from(app.loader.resources["rollButton"].texture);
 
   // size and positioning of roll button
   rollButton.width = windowWidth * 0.1;
   rollButton.height = windowHeight * 0.1;
   rollButton.x = (windowWidth - rollButton.width) / 2;
-  rollButton.y = dice1.y + dice1.height * 1.01;
+  rollButton.y = dice1.y + dice1.height * 1.15;
 
   // make the objects interactive and assign functions to them
   rollButton.interactive = true;
@@ -349,12 +404,44 @@ function createGame() {
     .on("pointerdown", () => roll())
     .on("pointerover", () => hover(rollButton, 0.82))
     .on("pointerout", () => hoverOut(rollButton));
+}
 
-  // add the objects to the screen
-  app.stage.addChild(dice1);
-  app.stage.addChild(dice2);
+function createPowerBar() {
+  // draw the powerbar for dice power as a gradient
+  const quality = 256;
+  const canvas = document.createElement("canvas");
+  canvas.width = quality;
+  canvas.height = 1;
+  const ctx = canvas.getContext("2d");
+  const grd = ctx.createLinearGradient(0, 0, quality, 0);
+  grd.addColorStop(0, "white");
+  grd.addColorStop(0.05, "red");
+  grd.addColorStop(0.5, "yellow");
+  grd.addColorStop(0.95, "green");
+  grd.addColorStop(1, "white");
 
-  switchTurns(1);
+  ctx.fillStyle = grd;
+  ctx.fillRect(0, 0, quality, 1);
+
+  const gradTexture = PIXI.Texture.from(canvas);
+  powerBar = new Sprite(gradTexture);
+  powerBar.position.set(dice1.x, dice1.y + dice1.height * 1.03);
+  powerBar.width = dice1.width * 2;
+  powerBar.height = dice1.height / 4;
+
+  // draw power bar indicator
+  powerBarIndicator = new Graphics();
+  powerBarIndicator.beginFill(red);
+  powerBarIndicator.drawRoundedRect(
+    0,
+    0,
+    powerBar.width / 20,
+    dice1.height / 3,
+    4
+  );
+  powerBarIndicator.x = dice1.x;
+  powerBarIndicator.y = dice1.y + dice1.height * 0.99;
+  powerBarIndicator.endFill();
 }
 
 function switchTurns(turn) {
@@ -385,6 +472,7 @@ function cardClick(cardNumber) {
 
   if (playerTurn == 1 && totalChipCount > 0) {
     //player 1s turn
+    // play chip moving audio
     audio_woosh.pause();
     audio_woosh.currentTime = 0;
     audio_woosh.play();
@@ -392,7 +480,6 @@ function cardClick(cardNumber) {
     // track score information
     if (scoreboard[PLAYER_1] < 10) scoreboard[PLAYER_1]++;
     player1ScoreText.text = scoreboard[PLAYER_1];
-    app.stage.addChild(player1ScoreText);
 
     // calculate new x val based on card position
     let newX = cards[cardNumber].x + cardWidth * 0.25;
@@ -435,7 +522,7 @@ function cardClick(cardNumber) {
     chipsPlaced1[cardNumber] += 1;
 
     // increment current chip counter
-    updatePrompt("click on a card to place your chip", PLAYER_2);
+    updatePrompt("Player 2 click on a card to place your chip", PLAYER_2);
     playerTurn = 2;
     switchTurns(2);
     currChip1--;
@@ -448,7 +535,6 @@ function cardClick(cardNumber) {
     if (scoreboard[PLAYER_2] < 10) scoreboard[PLAYER_2]++;
 
     player2ScoreText.text = scoreboard[PLAYER_2];
-    app.stage.addChild(player2ScoreText);
 
     // calculate the new X value and Y value based on card size and location
     let newX = cards[cardNumber].x + cardWidth * 0.75;
@@ -489,7 +575,7 @@ function cardClick(cardNumber) {
     chipsPlaced2[cardNumber] += 1;
 
     // decrement current chip counter
-    updatePrompt("click on a card to place your chip", PLAYER_1);
+    updatePrompt("Player 1 click on a card to place your chip", PLAYER_1);
     playerTurn = 1;
     switchTurns(1);
     currChip2--;
@@ -505,7 +591,30 @@ function cardClick(cardNumber) {
       cards[j].buttonMode = false;
       cards[j].on("pointerover", () => hover(cards[j], 1));
     }
+    app.stage.addChild(player1);
+    app.stage.addChild(player2);
+    app.stage.addChild(player1ScoreText);
+    app.stage.addChild(player2ScoreText);
+
     app.stage.addChild(rollButton);
+    app.stage.addChild(powerBar);
+    app.stage.addChild(powerBarIndicator);
+    powerBarMove = true;
+
+    // move the power bar indicator up and down the power bar
+    let elapsed = 0.0;
+    app.ticker.add((delta) => {
+      // move the powerBar if the move is set to true
+      if (powerBarMove == true) {
+        elapsed += delta;
+        powerBarIndicator.x =
+          Math.cos(elapsed / 20) * (powerBar.width / 2) +
+          (powerBar.width / 2 + powerBar.x * 0.99);
+      } else if (elapsed > 0) {
+        // fix this part, if resetting, the powerBarIndicator should go back to the original x value, while still being able ot freeze
+        elapsed -= delta;
+      }
+    });
   }
 }
 
@@ -529,6 +638,8 @@ function roll() {
   audio_roll.pause();
   audio_roll.currentTime = 0;
   audio_roll.play();
+
+  powerBarMove = false;
 
   // making the dice interactive
   dice1.interactive = true;
@@ -576,6 +687,10 @@ function roll() {
           playerTurn = 2;
           switchTurns(2);
           rollButton.interactive = true;
+
+          // reset power bar, and continue to move it
+          powerBarIndicator.x = dice1.x;
+          powerBarMove = true;
         }
       } else {
         // a card is rolled with chips on it
@@ -594,6 +709,10 @@ function roll() {
           playerTurn = 1;
           switchTurns(1);
           rollButton.interactive = true;
+
+          // reset power bar, and continue to move it
+          powerBarIndicator.x = dice1.x;
+          powerBarMove = true;
         }
       }
 
@@ -604,8 +723,6 @@ function roll() {
 
     // for now, just reload the page if someone wins
     if (scoreboard[PLAYER_1] == 0 || scoreboard[PLAYER_2] == 0) {
-      // audio_point.play();
-
       rollButton.interactive = false;
       app.stage.removeChild(dice1);
       app.stage.removeChild(dice2);
@@ -676,6 +793,10 @@ function chipClick(chipNo, player) {
         playerTurn = 2;
         switchTurns(2);
         clickableCard = -1;
+
+        //reset powerbar indicator
+        powerBarIndicator.x = dice1.x;
+        powerBarMove = true;
       } else {
         audio_misclick.pause();
         audio_misclick.time = 0;
@@ -698,6 +819,10 @@ function chipClick(chipNo, player) {
         playerTurn = 1;
         switchTurns(1);
         clickableCard = -1;
+
+        //reset powerbar indicator
+        powerBarIndicator.x = dice1.x;
+        powerBarMove = true;
       } else {
         audio_misclick.pause();
         audio_misclick.time = 0;

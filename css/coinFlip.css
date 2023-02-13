@@ -1,64 +1,55 @@
-		.container {
-			width: 60%;
-			margin: auto;
-			text-align: center;
-		}
+.container {
+	width: 80%;
+	margin: auto;
+	text-align: center;
+}
 
-		body {
-			background-color: #E51E1E;
-			margin: 0;
-		}
+body {
+	background-color: #E51E1E;
+	margin: auto;
+}
 
-		h1 {
-			margin: 3px;
-			font-family: "Calibri", cursive;
-			text-shadow: 3px 0 #33373c;
-			font-size: 3rem;
-			color: #EBEBDD;
-			text-align: center;
-		}
+h1 {
+	margin: 2px;
+	font-family: "Calibri";
+	text-shadow: 2px 0 #33373c;
+	font-size: 2rem;
+	color: #EBEBDD;
+	text-align: center;
+}
 
-		h2 {
-			margin: 1px;
-			font-family: "Calibri", cursive;
-			text-shadow: 1px 0 #33373c;
-			font-size: 1rem;
-			color: #EBEBDD;
-			text-align: center;
-		}
+#coin{
+	width: 12%;
+}
 
-		#coin{
-			width: 15%;
-		}
+.bottom {
+	padding-top: 10px;
+}
 
-		.bottom {
-			padding-top: 20px;
-		}
+.butn {
+	background: #A0A098;
+	font-family: "Calibri";
+	border-radius: 10px;
+	color: #ffff;
+	font-size: 18px;
+	text-decoration: none;
+}
 
-		.butn {
-			background: #A0A098;
-			font-family: "Calibri", cursive;
-			border-radius: 10px;
-			color: #ffff;
-			font-size: 18px;
-			text-decoration: none;
-		}
+.butn:hover {
+	background: #232931;
+	text-decoration: none;
+}
 
-		.butn:hover {
-			background: #232931;
-			text-decoration: none;
-		}
+.lab { 
+	font-family: "Calibri";
+	text-shadow: 2px 0 #33373c;
+	font-size: 1.5rem;
+	color: #EBEBDD;
+}
 
-		.lab { 
-			font-family: "Calibri", cursive;
-			text-shadow: 2px 0 #33373c;
-			font-size: 2rem;
-			color: #EBEBDD;
-		}
-
-		table{
-			font-family: "Calibri", cursive;
-			text-shadow: 2px 0 #33373c;
-			font-size: 2rem;
-			color: #EBEBDD;
-		}
+table{
+	font-family: "Calibri";
+	text-shadow: 2px 0 #33373c;
+	font-size: 1.5rem;
+	color: #EBEBDD;
+}
