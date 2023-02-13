@@ -12,6 +12,7 @@ const Sprite = PIXI.Sprite;
 var currTotal = 27;
 var newTotal = 27;
 var rolls = [];
+var tracker = [];
 var rollValue = 1;
 var playerTurn = 0;
 var scoreboard = [0, 0];
@@ -75,6 +76,9 @@ function roll() {
             document.getElementById("rollNumber").textContent = rollValue;
             document.getElementById("pilesQuestion").hidden = false;
             //document.getElementById("pilesInput").focus();
+            for(let i = 0; i < currTotal; i++){
+                coins[i].interactive = true;
+            }
             ticks++;
         }
 
@@ -144,7 +148,7 @@ function createGame(){
         coins[i].drawEllipse(dist, 75, chipWidth, chipHeight);    // position + size of the ellipse (topleft x, topleft y, height, width)
         coins[i].interactive = false;
         coins[i].buttonMode = true;
-        coins[i].on("pointerdown", () => mark(coins[j]))
+        coins[i].on("pointerdown", () => mark(j))
                 /*.on("pointerdown", () => removeCoin(j))*/
                 .on("pointerover", () => hover(coins[j]))
                 .on("pointerout", () => hoverOut(coins[j]));
@@ -293,8 +297,9 @@ function removeCoin(coinNumber){
     }
 }
 
-function mark(coin){
-    coin.tint = 0x788cf0;
+function mark(coinNumber){
+    coins[coinNumber].tint = 0x788cf0;
+    tracker[coinNumber] = 0;
 }
 
 function pileSubmit(){
