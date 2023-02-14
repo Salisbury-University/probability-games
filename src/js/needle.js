@@ -121,23 +121,18 @@ function clearNeedles() {
 
   //this code removes them from the stage
   lineArray.forEach(lineInArray => {
-    app.stage.removeChild(lineInArray);
+    app.stage.removeChild(lineInArray); //these remove the lines from Field of view but they are still present in memory
   });
 
   // lineInArray.destroy();
   //this is the only way to get rid of the lines, we need to find new way for code
-
-  for(let k = 0; k < lineArray.length; k++){
-    console.log(lineArray[k]);
-  }
+  //this function will permanently get rid of the lines, but then we cant drop them again, 
+  //as the Graphics object will be destroyed -- we can try to declare graphics object again down in this 
+  //function to see if that will work
  
   //splice will remove all objects of the array
   lineArray.splice(0, lineArray.length);
   console.log("After Splice");
-
-  for(let k = 0; k < lineArray.length; k++){
-    console.log(lineArray[k]);
-  }
 }
 
 class Needle {
