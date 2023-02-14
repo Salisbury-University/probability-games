@@ -18,13 +18,15 @@ const lines = [];
 let needles = [];
 let nextEmpty = 0;
 
-const lineInArray = new PIXI.Graphics(); //new temp one
-const lineArray = [];//temp
+const lineInArray = new PIXI.Graphics(); //created a new line variable to test out working code
+const lineArray = [];//an array of the lineInArray pixi graphics object
 
 let lineSpace = windowHeight / 7;
 //console.log(lineSpace);
 let yValue = lineSpace;
 
+
+//creates the grid lines of the webpage
 for (let i = 0; i < 7; i++) {
   line.beginFill(0x0096FF);
   line.drawRect(0, yValue, windowWidth, 2);
@@ -34,6 +36,7 @@ for (let i = 0; i < 7; i++) {
   yValue = yValue + lineSpace;
 }
 
+//converts angle in degrees to radians
 function toRadians(angle) {
   return angle * (Math.PI / 180);
 }
@@ -46,7 +49,9 @@ function needleXY() {
   let x, y;
   let myneedle;
 
-  for (let j = 0; j < 100; j++) {
+  //drops needles j times
+  for (let j = 0; j < 10; j++) {
+    //randomzied x and y centers
     xCenter = Math.floor(Math.random() * windowWidth);
     yCenter = Math.floor(Math.random() * windowHeight);
 
@@ -58,21 +63,24 @@ function needleXY() {
     //creating angle/line
     y = (needleLength / 2) * (Math.sin(angle));
     x = (needleLength / 2) * (Math.cos(angle));
+
+    //some math we figured out in person
     if (angle > (Math.PI / 2)) {
       topX = xCenter - x;
       topY = yCenter + y;
       botX = xCenter + x;
       botY = yCenter - y;
     }
-    else {
+    else { //other part of math we did
       topX = xCenter + x;
       topY = yCenter + y;
       botX = xCenter - x;
       botY = yCenter - y;
 
     }
-    myneedle = new Needle(topX, topY, botX, botY);
-    needles[nextEmpty] = myneedle;
+
+    myneedle = new Needle(topX, topY, botX, botY);//creates the needle object
+    needles[nextEmpty] = myneedle; //to remove needles from game, we need the line pixi graphic, not a needle class
     nextEmpty += 1;
 
 
@@ -80,17 +88,18 @@ function needleXY() {
     for (let k = 0; k < lines.length; k++) {
       //checks to see if the needle dropped not crosses the grid lines and changes color red
       if ((topY < lines[k] && botY < lines[k]) || (topY > lines[k] && botY > lines[k])) {
-        line.lineStyle(4, 0xFF0000, 1);
+        //line.lineStyle(4, 0xFF0000, 1);
         lineInArray.lineStyle(4, 0xFF0000, 1);
       }
       //checks to see if the needle does dropped crosses the grid line and changes color green
       else {
-        line.lineStyle(4, 0xAAFF00, 1);
+       // line.lineStyle(4, 0xAAFF00, 1);
         lineInArray.lineStyle(4, 0xAAFF00, 1);
-        k = 8;
+        k = lines.length;//sets as lines length to stop for loop
       }
     }
-    //temp one
+
+    //copied previous line code, just rewrote the variable name
     lineInArray.moveTo(xCenter, yCenter);
     lineInArray.lineTo(topX, topY);
     lineInArray.closePath();
@@ -103,36 +112,28 @@ function needleXY() {
     //line.endFill();
     app.stage.addChild(lineInArray);
     lineArray.push(lineInArray);
-
-    /*
-    //only create line once, so we moved out of inner for loop
-    line.moveTo(xCenter, yCenter);
-    line.lineTo(topX, topY);
-    line.closePath();
-    //line.endFill();
-    app.stage.addChild(line);
-    //line.beginFill(0x454B1B);
-    line.moveTo(xCenter, yCenter);
-    line.lineTo(botX, botY);
-    line.closePath();
-    //line.endFill();
-    app.stage.addChild(line);
-    */
   }
 }
 
+//clears needles from page and removes them from the array
 function clearNeedles() {
   console.log("Next Empty size: " + nextEmpty);
 
-  lineArray.forEach(lineInArray =>{
+  //this code removes them from the stage
+  lineArray.forEach(lineInArray => {
     app.stage.removeChild(lineInArray);
+   // lineArray.pop();
   });
-  /*
-  for (let k = 0; k < nextEmpty; k++) {
-    app.stage.removeChild(needles[k]);
-    console.log("K stored data: " + needles[k]);
+
+  for(let k = 0; k < lineArray.length; k++){
+    console.log(lineArray[k]);
   }
-  */
+  
+  lineArray.splice(0, lineArray.length);
+  console.log("After Splice");
+  for(let k = 0; k < lineArray.length; k++){
+    console.log(lineArray[k]);
+  }
 }
 
 class Needle {
