@@ -49,7 +49,7 @@ function needleXY() {
   let myneedle;
 
   //drops needles j times
-  for (let j = 0; j < 5; j++) {
+  for (let j = 0; j < 100; j++) {
     //randomzied x and y centers
     xCenter = Math.floor(Math.random() * windowWidth);
     yCenter = Math.floor(Math.random() * windowHeight);
@@ -124,11 +124,8 @@ function clearNeedles() {
     app.stage.removeChild(lineInArray); //these remove the lines from Field of view but they are still present in memory
   });
 
-  // lineInArray.destroy();
-  //this is the only way to get rid of the lines, we need to find new way for code
-  //this function will permanently get rid of the lines, but then we cant drop them again, 
-  //as the Graphics object will be destroyed -- we can try to declare graphics object again down in this 
-  //function to see if that will work
+  lineInArray.destroy();//gets rid of all lines on game
+  lineInArray = new PIXI.Graphics();//need to redelcare the variable to get game working again
  
   //splice will remove all objects of the array
   lineArray.splice(0, lineArray.length);
