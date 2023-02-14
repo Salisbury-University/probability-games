@@ -18,8 +18,8 @@ const lines = [];
 let needles = [];
 let nextEmpty = 0;
 
-const lineInArray = new PIXI.Graphics(); //created a new line variable to test out working code
-const lineArray = [];//an array of the lineInArray pixi graphics object
+let lineInArray = new PIXI.Graphics(); //created a new line variable to test out working code
+let lineArray = [];//an array of the lineInArray pixi graphics object
 
 let lineSpace = windowHeight / 7;
 //console.log(lineSpace);
@@ -43,14 +43,13 @@ function toRadians(angle) {
 
 
 function needleXY() {
-
   let xCenter, yCenter;
   let topX, topY, botX, botY;
   let x, y;
   let myneedle;
 
   //drops needles j times
-  for (let j = 0; j < 10; j++) {
+  for (let j = 0; j < 5; j++) {
     //randomzied x and y centers
     xCenter = Math.floor(Math.random() * windowWidth);
     yCenter = Math.floor(Math.random() * windowHeight);
@@ -102,15 +101,16 @@ function needleXY() {
     //copied previous line code, just rewrote the variable name
     lineInArray.moveTo(xCenter, yCenter);
     lineInArray.lineTo(topX, topY);
-    lineInArray.closePath();
-    //line.endFill();
-    app.stage.addChild(lineInArray);
-    //line.beginFill(0x454B1B);
-    lineInArray.moveTo(xCenter, yCenter);
+    //lineInArray.closePath(); -- commented out since we can just move lint to botX, botY 
+    
+    //app.stage.addChild(lineInArray); check this
+
+    //lineInArray.moveTo(xCenter, yCenter); --this is not needed
     lineInArray.lineTo(botX, botY);
     lineInArray.closePath();
-    //line.endFill();
+
     app.stage.addChild(lineInArray);
+    //pushing the new line into the array
     lineArray.push(lineInArray);
   }
 }
@@ -122,15 +122,19 @@ function clearNeedles() {
   //this code removes them from the stage
   lineArray.forEach(lineInArray => {
     app.stage.removeChild(lineInArray);
-   // lineArray.pop();
   });
+
+  // lineInArray.destroy();
+  //this is the only way to get rid of the lines, we need to find new way for code
 
   for(let k = 0; k < lineArray.length; k++){
     console.log(lineArray[k]);
   }
-  
+ 
+  //splice will remove all objects of the array
   lineArray.splice(0, lineArray.length);
   console.log("After Splice");
+
   for(let k = 0; k < lineArray.length; k++){
     console.log(lineArray[k]);
   }
