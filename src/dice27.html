@@ -14,19 +14,26 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg" style="background-color: #124E78;">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="home.html" style="color:white"><img src="../images/logo.png"
-                    style="max-height: 50px;"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            </div>
-        </div>
-    </nav>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="./home.html"><img src="../images/logo.png" id="logo_img"
+          style="max-height: 50px;"></img></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="home.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/Salisbury-University/probability-games.git">GitHub</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
     <div id="app"></div>
 
@@ -46,6 +53,25 @@
                 </div>
             </div>
             <div class="col">
+                <h2 id="mainPrompt">Press Play Game to Play!</h2>
+                <div id="questionCard" class="customCard" hidden>
+                    <div class="card" style="width: 18rem;">
+                        <div id="pilesQuestion" class="card-body" hidden>
+                            <div>What is the max number of piles of <strong><span id="rollNumber"></span></strong> that can be made?</div>
+                            <label for="remainderInput" class="visually-hidden">Number of Piles</label>
+                            <input type="number" min="0" class="form-control" id="pilesInput" placeholder="Number of Piles" required>
+                            <button type="button" class="btn btn-success" onclick="numberPilesCheck()">Submit</button>
+                        </div>
+                        <div id="reminaderQuestion" class="card-body" hidden>
+                            <div>How many chips are left over?</div>
+                            <label for="remainderInput" class="visually-hidden">Remainder</label>
+                            <input type="number" min="0" class="form-control" id="remainderInput" placeholder="Remainder" required>
+                            <button type="button" class="btn btn-success" onclick="remainderCheck()">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
                 <div class="customCard">
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
@@ -57,7 +83,7 @@
             </div>
         </div>
         <div class="row">
-            <img id="dice" src="../images/dice1.png" hidden>
+            <div id="diceApp"></div>
         </div>
         <br>
         <div class="row">
@@ -143,6 +169,60 @@
               </table>
         </div>
     </div>
+
+    <div class="col text-center" id="helpButton">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          How to Play
+        </button>
+      </div>
+    
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">How to Play</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ol>
+            <li>Player rolls dice.</li>
+            <li>Player asked what is the max number of piles that can be made based on dice roll.</li>
+            <li>Player asked how many chips remain after creating piles.</li>
+            <li>If the remainder is greater than 0 the player gets those chips as points.</li>
+            <li>Swap to the other player.</li>
+            <li>Repeat steps 1 - 5 until the total number of chips is 0 then the player with the most chips wins.</li>
+          </ol>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+        
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">How to Play</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ol>
+            <li>Player rolls dice.</li>
+            <li>Player asked what is the max number of piles that can be made based on dice roll.</li>
+            <li>Player asked how many chips remain after creating piles.</li>
+            <li>If the remainder is greater than 0 the player gets those chips as points.</li>
+            <li>Swap to the other player.</li>
+            <li>Repeat steps 1 - 5 until the total number of chips is 0 then the player with the most chips wins.</li>
+          </ol>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
     
     <script src="js/pixi.min.js"></script>
     <script src="js/dice27.js"></script>
