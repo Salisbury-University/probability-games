@@ -65,12 +65,12 @@ function needleXY() {
   //drops needles j times
   for (let j = 0; j < dropNeedles; j++) {
     //randomzied x and y centers
-    xCenter = Math.floor(Math.random() * windowWidth);
-    yCenter = Math.floor(Math.random() * windowHeight);
+    xCenter = Math.random() * windowWidth;
+    yCenter = Math.random() * windowHeight;
     needleDrop++;
 
     //calculate the angle
-    let angle = Math.floor(Math.random() * 360);
+    let angle = Math.random() * 179;
     angle = toRadians(angle);
 
 
