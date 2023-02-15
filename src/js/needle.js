@@ -27,11 +27,13 @@ const line = new PIXI.Graphics();
 const lines = [];
 let needles = [];
 let nextEmpty = 0;
+let needleCross = 0;
+let needleDrop = 0;
 
 let lineInArray = new PIXI.Graphics(); //created a new line variable to test out working code
 let lineArray = [];//an array of the lineInArray pixi graphics object
 
-let lineSpace = windowHeight / 7;
+let lineSpace = windowHeight / 7.0;
 //console.log(lineSpace);
 let yValue = lineSpace;
 
@@ -65,6 +67,7 @@ function needleXY() {
     //randomzied x and y centers
     xCenter = Math.floor(Math.random() * windowWidth);
     yCenter = Math.floor(Math.random() * windowHeight);
+    needleDrop++;
 
     //calculate the angle
     let angle = Math.floor(Math.random() * 360);
@@ -106,6 +109,7 @@ function needleXY() {
       else {
        // line.lineStyle(4, 0xAAFF00, 1);
         lineInArray.lineStyle(4, 0xAAFF00, 1);
+        needleCross++;
         k = lines.length;//sets as lines length to stop for loop
       }
     }
@@ -125,6 +129,9 @@ function needleXY() {
     //pushing the new line into the array
     lineArray.push(lineInArray);
   }
+
+  console.log("PI estimation: " + (2.0*needleLength)/(lineSpace*((needleCross*1.0)/needleDrop)));
+
 }
 
 //clears needles from page and removes them from the array
@@ -142,6 +149,8 @@ function clearNeedles() {
   //splice will remove all objects of the array
   lineArray.splice(0, lineArray.length);
   console.log("After Splice");
+  needleCross = 0;
+  needleDrop = 0;
 }
 
 /*class Needle {
