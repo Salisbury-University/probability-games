@@ -41,15 +41,17 @@ function toRadians(angle) {
   return angle * (Math.PI / 180);
 }
 
-
+console.log(dropNeedles);
 function needleXY() {
+  //gets user input for needles
+  let dropNeedles = document.getElementById("amountOfNeedles").value;
   let xCenter, yCenter;
   let topX, topY, botX, botY;
   let x, y;
-  let myneedle;
+  //let myneedle;
 
   //drops needles j times
-  for (let j = 0; j < 100; j++) {
+  for (let j = 0; j < dropNeedles; j++) {
     //randomzied x and y centers
     xCenter = Math.floor(Math.random() * windowWidth);
     yCenter = Math.floor(Math.random() * windowHeight);
@@ -78,9 +80,9 @@ function needleXY() {
 
     }
 
-    myneedle = new Needle(topX, topY, botX, botY);//creates the needle object
+    /*myneedle = new Needle(topX, topY, botX, botY);//creates the needle object
     needles[nextEmpty] = myneedle; //to remove needles from game, we need the line pixi graphic, not a needle class
-    nextEmpty += 1;
+    nextEmpty += 1;*/
 
 
     //this for loop section chooses the color of the line to be dropped
@@ -132,11 +134,11 @@ function clearNeedles() {
   console.log("After Splice");
 }
 
-class Needle {
+/*class Needle {
   constructor(topX, topY, botX, botY) {
     this.topX = topX;
     this.topY = topY;
     this.botX = botX;
     this.botY = botY;
   }
-}
+}*/
