@@ -174,13 +174,13 @@ function weightedGuess() {
 		document.querySelector("h1").innerHTML = "Your guess was correct, the coin was weighted";
 
 		if(heavierSide == 1)
-			document.getElementById("weightAmount").innerHTML = "Weight: " + weightHeavierSide + "/" + (100 - weightHeavierSide);
+			document.getElementById("weightAmount").innerHTML = "Weight: " + weightHeavierSide + "%/" + (100 - weightHeavierSide) + "%";
 		else
-			document.getElementById("weightAmount").innerHTML = "Weight: " + (100 - weightHeavierSide) + "/" + weightHeavierSide;
+			document.getElementById("weightAmount").innerHTML = "Weight: " + (100 - weightHeavierSide) + "%/" + weightHeavierSide + "%";
 	}
 	else {
 		document.querySelector("h1").innerHTML = "Your guess was incorrect, the coin was not weighted";
-		document.getElementById("weightAmount").innerHTML = "Weight: 50/50";
+		document.getElementById("weightAmount").innerHTML = "Weight: 50%/50%";
 	}
 	
 	// resetting global variables
@@ -196,13 +196,13 @@ function notWeightedGuess() {
 		document.querySelector("h1").innerHTML = "Your guess was incorrect, the coin was weighted";
 
 		if(heavierSide == 1)
-			document.getElementById("weightAmount").innerHTML = "Weight: " + weightHeavierSide + "/" + (100 - weightHeavierSide);
+			document.getElementById("weightAmount").innerHTML = "Weight: " + weightHeavierSide + "%/" + (100 - weightHeavierSide) + "%";
 		else
-			document.getElementById("weightAmount").innerHTML = "Weight: " + (100 - weightHeavierSide) + "/" + weightHeavierSide;
+			document.getElementById("weightAmount").innerHTML = "Weight: " + (100 - weightHeavierSide) + "%/" + weightHeavierSide + "%";
 	}
 	else {
 		document.querySelector("h1").innerHTML = "Your guess was correct, the coin was not weighted";
-		document.getElementById("weightAmount").innerHTML = "Weight: 50/50";
+		document.getElementById("weightAmount").innerHTML = "Weight: 50%/50%";
 	}
 	
 	// resetting global variables
