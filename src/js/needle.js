@@ -1,7 +1,6 @@
 // create window height variable
 const windowWidth = document.body.clientWidth *.8;
 const windowHeight = window.innerHeight * .65;
-const needleLength = 70;
 const numberOfLines = 7;
 
 //create Application Window
@@ -34,6 +33,7 @@ let lineInArray = new PIXI.Graphics(); //created a new line variable to test out
 let lineArray = [];//an array of the lineInArray pixi graphics object
 
 let lineSpace = windowHeight / 7.0;
+const needleLength = lineSpace * .9;
 //console.log(lineSpace);
 let yValue = lineSpace;
 
