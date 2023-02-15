@@ -1,14 +1,24 @@
 // create window height variable
-const windowWidth = document.body.clientWidth;
-const windowHeight = window.innerHeight * .85;
+const windowWidth = document.body.clientWidth *.8;
+const windowHeight = window.innerHeight * .65;
 const needleLength = 70;
 const numberOfLines = 7;
+
 //create Application Window
 let app = new PIXI.Application({
   backgroundColor: 0x323031,
   width: windowWidth,
   height: windowHeight
 });
+
+//getting these to center the page
+const stageWidth = app.renderer.width;
+const stageHeight = app.renderer.height;
+
+app.stage.position.set(
+  (windowWidth - stageWidth) / 2 + app.renderer.view.offsetLeft,
+  (windowHeight - stageHeight) / 2 + app.renderer.view.offsetTop
+);
 
 // append the application window to the page
 document.body.appendChild(app.view);
