@@ -73,13 +73,15 @@ function needleXY() {
 
     //calculate the angle
     let angle = Math.random() * 180;
-    //angle = toRadians(angle);
+    angle = toRadians(angle);
 
 
     //creating angle/line
     //sin must go to the y value and x to cos
     y = (needleLength / 2.0) * (Math.sin(angle));
     x = (needleLength / 2.0) * (Math.cos(angle));
+   // console.log("Y value: " + y);
+    console.log("Angle: " + angle);
 /*
     //some math we figured out in person
     if (angle > (Math.PI / 2)) {
@@ -97,16 +99,16 @@ function needleXY() {
     */
 
     //some math we figured out in person this time using degree angles
-    if (angle > 90.0) {
+    if (angle < (Math.PI/2)) {
       topX = xCenter + x;
       topY = yCenter + y;
       botX = xCenter - x;
       botY = yCenter - y;
     }
     else { //other part of math we did
-      topX = xCenter + x;
+      topX = xCenter - x;
       topY = yCenter + y;
-      botX = xCenter - x;
+      botX = xCenter + x;
       botY = yCenter - y;
     }
 
