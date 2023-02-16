@@ -32,6 +32,7 @@ let lineInArray = new PIXI.Graphics(); //created a new line variable to test out
 let lineArray = [];//an array of the lineInArray pixi graphics object
 
 let lineSpace = windowHeight / 7;
+console.log(lineSpace);
 //console.log(lineSpace);
 let yValue = lineSpace;
 
@@ -63,8 +64,8 @@ function needleXY() {
   //drops needles j times
   for (let j = 0; j < dropNeedles; j++) {
     //randomzied x and y centers
-    xCenter = Math.floor(Math.random() * windowWidth);
-    yCenter = Math.floor(Math.random() * windowHeight);
+    xCenter = Math.random() * windowWidth;
+    yCenter = Math.random() * windowHeight;
 
     //calculate the angle
     let angle = Math.floor(Math.random() * 360);
