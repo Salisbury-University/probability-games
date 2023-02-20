@@ -36,9 +36,10 @@ let lineInArray = new PIXI.Graphics(); //created a new line variable to test out
 let lineArray = [];//an array of the lineInArray pixi graphics object
 
 let lineSpace = windowHeight / 7.0;
+//let needleExtent = 0.9;
 const needleLength = lineSpace * 0.9;
 //console.log(lineSpace);
-let yValue = lineSpace;
+let yValue = lineSpace; //yValue is space between lines
 
 
 //creates the grid lines of the webpage
@@ -80,26 +81,9 @@ function needleXY() {
     //sin must go to the y value and x to cos
     y = (needleLength / 2.0) * (Math.sin(angle));
     x = (needleLength / 2.0) * (Math.cos(angle));
-   // console.log("Y value: " + y);
-    console.log("Angle: " + angle);
-/*
-    //some math we figured out in person
-    if (angle > (Math.PI / 2)) {
-      topX = xCenter - x;
-      topY = yCenter + y;
-      botX = xCenter + x;
-      botY = yCenter - y;
-    }
-    else { //other part of math we did
-      topX = xCenter + x;
-      topY = yCenter + y;
-      botX = xCenter - x;
-      botY = yCenter - y;
-    }
-    */
 
     //some math we figured out in person this time using degree angles
-    if (angle < (Math.PI/2)) {
+    if (angle < (Math.PI / 2)) {
       topX = xCenter + x;
       topY = yCenter + y;
       botX = xCenter - x;
@@ -115,7 +99,7 @@ function needleXY() {
     //this for loop section chooses the color of the line to be dropped
     for (let k = 0; k < lines.length; k++) {
       //checks to see if the needle dropped not crosses the grid lines and changes color red
-      if ((topY < lines[k] && botY < lines[k]) || (topY > lines[k] && botY > lines[k])) {
+      if ((topY <= lines[k] && botY <= lines[k]) || (topY >= lines[k] && botY >= lines[k])) {
         lineInArray.lineStyle(4, 0xFF0000, 1);
       }
       //checks to see if the needle does dropped crosses the grid line and changes color green
@@ -125,11 +109,12 @@ function needleXY() {
         k = lines.length;//sets as lines length to stop for loop
       }
     }
+    //botY <= gridY <= topY
 
     //copied previous line code, just rewrote the variable name
     lineInArray.moveTo(xCenter, yCenter);
     lineInArray.lineTo(topX, topY);
-   
+
     //we can just move line to bottom locations
     lineInArray.lineTo(botX, botY);
     lineInArray.closePath();
@@ -141,8 +126,11 @@ function needleXY() {
 
   console.log("Needles Crossed: " + needleCross);
   console.log("Needles Dropped: " + needleDrop);
-  console.log("PI estimation: " + (2.0*needleLength)/(lineSpace*((needleCross*1.0)/needleDrop)));
-
+  console.log("PI estimation: " + (2.0 * needleLength) / (lineSpace * ((needleDrop * 1.0) / needleCross)));
+  //new estimation π ≈ 2 * lengthOfNeedle / (distance BETWEEN Grid Lines) * prob
+  let prob = needleDrop / needleCross;
+  console.log("Prob is " + prob);
+  console.log("Better estimation:" + (2.0 * needleLength * prob));
 }
 
 //clears needles from page and removes them from the array
@@ -156,19 +144,10 @@ function clearNeedles() {
 
   lineInArray.destroy();//gets rid of all lines on game
   lineInArray = new PIXI.Graphics();//need to redelcare the variable to get game working again
- 
+
   //splice will remove all objects of the array
   lineArray.splice(0, lineArray.length);
   console.log("After Splice");
   needleCross = 0;
   needleDrop = 0;
 }
-
-/*class Needle {
-  constructor(topX, topY, botX, botY) {
-    this.topX = topX;
-    this.topY = topY;
-    this.botX = botX;
-    this.botY = botY;
-  }
-}*/
