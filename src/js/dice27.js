@@ -8,6 +8,7 @@ const windowWidth = document.body.clientWidth;
 const windowHeight = window.innerHeight;
 const Graphics = PIXI.Graphics;
 const Sprite = PIXI.Sprite;
+const chipSize = windowWidth * .016;
 
 var currTotal = 27;
 var newTotal = 27;
@@ -18,6 +19,10 @@ var scoreboard = [0, 0];
 var coins = [];
 var lines = [];
 var dice;
+var coinState = [];
+var numberClicked = 0;
+var currentPiles = 0;
+var numberPiles;
 
 let app = new PIXI.Application({
     backgroundAlpha: 0,
@@ -73,7 +78,11 @@ function roll() {
             document.getElementById("questionCard").hidden = false;
             document.getElementById("rollNumber").textContent = rollValue;
             document.getElementById("pilesQuestion").hidden = false;
-            document.getElementById("pilesInput").focus();
+            numberPiles = Math.floor(currTotal / rollValue);
+            coinState[27] = 0;
+            for(let i = 0; i < currTotal; i++){
+                coins[i].interactive = true;
+            }
             ticks++;
         }
 
@@ -81,6 +90,7 @@ function roll() {
     });
     rolls[0]++;
     rolls[currTotal]++;
+    
 }
 
 function checkScore() {
@@ -121,36 +131,38 @@ function reset() {
 
 function createGame(){
     document.getElementById("mainPrompt").textContent = "Player 1 Roll";
+    document.getElementById("mainPrompt").style = "color:red;";
     
     document.getElementById("app").appendChild(app.view);
     document.getElementById("diceApp").appendChild(diceApp.view);
-    
-    //place the chips on the board
-    for (i = 0, dist = 40; i < baseTotal; i++) {
+    let dist = windowWidth * .025;
+    let add = windowWidth * .036;
+    //place the chips and lines on the board
+    for (i = 0; i < baseTotal; i++) {
         let j = i;
-    
-        const chipWidth = 30;
-        const chipHeight = 30;
 
         lines[i] = new Graphics;
         lines[i].beginFill("0x000000");
-        lines[i].drawRect(dist + 33, 0, 5, 5000);
+        lines[i].drawRect(dist + chipSize, 0, 5, 5000);
         lines[i].endFill();
     
         coins[i] = new Graphics();
         coins[i].beginFill("0xFFD700");              // ellipse color
         coins[i].lineStyle(1, "0x000000", 1);    // ellipse border
-        coins[i].drawEllipse(dist, 75, chipWidth, chipHeight);    // position + size of the ellipse (topleft x, topleft y, height, width)
+        coins[i].drawCircle(dist, windowHeight * .07, chipSize);    // position + size of the ellipse (topleft x, topleft y, height, width)
         coins[i].interactive = false;
         coins[i].buttonMode = true;
-        coins[i].on("pointerdown", () => removeCoin(j))
+        coins[i].on("pointerdown", () => mark(j))
+                .on("pointerdown", () => removeCoin(j))
                 .on("pointerover", () => hover(coins[j]))
                 .on("pointerout", () => hoverOut(coins[j]));
         coins[i].endFill();                 // draws the ellipse
-    
+        
         app.stage.addChild(coins[i]);               // stage the ellipse
-        dist = dist + 70;
+        dist = dist + add;
+        coinState[i] = 0;
     }
+    
 
     //create dice
     dice = new Sprite.from(diceApp.loader.resources["dice0"].texture);
@@ -183,19 +195,42 @@ function hoverOut(object) {
     dont let the user go on until correct
   */
 function numberPilesCheck(){
-    let userInput = document.getElementById("pilesInput").value;
-    if(userInput == Math.floor(currTotal / rollValue)){
+    
+    //let userInput = document.getElementById("pilesInput").value;
+    if(numberClicked == rollValue){
         playAudio(AUDIO_CORRECT);
-        document.getElementById("pilesQuestion").hidden = true;
-        document.getElementById("reminaderQuestion").hidden = false;
-        addLines();
-        document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Answer";
-        document.getElementById("pilesInput").value = "";
-        document.getElementById("remainderInput").focus();
+        createPile();
     }
     else{
         playAudio(AUDIO_WRONG);
         document.getElementById("mainPrompt").textContent = "Wrong try again";
+    }
+}
+
+function createPile(){
+    let temp = currentPiles * rollValue;
+    resetTint();
+    let pileEnd = (temp) + rollValue;
+    for(let i = temp; i < pileEnd; i++){
+        coins[i].tint = 0x788cf0;
+        coinState[i] = 1;
+    }
+    disableChip();
+    app.stage.addChild(lines[pileEnd - 1]);
+    numberClicked = 0;
+    currentPiles++;
+    console.log("Current:" + currentPiles);
+    console.log("Actual:" + numberPiles);
+    if(currentPiles == numberPiles){
+        for(let i = temp; i < currTotal; i++){
+            coins[i].interactive = false;
+        }
+        currentPiles = 0;
+        document.getElementById("pilesQuestion").hidden = true;
+        document.getElementById("reminaderQuestion").hidden = false;
+        document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Answer";
+        document.getElementById("remainderInput").focus();
+        
     }
 }
 
@@ -215,7 +250,7 @@ function remainderCheck(){
     let remainder = currTotal % rollValue;
     if(userInput == remainder){
         playAudio(AUDIO_CORRECT);
-
+        coinState[27] = 1;
         //make coins clickable if remainder is there
         if(remainder > 0){
             makeClickable(remainder);
@@ -235,10 +270,18 @@ function remainderCheck(){
     }
 }
 
-  //add lines to the game window
-function addLines(){   
-    for(let i = rollValue - 1; i < currTotal; i = i + rollValue){
-        app.stage.addChild(lines[i]);
+function resetTint(){
+    for(let i = currentPiles * rollValue; i < currTotal; i++){
+        coins[i].tint = 0xFFFFFF;
+        coinState[i] = 0;
+    }
+}
+
+function disableChip(){
+    for(let i = currentPiles * rollValue; i < 27; i++){
+        if(coinState[i] == 1){
+            coins[i].interactive = false;
+        }
     }
 }
 
@@ -249,9 +292,9 @@ function removeLines(){
 }
 
 function playAudio(audioName){
-    /*audioName.pause();
+    audioName.pause();
     audioName.currentTime = 0;
-    audioName.play();*/
+    audioName.play();
 }
 
 function makeClickable(remainder){
@@ -268,10 +311,13 @@ function makeClickable(remainder){
 function swapPlayer(){
     if(playerTurn == PLAYER_1){
         playerTurn = PLAYER_2;
+        document.getElementById("mainPrompt").style = "color:blue;";
     }
     else{
         playerTurn = PLAYER_1;
+        document.getElementById("mainPrompt").style = "color:red;";
     }
+    resetTint();
     dice.texture = diceApp.loader.resources[`dice0`].texture;
     document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Roll";
     document.getElementById("rollButton").hidden = false;
@@ -280,12 +326,29 @@ function swapPlayer(){
 }
 
 function removeCoin(coinNumber){
-    app.stage.removeChild(coins[coinNumber]);
-    currTotal--;
-    scoreboard[playerTurn]++;
-    document.getElementById("overalScore").innerHTML = currTotal;
-    document.getElementById("player" + playerTurn).innerHTML = scoreboard[playerTurn];
-    if(currTotal == newTotal){
-        swapPlayer(); 
+    if(coinState[27] == 1){
+        app.stage.removeChild(coins[coinNumber]);
+        currTotal--;
+        scoreboard[playerTurn]++;
+        document.getElementById("overalScore").innerHTML = currTotal;
+        document.getElementById("player" + playerTurn).innerHTML = scoreboard[playerTurn];
+        if(currTotal == newTotal){
+            swapPlayer(); 
+        }
+    }
+}
+
+function mark(coinNumber){
+    if(coinState[27] == 0){
+        if(coinState[coinNumber] == 0){
+            coins[coinNumber].tint = 0x788cf0;
+            coinState[coinNumber] = 1;
+            numberClicked++;
+        }
+        else{
+            coins[coinNumber].tint = 0xFFFFFF;
+            coinState[coinNumber] = 0;
+            numberClicked--;
+        }
     }
 }

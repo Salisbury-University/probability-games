@@ -3,6 +3,7 @@ const windowWidth = document.body.clientWidth;
 const windowHeight = window.innerHeight * .95;
 const numberOfLines = 7;
 
+
 //create Application Window
 let app = new PIXI.Application({
   backgroundColor: 0x323031,
@@ -123,15 +124,20 @@ function needleXY() {
     //pushing the new line into the array
     lineArray.push(lineInArray);
   }
-
+/*
   console.log("Needles Crossed: " + needleCross);
   console.log("Needles Dropped: " + needleDrop);
   console.log("PI estimation: " + (2.0 * needleLength) / (lineSpace * ((needleDrop * 1.0) / needleCross)));
-  console.log("PI estimation: " + (2.0 * needleLength) / (lineSpace * ((needleCross * 1.0) / needleDrop)));
+  */
+  let i = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop));
+  document.getElementById("estimation").innerHTML = "PI Estimation: " + i;
+
   //new estimation π ≈ 2 * lengthOfNeedle / (distance BETWEEN Grid Lines) * prob
   let prob = needleDrop / needleCross;
+  /*
   console.log("Prob is " + prob);
   console.log("Better estimation:" + (2.0 * needleLength * prob));
+  */
 }
 
 //clears needles from page and removes them from the array
