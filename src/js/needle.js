@@ -42,9 +42,9 @@ const needleLength = lineSpace * 0.9;
 //console.log(lineSpace);
 let yValue = lineSpace; //yValue is space between lines
 
-
+lines[0] = 0;
 //creates the grid lines of the webpage
-for (let i = 0; i < 7; i++) {
+for (let i = 1; i < 8; i++) {
   line.beginFill(0x0096FF);
   line.drawRect(0, yValue, windowWidth, 1);
   line.endFill();
