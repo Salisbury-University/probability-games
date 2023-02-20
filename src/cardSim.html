@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+    <link href="../css/home.css" rel="stylesheet" />
+
+    <!-- favicon stuff -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="../images/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../images/favicon-16x16.png"
+    />
+    <link rel="manifest" href="../images/site.webmanifest" />
+
+    <title>Sum of Two Dice Game</title>
+    <script src="https://cdn.anychart.com/releases/8.0.0/js/anychart-base.min.js"></script>
+  </head>
+
+  <body>
+    <script src="js/cardSim.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <!-- Settings Modal -->
+    <div
+      class="modal fade"
+      id="settingsModal"
+      tabindex="-1"
+      aria-labelledby="settingsModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="settingsModalLabel">Settings</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>Volume:</p>
+            <p>
+              <input type="range" id="volume-control" value="100" />
+            </p>
+            <hr class="featurette-divider" />
+            <p>
+              <input
+                class="form-check-input m-1"
+                type="checkbox"
+                autocomplete="off"
+                id="randPlacements"
+              />
+              Sound Effects
+            </p>
+            <p>
+              <input
+                class="form-check-input m-1"
+                type="checkbox"
+                autocomplete="off"
+                id="muteBtn"
+              />
+              Music
+            </p>
+            <hr class="featurette-divider" />
+            <div class="dropdown">
+              Theme:
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton1"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Light Mode
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#">Dark Mode</a></li>
+                <li><a class="dropdown-item" href="#">Solarized</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- nav bar -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="home.html" style="color: white"
+          ><img src="../images/logo.png" style="max-height: 35px"
+        /></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+
+          <!-- Advanced/Basic buttons: TRY TABS INSTEAD OF RADIO BUTTONS -->
+          <div
+            class="btn-group mx-2"
+            role="group"
+            aria-label="Basic radio toggle button group"
+          >
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="basic_btn"
+              autocomplete="off"
+            />
+            <label class="btn btn-outline-primary" for="basic_btn">Basic</label>
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="advanced_btn"
+              autocomplete="off"
+              checked
+            />
+            <label class="btn btn-outline-primary" for="advanced_btn"
+              >Advanced</label
+            >
+          </div>
+
+          <script>
+            document.getElementById("basic_btn").onclick = function () {
+              window.location.href = "card.html";
+            };
+          </script>
+
+          <!-- settings button -->
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#settingsModal"
+          >
+            <img
+              src="../images/setting.png"
+              style="max-height: 22px; vertical-align: middle"
+            />
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Body -->
+    <div class="container-fluid">
+      <!-- HEADER ROW -->
+      <div class="row mt-3">
+        <div class="text-center">
+          <h2 style="font-weight: bold">Sum of Two Dice Simulator</h2>
+        </div>
+      </div>
+      <hr class="featurette-divider" />
+
+      <!-- DATA ROW -->
+      <div class="row">
+        <!-- LEFT COLUMN -->
+        <div class="col ms-4 m-2 p-2 border rounded bg-secondary">
+          <div class="text-center text-white">
+            <h4>Options</h4>
+          </div>
+          <ul class="list-group">
+            <li class="list-group-item pt-3">
+              <p>Number of Chips</p>
+              <p>
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  pattern="[0-9]*"
+                  id="numChips"
+                  class="me-1"
+                  value="10"
+                  aria-label=""
+                  autocomplete="off"
+                  oninput="updateReqChips();"
+                />
+              </p>
+              <button
+                type="button"
+                class="btn btn-primary pt-2 pb-2 mt-2"
+                id="rndBtn"
+                onclick="randomPlacement();"
+                autocomplete="off"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="Tooltip on top"
+              >
+                Randomly Place Chips
+              </button>
+            </li>
+            <li class="list-group-item pb-3">
+              <p>Number of Simulations</p>
+              <input
+                type="text"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                class="me-1"
+                value="100"
+                aria-label=""
+                autocomplete="off"
+                id="numSimulations"
+                oninput="updateRuns(this);"
+              />
+            </li>
+          </ul>
+          <div class="text-center">
+            <button
+              type="button"
+              class="btn btn-primary pt-2 pb-2 mt-2"
+              id="simBtn"
+              onclick="simulate();"
+              autocomplete="off"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Tooltip on top"
+              disabled
+            >
+              <h5>Simulate</h5>
+            </button>
+          </div>
+        </div>
+
+        <!-- MIDDLE COLUMN -->
+        <div class="col m-2 p-2 border rounded" style="min-width: 40%">
+          <div class="text-center">
+            <h2 id="middle_heading">Results</h2>
+          </div>
+          <ul class="list-group" style="font-weight: bold">
+            <li class="list-group-item">
+              <p id="mean_label">Mean Rolls:</p>
+            </li>
+            <li class="list-group-item">
+              <p id="max_label">Max Rolls:</p>
+            </li>
+            <li class="list-group-item">
+              <p id="min_label">Min Rolls:</p>
+            </li>
+            <li class="list-group-item">
+              <p id="total_label">Total Rolls:</p>
+            </li>
+            <div class="text-center">
+              <li class="list-group-item">
+                <!-- <p style="font-weight: bold">
+                  BOX AND WHISKER OF NUMBER OF ROLLS TO WIN
+                </p> -->
+                <!-- <p style="font-weight: bold">BAR GRAPH OF DICE ROLLS</p> -->
+              </li>
+            </div>
+          </ul>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="col me-4 m-2 p-2 border rounded bg-secondary text-white">
+          <div class="text-center">
+            <h4>Chip Distribution</h4>
+          </div>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <p id="RemainingChipsLabel" style="font-weight: bold">
+                Remaining Chips: 10
+              </p>
+              <p>
+                Card 2:
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  autocomplete="off"
+                  pattern="[0-9]*"
+                  id="count0"
+                  oninput="updateChipsCount(this);"
+                />
+              </p>
+              <p>
+                Card 3:
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  autocomplete="off"
+                  pattern="[0-9]*"
+                  id="count1"
+                  oninput="updateChipsCount(this);"
+                />
+              </p>
+              <p>
+                Card 4:
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  autocomplete="off"
+                  pattern="[0-9]*"
+                  id="count2"
+                  oninput="updateChipsCount(this);"
+                />
+              </p>
+              <p>
+                Card 5:
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  autocomplete="off"
+                  pattern="[0-9]*"
+                  id="count3"
+                  oninput="updateChipsCount(this);"
+                />
+              </p>
+              <p>
+                Card 6:
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  autocomplete="off"
+                  pattern="[0-9]*"
+                  id="count4"
+                  oninput="updateChipsCount(this);"
+                />
+              </p>
+              <p>
+                Card 7:
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  autocomplete="off"
+                  pattern="[0-9]*"
+                  id="count5"
+                  oninput="updateChipsCount(this);"
+                />
+              </p>
+              <p>
+                Card 8:
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  autocomplete="off"
+                  pattern="[0-9]*"
+                  id="count6"
+                  oninput="updateChipsCount(this);"
+                />
+              </p>
+              <p>
+                Card 9:
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  autocomplete="off"
+                  pattern="[0-9]*"
+                  id="count7"
+                  oninput="updateChipsCount(this);"
+                />
+              </p>
+              <p>
+                Card 10:
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  autocomplete="off"
+                  pattern="[0-9]*"
+                  id="count8"
+                  oninput="updateChipsCount(this);"
+                />
+              </p>
+              <p>
+                Card 11:
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  autocomplete="off"
+                  pattern="[0-9]*"
+                  id="count9"
+                  oninput="updateChipsCount(this);"
+                />
+              </p>
+              <p>
+                Card 12:
+                <input
+                  type="text"
+                  inputmode="numeric"
+                  autocomplete="off"
+                  pattern="[0-9]*"
+                  id="count10"
+                  oninput="updateChipsCount(this);"
+                />
+              </p>
+            </li>
+          </ul>
+          <div id="chartContainer" style="width: 100%; height: 20%"></div>
+        </div>
+      </div>
+
+      <!-- FOOTER ROW -->
+      <hr class="featurette-divider" />
+      <footer class="container">
+        <p>&middot; Salisbury University &middot;</p>
+      </footer>
+    </div>
+  </body>
+</html>
