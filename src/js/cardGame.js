@@ -7,6 +7,12 @@
 // $ http-server -c-1 -a localhost -p 8000 /path/to/project
 // -c-1 so that the cache refreshes and page is updated when javascript is
 
+// should've created card objects with chips, titles, and pixiJS roundedRect object
+
+document.getElementById("play-again-button").onclick = function () {
+  resetGame();
+};
+
 // constants for arrays holding values for p1 and p2
 const PLAYER_1 = 0;
 const PLAYER_2 = 1;
@@ -30,13 +36,32 @@ const Sprite = PIXI.Sprite;
 const windowWidth = document.body.clientWidth;
 const windowHeight = window.innerHeight;
 
+// load in the sound files
+let audio_pop = new Audio("../sounds/pop.mp3");
+audio_pop.volume = 0.5;
+let audio_roll = new Audio("../sounds/dice_roll.mp3");
+let audio_woosh = new Audio("../sounds/short_woosh.mp3");
+let audio_point = new Audio("../sounds/point_2.mp3");
+let audio_misclick = new Audio("../sounds/wrong.mp3");
+
+window.onload = function () {
+  let volume = document.getElementById("volume-control");
+  volume.addEventListener("input", function (e) {
+    audio_roll.volume = e.currentTarget.value / 100;
+    audio_pop.volume = e.currentTarget.value / 100;
+    audio_woosh.volume = e.currentTarget.value / 100;
+    audio_point.volume = e.currentTarget.value / 100;
+    audio_misclick.volume = e.currentTarget.value / 100;
+  });
+};
+
 // text styles
 // sytle for the numbers on the cards
 var cardStyle = new PIXI.TextStyle({
   dropShadow: true,
   dropShadowAlpha: 0.5,
   dropShadowDistance: 5,
-  fill: red,
+  fill: white,
   fontFamily: "Comic Sans MS",
   fontSize: windowWidth * 0.02,
   fontWeight: "bolder",
@@ -86,6 +111,7 @@ let app = new PIXI.Application({
 document.body.appendChild(app.view);
 
 // gameplay objects
+// RST
 let dice1,
   dice2,
   rollButton,
@@ -95,9 +121,11 @@ let dice1,
   prompt;
 
 // flag to move powerBarIndicator
+// RST
 var powerBarMove = false;
 
 // initialize turn
+// RST
 var playerTurn = 1;
 
 // Stack class
@@ -141,9 +169,11 @@ class Stack {
 // have everything run from the main funciton eventually
 function main() {
   // create game
+  createGame();
   // play game
   // show results
 }
+
 // function to update the prompt message throughout the game
 function updatePrompt(newMessage, turn) {
   if (turn == PLAYER_1)
@@ -153,21 +183,12 @@ function updatePrompt(newMessage, turn) {
 
   prompt.text = newMessage;
   prompt.x = (windowWidth - prompt.width) / 2;
-  console.log(promptBackdrop.x);
   promptBackdrop.width = prompt.width * 1.02;
   promptBackdrop.x = prompt.x - prompt.width * 0.02;
 }
 
 // base url of dice images
 app.loader.baseUrl = "../images/";
-
-// load in the sound files
-let audio_pop = new Audio("../sounds/pop.mp3");
-audio_pop.volume = 0.5;
-let audio_roll = new Audio("../sounds/dice_roll.mp3");
-let audio_woosh = new Audio("../sounds/short_woosh.mp3");
-let audio_point = new Audio("../sounds/point_2.mp3");
-let audio_misclick = new Audio("../sounds/wrong.mp3");
 
 // load and name all dice images
 app.loader
@@ -184,16 +205,18 @@ app.loader
 app.loader.onComplete.add(createGame);
 app.loader.load();
 
-var player1, player2, player1ScoreText, player2ScoreText, scoreboard;
+// card class with card objects and stack of chips?
+// MAKE THESE NOT GLOBAL
+
 //array to hold rectangle objects (cards) that go at the top of the page
-let cards = []; // all the card objects
-let titles = []; // all the card number text objects
 let cardChips1 = []; // amount of chips on any given card
 let cardChips2 = [];
 var chipStack1 = new Array(11); // all indeces of the chips on a card from top to bottom
 var chipStack2 = new Array(11);
 let chipsPlaced1 = new Array(11); // where all the chips were initially placed, doesn't change after chips are removed
 let chipsPlaced2 = new Array(11);
+
+// initialize the created arrays
 for (let i = 0; i < 11; i++) {
   chipsPlaced1[i] = 0;
   chipsPlaced2[i] = 0;
@@ -204,29 +227,61 @@ const cardHeight = windowHeight * 0.23;
 const cardWidth = windowWidth * 0.07;
 const cornerRadius = 6;
 
-// array to hold each players chips
-var chips1 = {};
-var chips2 = {};
+// reset all variables, prompts, player scores
+// reset dice, unstage and restage chips
+function resetGame() {
+  //reset cardChips variables
+  for (let i = 0; i < 11; i++) {
+    cardChips1[i] = 0;
+    cardChips2[i] = 0;
+    chipStack1[i] = 0;
+    chipStack2[i] = 0;
+    chipsPlaced1[i] = 0;
+    chipsPlaced2[i] = 0;
+  }
+  updatePrompt("Player 1 click on a card to place your chip", PLAYER_1);
+  rollButton.interactive = false;
+  app.stage.removeChild(rollButton);
+  app.stage.removeChild(powerBar);
+
+  // remove all chips so they can be replaced
+  for (let i = 0; i < 11; i++) {
+    app.stage.removeChild(chips1[i]);
+    app.stage.removeChild(chips2[i]);
+  }
+
+  createGame();
+}
 
 // function creates the dice, roll button, and power bar
 function createGame() {
+  // gameplay objects create struct for gameplay objects?
+  let chips1 = []; // hold's player 1's chips
+  let chips2 = []; // holds player 2's chips
+  let cards = []; // all the card objects
+
+  // text objects create struct of text objects?
+  let playerText = []; // array holding each players "remaining chips"
+  let playerScoreText = []; // array holding the score TEXT objects
+  let scoreboard = [0, 0]; // holds player scores
+
   // create the gameplay prompt
   createPrompt();
 
   // create the user's score and label
-  createPlayerScores();
+  createPlayerScores(playerText, playerScoreText, scoreboard);
 
   // create the cards in the game
-  createCards();
+  createCards(cards, chips1, chips2, playerText, playerScoreText, scoreboard);
 
   // create the game chips
-  createChips();
+  createChips(chips1, chips2, playerText, playerScoreText, scoreboard);
 
   // create the dice for the game
   createDice();
 
   // create the roll button
-  createRollButton();
+  createRollButton(playerText, playerScoreText, scoreboard);
 
   // create power bar
   createPowerBar();
@@ -236,7 +291,8 @@ function createGame() {
   app.stage.addChild(dice2);
 }
 
-function createChips() {
+//global variables
+function createChips(chips1, chips2, playerText, playerScoreText, scoreboard) {
   // create a stack of chips
   for (i = 0; i < 10; i++) {
     let j = i;
@@ -252,16 +308,45 @@ function createChips() {
     chips2[i].lineStyle(1, 0x000000, 1);
     chips1[i].drawEllipse(0, 0, chipWidth, chipHeight); // position + size of the ellipse (topleft x, topleft y, height, width)
     chips2[i].drawEllipse(0, 0, chipWidth, chipHeight);
-    chips1[i].x = player1ScoreText.x - chips1[0].width;
-    chips2[i].x = player2ScoreText.x + player2ScoreText.width + chips1[0].width;
-    chips1[i].y = player1.y + chips1[0].height * 6 - (chips1[0].height / 4) * i;
-    chips2[i].y = player2.y + chips1[0].height * 6 - (chips1[0].height / 4) * i;
+    chips1[i].x = playerScoreText[PLAYER_1].x - chips1[0].width;
+    chips2[i].x =
+      playerScoreText[PLAYER_2].x +
+      playerScoreText[PLAYER_2].width +
+      chips1[0].width;
+    chips1[i].y =
+      playerText[PLAYER_1].y +
+      chips1[0].height * 6 -
+      (chips1[0].height / 4) * i;
+    chips2[i].y =
+      playerText[PLAYER_2].y +
+      chips1[0].height * 6 -
+      (chips1[0].height / 4) * i;
     chips1[j].interactive = true;
     chips2[j].interactive = true;
     chips1[j].buttonMode = true;
     chips2[j].buttonMode = true;
-    chips1[j].on("pointerdown", () => chipClick(j, PLAYER_1));
-    chips2[j].on("pointerdown", () => chipClick(j, PLAYER_2));
+    chips1[j].on("pointerdown", () =>
+      chipClick(
+        j,
+        PLAYER_1,
+        chips1,
+        chips2,
+        playerText,
+        playerScoreText,
+        scoreboard
+      )
+    );
+    chips2[j].on("pointerdown", () =>
+      chipClick(
+        j,
+        PLAYER_2,
+        chips1,
+        chips2,
+        playerText,
+        playerScoreText,
+        scoreboard
+      )
+    );
     chips1[i].endFill(); // draws the ellipse
     chips2[i].endFill();
 
@@ -270,11 +355,13 @@ function createChips() {
   }
 }
 
+// global variables used:
+// - promptBackdrop
+// - prompt
 function createPrompt() {
   // create the original game prompt
   // instructional propmt x and y coordinates, size, and colors
-  let originalPrompt = "Player 1 click on a card to place your chip";
-  prompt = new Text(originalPrompt, promptStyle);
+  prompt = new Text("Player 1 click on a card to place your chip", promptStyle);
   prompt.resolution = 2;
   prompt.x = (windowWidth - prompt.width) / 2;
   prompt.y = windowHeight * 0.34;
@@ -299,41 +386,65 @@ function createPrompt() {
   app.stage.addChild(prompt);
 }
 
-function createPlayerScores() {
+//global variables
+// - scoreboard
+function createPlayerScores(playerText, playerScoreText, scoreboard) {
   //create player names with styling
-  player1 = new Text("PLAYER 1\nRemaining Chips:", {
+  playerText[PLAYER_1] = new Text("PLAYER 1\nRemaining Chips:", {
     fontSize: windowWidth * 0.015,
     fontFamily: '"Arial Black", Gadget, sans-serif',
     fontWeight: "bold",
     fill: red,
     align: "center",
   });
-  player2 = new Text("PLAYER 2\nRemaining Chips:", {
+  playerText[PLAYER_2] = new Text("PLAYER 2\nRemaining Chips:", {
     fontSize: windowWidth * 0.015,
     fontFamily: '"Arial Black", Gadget, sans-serif',
     fontWeight: "bold",
     fill: teal,
     align: "center",
   });
-  player1ScoreText = new Text("0", scoreStyle);
-  player2ScoreText = new Text("0", scoreStyle);
+  playerScoreText[PLAYER_1] = new Text("0", scoreStyle);
+  playerScoreText[PLAYER_2] = new Text("0", scoreStyle);
   scoreboard = [0, 0];
 
   // position and size the text based on window size
-  player1.x = windowWidth * 0.05;
-  player2.x = windowWidth * 0.95 - player2.width;
-  player1ScoreText.x =
-    player1.x + player1.width / 2 - player1ScoreText.width / 2;
-  player2ScoreText.x =
-    player2.x + player2.width / 2 - player2ScoreText.width / 2;
+  playerText[PLAYER_1].x = windowWidth * 0.05;
+  playerText[PLAYER_2].x = windowWidth * 0.95 - playerText[PLAYER_2].width;
+  playerScoreText[PLAYER_1].x =
+    playerText[PLAYER_1].x +
+    playerText[PLAYER_1].width / 2 -
+    playerScoreText[PLAYER_1].width / 2;
+  playerScoreText[PLAYER_2].x =
+    playerText[PLAYER_2].x +
+    playerText[PLAYER_2].width / 2 -
+    playerScoreText[PLAYER_2].width / 2;
 
-  player1.y = windowHeight * 0.35;
-  player2.y = windowHeight * 0.35;
-  player1ScoreText.y = windowHeight * 0.45;
-  player2ScoreText.y = windowHeight * 0.45;
+  playerText[PLAYER_1].y = windowHeight * 0.35;
+  playerText[PLAYER_2].y = windowHeight * 0.35;
+  playerScoreText[PLAYER_1].y = windowHeight * 0.45;
+  playerScoreText[PLAYER_2].y = windowHeight * 0.45;
 }
 
-function createCards() {
+// global variables
+// - cardChips1, cardChips2
+// - chipStack1, chipStack2
+// - cards
+function createCards(
+  cards,
+  chips1,
+  chips2,
+  playerText,
+  playerScoreText,
+  scoreboard
+) {
+  let titles = []; // card labels 2-12
+
+  let chipTracker = [];
+  chipTracker[0] = 9;
+  chipTracker[1] = 9;
+  chipTracker[2] = 20;
+
   // create the cards at the top of the application screen
   for (i = 0; i < 11; i++) {
     let j = i;
@@ -351,7 +462,18 @@ function createCards() {
     cards[i].interactive = true;
     cards[i].buttonMode = true;
     cards[i]
-      .on("pointerdown", () => cardClick(j))
+      .on("pointerdown", () =>
+        cardClick(
+          cards,
+          j,
+          chipTracker,
+          chips1,
+          chips2,
+          playerText,
+          playerScoreText,
+          scoreboard
+        )
+      )
       .on("pointerover", () => hover(cards[j], 0.82))
       .on("pointerout", () => hoverOut(cards[j]));
     cards[i].endFill();
@@ -372,6 +494,8 @@ function createCards() {
   }
 }
 
+//global variables
+// - dice1, dice2
 function createDice() {
   // load in the dice images
   dice1 = new Sprite.from(app.loader.resources["dice0"].texture);
@@ -388,7 +512,9 @@ function createDice() {
   dice2.y = windowHeight * 0.47;
 }
 
-function createRollButton() {
+// global variables
+// - rollButton
+function createRollButton(playerText, playerScoreText, scoreboard) {
   rollButton = new Sprite.from(app.loader.resources["rollButton"].texture);
 
   // size and positioning of roll button
@@ -401,11 +527,14 @@ function createRollButton() {
   rollButton.interactive = true;
   rollButton.buttonMode = true;
   rollButton
-    .on("pointerdown", () => roll())
+    .on("pointerdown", () => roll(playerText, playerScoreText, scoreboard))
     .on("pointerover", () => hover(rollButton, 0.82))
     .on("pointerout", () => hoverOut(rollButton));
 }
 
+// global variables
+// - powerBar
+// - powerBarIndicator;
 function createPowerBar() {
   // draw the powerbar for dice power as a gradient
   const quality = 256;
@@ -444,31 +573,39 @@ function createPowerBar() {
   powerBarIndicator.endFill();
 }
 
-function switchTurns(turn) {
+// global variables
+function switchTurns(turn, playerText, playerScoreText) {
   if (turn == 1) {
     //grey out the other player's text
-    player2.alpha = 0.5;
-    player2ScoreText.alpha = 0.5;
-    player1.alpha = 1;
-    player1ScoreText.alpha = 1;
+    playerText[PLAYER_2].alpha = 0.5;
+    playerScoreText[PLAYER_2].alpha = 0.5;
+    playerText[PLAYER_1].alpha = 1;
+    playerScoreText[PLAYER_1].alpha = 1;
   } else if (turn == 2) {
-    player1.alpha = 0.5;
-    player1ScoreText.alpha = 0.5;
-    player2.alpha = 1;
-    player2ScoreText.alpha = 1;
+    playerText[PLAYER_1].alpha = 0.5;
+    playerScoreText[PLAYER_1].alpha = 0.5;
+    playerText[PLAYER_2].alpha = 1;
+    playerScoreText[PLAYER_2].alpha = 1;
   }
 }
 
-// some vars for moving the chips
-let currChip1 = 9;
-let currChip2 = 9;
-
-var totalChipCount = 20;
-
 // players sending chips to their cards
-function cardClick(cardNumber) {
+function cardClick(
+  cards,
+  cardNumber,
+  chipTracker,
+  chips1,
+  chips2,
+  playerText,
+  playerScoreText,
+  scoreboard
+) {
   // how many ticks take place in the animation
   let ticks = 20;
+
+  let currChip1 = chipTracker[0];
+  let currChip2 = chipTracker[1];
+  let totalChipCount = chipTracker[2];
 
   if (playerTurn == 1 && totalChipCount > 0) {
     //player 1s turn
@@ -479,7 +616,7 @@ function cardClick(cardNumber) {
 
     // track score information
     if (scoreboard[PLAYER_1] < 10) scoreboard[PLAYER_1]++;
-    player1ScoreText.text = scoreboard[PLAYER_1];
+    playerScoreText[PLAYER_1].text = scoreboard[PLAYER_1];
 
     // calculate new x val based on card position
     let newX = cards[cardNumber].x + cardWidth * 0.25;
@@ -524,8 +661,9 @@ function cardClick(cardNumber) {
     // increment current chip counter
     updatePrompt("Player 2 click on a card to place your chip", PLAYER_2);
     playerTurn = 2;
-    switchTurns(2);
+    switchTurns(2, playerText, playerScoreText);
     currChip1--;
+    chipTracker[0]--;
   } else if (playerTurn == 2 && totalChipCount > 0) {
     audio_woosh.pause();
     audio_woosh.currentTime = 0;
@@ -534,7 +672,7 @@ function cardClick(cardNumber) {
     // scoreboard information
     if (scoreboard[PLAYER_2] < 10) scoreboard[PLAYER_2]++;
 
-    player2ScoreText.text = scoreboard[PLAYER_2];
+    playerScoreText[PLAYER_2].text = scoreboard[PLAYER_2];
 
     // calculate the new X value and Y value based on card size and location
     let newX = cards[cardNumber].x + cardWidth * 0.75;
@@ -577,12 +715,14 @@ function cardClick(cardNumber) {
     // decrement current chip counter
     updatePrompt("Player 1 click on a card to place your chip", PLAYER_1);
     playerTurn = 1;
-    switchTurns(1);
+    switchTurns(1, playerText, playerScoreText);
     currChip2--;
+    chipTracker[1]--;
   }
   totalChipCount--;
+  chipTracker[2]--;
 
-  // if all chips are placed on the board
+  // if all chips are placed on the board stage player text and update prompt
   if (totalChipCount == 0) {
     updatePrompt("Player 1's roll", PLAYER_1);
     for (i = 0; i < 11; i++) {
@@ -591,10 +731,10 @@ function cardClick(cardNumber) {
       cards[j].buttonMode = false;
       cards[j].on("pointerover", () => hover(cards[j], 1));
     }
-    app.stage.addChild(player1);
-    app.stage.addChild(player2);
-    app.stage.addChild(player1ScoreText);
-    app.stage.addChild(player2ScoreText);
+    app.stage.addChild(playerText[PLAYER_1]);
+    app.stage.addChild(playerText[PLAYER_2]);
+    app.stage.addChild(playerScoreText[PLAYER_1]);
+    app.stage.addChild(playerScoreText[PLAYER_2]);
 
     app.stage.addChild(rollButton);
     app.stage.addChild(powerBar);
@@ -634,7 +774,7 @@ numRolls[PLAYER_2] = 0;
 var clickableCard = -1;
 
 // upon click of roll button
-function roll() {
+function roll(playerText, playerScoreText, scoreboard) {
   audio_roll.pause();
   audio_roll.currentTime = 0;
   audio_roll.play();
@@ -685,7 +825,7 @@ function roll() {
           // move to player 2's turn
           updatePrompt("Player 2's roll", PLAYER_2);
           playerTurn = 2;
-          switchTurns(2);
+          switchTurns(2, playerText, playerScoreText);
           rollButton.interactive = true;
 
           // reset power bar, and continue to move it
@@ -707,7 +847,7 @@ function roll() {
           // move to player 1's turn
           updatePrompt("Player 1's roll", PLAYER_1);
           playerTurn = 1;
-          switchTurns(1);
+          switchTurns(1, playerText, playerScoreText);
           rollButton.interactive = true;
 
           // reset power bar, and continue to move it
@@ -756,7 +896,7 @@ function roll() {
       // app.stage.addChild(winText);
       document.getElementById("win-header").innerHTML = winStr;
       document.getElementById("play-again-button").onclick = function () {
-        playAgain();
+        resetGame();
       };
 
       // get rid of all the gameplay objects
@@ -775,7 +915,15 @@ function playAgain() {
   location.reload();
 }
 
-function chipClick(chipNo, player) {
+function chipClick(
+  chipNo,
+  player,
+  chips1,
+  chips2,
+  playerText,
+  playerScoreText,
+  scoreboard
+) {
   if (clickableCard != -1) {
     if (playerTurn == 1 && playerTurn == player + 1) {
       if (chipStack1[clickableCard].contains(chipNo)) {
@@ -784,14 +932,14 @@ function chipClick(chipNo, player) {
         app.stage.removeChild(chips1[chipStack1[clickableCard].pop()]);
         scoreboard[PLAYER_1] -= 1;
         cardChips1[clickableCard] -= 1;
-        player1ScoreText.text = scoreboard[PLAYER_1];
-        app.stage.addChild(player1ScoreText);
+        playerScoreText[PLAYER_1].text = scoreboard[PLAYER_1];
+        app.stage.addChild(playerScoreText[PLAYER_1]);
 
         // allow game to continue5
         rollButton.interactive = true;
         updatePrompt("Player 2's roll", PLAYER_2);
         playerTurn = 2;
-        switchTurns(2);
+        switchTurns(2, playerText, playerScoreText);
         clickableCard = -1;
 
         //reset powerbar indicator
@@ -810,14 +958,14 @@ function chipClick(chipNo, player) {
         app.stage.removeChild(chips2[chipStack2[clickableCard].pop()]);
         scoreboard[PLAYER_2] -= 1;
         cardChips2[clickableCard] -= 1;
-        player2ScoreText.text = scoreboard[PLAYER_2];
-        app.stage.addChild(player2ScoreText);
+        playerScoreText[PLAYER_2].text = scoreboard[PLAYER_2];
+        app.stage.addChild(playerScoreText[PLAYER_2]);
 
         // allow game to continue
         rollButton.interactive = true;
         updatePrompt("Player 1's roll", PLAYER_1);
         playerTurn = 1;
-        switchTurns(1);
+        switchTurns(1, playerText, playerScoreText);
         clickableCard = -1;
 
         //reset powerbar indicator
