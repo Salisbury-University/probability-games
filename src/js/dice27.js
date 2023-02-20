@@ -131,6 +131,7 @@ function reset() {
 
 function createGame(){
     document.getElementById("mainPrompt").textContent = "Player 1 Roll";
+    document.getElementById("mainPrompt").style = "color:red;";
     
     document.getElementById("app").appendChild(app.view);
     document.getElementById("diceApp").appendChild(diceApp.view);
@@ -310,9 +311,11 @@ function makeClickable(remainder){
 function swapPlayer(){
     if(playerTurn == PLAYER_1){
         playerTurn = PLAYER_2;
+        document.getElementById("mainPrompt").style = "color:blue;";
     }
     else{
         playerTurn = PLAYER_1;
+        document.getElementById("mainPrompt").style = "color:red;";
     }
     resetTint();
     dice.texture = diceApp.loader.resources[`dice0`].texture;
