@@ -46,7 +46,7 @@ lines[0] = 0;
 //creates the grid lines of the webpage
 for (let i = 1; i < 8; i++) {
   line.beginFill(0x0096FF);
-  line.drawRect(0, yValue, windowWidth, 2);
+  line.drawRect(0, yValue, windowWidth, 1);
   line.endFill();
   app.stage.addChild(line);
   lines[i] = yValue;
@@ -131,6 +131,7 @@ function needleXY() {
   */
   let i = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop));
   document.getElementById("estimation").innerHTML = "PI Estimation: " + i;
+
   //new estimation π ≈ 2 * lengthOfNeedle / (distance BETWEEN Grid Lines) * prob
   let prob = needleDrop / needleCross;
   /*

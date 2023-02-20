@@ -17,13 +17,23 @@ var weightHeavierSide = Math.floor(Math.random() * difference) + min;
 
 // determines amount of weight for rest of sides
 var restOfWeight = 100 - weightHeavierSide;
-var weightLighterSides = restOfWeight / 5;
+var weightLighterSides = restOfWeight / 5.0;
 
 // determines which side of dice is the heavier side
 var heavierSide = Math.floor(Math.random() * 6) + 1;
 
 // Function to roll dice
 function rollDice() {
+	// reset weight display
+	document.getElementById("weightAmount").innerHTML = "Weight: ";
+
+	// reset counts display
+	document.getElementById("oneTotal").innerHTML = 0;
+	document.getElementById("twoTotal").innerHTML = 0;
+	document.getElementById("threeTotal").innerHTML = 0;
+	document.getElementById("fourTotal").innerHTML = 0;
+	document.getElementById("fiveTotal").innerHTML = 0;
+	document.getElementById("sixTotal").innerHTML = 0;
 
 	// if dice is weighted
 	if (isWeighted == 1) {
@@ -382,6 +392,16 @@ function rollDice() {
 
 // Function to roll dice multiple times
 function rollDiceMultiple() {
+	// reset weight display
+	document.getElementById("weightAmount").innerHTML = "Weight: ";
+
+	// reset counts display
+	document.getElementById("oneTotal").innerHTML = 0;
+	document.getElementById("twoTotal").innerHTML = 0;
+	document.getElementById("threeTotal").innerHTML = 0;
+	document.getElementById("fourTotal").innerHTML = 0;
+	document.getElementById("fiveTotal").innerHTML = 0;
+	document.getElementById("sixTotal").innerHTML = 0;
 
 	// amount of rolls user specifies
 	let qty = document.getElementById("quantity").value;
@@ -727,18 +747,30 @@ function rollDiceMultiple() {
 	}
 }
 
-function ifWeighted() {
-	if(isWeighted == 1)
-		document.querySelector("h1").innerHTML = "You are Correct!";
-	else
-		document.querySelector("h1").innerHTML = "You are Incorrect";
+function weightedGuess() {
+	if(isWeighted == 1) {
+		document.querySelector("h1").innerHTML = "Your guess was correct, the dice was weighted";
 
-	document.getElementById("oneTotal").innerHTML = 0;
-	document.getElementById("twoTotal").innerHTML = 0;
-	document.getElementById("threeTotal").innerHTML = 0;
-	document.getElementById("fourTotal").innerHTML = 0;
-	document.getElementById("fiveTotal").innerHTML = 0;
-	document.getElementById("sixTotal").innerHTML = 0;
+		if(heavierSide == 1)
+			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightHeavierSide) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%";
+		else if(heavierSide == 2)
+			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightLighterSides) + "%/" + (weightHeavierSide) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%";
+		else if(heavierSide == 3)
+			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightHeavierSide) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%";
+		else if(heavierSide == 4)
+			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightHeavierSide) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%";
+		else if(heavierSide == 5)
+			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightHeavierSide) + "%/" + (weightLighterSides) + "%";
+		else
+			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightHeavierSide) + "%";
+	}
+	else {
+		document.querySelector("h1").innerHTML = "Your guess was incorrect, the dice was not weighted";
+		document.getElementById("weightAmount").innerHTML = "Weight: 16.66/16.66/16.66/16.66/16.66/16.66";
+	}
+	
+
+	// resetting global variables
 	oneCount = 0;
 	twoCount = 0;
 	threeCount = 0;
@@ -747,22 +779,34 @@ function ifWeighted() {
 	sixCount = 0;
 	isWeighted = Math.floor(Math.random() * 2) + 1;
 	weightHeavierSide = Math.floor(Math.random() * difference) + min;
-	weightLighterSides = restOfWeight / 5;
+	restOfWeight = 100 - weightHeavierSide;
+	weightLighterSides = restOfWeight / 5.0;
 	heavierSide = Math.floor(Math.random() * 6) + 1;
 }
 
-function ifNotWeighted() {
-	if(isWeighted == 1)
-		document.querySelector("h1").innerHTML = "You are Incorrect";
-	else
-		document.querySelector("h1").innerHTML = "You are Correct!";
+function notWeightedGuess() {
+	if(isWeighted == 1) {
+		document.querySelector("h1").innerHTML = "Your guess was incorrect, the dice was weighted";
 
-	document.getElementById("oneTotal").innerHTML = 0;
-	document.getElementById("twoTotal").innerHTML = 0;
-	document.getElementById("threeTotal").innerHTML = 0;
-	document.getElementById("fourTotal").innerHTML = 0;
-	document.getElementById("fiveTotal").innerHTML = 0;
-	document.getElementById("sixTotal").innerHTML = 0;
+		if(heavierSide == 1)
+			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightHeavierSide) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%";
+		else if(heavierSide == 2)
+			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightLighterSides) + "%/" + (weightHeavierSide) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%";
+		else if(heavierSide == 3)
+			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightHeavierSide) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%";
+		else if(heavierSide == 4)
+			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightHeavierSide) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%";
+		else if(heavierSide == 5)
+			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightHeavierSide) + "%/" + (weightLighterSides) + "%";
+		else
+			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightHeavierSide) + "%";
+	}
+	else {
+		document.querySelector("h1").innerHTML = "Your guess was correct, the dice was not weighted";
+		document.getElementById("weightAmount").innerHTML = "Weight: 16.66/16.66/16.66/16.66/16.66/16.66";
+	}
+
+	// resetting global variables
 	oneCount = 0;
 	twoCount = 0;
 	threeCount = 0;
@@ -771,6 +815,7 @@ function ifNotWeighted() {
 	sixCount = 0;
 	isWeighted = Math.floor(Math.random() * 2) + 1;
 	weightHeavierSide = Math.floor(Math.random() * difference) + min;
-	weightLighterSides = restOfWeight / 5;
+	restOfWeight = 100 - weightHeavierSide;
+	weightLighterSides = restOfWeight / 5.0;
 	heavierSide = Math.floor(Math.random() * 6) + 1;
 }
