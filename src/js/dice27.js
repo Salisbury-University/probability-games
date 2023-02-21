@@ -292,9 +292,11 @@ function removeLines(){
 }
 
 function playAudio(audioName){
+    /*
     audioName.pause();
     audioName.currentTime = 0;
     audioName.play();
+    */
 }
 
 function makeClickable(remainder){
