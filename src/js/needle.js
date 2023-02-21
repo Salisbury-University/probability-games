@@ -2,19 +2,15 @@
 const windowWidth = document.body.clientWidth * .75;
 const windowHeight = window.innerHeight * .65;
 const numberOfLines = 7;
-
+const canvas = document.getElementById('my-canvas');
 
 //create Application Window
 let app = new PIXI.Application({
+  //view: canvas,
   backgroundColor: 0x323031,
   width: windowWidth,
   height: windowHeight
 });
-
-app.stage.position.set(
-  (windowWidth) / 10,
-  (0)
-);
 
 // append the application window to the page
 document.body.appendChild(app.view);
@@ -32,7 +28,6 @@ let lineArray = [];//an array of the lineInArray pixi graphics object
 let lineSpace = windowHeight / 7.0;
 //let needleExtent = 0.9;
 const needleLength = lineSpace * 0.9;
-//console.log(lineSpace);
 let yValue = lineSpace; //yValue is space between lines
 
 lines[0] = 0;
@@ -59,14 +54,12 @@ function needleXY() {
   let xCenter, yCenter;
   let topX, topY, botX, botY;
   let x, y;
-  //let myneedle;
 
   //drops needles j times
   for (let j = 0; j < dropNeedles; j++) {
     //randomzied x and y centers
     xCenter = Math.random() * windowWidth;
-    //(max) + min
-    yCenter = Math.random() * (lines[6] - lines[1] + 1) + lines[1];//-lines[1]/2; 
+    yCenter = Math.random() * (lines[6] - lines[1] + 1) + lines[1];
     needleDrop++;
 
     //calculate the angle
@@ -106,7 +99,6 @@ function needleXY() {
         k = lines.length;//sets as lines length to stop for loop
       }
     }
-    //botY <= gridY <= topY
 
     //copied previous line code, just rewrote the variable name
     lineInArray.moveTo(xCenter, yCenter);
