@@ -219,8 +219,6 @@ function createPile(){
     app.stage.addChild(lines[pileEnd - 1]);
     numberClicked = 0;
     currentPiles++;
-    console.log("Current:" + currentPiles);
-    console.log("Actual:" + numberPiles);
     if(currentPiles == numberPiles){
         for(let i = temp; i < currTotal; i++){
             coins[i].interactive = false;
@@ -231,6 +229,15 @@ function createPile(){
         document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Answer";
         document.getElementById("remainderInput").focus();
         
+    }
+}
+
+function autoComplete(){
+    while(currentPiles != numberPiles){
+        createPile();
+        if(currentPiles == 0){
+            break;
+        }
     }
 }
 
