@@ -1,6 +1,6 @@
 // create window height variable
-const windowWidth = document.body.clientWidth;
-const windowHeight = window.innerHeight * .95;
+const windowWidth = document.body.clientWidth * .8;
+const windowHeight = window.innerHeight * .65;
 const numberOfLines = 7;
 
 
@@ -15,13 +15,12 @@ let app = new PIXI.Application({
 const stageWidth = app.renderer.width;
 const stageHeight = app.renderer.height;
 
-//remove comments later
-/*
+///*
 app.stage.position.set(
   (windowWidth - stageWidth) / 2 + app.renderer.view.offsetLeft,
   (windowHeight - stageHeight) / 2 + app.renderer.view.offsetTop
 );
-*/
+//*/
 
 // append the application window to the page
 document.body.appendChild(app.view);
@@ -70,7 +69,8 @@ function needleXY() {
   for (let j = 0; j < dropNeedles; j++) {
     //randomzied x and y centers
     xCenter = Math.random() * windowWidth;
-    yCenter = Math.random() * windowHeight;
+    //(max) + min
+    yCenter = Math.random() * (lines[6] - lines[1] + 1) + lines[1];//-lines[1]/2; 
     needleDrop++;
 
     //calculate the angle
@@ -124,20 +124,9 @@ function needleXY() {
     //pushing the new line into the array
     lineArray.push(lineInArray);
   }
-/*
-  console.log("Needles Crossed: " + needleCross);
-  console.log("Needles Dropped: " + needleDrop);
-  console.log("PI estimation: " + (2.0 * needleLength) / (lineSpace * ((needleDrop * 1.0) / needleCross)));
-  */
+
   let i = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop));
   document.getElementById("estimation").innerHTML = "PI Estimation: " + i;
-
-  //new estimation π ≈ 2 * lengthOfNeedle / (distance BETWEEN Grid Lines) * prob
-  let prob = needleDrop / needleCross;
-  /*
-  console.log("Prob is " + prob);
-  console.log("Better estimation:" + (2.0 * needleLength * prob));
-  */
 }
 
 //clears needles from page and removes them from the array
