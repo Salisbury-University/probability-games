@@ -42,7 +42,7 @@ class SumOfDiceSimulation {
       if (this.rolls[gameNo] > this.maxRolls) {
         this.maxRolls = this.rolls[gameNo];
       }
-      if (this.minRolls[gameNo] < this.minRolls || gameNo == 0) {
+      if (this.rolls[gameNo] < this.minRolls || gameNo == 0) {
         this.minRolls = this.rolls[gameNo];
       }
 
