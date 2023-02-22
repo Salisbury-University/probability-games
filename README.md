@@ -7,7 +7,7 @@ The purpose of this project is to create a website that hosts a number of differ
 - [Bootstrap](https://getbootstrap.com/): css/GUI library v5.0.2
 
 ## Games in developement:
-- Weighted Die
+- Weighted Coin/Die
 - Card + Dice game
 - Monty Hall Problem
 - Buffon's Needles
