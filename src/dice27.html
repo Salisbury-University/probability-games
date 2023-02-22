@@ -42,10 +42,13 @@
             <div id="overalScore"></div>
         </div>
         <div class="row">
+          <h2 id="mainPrompt">Press Play Game to Play!</h2>
+      </div>
+        <div class="row">
             <div class="col customCard">
                 <div class="customCard">
                     <div class="card" style="width: 18rem;">
-                        <div class="card-body">
+                        <div class="card-body" style="color:red;">
                             <div class="player">Player 1</div>
                             <div class="score" id="player0"></div>
                         </div>
@@ -53,14 +56,15 @@
                 </div>
             </div>
             <div class="col">
-                <h2 id="mainPrompt">Press Play Game to Play!</h2>
+                
                 <div id="questionCard" class="customCard" hidden>
                     <div class="card" style="width: 18rem;">
                         <div id="pilesQuestion" class="card-body" hidden>
-                            <div>What is the max number of piles of <strong><span id="rollNumber"></span></strong> that can be made?</div>
-                            <label for="remainderInput" class="visually-hidden">Number of Piles</label>
-                            <input type="number" min="0" class="form-control" id="pilesInput" placeholder="Number of Piles" required>
+                            <div>Create the maximum number of piles of  <strong><span id="rollNumber"></span></strong> by selecting groups. Press submit once a group is made.</div>
+                            <!-- <label for="remainderInput" class="visually-hidden">Number of Piles</label>
+                            <input type="number" min="0" class="form-control" id="pilesInput" placeholder="Number of Piles" required> -->
                             <button type="button" class="btn btn-success" onclick="numberPilesCheck()">Submit</button>
+                            <button type="button" class="btn btn-success" onclick="autoComplete()">Auto</button>
                         </div>
                         <div id="reminaderQuestion" class="card-body" hidden>
                             <div>How many chips are left over?</div>
@@ -74,8 +78,8 @@
             <div class="col">
                 <div class="customCard">
                     <div class="card" style="width: 18rem;">
-                        <div class="card-body">
-                            <div class="player">Player 2</div>
+                        <div class="card-body" style="color:blue;">
+                            <div class="player"">Player 2</div>
                             <div class="score" id="player1"></div>
                         </div>
                     </div>
