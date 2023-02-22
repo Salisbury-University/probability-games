@@ -3,6 +3,7 @@ const windowWidth = document.body.clientWidth * .75;
 const windowHeight = window.innerHeight * .65;
 const numberOfLines = 7;
 const canvas = document.getElementById('my-canvas');
+const halfPi = Math.PI/2
 
 //create Application Window
 let app = new PIXI.Application({
@@ -63,7 +64,7 @@ function needleXY() {
     needleDrop++;
 
     //calculate the angle
-    let angle = Math.random() * 180;
+    let angle = Math.floor(Math.random() * 360);
     angle = toRadians(angle);
 
 
@@ -73,19 +74,18 @@ function needleXY() {
     x = (needleLength / 2.0) * (Math.cos(angle));
 
     //some math we figured out in person this time using degree angles
-    if (angle < (Math.PI / 2)) {
+    if (angle < (halfPi || Math.PI < angle < 3(halfPi))) {
       topX = xCenter + x;
       topY = yCenter + y;
       botX = xCenter - x;
       botY = yCenter - y;
     }
-    else { //other part of math we did
+    else if(halfPi < angle < Math.PI || 3(halfPi) < angle < 2(Math.PI)) { //other part of math we did
       topX = xCenter - x;
       topY = yCenter + y;
       botX = xCenter + x;
       botY = yCenter - y;
     }
-
     //this for loop section chooses the color of the line to be dropped
     for (let k = 0; k < lines.length; k++) {
       //checks to see if the needle dropped not crosses the grid lines and changes color red
@@ -119,7 +119,10 @@ function needleXY() {
   document.getElementById("needLength").innerHTML = "Needle Length: " + needleLength;
   document.getElementById("gridSpace").innerHTML = "Space between lines: " + lineSpace;
   document.getElementById("needCross").innerHTML = "Needles that cross a line: " + needleCross;
+  //add needles that don't cross
   document.getElementById("total").innerHTML = "Total Needles Dropped: " + needleDrop;
+  //add percent error
+
 
 }
 
