@@ -115,10 +115,12 @@ function needleXY() {
 
   let pi = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop));
   document.getElementById("estimation").innerHTML = "PI Estimation: " + pi;
+  document.getElementById("real").innerHTML = "the Real value of PI : " + Math.PI;
   document.getElementById("needLength").innerHTML = "Needle Length: " + needleLength;
   document.getElementById("gridSpace").innerHTML = "Space between lines: " + lineSpace;
   document.getElementById("needCross").innerHTML = "Needles that cross a line: " + needleCross;
   document.getElementById("total").innerHTML = "Total Needles Dropped: " + needleDrop;
+
 }
 
 //clears needles from page and removes them from the array
