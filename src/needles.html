@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+	
+<style>
+	canvas{
+		background-color: aqua;
+		border: 2px solid red;
+		margin-left: 12%;
+	}
+</style>
 
 <head>
 	<meta charset="utf-8">
@@ -47,12 +55,19 @@
 	<input type="number" id="amountOfNeedles" placeholder="Number Of Needles to Drop">
     <button onclick="needleXY()">Drop Needles</button> 
     <button onclick="clearNeedles()">Clear Screen</button>
-	<div id="estimation"></div>
-    <script src="js/pixi.min.js"></script>
-    <script src="js/needle.js"></script>
 	
 
-    
+	
+    <script src="js/pixi.min.js"></script>
+    <script src="js/needle.js"></script>
+	<div>
+		<h2> Stats</h2>
+		<p id="estimation"></p>
+		<p id ="needLength"> </p>
+		<p id ="gridSpace"> </p>
+		<p id ="needCross"> </p>
+		<p id ="total"> </p>
+	</div>
 </body>
 
 </html>

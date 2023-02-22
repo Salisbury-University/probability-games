@@ -1,27 +1,16 @@
 // create window height variable
-const windowWidth = document.body.clientWidth;
-const windowHeight = window.innerHeight * .95;
+const windowWidth = document.body.clientWidth * .75;
+const windowHeight = window.innerHeight * .65;
 const numberOfLines = 7;
-
+const canvas = document.getElementById('my-canvas');
 
 //create Application Window
 let app = new PIXI.Application({
+  //view: canvas,
   backgroundColor: 0x323031,
   width: windowWidth,
   height: windowHeight
 });
-
-//getting these to center the page
-const stageWidth = app.renderer.width;
-const stageHeight = app.renderer.height;
-
-//remove comments later
-/*
-app.stage.position.set(
-  (windowWidth - stageWidth) / 2 + app.renderer.view.offsetLeft,
-  (windowHeight - stageHeight) / 2 + app.renderer.view.offsetTop
-);
-*/
 
 // append the application window to the page
 document.body.appendChild(app.view);
@@ -38,19 +27,20 @@ let lineArray = [];//an array of the lineInArray pixi graphics object
 
 let lineSpace = windowHeight / 7.0;
 const needleLength = lineSpace * 0.9;
-//console.log(lineSpace);
 let yValue = lineSpace; //yValue is space between lines
 
 lines[0] = 0;
-//creates the grid lines of the webpage
+//*/creates the grid lines of the webpage
 for (let i = 1; i < 8; i++) {
-  line.beginFill(0x0096FF);
-  line.drawRect(0, yValue, windowWidth, 1);
-  line.endFill();
+  line.lineStyle(1, 0x0096FF, 1);
+  line.moveTo(0, yValue);
+  line.lineTo(windowWidth, yValue);
+  line.closePath();
   app.stage.addChild(line);
   lines[i] = yValue;
   yValue = yValue + lineSpace;
 }
+//*/
 
 //converts angle in degrees to radians
 function toRadians(angle) {
@@ -63,13 +53,12 @@ function needleXY() {
   let xCenter, yCenter;
   let topX, topY, botX, botY;
   let x, y;
-  //let myneedle;
 
   //drops needles j times
   for (let j = 0; j < dropNeedles; j++) {
     //randomzied x and y centers
     xCenter = Math.random() * windowWidth;
-    yCenter = Math.random() * windowHeight;
+    yCenter = Math.random() * (lines[6] - lines[1] + 1) + lines[1];
     needleDrop++;
 
     //calculate the angle
@@ -100,16 +89,15 @@ function needleXY() {
     for (let k = 0; k < lines.length; k++) {
       //checks to see if the needle dropped not crosses the grid lines and changes color red
       if ((topY <= lines[k] && botY <= lines[k]) || (topY >= lines[k] && botY >= lines[k])) {
-        lineInArray.lineStyle(4, 0xFF0000, 1);
+        lineInArray.lineStyle(1, 0xFF0000, 1);
       }
       //checks to see if the needle does dropped crosses the grid line and changes color green
       else {
-        lineInArray.lineStyle(4, 0xAAFF00, 1);
+        lineInArray.lineStyle(1, 0xAAFF00, 1);
         needleCross++;
         k = lines.length;//sets as lines length to stop for loop
       }
     }
-    //botY <= gridY <= topY
 
     //copied previous line code, just rewrote the variable name
     lineInArray.moveTo(xCenter, yCenter);
@@ -123,20 +111,13 @@ function needleXY() {
     //pushing the new line into the array
     lineArray.push(lineInArray);
   }
-/*
-  console.log("Needles Crossed: " + needleCross);
-  console.log("Needles Dropped: " + needleDrop);
-  console.log("PI estimation: " + (2.0 * needleLength) / (lineSpace * ((needleDrop * 1.0) / needleCross)));
-  */
-  let i = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop));
-  document.getElementById("estimation").innerHTML = "PI Estimation: " + i;
 
-  //new estimation π ≈ 2 * lengthOfNeedle / (distance BETWEEN Grid Lines) * prob
-  let prob = needleDrop / needleCross;
-  /*
-  console.log("Prob is " + prob);
-  console.log("Better estimation:" + (2.0 * needleLength * prob));
-  */
+  let pi = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop));
+  document.getElementById("estimation").innerHTML = "PI Estimation: " + pi;
+  document.getElementById("needLength").innerHTML = "Needle Length: " + needleLength;
+  document.getElementById("gridSpace").innerHTML = "Space between lines: " + lineSpace;
+  document.getElementById("needCross").innerHTML = "Needles that cross a line: " + needleCross;
+  document.getElementById("total").innerHTML = "Total Needles Dropped: " + needleDrop;
 }
 
 //clears needles from page and removes them from the array
