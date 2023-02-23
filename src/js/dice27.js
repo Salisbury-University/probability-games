@@ -195,9 +195,11 @@ function hoverOut(object) {
     dont let the user go on until correct
   */
 function numberPilesCheck(){
-    
     //let userInput = document.getElementById("pilesInput").value;
-    if(numberClicked == rollValue){
+    if(currTotal < rollValue){
+        swapCard();
+    }
+    else if(numberClicked == rollValue){
         playAudio(AUDIO_CORRECT);
         createPile();
     }
@@ -224,15 +226,14 @@ function createPile(){
             coins[i].interactive = false;
         }
         currentPiles = 0;
-        document.getElementById("pilesQuestion").hidden = true;
-        document.getElementById("reminaderQuestion").hidden = false;
-        document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Answer";
-        document.getElementById("remainderInput").focus();
-        
+        swapCard();
     }
 }
 
 function autoComplete(){
+    if(rollValue > currTotal){
+        swapCard();
+    }
     while(currentPiles != numberPiles){
         createPile();
         if(currentPiles == 0){
@@ -360,4 +361,11 @@ function mark(coinNumber){
             numberClicked--;
         }
     }
+}
+
+function swapCard(){
+    document.getElementById("pilesQuestion").hidden = true;
+    document.getElementById("reminaderQuestion").hidden = false;
+    document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Answer";
+    document.getElementById("remainderInput").focus();
 }

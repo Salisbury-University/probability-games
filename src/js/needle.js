@@ -62,9 +62,10 @@ function needleXY() {
     needleDrop++;
 
     //calculate the angle
-    let angle = Math.random() * 180;
+    let angle = Math.floor(Math.random() * 180);
+    console.log("Degrees: " + angle);
     angle = toRadians(angle);
-
+    console.log("Radian: " + angle);
 
     //creating angle/line
     //sin must go to the y value and x to cos
@@ -73,16 +74,20 @@ function needleXY() {
 
     //some math we figured out in person this time using degree angles
     if (angle < (Math.PI / 2)) {
+      console.log("fuck");
       topX = xCenter + x;
       topY = yCenter + y;
       botX = xCenter - x;
       botY = yCenter - y;
+      console.log("Top: " + topX + ", " + topY + " bottom:" + botX + ", " + botY);
     }
-    else { //other part of math we did
+    else{ //other part of math we did
+      console.log("you");
       topX = xCenter - x;
       topY = yCenter + y;
       botX = xCenter + x;
       botY = yCenter - y;
+      console.log("Top: " + topX + ", " + topY + " bottom:" + botX + ", " + botY);
     }
 
     //this for loop section chooses the color of the line to be dropped
