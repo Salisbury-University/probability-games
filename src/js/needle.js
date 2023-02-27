@@ -3,6 +3,7 @@ const windowWidth = document.body.clientWidth * .75;
 const windowHeight = window.innerHeight * .65;
 const numberOfLines = 7;
 const canvas = document.getElementById('my-canvas');
+const halfPi = Math.PI/2
 
 //create Application Window
 let app = new PIXI.Application({
@@ -62,8 +63,7 @@ function needleXY() {
     needleDrop++;
 
     //calculate the angle
-    let angle = Math.floor(Math.random() * 180);
-    console.log("Degrees: " + angle);
+    let angle = Math.floor(Math.random() * 360);
     angle = toRadians(angle);
     console.log("Radian: " + angle);
 
@@ -73,23 +73,20 @@ function needleXY() {
     x = (needleLength / 2.0) * (Math.cos(angle));
 
     //some math we figured out in person this time using degree angles
-    if (angle < (Math.PI / 2)) {
-      console.log("fuck");
+    if (angle < (halfPi || Math.PI < angle < 3(halfPi))) {
       topX = xCenter + x;
       topY = yCenter + y;
       botX = xCenter - x;
       botY = yCenter - y;
       console.log("Top: " + topX + ", " + topY + " bottom:" + botX + ", " + botY);
     }
-    else{ //other part of math we did
-      console.log("you");
+    else if(halfPi < angle < Math.PI || 3(halfPi) < angle < 2(Math.PI)) { //other part of math we did
       topX = xCenter - x;
       topY = yCenter + y;
       botX = xCenter + x;
       botY = yCenter - y;
       console.log("Top: " + topX + ", " + topY + " bottom:" + botX + ", " + botY);
     }
-
     //this for loop section chooses the color of the line to be dropped
     for (let k = 0; k < lines.length; k++) {
       //checks to see if the needle dropped not crosses the grid lines and changes color red
@@ -119,10 +116,15 @@ function needleXY() {
 
   let pi = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop));
   document.getElementById("estimation").innerHTML = "PI Estimation: " + pi;
+  document.getElementById("real").innerHTML = "the Real value of PI : " + Math.PI;
   document.getElementById("needLength").innerHTML = "Needle Length: " + needleLength;
   document.getElementById("gridSpace").innerHTML = "Space between lines: " + lineSpace;
   document.getElementById("needCross").innerHTML = "Needles that cross a line: " + needleCross;
+  //add needles that don't cross
   document.getElementById("total").innerHTML = "Total Needles Dropped: " + needleDrop;
+  //add percent error
+
+
 }
 
 //clears needles from page and removes them from the array
