@@ -1,6 +1,8 @@
 const MINRUNS = 1;
 const MAXRUNS = 1000000;
 
+var gameLog = Array();
+
 class SumOfDiceSimulation {
   constructor(confMap) {
     // make sure chip dist and numchips matches up
@@ -42,7 +44,7 @@ class SumOfDiceSimulation {
       if (this.rolls[gameNo] > this.maxRolls) {
         this.maxRolls = this.rolls[gameNo];
       }
-      if (this.minRolls[gameNo] < this.minRolls || gameNo == 0) {
+      if (this.rolls[gameNo] < this.minRolls || gameNo == 0) {
         this.minRolls = this.rolls[gameNo];
       }
 
@@ -160,6 +162,12 @@ function simulate() {
   // alter "results section to say Simulating... with a loading thingy"
   document.getElementById("middle_heading").innerHTML = "Simulating...";
   sim = new SumOfDiceSimulation(simConf);
+  updateLogs(
+    sim.getMinRolls(),
+    sim.getMaxRolls(),
+    sim.getAverageRolls(),
+    sim.getTotalRolls()
+  );
 
   // after the game is simulated, alter corresponding HTML elements
   document.getElementById("mean_label").innerHTML =
@@ -193,7 +201,7 @@ function randomPlacement() {
   while (chipsPlaced < simConf.get("reqChips")) {
     // generate a random number of chips between 1 and reqChips - chipsPlaced (chip amount)
     let chipAmount = Math.ceil(
-      Math.random() * (simConf.get("reqChips") - chipsPlaced)
+      Math.random() * (simConf.get("reqChips") - chipsPlaced / 2)
     );
 
     // generate a random number between 0 and 10 (card index)
@@ -219,50 +227,44 @@ function randomPlacement() {
   }
 }
 
-// BROKEN
-var drawn = false;
-function updateDistChart() {
-  anychart.onDocumentReady(function () {
-    // set the data
-    var data = {
-      header: ["Name", "Number of Chips"],
-      rows: [
-        [2, simConf.get("chipsPlaced")[0]],
-        [3, simConf.get("chipsPlaced")[1]],
-        [4, simConf.get("chipsPlaced")[2]],
-        [5, simConf.get("chipsPlaced")[3]],
-        [6, simConf.get("chipsPlaced")[4]],
-        [7, simConf.get("chipsPlaced")[5]],
-        [8, simConf.get("chipsPlaced")[6]],
-        [9, simConf.get("chipsPlaced")[7]],
-        [10, simConf.get("chipsPlaced")[8]],
-        [11, simConf.get("chipsPlaced")[9]],
-        [12, simConf.get("chipsPlaced")[10]],
-      ],
-    };
+function updateLogs(min, max, avg, tot) {
+  lastIdx = gameLog.length - 1;
+  gameLog[lastIdx] = new Array(4);
+  gameLog[lastIdx][0] = min;
+  gameLog[lastIdx][1] = max;
+  gameLog[lastIdx][2] = avg;
+  gameLog[lastIdx][3] = tot;
 
-    // create the chart
-    var chart = anychart.column();
+  // for loop putting the distribution into a string
+  let distStr = "";
+  for (let i = 0; i < 11; i++) {
+    distStr += simConf.get("chipsPlaced")[i];
+    distStr += " ";
+  }
 
-    // add the data
-    chart.data(data);
+  // content to add
+  let newRowContent = `<td>${gameLog[lastIdx][0]}</td>\n
+      <td>${gameLog[lastIdx][1]}</td>\n
+      <td>${gameLog[lastIdx][2]}</td>\n
+      <td>${gameLog[lastIdx][3]}</td>\n
+      <td>${simConf.get("numRuns")}</td>\n
+      <td>${distStr}</td>\n
+  `;
 
-    // draw
-    if (drawn == false) {
-      // set padding between column groups
-      chart.barGroupsPadding(0);
+  let tableRef = document
+    .getElementById("rollDataTable")
+    .getElementsByTagName("tbody")[0];
 
-      // set the chart title
-      chart.title("Chip Distribution Across Cards");
+  let newRow = tableRef.insertRow(tableRef.rows.length);
+  newRow.innerHTML = newRowContent;
+}
 
-      // specify container
-      chart.container("chartContainer");
+// show the log
+function showLog() {
+  title = this.document.getElementById("tableTitle");
+  table = this.document.getElementById("rollDataTable");
 
-      // draw
-      chart.draw();
-
-      // raise flag
-      drawn = true;
-    }
-  });
+  // unhide the elements
+  title.hidden = !title.hidden;
+  table.hidden = !table.hidden;
 }

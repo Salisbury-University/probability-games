@@ -195,20 +195,6 @@
           </div>
           <ul class="list-group">
             <li class="list-group-item pt-3">
-              <p>Number of Chips</p>
-              <p>
-                <input
-                  type="text"
-                  inputmode="numeric"
-                  pattern="[0-9]*"
-                  id="numChips"
-                  class="me-1"
-                  value="10"
-                  aria-label=""
-                  autocomplete="off"
-                  oninput="updateReqChips();"
-                />
-              </p>
               <button
                 type="button"
                 class="btn btn-primary pt-2 pb-2 mt-2"
@@ -236,6 +222,27 @@
                 oninput="updateRuns(this);"
               />
             </li>
+            <li class="list-group-item pb-3">
+              <p>Distribution:</p>
+              <div class="dropdown">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  New Distribution
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="#">Preset 1</a></li>
+                  <li><a class="dropdown-item" href="#">Preset 2</a></li>
+                  <li>
+                    <a class="dropdown-item" href="#">Preset 3</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
           </ul>
           <div class="text-center">
             <button
@@ -259,28 +266,50 @@
           <div class="text-center">
             <h2 id="middle_heading">Results</h2>
           </div>
-          <ul class="list-group" style="font-weight: bold">
-            <li class="list-group-item">
-              <p id="mean_label">Mean Rolls:</p>
-            </li>
-            <li class="list-group-item">
-              <p id="max_label">Max Rolls:</p>
-            </li>
-            <li class="list-group-item">
-              <p id="min_label">Min Rolls:</p>
-            </li>
-            <li class="list-group-item">
-              <p id="total_label">Total Rolls:</p>
-            </li>
-            <div class="text-center">
+          <div class="text-center">
+            <ul class="list-group" style="font-weight: bold">
               <li class="list-group-item">
-                <!-- <p style="font-weight: bold">
-                  BOX AND WHISKER OF NUMBER OF ROLLS TO WIN
-                </p> -->
-                <!-- <p style="font-weight: bold">BAR GRAPH OF DICE ROLLS</p> -->
+                <h4 id="mean_label">Mean Rolls:</h4>
               </li>
-            </div>
-          </ul>
+              <li class="list-group-item">
+                <h4 id="max_label">Max Rolls:</h4>
+              </li>
+              <li class="list-group-item">
+                <h4 id="min_label">Min Rolls:</h4>
+              </li>
+              <li class="list-group-item">
+                <h4 id="total_label">Total Rolls:</h4>
+              </li>
+              <div class="text-center">
+                <li class="list-group-item">
+                  <div class="text-center">
+                    <button
+                      type="button"
+                      class="btn btn-outline-primary m-2 p-2"
+                      id="logBtn"
+                      onclick="showLog();"
+                    >
+                      <h2>Game Log</h2>
+                    </button>
+                  </div>
+                </li>
+              </div>
+            </ul>
+            <h3 hidden id="tableTitle">Roll Data from Previous Games</h3>
+            <table class="table" id="rollDataTable" hidden>
+              <thead>
+                <tr>
+                  <th scope="col">Min</th>
+                  <th scope="col">Max</th>
+                  <th scope="col">Mean</th>
+                  <th scope="col">Total</th>
+                  <th scope="col">Games Played</th>
+                  <th scope="col">Chip Distribution</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
         </div>
 
         <!-- RIGHT COLUMN -->
@@ -422,7 +451,7 @@
 
       <!-- FOOTER ROW -->
       <hr class="featurette-divider" />
-      <footer class="container">
+      <footer class="container" sytle="max-height: 10px">
         <p>&middot; Salisbury University &middot;</p>
       </footer>
     </div>
