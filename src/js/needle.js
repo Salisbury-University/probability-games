@@ -86,6 +86,18 @@ function needleXY() {
       botX = xCenter + x;
       botY = yCenter - y;
     }
+    else if(angle == Math.PI || angle == 0 || angle == 2(Math.PI)) {
+      topX = xCenter + (needleLength)/2;
+      topY = yCenter;
+      botX = xCenter - (needleLength)/2;
+      botY = yCenter;
+    }
+    else {
+      topX = xCenter;
+      topY = yCenter + (needleLength)/2;
+      botX = xCenter;
+      botY = yCenter - (needleLength)/2;;
+    }
     //this for loop section chooses the color of the line to be dropped
     for (let k = 0; k < lines.length; k++) {
       //checks to see if the needle dropped not crosses the grid lines and changes color red
