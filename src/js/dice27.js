@@ -4,7 +4,7 @@ const PLAYER_2 = 1;
 const AUDIO_ROLL = new Audio("../sounds/dice_roll.mp3");
 const AUDIO_WRONG = new Audio("../sounds/wrong.mp3");
 const AUDIO_CORRECT = new Audio("../sounds/point_2.mp3");
-const windowWidth = document.body.clientWidth;
+const windowWidth = window.innerWidth * .98;
 const windowHeight = window.innerHeight;
 const Graphics = PIXI.Graphics;
 const Sprite = PIXI.Sprite;
@@ -166,7 +166,7 @@ function createGame(){
 
     //create dice
     dice = new Sprite.from(diceApp.loader.resources["dice0"].texture);
-    dice.x = windowWidth * .3;
+    dice.x = (windowWidth / 2) - (dice.width / 2);
 
     diceApp.stage.addChild(dice);
 
