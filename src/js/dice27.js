@@ -209,6 +209,17 @@ function numberPilesCheck(){
     }
 }
 
+function pileCountCheck(userInput){
+    if(userInput == currentPiles){
+        currentPiles = 0;
+        //swap to the remainder check
+    }
+    else{
+        playAudio(AUDIO_WRONG);
+        document.getElementById("mainPrompt").textContent = "Wrong try again";
+    }
+}
+
 function createPile(){
     let temp = currentPiles * rollValue;
     resetTint();
