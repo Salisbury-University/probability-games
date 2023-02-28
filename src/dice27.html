@@ -35,9 +35,12 @@
     </div>
   </nav>
 
-    <div id="app"></div>
+  <div class="container text-center">
+    
 
-    <div class="container text-center">
+    <div class="row">
+      <div id="app"></div>
+  </div>
         <div class="row">
             <div id="overalScore"></div>
         </div>
@@ -66,6 +69,11 @@
                             <button type="button" class="btn btn-success" onclick="numberPilesCheck()">Submit</button>
                             <button type="button" class="btn btn-success" onclick="autoComplete()">Auto</button>
                         </div>
+                        <div id="pilesQuestion" class="card-body" hidden>
+                          <div>How many piles did you create?</div>
+                          <button type="button" class="btn btn-success" onclick="numberPilesCheck()">Submit</button>
+                          <button type="button" class="btn btn-success" onclick="autoComplete()">Auto</button>
+                      </div>
                         <div id="reminaderQuestion" class="card-body" hidden>
                             <div>How many chips are left over?</div>
                             <label for="remainderInput" class="visually-hidden">Remainder</label>
