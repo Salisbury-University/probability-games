@@ -3,7 +3,7 @@ const windowWidth = document.body.clientWidth * .75;
 const windowHeight = window.innerHeight * .65;
 const numberOfLines = 7;
 const canvas = document.getElementById('my-canvas');
-const halfPi = Math.PI/2
+const halfPi = Math.PI/2;
 
 //create Application Window
 let app = new PIXI.Application({
@@ -21,6 +21,8 @@ const lines = [];
 let needles = [];
 let nextEmpty = 0;
 let needleCross = 0;
+let pos = 0;
+let neg = 0;
 let needleDrop = 0;
 
 let lineInArray = new PIXI.Graphics(); //created a new line variable to test out working code
@@ -51,7 +53,6 @@ function toRadians(angle) {
 function changeNeedleLength(size){
   needleLength = lineSpace * (size);
   clearNeedles();
-  console.log("Needle length: " + needleLength);
 }
 
 function needleXY() {
@@ -79,20 +80,20 @@ function needleXY() {
     x = (needleLength / 2.0) * (Math.cos(angle));
 
     //some math we figured out in person this time using degree angles
-    if (angle < (halfPi || Math.PI < angle < 3(halfPi))) {
+    if ((angle < halfPi) || ((Math.PI < angle) && (Math.PI < (3 * (halfPi))))) {
       topX = xCenter + x;
       topY = yCenter + y;
       botX = xCenter - x;
       botY = yCenter - y;
-      console.log("Top: " + topX + ", " + topY + " bottom:" + botX + ", " + botY);
+      pos++;
     }
-    else if(halfPi < angle < Math.PI || 3(halfPi) < angle < 2(Math.PI)) { //other part of math we did
+    else{
       topX = xCenter - x;
       topY = yCenter + y;
       botX = xCenter + x;
       botY = yCenter - y;
-      console.log("Top: " + topX + ", " + topY + " bottom:" + botX + ", " + botY);
-    }
+      neg++;
+    }/*
     else if(angle == Math.PI || angle == 0 || angle == 2(Math.PI)) {
       topX = xCenter + (needleLength)/2;
       topY = yCenter;
@@ -104,7 +105,7 @@ function needleXY() {
       topY = yCenter + (needleLength)/2;
       botX = xCenter;
       botY = yCenter - (needleLength)/2;;
-    }
+    }*/
     //want to drop needles of one color and tint?/change color after a sleep function
     // .tint = color
     // yellow? 0xfcba03
@@ -156,6 +157,9 @@ function needleXY() {
     //pushing the new line into the array
     lineArray.push(lineInArray);*/
   }
+  console.log("Positive: " + pos);
+  console.log("Negative: " + neg);
+
 
 // this is all the stats to put on the screen 
   let pi = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop)); // pi estimation 
@@ -187,7 +191,6 @@ function colorNeedles(botY, topY)
 }
 //clears needles from page and removes them from the array
 function clearNeedles() {
-  console.log("Next Empty size: " + nextEmpty);
 
   //this code removes them from the stage
   lineArray.forEach(lineInArray => {
@@ -199,7 +202,6 @@ function clearNeedles() {
 
   //splice will remove all objects of the array
   lineArray.splice(0, lineArray.length);
-  console.log("After Splice");
   needleCross = 0;
   needleDrop = 0;
 }
