@@ -98,7 +98,13 @@ function needleXY() {
       botX = xCenter;
       botY = yCenter - (needleLength)/2;;
     }
+    //want to drop needles of one color and tint?/change color after a sleep function
+    // .tint = color
+    // yellow? 0xfcba03
+    // white? 0xffffff
     //this for loop section chooses the color of the line to be dropped
+
+    lineInArray.lineStyle(1, 0xfcba03, 1);
     for (let k = 0; k < lines.length; k++) {
       //checks to see if the needle dropped not crosses the grid lines and changes color red
       if ((topY <= lines[k] && botY <= lines[k]) || (topY >= lines[k] && botY >= lines[k])) {
@@ -108,6 +114,7 @@ function needleXY() {
       else {
         lineInArray.lineStyle(1, 0xAAFF00, 1);
         needleCross++;
+        //we stop so the colors don't overwrite the colors 
         k = lines.length;//sets as lines length to stop for loop
       }
     }
@@ -124,10 +131,10 @@ function needleXY() {
     //pushing the new line into the array
     lineArray.push(lineInArray);
   }
-
-  let pi = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop));
-  let error = Math.abs((pi - Math.PI)/Math.PI) *100;
-  document.getElementById("estimation").innerHTML = "PI Estimation: " + Math.round(pi * 10000)/10000;
+// this is all the stats to put on the screen 
+  let pi = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop)); // pi estimation 
+  let error = Math.abs((pi - Math.PI)/Math.PI) *100; //percent error
+  document.getElementById("estimation").innerHTML = "PI Estimation: " + Math.round(pi * 10000)/10000; 
   document.getElementById("realPi").innerHTML = "Real value of PI : " + Math.round(Math.PI * 10000)/10000;
   document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10000)/10000;
   document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10000)/10000;
