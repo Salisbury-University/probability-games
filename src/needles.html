@@ -1,24 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-	
-<style>
-	canvas{
-		background-color: aqua;
-		border: 2px solid red;
-		margin-left: 12%;
-	}
-</style>
 
 <head>
-	<head>
-		<style>
-		.stats {
-		  column-count: 3;
+	<style>
+		canvas {
+			background-color: aqua;
+			border: 2px solid red;
+			margin-left: 12%;
 		}
-		</style>
-		<style>
-			h1 {text-align: center;}
-		</style>
+
+		.stats {
+			column-count: 3;
+		}
+
+		h1 {
+			text-align: center;
+		}
+	</style>
+
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -59,21 +58,22 @@
 
 
 
-    <h1>Buffon's Needles</h1> 
-    <!--<button onclick="needleCenter()">Drop horzontail Needles</button> -->
+	<h1>Buffon's Needles</h1>
+	<!--<button onclick="needleCenter()">Drop horzontail Needles</button> -->
 	<input type="number" id="amountOfNeedles" placeholder="Number Of Needles to Drop">
-    <button onclick="needleXY()">Drop Needles</button> 
-    <button onclick="clearNeedles()">Clear Screen</button>
-	
+	<button onclick="needleXY()">Drop Needles</button>
+	<button onclick="clearNeedles()">Clear Screen</button>
 
-	
-    <script src="js/pixi.min.js"></script>
-    <script src="js/needle.js"></script>
+
+
+	<script src="js/pixi.min.js"></script>
+	<script src="js/needle.js"></script>
 	<div>
 		<h1> Stats</h1>
 		<div class="stats">
 			<h3 id="estimation"></h3>
-			<h3 id ="total"> </h3>
+			<h3 id="total"> </h3>
+
 			<h3 id="needLength"></h3>
 		</div>
 		<div class="stats">
@@ -84,7 +84,7 @@
 		<div class="stats">
 			<h3 id="percentError"></h3>
 			<h3 id="needleDontCross"> </h3>
-			
+
 		</div>
 	</div>
 </body>
