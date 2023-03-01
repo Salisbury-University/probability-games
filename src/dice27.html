@@ -31,6 +31,38 @@
             <a class="nav-link" href="https://github.com/Salisbury-University/probability-games.git">GitHub</a>
           </li>
         </ul>
+        <div
+            class="btn-group mx-2"
+            role="group"
+            aria-label="Basic radio toggle button group"
+          >
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="basic_btn"
+              autocomplete="off"
+              checked
+            />
+            <label class="btn btn-outline-primary" for="basic_btn">Basic</label>
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="advanced_btn"
+              autocomplete="off"
+            />
+            <label class="btn btn-outline-primary" for="advanced_btn"
+              >Advanced</label
+            >
+          </div>
+
+          <script>
+            document.getElementById("advanced_btn").onclick = function () {
+              window.location.href = "dice27Sim.html";
+            };
+          </script>
       </div>
     </div>
   </nav>
@@ -50,19 +82,25 @@
       </div>
       <div class="col">
         <div id="questionCard" class="card" hidden>
+          <div id="pilesMake" class="card-body" hidden>
+            <div>Create the maximum number of piles of  <strong><span id="rollNumber1"></span></strong> by selecting groups. Press submit once a group is made.</div>
+            <button type="button" class="btn btn-success mx-auto" onclick="numberPilesCheck()">Submit</button>
+            <button type="button" class="btn btn-success mx-auto" onclick="autoComplete()">Auto</button>
+        </div>
           <div id="pilesQuestion" class="card-body" hidden>
-            <div>Create the maximum number of piles of  <strong><span id="rollNumber"></span></strong> by selecting groups. Press submit once a group is made.</div>
-            <!-- <label for="remainderInput" class="visually-hidden">Number of Piles</label>
-            <input type="number" min="0" class="form-control" id="pilesInput" placeholder="Number of Piles" required> -->
-            <button type="button" class="btn btn-success" onclick="numberPilesCheck()">Submit</button>
-            <button type="button" class="btn btn-success" onclick="autoComplete()">Auto</button>
-          </div>
-          <div id="reminaderQuestion" class="card-body" hidden>
+            <div>How many piles of <strong><span id="rollNumber2"></span></strong> did you create?</div>
+            <label for="pilesInput" class="visually-hidden">Number of Piles</label>
+            <div class="col-sm-5 text-center">
+              <input type="number" min="0" class="form-control" id="pilesInput" placeholder="Number of Piles" required>
+            </div>
+            <button type="button" class="btn btn-success mx-auto" onclick="pileCountCheck()">Submit</button>
+        </div>
+        <div id="remainderQuestion" class="card" hidden>
             <div>How many chips are left over?</div>
             <label for="remainderInput" class="visually-hidden">Remainder</label>
             <input type="number" min="0" class="form-control" id="remainderInput" placeholder="Remainder" required>
-            <button type="button" class="btn btn-success" onclick="remainderCheck()">Submit</button>
-          </div>
+            <button type="button" class="btn btn-success mx-auto" onclick="remainderCheck()">Submit</button>
+        </div>
         </div>
       </div>
       <div class="col">
@@ -82,33 +120,7 @@
     </div>
     
 
-    </div>
-
-
-    <div class="row">
-      <div class="col">
-          
-          <div id="questionCard" class="customCard" hidden>
-              <div class="card" style="width: 18rem;">
-                  <div id="pilesQuestion" class="card-body" hidden>
-                      <div>Create the maximum number of piles of  <strong><span id="rollNumber"></span></strong> by selecting groups. Press submit once a group is made.</div>
-                      <!-- <label for="remainderInput" class="visually-hidden">Number of Piles</label>
-                      <input type="number" min="0" class="form-control" id="pilesInput" placeholder="Number of Piles" required> -->
-                      <button type="button" class="btn btn-success" onclick="numberPilesCheck()">Submit</button>
-                      <button type="button" class="btn btn-success" onclick="autoComplete()">Auto</button>
-                  </div>
-                  <div id="reminaderQuestion" class="card-body" hidden>
-                      <div>How many chips are left over?</div>
-                      <label for="remainderInput" class="visually-hidden">Remainder</label>
-                      <input type="number" min="0" class="form-control" id="remainderInput" placeholder="Remainder" required>
-                      <button type="button" class="btn btn-success" onclick="remainderCheck()">Submit</button>
-                  </div>
-              </div>
-          </div>
-      </div>
-    </div>
-      
-    </div>
+    </div>      
   </div>
         <br>
         <div class="row">

@@ -76,8 +76,9 @@ function roll() {
         else if(ticks == 50){         
             document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Answer";
             document.getElementById("questionCard").hidden = false;
-            document.getElementById("rollNumber").textContent = rollValue;
-            document.getElementById("pilesQuestion").hidden = false;
+            document.getElementById("rollNumber1").textContent = rollValue;
+            document.getElementById("rollNumber2").textContent = rollValue;
+            document.getElementById("pilesMake").hidden = false;
             numberPiles = Math.floor(currTotal / rollValue);
             coinState[27] = 0;
             for(let i = 0; i < currTotal; i++){
@@ -195,9 +196,8 @@ function hoverOut(object) {
     dont let the user go on until correct
   */
 function numberPilesCheck(){
-    //let userInput = document.getElementById("pilesInput").value;
     if(currTotal < rollValue){
-        swapCard();
+       
     }
     else if(numberClicked == rollValue){
         playAudio(AUDIO_CORRECT);
@@ -209,13 +209,22 @@ function numberPilesCheck(){
     }
 }
 
-function pileCountCheck(userInput){
+function pileCountCheck(){
+    let userInput = document.getElementById("pilesInput").value;
     if(userInput == currentPiles){
         currentPiles = 0;
-        //swap to the remainder check
+        playAudio(AUDIO_CORRECT);
+        document.getElementById("pilesQuestion").hidden = true;
+        document.getElementById("remainderQuestion").hidden = false;
+        document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Answer";
+        document.getElementById("remainderInput").focus();
+        document.getElementById("pilesInput").value = "";
+
+
     }
     else{
         playAudio(AUDIO_WRONG);
+        document.getElementById("pilesInput").click();
         document.getElementById("mainPrompt").textContent = "Wrong try again";
     }
 }
@@ -236,22 +245,26 @@ function createPile(){
         for(let i = temp; i < currTotal; i++){
             coins[i].interactive = false;
         }
-        currentPiles = 0;
-        swapCard();
+        document.getElementById("pilesQuestion").hidden = false;
+        document.getElementById("pilesMake").hidden = true;
+        document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Answer";
+        document.getElementById("pilesInput").focus();
     }
 }
 
 function autoComplete(){
     if(rollValue > currTotal){
-        swapCard();
+        document.getElementById("pilesMake").hidden = true;
+        document.getElementById("pilesQuestion").hidden = false;
+        document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Answer";
+        document.getElementById("pilesInput").focus();
+        
     }
     while(currentPiles != numberPiles){
         createPile();
-        if(currentPiles == 0){
-            break;
-        }
     }
 }
+
 
 /*remaindercheck(answer)
     This function is used to check if the students answer
@@ -276,7 +289,7 @@ function remainderCheck(){
         }
         //else just change players
         else{
-            document.getElementById("reminaderQuestion").hidden = true;
+            document.getElementById("remainderQuestion").hidden = true;
             document.getElementById("remainderInput").value = "";
             document.getElementById("questionCard").hidden = true;        
             swapPlayer();
@@ -323,7 +336,7 @@ function makeClickable(remainder){
     for(let i = currTotal - 1; i >= newTotal; i--){
         coins[i].interactive = true;
     }
-    document.getElementById("reminaderQuestion").hidden = true;
+    document.getElementById("remainderQuestion").hidden = true;
     document.getElementById("remainderInput").value = "";
     document.getElementById("questionCard").hidden = true;
     document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Remove you Chips";
@@ -372,11 +385,4 @@ function mark(coinNumber){
             numberClicked--;
         }
     }
-}
-
-function swapCard(){
-    document.getElementById("pilesQuestion").hidden = true;
-    document.getElementById("reminaderQuestion").hidden = false;
-    document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1)+ " Answer";
-    document.getElementById("remainderInput").focus();
 }
