@@ -8,14 +8,6 @@
 			border: 2px solid red;
 			margin-left: 12%;
 		}
-
-		.stats {
-			column-count: 3;
-		}
-
-		h1 {
-			text-align: center;
-		}
 	</style>
 
 	<meta charset="utf-8">
@@ -57,34 +49,44 @@
 	</nav>
 
 
+	<div class="row g-0" style="text-align: center;">
+		<div class="col">
+			<h1>Buffon's Needles</h1>
+			<input type="number" id="amountOfNeedles" placeholder="# Needles to Drop">
+			<input type="button" id="25percent" value="25 percent" onclick="test()">
+			<input type="button" id="50percent" value="50 percent" onclick="test()">
+			<input type="button" id="75percent" value="75 percent" onclick="test()">
+			<input type="button" id="100percent" value="100 percent" onclick="test()">
+		</div>
+	</div>
 
-	<h1>Buffon's Needles</h1>
-	<!--<button onclick="needleCenter()">Drop horzontail Needles</button> -->
-	<input type="number" id="amountOfNeedles" placeholder="Number Of Needles to Drop">
-	<button onclick="needleXY()">Drop Needles</button>
-	<button onclick="clearNeedles()">Clear Screen</button>
-
-
-
+	<!-- buttons for needle length-->
+	<div class="row g-0" style="text-align: center;margin-top: 10px; margin-bottom: 10px;">
+		<div class="col">
+			<button onclick="needleXY()">Drop Needles</button>
+			<button onclick="clearNeedles()">Clear Screen</button>
+		</div>
+	</div>
 	<script src="js/pixi.min.js"></script>
 	<script src="js/needle.js"></script>
-	<div>
+
+
+	<!--This is the stats area-->
+	<div class="row g-0" style="text-align: center;">
 		<h1> Stats</h1>
-		<div class="stats">
+		<div class="col">
 			<h3 id="estimation"></h3>
 			<h3 id="total"> </h3>
-
 			<h3 id="needLength"></h3>
 		</div>
-		<div class="stats">
+		<div class="col">
 			<h3 id="realPi"> </h3>
 			<h3 id="needCross"></h3>
 			<h3 id="gridSpace"> </h3>
 		</div>
-		<div class="stats">
+		<div class="col">
 			<h3 id="percentError"></h3>
 			<h3 id="needleDontCross"> </h3>
-
 		</div>
 	</div>
 </body>

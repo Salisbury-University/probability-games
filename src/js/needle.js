@@ -102,6 +102,7 @@ function needleXY() {
     // .tint = color
     // yellow? 0xfcba03
     // white? 0xffffff
+
     //this for loop section chooses the color of the line to be dropped
 
     //lineInArray.lineStyle(1, 0xfcba03, 1);
@@ -148,6 +149,7 @@ function needleXY() {
     //pushing the new line into the array
     lineArray.push(lineInArray);*/
   }
+
 // this is all the stats to put on the screen 
   let pi = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop)); // pi estimation 
   let error = Math.abs((pi - Math.PI)/Math.PI) *100; //percent error
@@ -159,8 +161,6 @@ function needleXY() {
   document.getElementById("needleDontCross").innerHTML = "Needles that Don't Cross a Line: " + (needleDrop - needleCross);
   document.getElementById("total").innerHTML = "Total Needles Dropped: " + needleDrop;
   document.getElementById("percentError").innerHTML = "Percent Error for PI: " + Math.round(error*10000)/10000 + "%";
-
-
 }
 function colorNeedles(botY, topY)
 {
