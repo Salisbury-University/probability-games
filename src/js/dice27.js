@@ -1,4 +1,4 @@
-const baseTotal = 27;
+const baseTotal = 11;
 const PLAYER_1 = 0;
 const PLAYER_2 = 1;
 const AUDIO_ROLL = new Audio("../sounds/dice_roll.mp3");
@@ -10,8 +10,8 @@ const Graphics = PIXI.Graphics;
 const Sprite = PIXI.Sprite;
 const chipSize = windowWidth * .016;
 
-var currTotal = 27;
-var newTotal = 27;
+var currTotal = 11;
+var newTotal = 11;
 var rolls = [];
 var rollValue = 1;
 var playerTurn = 0;
