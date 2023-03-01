@@ -28,7 +28,7 @@ let lineArray = [];//an array of the lineInArray pixi graphics object
 
 let lineSpace = windowHeight / 7.0;
 //let needleExtent = 0.9;
-const needleLength = lineSpace * 0.9;
+let needleLength = lineSpace * 0.9;
 let yValue = lineSpace; //yValue is space between lines
 
 lines[0] = 0;
@@ -47,6 +47,11 @@ for (let i = 1; i < 8; i++) {
 //converts angle in degrees to radians
 function toRadians(angle) {
   return angle * (Math.PI / 180.0);
+}
+
+function changeNeedleLength(size){
+  needleLength = lineSpace * (size);
+  console.log("Needle length: " + needleLength);
 }
 
 function needleXY() {
