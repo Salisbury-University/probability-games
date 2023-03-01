@@ -104,21 +104,21 @@ function needleXY() {
     // white? 0xffffff
     //this for loop section chooses the color of the line to be dropped
 
-    lineInArray.lineStyle(1, 0xfcba03, 1);
+    //lineInArray.lineStyle(1, 0xfcba03, 1);
     for (let k = 0; k < lines.length; k++) {
       //checks to see if the needle dropped not crosses the grid lines and changes color red
       if ((topY <= lines[k] && botY <= lines[k]) || (topY >= lines[k] && botY >= lines[k])) {
+        //lineInArray.tint = 0xFF0000;
         lineInArray.lineStyle(1, 0xFF0000, 1);
       }
       //checks to see if the needle does dropped crosses the grid line and changes color green
       else {
+        lineInArray.tint = 0xAAFF00;
         lineInArray.lineStyle(1, 0xAAFF00, 1);
         needleCross++;
         //we stop so the colors don't overwrite the colors 
         k = lines.length;//sets as lines length to stop for loop
       }
-    }
-
     //copied previous line code, just rewrote the variable name
     lineInArray.moveTo(xCenter, yCenter);
     lineInArray.lineTo(topX, topY);
@@ -130,6 +130,23 @@ function needleXY() {
     app.stage.addChild(lineInArray);
     //pushing the new line into the array
     lineArray.push(lineInArray);
+
+    
+    }
+
+    //setTimeout(clearNeedles(botY, topY), 1500)
+
+    //copied previous line code, just rewrote the variable name
+    /*lineInArray.moveTo(xCenter, yCenter);
+    lineInArray.lineTo(topX, topY);
+
+    //we can just move line to bottom locations
+    lineInArray.lineTo(botX, botY);
+    lineInArray.closePath();
+
+    app.stage.addChild(lineInArray);
+    //pushing the new line into the array
+    lineArray.push(lineInArray);*/
   }
 // this is all the stats to put on the screen 
   let pi = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop)); // pi estimation 
@@ -145,7 +162,22 @@ function needleXY() {
 
 
 }
-
+function colorNeedles(botY, topY)
+{
+  for (let k = 0; k < lines.length; k++) {
+    //checks to see if the needle dropped not crosses the grid lines and changes color red
+    if ((topY <= lines[k] && botY <= lines[k]) || (topY >= lines[k] && botY >= lines[k])) {
+      lineInArray.tint = 0xFF0000;
+    }
+    //checks to see if the needle does dropped crosses the grid line and changes color green
+    else {
+      lineInArray.tint = 0xAAFF00;
+      needleCross++;
+      //we stop so the colors don't overwrite the colors 
+      k = lines.length;//sets as lines length to stop for loop
+    }
+  }
+}
 //clears needles from page and removes them from the array
 function clearNeedles() {
   console.log("Next Empty size: " + nextEmpty);
