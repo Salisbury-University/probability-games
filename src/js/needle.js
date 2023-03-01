@@ -51,6 +51,7 @@ function toRadians(angle) {
 
 function changeNeedleLength(size){
   needleLength = lineSpace * (size);
+  clearNeedles();
   console.log("Needle length: " + needleLength);
 }
 
