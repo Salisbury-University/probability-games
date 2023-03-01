@@ -126,14 +126,15 @@ function needleXY() {
   }
 
   let pi = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop));
-  document.getElementById("estimation").innerHTML = "PI Estimation: " + pi;
-  document.getElementById("real").innerHTML = "the Real value of PI : " + Math.PI;
-  document.getElementById("needLength").innerHTML = "Needle Length: " + needleLength;
-  document.getElementById("gridSpace").innerHTML = "Space between lines: " + lineSpace;
-  document.getElementById("needCross").innerHTML = "Needles that cross a line: " + needleCross;
-  //add needles that don't cross
+  let error = Math.abs((pi - Math.PI)/Math.PI) *100;
+  document.getElementById("estimation").innerHTML = "PI Estimation: " + Math.round(pi * 10000)/10000;
+  document.getElementById("realPi").innerHTML = "Real value of PI : " + Math.round(Math.PI * 10000)/10000;
+  document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10000)/10000;
+  document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10000)/10000;
+  document.getElementById("needCross").innerHTML = "Needles that Cross a Line: " + needleCross;
+  document.getElementById("needleDontCross").innerHTML = "Needles that Don't Cross a Line: " + (needleDrop - needleCross);
   document.getElementById("total").innerHTML = "Total Needles Dropped: " + needleDrop;
-  //add percent error
+  document.getElementById("percentError").innerHTML = "Percent Error for PI: " + Math.round(error*10000)/10000 + "%";
 
 
 }
