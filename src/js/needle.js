@@ -78,21 +78,21 @@ function needleXY() {
     //sin must go to the y value and x to cos
     y = (needleLength / 2.0) * (Math.sin(angle));
     x = (needleLength / 2.0) * (Math.cos(angle));
-
     //some math we figured out in person this time using degree angles
-    if (angle < (halfPi || Math.PI < angle < 3(halfPi))) {
+    if (angle < halfPi || Math.PI < angle < 3 * (halfPi)) {
       topX = xCenter + x;
       topY = yCenter + y;
       botX = xCenter - x;
       botY = yCenter - y;
+
     }
-    else if(halfPi < angle < Math.PI || 3(halfPi) < angle < 2(Math.PI)) { //other part of math we did
+    else if(halfPi < angle < Math.PI || 3 * (halfPi) < angle < 2 * (Math.PI)) { //other part of math we did
       topX = xCenter - x;
       topY = yCenter + y;
       botX = xCenter + x;
       botY = yCenter - y;
     }
-    else if(angle == Math.PI || angle == 0 || angle == 2(Math.PI)) {
+    /*else if(angle == Math.PI || angle == 0 || angle == 2 *(Math.PI)) {
       topX = xCenter + (needleLength)/2;
       topY = yCenter;
       botX = xCenter - (needleLength)/2;
@@ -103,7 +103,7 @@ function needleXY() {
       topY = yCenter + (needleLength)/2;
       botX = xCenter;
       botY = yCenter - (needleLength)/2;;
-    }
+    }*/
     //want to drop needles of one color and tint?/change color after a sleep function
     // .tint = color
     // yellow? 0xfcba03
