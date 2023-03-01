@@ -43,7 +43,7 @@
 
     <div class="row">
       <div class="col">
-        <div class="card" style="color:red;">
+        <div class="card border-0" style="color:red; margin-left: 40%;">
           <div class="player">Player 1</div>
           <div class="score" id="player0"></div>
         </div>
@@ -56,17 +56,17 @@
             <input type="number" min="0" class="form-control" id="pilesInput" placeholder="Number of Piles" required> -->
             <button type="button" class="btn btn-success" onclick="numberPilesCheck()">Submit</button>
             <button type="button" class="btn btn-success" onclick="autoComplete()">Auto</button>
-        </div>
-        <div id="reminaderQuestion" class="card-body" hidden>
+          </div>
+          <div id="reminaderQuestion" class="card-body" hidden>
             <div>How many chips are left over?</div>
             <label for="remainderInput" class="visually-hidden">Remainder</label>
             <input type="number" min="0" class="form-control" id="remainderInput" placeholder="Remainder" required>
             <button type="button" class="btn btn-success" onclick="remainderCheck()">Submit</button>
-        </div>
+          </div>
         </div>
       </div>
       <div class="col">
-        <div class="card" style="color:blue;">
+        <div class="card border-0" style="color:blue; margin-right: 40%;">
           <div class="player" >Player 2</div>
           <div class="score" id="player1"></div>
         </div>
