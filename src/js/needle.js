@@ -3,7 +3,7 @@ const windowWidth = document.body.clientWidth * .75;
 const windowHeight = window.innerHeight * .65;
 const numberOfLines = 7;
 const canvas = document.getElementById('my-canvas');
-const halfPi = Math.PI/2
+const halfPi = Math.PI/2;
 
 //create Application Window
 let app = new PIXI.Application({
@@ -79,19 +79,22 @@ function needleXY() {
     y = (needleLength / 2.0) * (Math.sin(angle));
     x = (needleLength / 2.0) * (Math.cos(angle));
     //some math we figured out in person this time using degree angles
-    if (angle < halfPi || Math.PI < angle < 3 * (halfPi)) {
+    if (angle < halfPi || (Math.PI < angle) && (angle < 3 * (halfPi))) {
       topX = xCenter + x;
       topY = yCenter + y;
       botX = xCenter - x;
       botY = yCenter - y;
+      pos ++;
 
     }
-    else if(halfPi < angle < Math.PI || 3 * (halfPi) < angle < 2 * (Math.PI)) { //other part of math we did
+    else () //if(halfPi < angle < Math.PI || 3 * (halfPi) < angle < 2 * (Math.PI)) { //other part of math we did
       topX = xCenter - x;
       topY = yCenter + y;
       botX = xCenter + x;
       botY = yCenter - y;
+      neg ++;
     }
+    console.log(pos)
     /*else if(angle == Math.PI || angle == 0 || angle == 2 *(Math.PI)) {
       topX = xCenter + (needleLength)/2;
       topY = yCenter;
