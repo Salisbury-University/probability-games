@@ -84,7 +84,7 @@ function needleXY() {
       topY = yCenter + y;
       botX = xCenter - x;
       botY = yCenter - y;
-      pos ++;
+      
 
     }
     else if(halfPi < angle < Math.PI || 3 * (halfPi) < angle < 2 * (Math.PI)) { //other part of math we did
@@ -92,7 +92,7 @@ function needleXY() {
       topY = yCenter + y;
       botX = xCenter + x;
       botY = yCenter - y;
-      neg ++;
+      
     }
     /*else if(angle == Math.PI || angle == 0 || angle == 2 *(Math.PI)) {
       topX = xCenter + (needleLength)/2;
@@ -168,7 +168,7 @@ function needleXY() {
   document.getElementById("total").innerHTML = "Total Needles Dropped: " + needleDrop;
   document.getElementById("percentError").innerHTML = "Percent Error for PI: " + Math.round(error * 10000) / 10000 + "%";
 }
-function colorNeedles(botY, topY) {
+/*function colorNeedles(botY, topY) {
   for (let k = 0; k < lines.length; k++) {
     //checks to see if the needle dropped not crosses the grid lines and changes color red
     if ((topY <= lines[k] && botY <= lines[k]) || (topY >= lines[k] && botY >= lines[k])) {
@@ -182,7 +182,7 @@ function colorNeedles(botY, topY) {
       k = lines.length;//sets as lines length to stop for loop
     }
   }
-}
+}*/
 //clears needles from page and removes them from the array
 function clearNeedles() {
   console.log("Next Empty size: " + nextEmpty);
