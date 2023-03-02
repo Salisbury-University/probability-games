@@ -1,8 +1,11 @@
 var stats = [];
+var numbers = [];
 
 for(let i = 0; i < 28; i++){
     stats[i] = 0;
+    numbers[i] = "Number " + i;
 }
+
 
 
 function simulate(){
@@ -23,5 +26,17 @@ function simulate(){
         for(let i = 0; i < 28; i++){
             document.getElementById("roll" + i).innerHTML = stats[i];
         }
+        makeGraph();
     }
+}
+
+function makeGraph(){
+
+d3.select(".graph")
+  .selectAll("div")
+  .data(stats)
+    .enter()
+    .append("div")
+    .style("width", function(d) { return d + "px"; })
+    .text(function(d) { return d; });
 }
