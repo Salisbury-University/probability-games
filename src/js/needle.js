@@ -76,8 +76,8 @@ function needleXY() {
 
     //creating angle/line
     //sin must go to the y value and x to cos
-    y = (needleLength / 2.0) * (Math.sin(angle));
-    x = (needleLength / 2.0) * (Math.cos(angle));
+    y = Math.abs((needleLength / 2.0) * (Math.sin(angle)));
+    x = Math.abs((needleLength / 2.0) * (Math.cos(angle)));
     //some math we figured out in person this time using degree angles
     //is this math correct? we still get interestng angles
     //ask Matt for the code he did on 3/1
