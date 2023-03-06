@@ -49,6 +49,13 @@ function toRadians(angle) {
   return angle * (Math.PI / 180.0);
 }
 
+function customLength(){
+  let percent = document.getElementById("percentageOfNeedle").value;
+  percent /= 100;
+  console.log(percent);
+  needleLength =  lineSpace * percent;
+}
+
 function changeNeedleLength(size) {
   needleLength = lineSpace * (size);
   clearNeedles();
@@ -61,6 +68,8 @@ function needleXY() {
   let xCenter, yCenter;
   let topX, topY, botX, botY;
   let x, y;
+  let pos = 0;
+  let neg = 0;
 
   //drops needles j times
   for (let j = 0; j < dropNeedles; j++) {
@@ -86,16 +95,14 @@ function needleXY() {
       topY = yCenter + y;
       botX = xCenter - x;
       botY = yCenter - y;
-      console.log("pos");
-
+      pos++;
     }
     else {
       topX = xCenter - x;
       topY = yCenter + y;
       botX = xCenter + x;
       botY = yCenter - y;
-      console.log("neg");
-      
+      neg++;
     }
     /*else if(angle == Math.PI || angle == 0 || angle == 2 *(Math.PI)) {
       topX = xCenter + (needleLength)/2;
@@ -170,6 +177,8 @@ function needleXY() {
   document.getElementById("needleDontCross").innerHTML = "Needles that Don't Cross a Line: " + (needleDrop - needleCross);
   document.getElementById("total").innerHTML = "Total Needles Dropped: " + needleDrop;
   document.getElementById("percentError").innerHTML = "Percent Error for PI: " + Math.round(error * 10000) / 10000 + "%";
+  console.log("Pos: " + pos);
+  console.log("Neg: " + neg);
 }
 /*function colorNeedles(botY, topY) {
   for (let k = 0; k < lines.length; k++) {
