@@ -3,7 +3,7 @@ const windowWidth = document.body.clientWidth * .75;
 const windowHeight = window.innerHeight * .65;
 const numberOfLines = 7;
 const canvas = document.getElementById('my-canvas');
-const halfPi = Math.PI/2;
+const halfPi = Math.PI / 2
 
 //create Application Window
 let app = new PIXI.Application({
@@ -50,7 +50,7 @@ function toRadians(angle) {
   return angle * (Math.PI / 180.0);
 }
 
-function changeNeedleLength(size){
+function changeNeedleLength(size) {
   needleLength = lineSpace * (size);
   clearNeedles();
 }
@@ -76,24 +76,21 @@ function needleXY() {
 
     //creating angle/line
     //sin must go to the y value and x to cos
-    y = (needleLength / 2.0) * (Math.sin(angle));
-    x = (needleLength / 2.0) * (Math.cos(angle));
-
+    y = Math.abs((needleLength / 2.0) * (Math.sin(angle)));
+    x = Math.abs((needleLength / 2.0) * (Math.cos(angle)));
     //some math we figured out in person this time using degree angles
-    if ((angle < halfPi) || ((Math.PI < angle) && (Math.PI < (3 * (halfPi))))) {
+    if (angle < (halfPi || Math.PI < angle < 3(halfPi))) {
       topX = xCenter + x;
       topY = yCenter + y;
       botX = xCenter - x;
       botY = yCenter - y;
-      pos++;
     }
-    else{
+    else if(halfPi < angle < Math.PI || 3(halfPi) < angle < 2(Math.PI)) { //other part of math we did
       topX = xCenter - x;
       topY = yCenter + y;
       botX = xCenter + x;
       botY = yCenter - y;
-      neg++;
-    }/*
+    }
     else if(angle == Math.PI || angle == 0 || angle == 2(Math.PI)) {
       topX = xCenter + (needleLength)/2;
       topY = yCenter;
@@ -128,19 +125,17 @@ function needleXY() {
         //we stop so the colors don't overwrite the colors 
         k = lines.length;//sets as lines length to stop for loop
       }
-    //copied previous line code, just rewrote the variable name
-    lineInArray.moveTo(xCenter, yCenter);
-    lineInArray.lineTo(topX, topY);
+      //copied previous line code, just rewrote the variable name
+      lineInArray.moveTo(xCenter, yCenter);
+      lineInArray.lineTo(topX, topY);
 
-    //we can just move line to bottom locations
-    lineInArray.lineTo(botX, botY);
-    lineInArray.closePath();
+      //we can just move line to bottom locations
+      lineInArray.lineTo(botX, botY);
+      lineInArray.closePath();
 
-    app.stage.addChild(lineInArray);
-    //pushing the new line into the array
-    lineArray.push(lineInArray);
-
-    
+      app.stage.addChild(lineInArray);
+      //pushing the new line into the array
+      lineArray.push(lineInArray);
     }
 
     //setTimeout(clearNeedles(botY, topY), 1500)
@@ -161,20 +156,19 @@ function needleXY() {
   console.log("Negative: " + neg);
 
 
-// this is all the stats to put on the screen 
+  // this is all the stats to put on the screen 
   let pi = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop)); // pi estimation 
-  let error = Math.abs((pi - Math.PI)/Math.PI) *100; //percent error
-  document.getElementById("estimation").innerHTML = "PI Estimation: " + Math.round(pi * 10000)/10000; 
-  document.getElementById("realPi").innerHTML = "Real value of PI : " + Math.round(Math.PI * 10000)/10000;
-  document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10000)/10000;
-  document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10000)/10000;
+  let error = Math.abs((pi - Math.PI) / Math.PI) * 100; //percent error
+  document.getElementById("estimation").innerHTML = "PI Estimation: " + Math.round(pi * 10000) / 10000;
+  document.getElementById("realPi").innerHTML = "Real value of PI : " + Math.round(Math.PI * 10000) / 10000;
+  document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10000) / 10000;
+  document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10000) / 10000;
   document.getElementById("needCross").innerHTML = "Needles that Cross a Line: " + needleCross;
   document.getElementById("needleDontCross").innerHTML = "Needles that Don't Cross a Line: " + (needleDrop - needleCross);
   document.getElementById("total").innerHTML = "Total Needles Dropped: " + needleDrop;
-  document.getElementById("percentError").innerHTML = "Percent Error for PI: " + Math.round(error*10000)/10000 + "%";
+  document.getElementById("percentError").innerHTML = "Percent Error for PI: " + Math.round(error * 10000) / 10000 + "%";
 }
-function colorNeedles(botY, topY)
-{
+/*function colorNeedles(botY, topY) {
   for (let k = 0; k < lines.length; k++) {
     //checks to see if the needle dropped not crosses the grid lines and changes color red
     if ((topY <= lines[k] && botY <= lines[k]) || (topY >= lines[k] && botY >= lines[k])) {
@@ -188,7 +182,7 @@ function colorNeedles(botY, topY)
       k = lines.length;//sets as lines length to stop for loop
     }
   }
-}
+}*/
 //clears needles from page and removes them from the array
 function clearNeedles() {
 

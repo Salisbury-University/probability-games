@@ -4,8 +4,9 @@
 <head>
 	<style>
 		canvas {
+			margin-top: 5px;
 			background-color: aqua;
-			border: 2px solid red;
+			border: 4px solid black;
 			margin-left: 12%;
 		}
 	</style>
@@ -48,8 +49,7 @@
 		</div>
 	</nav>
 
-
-	<div class="row g-0" style="text-align: center;">
+	<div class="row g-0 bg-secondary" style="text-align: center;">
 		<div class="col">
 			<h1>Buffon's Needles</h1>
 			<input type="number" id="percentageOfNeedle" placeholder="Length Of Needle">
@@ -61,19 +61,20 @@
 	</div>
 
 	<!-- buttons for needle length-->
-	<div class="row g-0" style="text-align: center;margin-top: 10px; margin-bottom: 10px;">
+	<div class="row g-0 bg-secondary"
+		style="text-align: center;padding-top: 10px; padding-bottom: 10px;border-bottom: 4px solid black;">
 		<div class="col">
 			<input type="number" id="amountOfNeedles" placeholder="# Needles to Drop">
 			<button onclick="needleXY()">Drop Needles</button>
 			<button onclick="clearNeedles()">Clear Screen</button>
 		</div>
 	</div>
+
 	<script src="js/pixi.min.js"></script>
 	<script src="js/needle.js"></script>
 
-
 	<!--This is the stats area-->
-	<div class="row g-0" style="text-align: center;">
+	<div class="row g-0 bg-success" style="text-align: center;border-top: 4px solid black;">
 		<h1> Stats</h1>
 		<div class="col">
 			<h3 id="estimation"></h3>
