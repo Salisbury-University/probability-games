@@ -82,8 +82,6 @@ function needleXY() {
   let xCenter, yCenter;
   let topX, topY, botX, botY;
   let x, y;
-  let pos = 0;
-  let neg = 0;
 
   //drops needles j times
   for (let j = 0; j < dropNeedles; j++) {
@@ -104,19 +102,24 @@ function needleXY() {
     //some math we figured out in person this time using degree angles
     //is this math correct? we still get interestng angles
     //ask Matt for the code he did on 3/1
-    if ((angle < halfPi) || (Math.PI < angle) && (angle < (3 * halfPi))) {
+    /*topX = xCenter + x;
+    topY = yCenter + y;
+    botX = xCenter + x;
+    botY = yCenter + y;
+    */
+   if ((angle < halfPi) || (Math.PI < angle) && (angle < (3 * halfPi))) {
       topX = xCenter + x;
       topY = yCenter + y;
       botX = xCenter - x;
       botY = yCenter - y;
-      pos++;
+
     }
     else {
       topX = xCenter - x;
       topY = yCenter + y;
       botX = xCenter + x;
       botY = yCenter - y;
-      neg++;
+
     }
     /*else if(angle == Math.PI || angle == 0 || angle == 2 *(Math.PI)) {
       topX = xCenter + (needleLength)/2;
