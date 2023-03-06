@@ -102,7 +102,7 @@ function needleXY() {
       topY = yCenter + (needleLength)/2;
       botX = xCenter;
       botY = yCenter - (needleLength)/2;;
-    }*/
+    }
     //want to drop needles of one color and tint?/change color after a sleep function
     // .tint = color
     // yellow? 0xfcba03
