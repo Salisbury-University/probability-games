@@ -22,6 +22,7 @@ let needles = [];
 let nextEmpty = 0;
 let needleCross = 0;
 let needleDrop = 0;
+let dropTypeValue = 0;
 
 let lineInArray = new PIXI.Graphics(); //created a new line variable to test out working code
 let lineArray = [];//an array of the lineInArray pixi graphics object
@@ -49,11 +50,24 @@ function toRadians(angle) {
   return angle * (Math.PI / 180.0);
 }
 
-function customLength(){
+function dropType(type) {
+  var radioButtons = document.getElementsByName('dropType');
+  var selectedValue;
+  for (var i = 0; i < radioButtons.length; i++) {
+    if (radioButtons[i].checked) {
+      var selectedValue = radioButtons[i].value;
+      break;
+    }
+  }
+  dropTypeValue = selectedValue;
+  console.log(dropTypeValue);
+}
+
+function customLength() {
   let percent = document.getElementById("percentageOfNeedle").value;
   percent /= 100;
   console.log(percent);
-  needleLength =  lineSpace * percent;
+  needleLength = lineSpace * percent;
 }
 
 function changeNeedleLength(size) {
@@ -156,11 +170,11 @@ function needleXY() {
     //copied previous line code, just rewrote the variable name
     /*lineInArray.moveTo(xCenter, yCenter);
     lineInArray.lineTo(topX, topY);
-
+ 
     //we can just move line to bottom locations
     lineInArray.lineTo(botX, botY);
     lineInArray.closePath();
-
+ 
     app.stage.addChild(lineInArray);
     //pushing the new line into the array
     lineArray.push(lineInArray);*/
