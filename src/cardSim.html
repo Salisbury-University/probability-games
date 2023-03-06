@@ -179,7 +179,7 @@
     <!-- Main Body -->
     <div class="container-fluid">
       <!-- HEADER ROW -->
-      <div class="row mt-3">
+      <div class="row m-3">
         <div class="text-center">
           <h2 style="font-weight: bold">Sum of Two Dice Simulator</h2>
         </div>
@@ -187,7 +187,7 @@
       <hr class="featurette-divider" />
 
       <!-- DATA ROW -->
-      <div class="row">
+      <div class="row m-3">
         <!-- LEFT COLUMN -->
         <div class="col ms-4 m-2 p-2 border rounded bg-secondary">
           <div class="text-center text-white">
@@ -247,27 +247,24 @@
           <div class="text-center">
             <button
               type="button"
-              class="btn btn-primary pt-2 pb-2 mt-2"
+              class="btn btn-primary p-2 m-2"
               id="simBtn"
               onclick="simulate();"
               autocomplete="off"
-              data-bs-toggle="tooltip"
-              data-bs-placement="top"
-              title="Tooltip on top"
               disabled
             >
-              <h5>Simulate</h5>
+              Simulate
             </button>
           </div>
         </div>
 
         <!-- MIDDLE COLUMN -->
-        <div class="col m-2 p-2 border rounded" style="min-width: 40%">
+        <div class="col m-2 p-2 border rounded" style="min-width: 20%">
           <div class="text-center">
             <h2 id="middle_heading">Results</h2>
           </div>
           <div class="text-center">
-            <ul class="list-group" style="font-weight: bold">
+            <ul class="list-group">
               <li class="list-group-item">
                 <h4 id="mean_label">Mean Rolls:</h4>
               </li>
@@ -280,178 +277,277 @@
               <li class="list-group-item">
                 <h4 id="total_label">Total Rolls:</h4>
               </li>
-              <div class="text-center">
-                <li class="list-group-item">
-                  <div class="text-center">
-                    <button
-                      type="button"
-                      class="btn btn-outline-primary m-2 p-2"
-                      id="logBtn"
-                      onclick="showLog();"
-                    >
-                      <h2>Game Log</h2>
-                    </button>
-                  </div>
-                </li>
-              </div>
             </ul>
-            <h3 hidden id="tableTitle">Roll Data from Previous Games</h3>
-            <table class="table" id="rollDataTable" hidden>
-              <thead>
-                <tr>
-                  <th scope="col">Min</th>
-                  <th scope="col">Max</th>
-                  <th scope="col">Mean</th>
-                  <th scope="col">Total</th>
-                  <th scope="col">Games Played</th>
-                  <th scope="col">Chip Distribution</th>
-                </tr>
-              </thead>
-              <tbody></tbody>
-            </table>
           </div>
         </div>
 
         <!-- RIGHT COLUMN -->
-        <div class="col me-4 m-2 p-2 border rounded bg-secondary text-white">
-          <div class="text-center">
-            <h4>Chip Distribution</h4>
+        <div class="col m-2 p-2 border rounded">
+          <div class="accordion accordian-flush" id="accordianTable">
+            <div class="accordion-item">
+              <h1 class="accordion-header" id="headingOne">
+                <button
+                  class="accordion-button"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#collapseOne"
+                  aria-expanded="false"
+                  aria-controls="collapseOne"
+                >
+                  <h4>Game Log</h4>
+                </button>
+              </h1>
+              <div
+                id="collapseOne"
+                class="accordion-collapse collapse"
+                aria-labelledby="headingOne"
+                data-bs-parent="#accordianTable"
+              >
+                <div class="accordion-body">
+                  <h3 id="tableTitle">Multiple Games Roll Data</h3>
+                  <table class="table" id="rollDataTable">
+                    <thead>
+                      <tr>
+                        <th scope="col">Min</th>
+                        <th scope="col">Max</th>
+                        <th scope="col">Mean</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Games Played</th>
+                        <th scope="col">Chip Distribution</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                  <!-- create a button -->
+                  <div class="text-center">
+                    <button
+                      class="btn btn-secondary"
+                      id="clearBtn"
+                      onclick="clearTable();"
+                      autocomplete="off"
+                    >
+                      Clear Table
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <ul class="list-group">
-            <li class="list-group-item">
-              <p id="RemainingChipsLabel" style="font-weight: bold">
-                Remaining Chips: 10
-              </p>
-              <p>
-                Card 2:
-                <input
-                  type="text"
-                  inputmode="numeric"
-                  autocomplete="off"
-                  pattern="[0-9]*"
-                  id="count0"
-                  oninput="updateChipsCount(this);"
-                />
-              </p>
-              <p>
-                Card 3:
-                <input
-                  type="text"
-                  inputmode="numeric"
-                  autocomplete="off"
-                  pattern="[0-9]*"
-                  id="count1"
-                  oninput="updateChipsCount(this);"
-                />
-              </p>
-              <p>
-                Card 4:
-                <input
-                  type="text"
-                  inputmode="numeric"
-                  autocomplete="off"
-                  pattern="[0-9]*"
-                  id="count2"
-                  oninput="updateChipsCount(this);"
-                />
-              </p>
-              <p>
-                Card 5:
-                <input
-                  type="text"
-                  inputmode="numeric"
-                  autocomplete="off"
-                  pattern="[0-9]*"
-                  id="count3"
-                  oninput="updateChipsCount(this);"
-                />
-              </p>
-              <p>
-                Card 6:
-                <input
-                  type="text"
-                  inputmode="numeric"
-                  autocomplete="off"
-                  pattern="[0-9]*"
-                  id="count4"
-                  oninput="updateChipsCount(this);"
-                />
-              </p>
-              <p>
-                Card 7:
-                <input
-                  type="text"
-                  inputmode="numeric"
-                  autocomplete="off"
-                  pattern="[0-9]*"
-                  id="count5"
-                  oninput="updateChipsCount(this);"
-                />
-              </p>
-              <p>
-                Card 8:
-                <input
-                  type="text"
-                  inputmode="numeric"
-                  autocomplete="off"
-                  pattern="[0-9]*"
-                  id="count6"
-                  oninput="updateChipsCount(this);"
-                />
-              </p>
-              <p>
-                Card 9:
-                <input
-                  type="text"
-                  inputmode="numeric"
-                  autocomplete="off"
-                  pattern="[0-9]*"
-                  id="count7"
-                  oninput="updateChipsCount(this);"
-                />
-              </p>
-              <p>
-                Card 10:
-                <input
-                  type="text"
-                  inputmode="numeric"
-                  autocomplete="off"
-                  pattern="[0-9]*"
-                  id="count8"
-                  oninput="updateChipsCount(this);"
-                />
-              </p>
-              <p>
-                Card 11:
-                <input
-                  type="text"
-                  inputmode="numeric"
-                  autocomplete="off"
-                  pattern="[0-9]*"
-                  id="count9"
-                  oninput="updateChipsCount(this);"
-                />
-              </p>
-              <p>
-                Card 12:
-                <input
-                  type="text"
-                  inputmode="numeric"
-                  autocomplete="off"
-                  pattern="[0-9]*"
-                  id="count10"
-                  oninput="updateChipsCount(this);"
-                />
-              </p>
-            </li>
-          </ul>
-          <div id="chartContainer" style="width: 100%; height: 20%"></div>
+        </div>
+      </div>
+
+      <!-- BOTTOM ROW -->
+      <!-- can just use innerHTML for function, not every damn one needs an id -->
+      <div class="row m-3">
+        <div class="text-center">
+          <h3 class="mb-2" id="RemainingChipsLabel" style="font-weight: bold">
+            Remaining Chips: 10
+          </h3>
+        </div>
+        <div class="col ms-4 m-2 p-2 border rounded" id="card2">
+          <div class="text-center">
+            <p class="h4" style="font-weight: bold">Card 2</p>
+            <p id="card2label">0</p>
+          </div>
+          <button class="btn btn-primary" onclick="addChips(this);">+1</button>
+          <button class="btn btn-primary" onclick="addChips(this);">+2</button>
+          <button class="btn btn-primary" onclick="addChips(this);">+5</button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -1
+          </button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -2
+          </button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -5
+          </button>
+        </div>
+        <div class="col ms-4 m-2 p-2 border rounded" id="card3">
+          <div class="text-center">
+            <p class="h4" style="font-weight: bold">Card 3</p>
+            <p id="card3label">0</p>
+          </div>
+          <button class="btn btn-primary" onclick="addChips(this);">+1</button>
+          <button class="btn btn-primary" onclick="addChips(this);">+2</button>
+          <button class="btn btn-primary" onclick="addChips(this);">+5</button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -1
+          </button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -2
+          </button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -5
+          </button>
+        </div>
+
+        <div class="col ms-4 m-2 p-2 border rounded" id="card4">
+          <div class="text-center">
+            <p class="h4" style="font-weight: bold">Card 4</p>
+            <p id="card4label">0</p>
+          </div>
+          <button class="btn btn-primary" onclick="addChips(this);">+1</button>
+          <button class="btn btn-primary" onclick="addChips(this);">+2</button>
+          <button class="btn btn-primary" onclick="addChips(this);">+5</button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -1
+          </button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -2
+          </button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -5
+          </button>
+        </div>
+        <div class="col ms-4 m-2 p-2 border rounded" id="card5">
+          <div class="text-center">
+            <p class="h4" style="font-weight: bold">Card 5</p>
+            <p id="card5label">0</p>
+          </div>
+          <button class="btn btn-primary" onclick="addChips(this);">+1</button>
+          <button class="btn btn-primary" onclick="addChips(this);">+2</button>
+          <button class="btn btn-primary" onclick="addChips(this);">+5</button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -1
+          </button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -2
+          </button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -5
+          </button>
+        </div>
+        <div class="col ms-4 m-2 p-2 border rounded" id="card6">
+          <div class="text-center">
+            <p class="h4" style="font-weight: bold">Card 6</p>
+            <p id="card6label">0</p>
+          </div>
+          <button class="btn btn-primary" onclick="addChips(this);">+1</button>
+          <button class="btn btn-primary" onclick="addChips(this);">+2</button>
+          <button class="btn btn-primary" onclick="addChips(this);">+5</button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -1
+          </button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -2
+          </button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -5
+          </button>
+        </div>
+        <div class="col ms-4 m-2 p-2 border rounded" id="card7">
+          <div class="text-center">
+            <p class="h4" style="font-weight: bold">Card 7</p>
+            <p id="card7label">0</p>
+          </div>
+          <button class="btn btn-primary" onclick="addChips(this);">+1</button>
+          <button class="btn btn-primary" onclick="addChips(this);">+2</button>
+          <button class="btn btn-primary" onclick="addChips(this);">+5</button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -1
+          </button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -2
+          </button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -5
+          </button>
+        </div>
+        <div class="col ms-4 m-2 p-2 border rounded" id="card8">
+          <div class="text-center">
+            <p class="h4" style="font-weight: bold">Card 8</p>
+            <p id="card8label">0</p>
+          </div>
+          <button class="btn btn-primary" onclick="addChips(this);">+1</button>
+          <button class="btn btn-primary" onclick="addChips(this);">+2</button>
+          <button class="btn btn-primary" onclick="addChips(this);">+5</button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -1
+          </button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -2
+          </button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -5
+          </button>
+        </div>
+        <div class="col ms-4 m-2 p-2 border rounded" id="card9">
+          <div class="text-center">
+            <p class="h4" style="font-weight: bold">Card 9</p>
+            <p id="card9label">0</p>
+          </div>
+          <button class="btn btn-primary" onclick="addChips(this);">+1</button>
+          <button class="btn btn-primary" onclick="addChips(this);">+2</button>
+          <button class="btn btn-primary" onclick="addChips(this);">+5</button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -1
+          </button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -2
+          </button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -5
+          </button>
+        </div>
+        <div class="col ms-4 m-2 p-2 border rounded" id="card10">
+          <div class="text-center">
+            <p class="h4" style="font-weight: bold">Card 10</p>
+            <p id="card10label">0</p>
+          </div>
+          <button class="btn btn-primary" onclick="addChips(this);">+1</button>
+          <button class="btn btn-primary" onclick="addChips(this);">+2</button>
+          <button class="btn btn-primary" onclick="addChips(this);">+5</button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -1
+          </button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -2
+          </button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -5
+          </button>
+        </div>
+        <div class="col ms-4 m-2 p-2 border rounded" id="card11">
+          <div class="text-center">
+            <p class="h4" style="font-weight: bold">Card 11</p>
+            <p id="card11label">0</p>
+          </div>
+          <button class="btn btn-primary" onclick="addChips(this);">+1</button>
+          <button class="btn btn-primary" onclick="addChips(this);">+2</button>
+          <button class="btn btn-primary" onclick="addChips(this);">+5</button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -1
+          </button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -2
+          </button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -5
+          </button>
+        </div>
+        <div class="col ms-4 m-2 p-2 border rounded" id="card12">
+          <div class="text-center">
+            <p class="h4" style="font-weight: bold">Card 12</p>
+            <p id="card12label">0</p>
+          </div>
+          <button class="btn btn-primary" onclick="addChips(this);">+1</button>
+          <button class="btn btn-primary" onclick="addChips(this);">+2</button>
+          <button class="btn btn-primary" onclick="addChips(this);">+5</button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -1
+          </button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -2
+          </button>
+          <button class="btn btn-outline-danger" onclick="removeChips(this);">
+            -5
+          </button>
         </div>
       </div>
 
       <!-- FOOTER ROW -->
-      <hr class="featurette-divider" />
-      <footer class="container" sytle="max-height: 10px">
+      <footer class="container" style="bottom: 0">
+        <hr class="featurette-divider" />
         <p>&middot; Salisbury University &middot;</p>
       </footer>
     </div>
