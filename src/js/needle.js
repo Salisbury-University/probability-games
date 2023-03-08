@@ -71,6 +71,7 @@ function dropType(type) {
   }
   dropTypeValue = selectedValue;
   clearNeedles();
+  closeModal();
   console.log(dropTypeValue);
 }
 
@@ -88,6 +89,10 @@ function changeNeedleLength(size) {
   console.log("Needle length: " + needleLength);
 }
 
+function closeModal() {
+  $('#exampleModal').modal('hide');
+}
+
 
 function showDropType() {
   document.getElementById("dropTypeData").removeAttribute("hidden");
@@ -103,7 +108,7 @@ function showGridInfo() {
 
 function playAudio() {
   needleDropSound.pause();
-  needleDropSound.currentTime = 1.6;
+  needleDropSound.currentTime = 1.7;
   needleDropSound.play();
 }
 
