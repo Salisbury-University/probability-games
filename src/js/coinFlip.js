@@ -1,3 +1,8 @@
+// variables for sound effect audio
+const AUDIO_FLIP = new Audio("../sounds/coin_flip.mp3");
+const AUDIO_WRONG = new Audio("../sounds/wrong.mp3");
+const AUDIO_CORRECT = new Audio("../sounds/point_2.mp3");
+
 // determines if coin will be weighted or not
 var isWeighted = Math.floor(Math.random() * 2) + 1;
 
@@ -17,8 +22,15 @@ var heavierSide = Math.floor(Math.random() * 2) + 1;
 
 // Function to flip coin
 function flipCoin() {
+	// plays rolling dice audio
+	AUDIO_FLIP.play();
+
+	// makes weighted and not weighted buttons reappear
+	document.getElementById("weighted").hidden = false;
+	document.getElementById("notWeighted").hidden = false;
+
 	// reset weight display
-	document.getElementById("weightAmount").innerHTML = "Weight: ";
+	document.getElementById("weightAmount").innerHTML = "";
 
 	// reset counts display
 	document.getElementById("headTotal").innerHTML = 0;
@@ -90,8 +102,15 @@ function flipCoin() {
 
 // Function to flip coin multiple times
 function flipCoinMultiple() {
+	// plays rolling dice audio
+	AUDIO_FLIP.play();
+
+	// makes weighted and not weighted buttons reappear
+	document.getElementById("weighted").hidden = false;
+	document.getElementById("notWeighted").hidden = false;
+
 	// reset weight display
-	document.getElementById("weightAmount").innerHTML = "Weight: ";
+	document.getElementById("weightAmount").innerHTML = "";
 
 	// reset counts display
 	document.getElementById("headTotal").innerHTML = 0;
@@ -170,7 +189,14 @@ function flipCoinMultiple() {
 }
 
 function weightedGuess() {
+	// hides weighteed and not weighted button when user makes guess
+	document.getElementById("weighted").hidden = true;
+	document.getElementById("notWeighted").hidden = true;
+
 	if(isWeighted == 1) {
+		// plays correct guess audio
+		AUDIO_CORRECT.play();
+
 		document.querySelector("h1").innerHTML = "Your guess was correct, the coin was weighted";
 
 		if(heavierSide == 1)
@@ -179,6 +205,9 @@ function weightedGuess() {
 			document.getElementById("weightAmount").innerHTML = "Weight: " + (100 - weightHeavierSide) + "%/" + weightHeavierSide + "%";
 	}
 	else {
+		// plays wrong guess audio
+		AUDIO_WRONG.play();
+
 		document.querySelector("h1").innerHTML = "Your guess was incorrect, the coin was not weighted";
 		document.getElementById("weightAmount").innerHTML = "Weight: 50%/50%";
 	}
@@ -192,7 +221,14 @@ function weightedGuess() {
 }
 
 function notWeightedGuess() {
+	// hides weighteed and not weighted button when user makes guess
+	document.getElementById("weighted").hidden = true;
+	document.getElementById("notWeighted").hidden = true;
+
 	if(isWeighted == 1) {
+		// plays wrong guess audio
+		AUDIO_WRONG.play();
+
 		document.querySelector("h1").innerHTML = "Your guess was incorrect, the coin was weighted";
 
 		if(heavierSide == 1)
@@ -201,6 +237,9 @@ function notWeightedGuess() {
 			document.getElementById("weightAmount").innerHTML = "Weight: " + (100 - weightHeavierSide) + "%/" + weightHeavierSide + "%";
 	}
 	else {
+		// plays correct guess audio
+		AUDIO_CORRECT.play();
+
 		document.querySelector("h1").innerHTML = "Your guess was correct, the coin was not weighted";
 		document.getElementById("weightAmount").innerHTML = "Weight: 50%/50%";
 	}
@@ -211,4 +250,29 @@ function notWeightedGuess() {
 	isWeighted = Math.floor(Math.random() * 2) + 1;
 	weightHeavierSide = Math.floor(Math.random() * difference) + min;
 	heavierSide = Math.floor(Math.random() * 2) + 1;
+}
+
+
+// Get the modal
+var modal = document.getElementById("helpModal");
+// Get the button that opens the modal
+var btn = document.getElementById("helpButton");
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
 }
