@@ -32,15 +32,15 @@ let needleCross = 0;
 let pos = 0;
 let neg = 0;
 let needleDrop = 0;
-let dropTypeValue = "Singular";
+let dropTypeValue = "Cumulative";
 var needleDropSound = new Audio('../sounds/needleDrop.mp3');
 
 
 let lineInArray = new PIXI.Graphics(); //created a new line variable to test out working code
 let lineArray = [];//an array of the lineInArray pixi graphics object
-
-let lineSpace = windowHeight / 7.0;
-const needleLength = lineSpace * 0.9;
+let amountLines = 7;
+let lineSpace = windowHeight / amountLines;
+let needleLength = lineSpace * 0.9;
 let yValue = lineSpace; //yValue is space between lines
 
 lines[0] = 0;
@@ -72,11 +72,16 @@ function dropType(type) {
   }
   dropTypeValue = selectedValue;
   clearNeedles();
+  closeModal();
   console.log(dropTypeValue);
 }
 
 function customLength() {
   let percent = document.getElementById("percentageOfNeedle").value;
+  if(percent > 100){
+    percent = 100;
+    alert("Custom Length Has to be less then 100");
+  }
   percent /= 100;
   console.log(percent);
   needleLength = lineSpace * percent;
@@ -107,6 +112,10 @@ function playAudio() {
   needleDropSound.play();
 }
 
+function closeModal() {
+  $('#settingsModal').modal('hide');
+}
+
 
 function showDropType() {
   document.getElementById("dropTypeData").removeAttribute("hidden");
@@ -117,12 +126,13 @@ function showDropType() {
 function showGridInfo() {
   document.getElementById("gridData").removeAttribute("hidden");
   document.getElementById("dropTypeData").setAttribute("hidden", "hidden");
+  document.getElementById("gridAmount").innerHTML = amountLines;
   console.log("Show grid info");
 }
 
 function playAudio() {
   needleDropSound.pause();
-  needleDropSound.currentTime = 1.6;
+  needleDropSound.currentTime = 1.7;
   needleDropSound.play();
 }
 
@@ -180,7 +190,10 @@ function needleXY() {
     //want to drop needles of one color and tint?/change color after a sleep function
     // .tint = color
     // yellow? 0xfcba03
+    // different yellow #FFEA00
     // white? 0xffffff
+    // bright purple #BF40BF
+    //different green #50C878
 
     //this for loop section chooses the color of the line to be dropped
 
@@ -189,12 +202,12 @@ function needleXY() {
       //checks to see if the needle dropped not crosses the grid lines and changes color red
       if ((topY <= lines[k] && botY <= lines[k]) || (topY >= lines[k] && botY >= lines[k])) {
         //lineInArray.tint = 0xFF0000;
-        lineInArray.lineStyle(1, 0xFF0000, 1);
+        lineInArray.lineStyle(1, 0xbf40bf, 1);
       }
       //checks to see if the needle does dropped crosses the grid line and changes color green
       else {
-        lineInArray.tint = 0xAAFF00;
-        lineInArray.lineStyle(1, 0xAAFF00, 1);
+        //lineInArray.tint = 0xAAFF00;
+        lineInArray.lineStyle(1, 0xf50c878, 1);
         needleCross++;
         //we stop so the colors don't overwrite the colors 
         k = lines.length;//sets as lines length to stop for loop
