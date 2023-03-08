@@ -86,6 +86,19 @@ function changeNeedleLength(size) {
   console.log("Needle length: " + needleLength);
 }
 
+
+function showDropType() {
+  document.getElementById("dropTypeData").removeAttribute("hidden");
+  document.getElementById("gridData").setAttribute("hidden","hidden");
+  console.log("Show drop type info");
+}
+
+function showGridInfo() {
+  document.getElementById("gridData").removeAttribute("hidden");
+  document.getElementById("dropTypeData").setAttribute("hidden","hidden");
+  console.log("Show grid info");
+}
+
 function needleXY() {
 
   if (dropTypeValue == "Singular") {
