@@ -7,7 +7,6 @@
 	<title>Dice Roll</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<link rel="stylesheet" href="../css/diceRoll.css" type="text/css">
-	
 </head>
 
 <body>
@@ -34,13 +33,29 @@
 
 	<div class="container">
 		<h1>Dice Roll</h1>
+		<div class="helpArea">
+			<button id="helpButton" type="button" class="butn">Help</button>
+			<div id="helpModal" class="modal">
+				<div class="modal-header">
+				  <span class="close topright">&times;</span>
+				  <h1>How To Play</h1>
+				</div>
+				<div class="modal-body">
+				  <h2>1) Player can roll the dice as many times as they'd like</h2>
+				  <h2>2) After each roll of the dice, the table will display which side the dice landed on</h2>
+				  <h2>3) When done rolling the dice, the player must guess if the dice is weighted or not based on the table results</h2>
+				  <h2>4) After the player makes their guess, the actual weight of the dice will display</h2>
+				  <h2>5) To start a new game, start rolling the dice again</h2>
+				</div>
+			</div>
+		</div>
 		<div class="dice">
 			<img class="img" id="dice" src="../images/dice1.png">
 		</div>
 	</div>
 
 	<div class="container bottom">
-		<button type="button" class="butn" onClick="rollDice()">Click To Roll Dice</button>
+		<button type="button" class="butn" onClick="rollDice()">Roll Dice</button>
 	</div>
 
 	<div class="container bottom">
