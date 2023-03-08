@@ -31,6 +31,8 @@ let nextEmpty = 0;
 let needleCross = 0;
 let needleDrop = 0;
 let dropTypeValue = "Singular";
+var needleDropSound = new Audio('../sounds/needleDrop.mp3');
+
 
 let lineInArray = new PIXI.Graphics(); //created a new line variable to test out working code
 let lineArray = [];//an array of the lineInArray pixi graphics object
