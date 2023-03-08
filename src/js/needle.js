@@ -16,13 +16,21 @@ let app = new PIXI.Application({
 // append the application window to the page
 document.body.appendChild(app.view);
 
+var numN = document.getElementById("amountOfNeedles");
+numN.addEventListener("keydown", function (e) {
+  if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+    needleXY();
+  }
+});
+
+
 const line = new PIXI.Graphics();
 const lines = [];
 let needles = [];
 let nextEmpty = 0;
 let needleCross = 0;
 let needleDrop = 0;
-let dropTypeValue = 0;
+let dropTypeValue = "Singular";
 
 let lineInArray = new PIXI.Graphics(); //created a new line variable to test out working code
 let lineArray = [];//an array of the lineInArray pixi graphics object
@@ -60,6 +68,7 @@ function dropType(type) {
     }
   }
   dropTypeValue = selectedValue;
+  clearNeedles();
   console.log(dropTypeValue);
 }
 
@@ -68,6 +77,7 @@ function customLength() {
   percent /= 100;
   console.log(percent);
   needleLength = lineSpace * percent;
+  clearNeedles();
 }
 
 function changeNeedleLength(size) {
@@ -77,6 +87,10 @@ function changeNeedleLength(size) {
 }
 
 function needleXY() {
+
+  if (dropTypeValue == "Singular") {
+    clearNeedles();
+  }
   //gets user input for needles
   let dropNeedles = document.getElementById("amountOfNeedles").value;
   let xCenter, yCenter;
@@ -107,7 +121,7 @@ function needleXY() {
     botX = xCenter + x;
     botY = yCenter + y;
     */
-   if ((angle < halfPi) || (Math.PI < angle) && (angle < (3 * halfPi))) {
+    if ((angle < halfPi) || (Math.PI < angle) && (angle < (3 * halfPi))) {
       topX = xCenter + x;
       topY = yCenter + y;
       botX = xCenter - x;
@@ -121,18 +135,6 @@ function needleXY() {
       botY = yCenter - y;
 
     }
-    /*else if(angle == Math.PI || angle == 0 || angle == 2 *(Math.PI)) {
-      topX = xCenter + (needleLength)/2;
-      topY = yCenter;
-      botX = xCenter - (needleLength)/2;
-      botY = yCenter;
-    }
-    else {
-      topX = xCenter;
-      topY = yCenter + (needleLength)/2;
-      botX = xCenter;
-      botY = yCenter - (needleLength)/2;;
-    }*/
     //want to drop needles of one color and tint?/change color after a sleep function
     // .tint = color
     // yellow? 0xfcba03
