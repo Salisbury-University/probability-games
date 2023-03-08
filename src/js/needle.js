@@ -198,6 +198,8 @@ function needleXY() {
     app.stage.addChild(lineInArray);
     //pushing the new line into the array
     lineArray.push(lineInArray);*/
+    needleDropSound.loop = false;
+    needleDropSound.play();
   }
 
   // this is all the stats to put on the screen 
