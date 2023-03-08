@@ -26,6 +26,44 @@
 </head>
 
 <body>
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Settings</h5>
+					<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="form-group">
+							<button onclick="showDropType()"> Drop Type</button>
+							<button onclick="showGridInfo()">Grid Info</button>
+							<div id="dropTypeData">
+								<p>Singular: Each time you click drop needles, the page and data are reset</p>
+								<p>Cumulative: Each time you click drop needles, the needles are added to the page</p>
+								<input type="radio" name="dropType" value="Singular">Singular<br>
+								<input type="radio" name="dropType" value="Cumulative">Cumulative<br>
+							</div>
+							<div id="gridData" hidden>
+								<p> There are x needles</p>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="dropType()">Save
+						changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- Navbar here-->
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
 		<div class="container-fluid">
@@ -49,26 +87,39 @@
 		</div>
 	</nav>
 
-	<div class="row g-0 bg-secondary" style="text-align: center;">
-		<div class="col">
-			<h1>Buffon's Needles</h1>
+	<div class="row g-0 bg-secondary">
+		<div class="col" style="text-align: center;">
+			<h1>Buffon's Needles <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+					data-bs-target="#exampleModal">
+					Settings
+				</button></h1>
+		</div>
+	</div>
+
+	<div class="row g-0 bg-secondary">
+		<div class="col" style="text-align: left;margin-left: 12%;">
 			<input type="number" id="percentageOfNeedle" placeholder="Length Of Needle">
+			<input type="button" id="changeValue" value="Custom Length" onclick="customLength()">
+		</div>
+		<div class="col" style="text-align: right;margin-right: 12%;">
+			<input type="number" id="amountOfNeedles" placeholder="# Needles to Drop">
+		</div>
+	</div>
+	<div class="row g-0 bg-secondary" style="padding-top: 5px;">
+		<div class="col" style="margin-left:12%;">
 			<input type="button" id="25percent" value="25 percent" onclick="changeNeedleLength(.25)">
 			<input type="button" id="50percent" value="50 percent" onclick="changeNeedleLength(.5)">
 			<input type="button" id="75percent" value="75 percent" onclick="changeNeedleLength(.75)">
 			<input type="button" id="100percent" value="100 percent" onclick="changeNeedleLength(1)">
 		</div>
-	</div>
+		<div class="col" style="text-align: right;margin-right: 12%;padding-bottom: 5px;">
 
-	<!-- buttons for needle length-->
-	<div class="row g-0 bg-secondary"
-		style="text-align: center;padding-top: 10px; padding-bottom: 10px;border-bottom: 4px solid black;">
-		<div class="col">
-			<input type="number" id="amountOfNeedles" placeholder="# Needles to Drop">
-			<button onclick="needleXY()">Drop Needles</button>
+			<button type="submit" onclick="needleXY()">Drop Needles </button>
 			<button onclick="clearNeedles()">Clear Screen</button>
+
 		</div>
 	</div>
+
 
 	<script src="js/pixi.min.js"></script>
 	<script src="js/needle.js"></script>
