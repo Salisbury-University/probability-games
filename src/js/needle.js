@@ -32,12 +32,14 @@ let needleCross = 0;
 let needleDrop = 0;
 let dropTypeValue = "Cumulative";
 var needleDropSound = new Audio('../sounds/needleDrop.mp3');
+let pos = 0;
+let neg = 0;
 
 
 let lineInArray = new PIXI.Graphics(); //created a new line variable to test out working code
 let lineArray = [];//an array of the lineInArray pixi graphics object
-
-let lineSpace = windowHeight / 7.0;
+let amountLines = 7;
+let lineSpace = windowHeight / amountLines;
 let needleLength = lineSpace * 0.9;
 let yValue = lineSpace; //yValue is space between lines
 
@@ -106,6 +108,7 @@ function showDropType() {
 function showGridInfo() {
   document.getElementById("gridData").removeAttribute("hidden");
   document.getElementById("dropTypeData").setAttribute("hidden", "hidden");
+  document.getElementById("gridAmount").innerHTML = amountLines;
   console.log("Show grid info");
 }
 
@@ -132,6 +135,13 @@ function needleXY() {
   for (let j = 0; j < dropNeedles; j++) {
     //randomzied x and y centers
     xCenter = Math.random() * windowWidth;
+    
+    //testing dropping needles not on edge
+    if(xCenter < needleLength){
+      xCenter += needleLength
+    }else if(xCenter > windowWidth-needleLength){
+      xCenter -= needleLength;
+    }
     yCenter = Math.random() * (lines[6] - lines[1] + 1) + lines[1];
     needleDrop++;
 
@@ -152,18 +162,21 @@ function needleXY() {
     botX = xCenter + x;
     botY = yCenter + y;
     */
+   //this is negative
     if ((angle < halfPi) || (Math.PI < angle) && (angle < (3 * halfPi))) {
       topX = xCenter + x;
       topY = yCenter + y;
       botX = xCenter - x;
       botY = yCenter - y;
-      
+      neg++;
+
     }
-    else {
+    else { //this is positive
       topX = xCenter - x;
       topY = yCenter + y;
       botX = xCenter + x;
       botY = yCenter - y;
+      pos++;
 
     }
     
@@ -234,6 +247,8 @@ function needleXY() {
   document.getElementById("needleDontCross").innerHTML = "Needles that Don't Cross a Line: " + (needleDrop - needleCross);
   document.getElementById("total").innerHTML = "Total Needles Dropped: " + needleDrop;
   document.getElementById("percentError").innerHTML = "Percent Error for PI: " + Math.round(error * 10000) / 10000 + "%";
+  console.log("Pos: " + pos);
+  console.log("Neg: " + neg);
 }
 
 
@@ -254,6 +269,8 @@ function needleXY() {
 }*/
 //clears needles from page and removes them from the array
 function clearNeedles() {
+  neg= 0;
+  pos= 0;
   console.log("Next Empty size: " + nextEmpty);
 
   //this code removes them from the stage
