@@ -196,8 +196,6 @@ function needleXY() {
   document.getElementById("needleDontCross").innerHTML = "Needles that Don't Cross a Line: " + (needleDrop - needleCross);
   document.getElementById("total").innerHTML = "Total Needles Dropped: " + needleDrop;
   document.getElementById("percentError").innerHTML = "Percent Error for PI: " + Math.round(error * 10000) / 10000 + "%";
-  console.log("Pos: " + pos);
-  console.log("Neg: " + neg);
 }
 /*function colorNeedles(botY, topY) {
   for (let k = 0; k < lines.length; k++) {
