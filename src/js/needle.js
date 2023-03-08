@@ -143,15 +143,16 @@ function needleXY() {
 
     //calculate the angle
     let angle = Math.floor(Math.random() * 360);
+    console.log(angle);
     angle = toRadians(angle);
 
 
     //creating angle/line
     //sin must go to the y value and x to cos
-    y = Math.abs((needleLength) * (Math.sin(angle)));
-    x = Math.abs((needleLength) * (Math.cos(angle)));
-    console.log(x);
-    console.log(y);
+    y = (needleLength) * (Math.sin(angle));
+    x = (needleLength) * (Math.cos(angle));
+    console.log("run: " + x);
+    console.log("Rise: " + y);
     //want to drop needles of one color and tint?/change color after a sleep function
     // .tint = color
     // yellow? 0xfcba03
@@ -162,8 +163,8 @@ function needleXY() {
     //now using xCenter and yCenter as end points
     xEnd = xCenter + x;
     yEnd = yCenter + y;
-    console.log(xEnd);
-    console.log(yEnd);
+    console.log("xEnd =" + xEnd);
+    console.log("yEnd =" + yEnd);
     //this for loop section chooses the color of the line to be dropped
 
     //lineInArray.lineStyle(1, 0xfcba03, 1);
@@ -217,8 +218,6 @@ function needleXY() {
   document.getElementById("needleDontCross").innerHTML = "Needles that Don't Cross a Line: " + (needleDrop - needleCross);
   document.getElementById("total").innerHTML = "Total Needles Dropped: " + needleDrop;
   document.getElementById("percentError").innerHTML = "Percent Error for PI: " + Math.round(error * 10000) / 10000 + "%";
-  console.log("Pos: " + pos);
-  console.log("Neg: " + neg);
 }
 
 
