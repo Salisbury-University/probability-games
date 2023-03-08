@@ -39,39 +39,37 @@ class ProbabilitySimulator {
     }
   }
   
-let simulator = new ProbabilitySimulator();
-
-function simulate() {
-  let userInput = document.getElementById("userInput").value;
-  simulator.simulate(userInput);
-  simulator.displayStats();
-  updateChart(simulator.stats);
-
-}
-
-function reset() {
-  simulator.resetStats();
-  simulator.displayStats();
-  updateChart(simulator.stats);
-
-}
-
-function updateChart(data) {
-  // set the dimensions of the chart
-  const margin = { top: 20, right: 20, bottom: 30, left: 40 };
-  const width = 960 - margin.left - margin.right;
-  const height = 500 - margin.top - margin.bottom;
-
-  // select the SVG element
-  const svg = d3.select("svg");
-
-  // remove any existing chart elements
-  svg.selectAll("*").remove();
-
-  // create the chart container
-  const chart = svg.append("g")
-    .attr("transform", `translate(${margin.left}, ${margin.top})`);
-
+  let simulator = new ProbabilitySimulator();
+  
+  function simulate() {
+    let userInput = document.getElementById("userInput").value;
+    simulator.simulate(userInput);
+    //simulator.displayStats();
+    updateChart(simulator.stats);
+  }
+  
+  function reset() {
+    simulator.resetStats();
+    //simulator.displayStats();
+    updateChart(simulator.stats);
+  }
+  
+  function updateChart(data) {
+    // set the dimensions of the chart
+    const margin = { top: 20, right: 20, bottom: 30, left: 40 };
+    const width = 960 - margin.left - margin.right;
+    const height = 500 - margin.top - margin.bottom;
+  
+    // select the SVG element
+    const svg = d3.select("svg");
+  
+    // remove any existing chart elements
+    svg.selectAll("*").remove();
+  
+    // create the chart container
+    const chart = svg.append("g")
+      .attr("transform", `translate(${margin.left}, ${margin.top})`);
+  
 // create the X and Y scales
 const x = d3.scaleBand()
 .domain(data.map((d, i) => i))
