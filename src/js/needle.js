@@ -135,6 +135,13 @@ function needleXY() {
   for (let j = 0; j < dropNeedles; j++) {
     //randomzied x and y centers
     xCenter = Math.random() * windowWidth;
+    
+    //testing dropping needles not on edge
+    if(xCenter < needleLength){
+      xCenter += needleLength
+    }else if(xCenter > windowWidth-needleLength){
+      xCenter -= needleLength;
+    }
     yCenter = Math.random() * (lines[6] - lines[1] + 1) + lines[1];
     needleDrop++;
 
@@ -155,20 +162,21 @@ function needleXY() {
     botX = xCenter + x;
     botY = yCenter + y;
     */
+   //this is negative
     if ((angle < halfPi) || (Math.PI < angle) && (angle < (3 * halfPi))) {
       topX = xCenter + x;
       topY = yCenter + y;
       botX = xCenter - x;
       botY = yCenter - y;
-      pos++;
+      neg++;
 
     }
-    else {
+    else { //this is positive
       topX = xCenter - x;
       topY = yCenter + y;
       botX = xCenter + x;
       botY = yCenter - y;
-      neg++;
+      pos++;
 
     }
     //want to drop needles of one color and tint?/change color after a sleep function
@@ -222,8 +230,6 @@ function needleXY() {
     app.stage.addChild(lineInArray);
     //pushing the new line into the array
     lineArray.push(lineInArray);*/
-    console.log("Pos: " + pos);
-    console.log("Neg: " + neg);
   }
 
 
@@ -238,6 +244,8 @@ function needleXY() {
   document.getElementById("needleDontCross").innerHTML = "Needles that Don't Cross a Line: " + (needleDrop - needleCross);
   document.getElementById("total").innerHTML = "Total Needles Dropped: " + needleDrop;
   document.getElementById("percentError").innerHTML = "Percent Error for PI: " + Math.round(error * 10000) / 10000 + "%";
+  console.log("Pos: " + pos);
+  console.log("Neg: " + neg);
 }
 
 
