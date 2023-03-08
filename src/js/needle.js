@@ -152,21 +152,18 @@ function needleXY() {
     botX = xCenter + x;
     botY = yCenter + y;
     */
-   var pos = 0;
-   var neg = 0;
     if ((angle < halfPi) || (Math.PI < angle) && (angle < (3 * halfPi))) {
       topX = xCenter + x;
       topY = yCenter + y;
       botX = xCenter - x;
       botY = yCenter - y;
-      pos ++;
+      
     }
     else {
       topX = xCenter - x;
       topY = yCenter + y;
       botX = xCenter + x;
       botY = yCenter - y;
-      neg ++;
 
     }
     
