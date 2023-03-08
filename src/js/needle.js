@@ -91,14 +91,20 @@ function changeNeedleLength(size) {
 
 function showDropType() {
   document.getElementById("dropTypeData").removeAttribute("hidden");
-  document.getElementById("gridData").setAttribute("hidden","hidden");
+  document.getElementById("gridData").setAttribute("hidden", "hidden");
   console.log("Show drop type info");
 }
 
 function showGridInfo() {
   document.getElementById("gridData").removeAttribute("hidden");
-  document.getElementById("dropTypeData").setAttribute("hidden","hidden");
+  document.getElementById("dropTypeData").setAttribute("hidden", "hidden");
   console.log("Show grid info");
+}
+
+function playAudio() {
+  needleDropSound.pause();
+  needleDropSound.currentTime = 1.6;
+  needleDropSound.play();
 }
 
 function needleXY() {
@@ -111,6 +117,8 @@ function needleXY() {
   let xCenter, yCenter;
   let topX, topY, botX, botY;
   let x, y;
+  playAudio();
+
 
   //drops needles j times
   for (let j = 0; j < dropNeedles; j++) {
@@ -198,9 +206,8 @@ function needleXY() {
     app.stage.addChild(lineInArray);
     //pushing the new line into the array
     lineArray.push(lineInArray);*/
-    needleDropSound.loop = false;
-    needleDropSound.play();
   }
+
 
   // this is all the stats to put on the screen 
   let pi = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop)); // pi estimation 
@@ -214,6 +221,8 @@ function needleXY() {
   document.getElementById("total").innerHTML = "Total Needles Dropped: " + needleDrop;
   document.getElementById("percentError").innerHTML = "Percent Error for PI: " + Math.round(error * 10000) / 10000 + "%";
 }
+
+
 /*function colorNeedles(botY, topY) {
   for (let k = 0; k < lines.length; k++) {
     //checks to see if the needle dropped not crosses the grid lines and changes color red
