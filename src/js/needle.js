@@ -38,7 +38,7 @@ let lineInArray = new PIXI.Graphics(); //created a new line variable to test out
 let lineArray = [];//an array of the lineInArray pixi graphics object
 
 let lineSpace = windowHeight / 7.0;
-const needleLength = lineSpace * 0.9;
+let needleLength = lineSpace * 0.9;
 let yValue = lineSpace; //yValue is space between lines
 
 lines[0] = 0;
