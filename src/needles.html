@@ -31,7 +31,7 @@
 <body>
 
 	<!-- Modal -->
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	<div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
 		aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -47,10 +47,10 @@
 							<button onclick="showDropType()"> Drop Type</button>
 							<button onclick="showGridInfo()">Grid Info</button>
 							<div id="dropTypeData">
-								<p>Singular: Each time you click drop needles, the page and data are reset</p>
 								<p>Cumulative: Each time you click drop needles, the needles are added to the page</p>
-								<input type="radio" name="dropType" value="Singular">Singular<br>
+								<p>Singular: Each time you click drop needles, the page and data are reset</p>
 								<input type="radio" name="dropType" value="Cumulative">Cumulative<br>
+								<input type="radio" name="dropType" value="Singular">Singular<br>
 							</div>
 							<div id="gridData" hidden>
 								<p> There are x needles</p>
@@ -86,16 +86,17 @@
 							href="https://github.com/Salisbury-University/probability-games.git">GitHub</a>
 					</li>
 				</ul>
+
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModal">
+					<img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
+				</button>
 			</div>
 		</div>
 	</nav>
 
 	<div class="row g-0 bg-secondary">
 		<div class="col" style="text-align: center;">
-			<h1>Buffon's Needles <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
-					data-bs-target="#exampleModal">
-					Settings
-				</button></h1>
+			<h1>Buffon's Needles </h1>
 		</div>
 	</div>
 

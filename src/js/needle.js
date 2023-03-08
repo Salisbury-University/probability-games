@@ -30,7 +30,7 @@ let needles = [];
 let nextEmpty = 0;
 let needleCross = 0;
 let needleDrop = 0;
-let dropTypeValue = "Singular";
+let dropTypeValue = "Cumulative";
 var needleDropSound = new Audio('../sounds/needleDrop.mp3');
 
 
@@ -76,6 +76,10 @@ function dropType(type) {
 
 function customLength() {
   let percent = document.getElementById("percentageOfNeedle").value;
+  if(percent > 100){
+    percent = 100;
+    alert("Custom Length Has to be less then 100");
+  }
   percent /= 100;
   console.log(percent);
   needleLength = lineSpace * percent;
@@ -89,7 +93,7 @@ function changeNeedleLength(size) {
 }
 
 function closeModal() {
-  $('#exampleModal').modal('hide');
+  $('#settingsModal').modal('hide');
 }
 
 
