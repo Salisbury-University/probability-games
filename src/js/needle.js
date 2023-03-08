@@ -36,8 +36,8 @@ var needleDropSound = new Audio('../sounds/needleDrop.mp3');
 
 let lineInArray = new PIXI.Graphics(); //created a new line variable to test out working code
 let lineArray = [];//an array of the lineInArray pixi graphics object
-
-let lineSpace = windowHeight / 7.0;
+let amountLines = 7;
+let lineSpace = windowHeight / amountLines;
 let needleLength = lineSpace * 0.9;
 let yValue = lineSpace; //yValue is space between lines
 
@@ -106,6 +106,7 @@ function showDropType() {
 function showGridInfo() {
   document.getElementById("gridData").removeAttribute("hidden");
   document.getElementById("dropTypeData").setAttribute("hidden", "hidden");
+  document.getElementById("gridAmount").innerHTML = amountLines;
   console.log("Show grid info");
 }
 
