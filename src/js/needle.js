@@ -32,8 +32,6 @@ let needleCross = 0;
 let needleDrop = 0;
 let dropTypeValue = "Cumulative";
 var needleDropSound = new Audio('../sounds/needleDrop.mp3');
-let pos = 0;
-let neg = 0;
 
 
 let lineInArray = new PIXI.Graphics(); //created a new line variable to test out working code
@@ -44,7 +42,7 @@ let needleLength = lineSpace * 0.9;
 let yValue = lineSpace; //yValue is space between lines
 
 lines[0] = 0;
-//*/creates the grid lines of the webpage
+//creates the grid lines of the webpage
 for (let i = 1; i < 8; i++) {
   line.lineStyle(1, 0x0096FF, 1);
   line.moveTo(0, yValue);
@@ -54,8 +52,6 @@ for (let i = 1; i < 8; i++) {
   lines[i] = yValue;
   yValue = yValue + lineSpace;
 }
-//*/
-
 //converts angle in degrees to radians
 function toRadians(angle) {
   return angle * (Math.PI / 180.0);
@@ -126,8 +122,8 @@ function needleXY() {
   //gets user input for needles
   let dropNeedles = document.getElementById("amountOfNeedles").value;
   let xCenter, yCenter;
-  let topX, topY, botX, botY;
   let x, y;
+  let xEnd, yEnd;
   playAudio();
 
 
@@ -152,34 +148,10 @@ function needleXY() {
 
     //creating angle/line
     //sin must go to the y value and x to cos
-    y = Math.abs((needleLength / 2.0) * (Math.sin(angle)));
-    x = Math.abs((needleLength / 2.0) * (Math.cos(angle)));
-    //some math we figured out in person this time using degree angles
-    //is this math correct? we still get interestng angles
-    //ask Matt for the code he did on 3/1
-    /*topX = xCenter + x;
-    topY = yCenter + y;
-    botX = xCenter + x;
-    botY = yCenter + y;
-    */
-   //this is negative
-    if ((angle < halfPi) || (Math.PI < angle) && (angle < (3 * halfPi))) {
-      topX = xCenter + x;
-      topY = yCenter + y;
-      botX = xCenter - x;
-      botY = yCenter - y;
-      neg++;
-
-    }
-    else { //this is positive
-      topX = xCenter - x;
-      topY = yCenter + y;
-      botX = xCenter + x;
-      botY = yCenter - y;
-      pos++;
-
-    }
-    
+    y = Math.abs((needleLength) * (Math.sin(angle)));
+    x = Math.abs((needleLength) * (Math.cos(angle)));
+    console.log(x);
+    console.log(y);
     //want to drop needles of one color and tint?/change color after a sleep function
     // .tint = color
     // yellow? 0xfcba03
@@ -187,13 +159,17 @@ function needleXY() {
     // white? 0xffffff
     // bright purple #BF40BF
     //different green #50C878
-
+    //now using xCenter and yCenter as end points
+    xEnd = xCenter + x;
+    yEnd = yCenter + y;
+    console.log(xEnd);
+    console.log(yEnd);
     //this for loop section chooses the color of the line to be dropped
 
     //lineInArray.lineStyle(1, 0xfcba03, 1);
     for (let k = 0; k < lines.length; k++) {
       //checks to see if the needle dropped not crosses the grid lines and changes color red
-      if ((topY <= lines[k] && botY <= lines[k]) || (topY >= lines[k] && botY >= lines[k])) {
+      if ((yEnd <= lines[k] && yCenter<= lines[k]) || (yEnd>= lines[k] && yCenter >= lines[k])) {
         //lineInArray.tint = 0xFF0000;
         lineInArray.lineStyle(1, 0xbf40bf, 1);
       }
@@ -207,12 +183,8 @@ function needleXY() {
       }
       //copied previous line code, just rewrote the variable name
       lineInArray.moveTo(xCenter, yCenter);
-      lineInArray.lineTo(topX, topY);
-
-      //we can just move line to bottom locations
-      lineInArray.lineTo(botX, botY);
+      lineInArray.lineTo(xEnd, yEnd);
       lineInArray.closePath();
-
       app.stage.addChild(lineInArray);
       //pushing the new line into the array
       lineArray.push(lineInArray);
@@ -232,8 +204,6 @@ function needleXY() {
     //pushing the new line into the array
     lineArray.push(lineInArray);*/
   }
-  console.log(neg);
-  console.log(pos);
 
 
   // this is all the stats to put on the screen 
