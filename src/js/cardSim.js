@@ -1,5 +1,14 @@
+// TODO
+// Add "Save Distributions" Button
+// Add cards with +1,2,5 buttons
+// Add clear cards button
+// Move cards to bottom
+
 const MINRUNS = 1;
 const MAXRUNS = 1000000;
+
+var gameLog = [];
+var presets = [];
 
 class SumOfDiceSimulation {
   constructor(confMap) {
@@ -42,7 +51,7 @@ class SumOfDiceSimulation {
       if (this.rolls[gameNo] > this.maxRolls) {
         this.maxRolls = this.rolls[gameNo];
       }
-      if (this.minRolls[gameNo] < this.minRolls || gameNo == 0) {
+      if (this.rolls[gameNo] < this.minRolls || gameNo == 0) {
         this.minRolls = this.rolls[gameNo];
       }
 
@@ -86,16 +95,21 @@ function updateSimulateButton() {
   }
 }
 
-function updateReqChips() {
-  // get max chips
-  let val = Number(document.getElementById("numChips").value);
+function removeChips(ele) {
+  let cardNo = Number(ele.parentElement.id.split("d")[1]) - 2;
+  let numChips = Number(ele.innerHTML.split("-")[1]);
 
-  // check that max chips is a number
-  if (!isNaN(val)) {
-    // set global reqChips var
-    simConf.set("reqChips", val);
+  currChips = simConf.get("chipsPlaced")[cardNo];
+  if (currChips - numChips >= 0) {
+    simConf.get("chipsPlaced")[cardNo] = currChips - numChips;
 
-    // update HTML elements
+    tot = simConf.get("totalChipsPlaced");
+    tot -= numChips;
+    simConf.set("totalChipsPlaced", tot);
+
+    document.getElementById(`card${cardNo + 2}label`).innerHTML =
+      currChips - numChips;
+
     updateRemainingChips(
       simConf.get("reqChips") - simConf.get("totalChipsPlaced")
     );
@@ -103,28 +117,23 @@ function updateReqChips() {
   }
 }
 
-// update number of chips from chip distribution side
-function updateChipsCount(ele) {
-  // get card no
-  let id = ele.id;
-  let id_split = id.split("t"); // splits off number at end of id
-  let cardNum = Number(id_split[1]); // gets number from split
-  let tot = simConf.get("totalChipsPlaced");
+function addChips(ele) {
+  let cardNo = Number(ele.parentElement.id.split("d")[1]) - 2;
+  let numChips = Number(ele.innerHTML.charAt(1));
 
-  // get value from card
-  let new_count = Number(document.getElementById(id).value);
+  // update the card
+  currChips = simConf.get("chipsPlaced")[cardNo];
+  if (simConf.get("totalChipsPlaced") + numChips <= 10) {
+    simConf.get("chipsPlaced")[cardNo] = currChips + numChips;
 
-  // make sure value is number
-  if (!isNaN(new_count)) {
-    // calculate new values
-    tot -= simConf.get("chipsPlaced")[cardNum];
-    tot += new_count;
-
-    // update map value
-    simConf.get("chipsPlaced")[cardNum] = new_count;
+    // update the totals
+    tot = simConf.get("totalChipsPlaced");
+    tot += numChips;
     simConf.set("totalChipsPlaced", tot);
 
-    // update HTML elements
+    document.getElementById(`card${cardNo + 2}label`).innerHTML =
+      currChips + numChips;
+
     updateRemainingChips(
       simConf.get("reqChips") - simConf.get("totalChipsPlaced")
     );
@@ -136,7 +145,7 @@ function updateChipsCount(ele) {
 function updateRemainingChips(num) {
   document.getElementById(
     "RemainingChipsLabel"
-  ).innerHTML = `Reamining Chips: ${num}`;
+  ).innerHTML = `Remaining Chips: ${num}`;
 }
 
 // update the number of runs
@@ -152,14 +161,18 @@ function updateRuns(ele) {
 function simulate() {
   let button = document.getElementById("simBtn");
   button.disabled = true;
-  for (let i = 0; i < 11; i++) {
-    document.getElementById(`count${i}`).disabled = true;
-  }
+  // disable buttons
 
   // create a simulation object
   // alter "results section to say Simulating... with a loading thingy"
   document.getElementById("middle_heading").innerHTML = "Simulating...";
   sim = new SumOfDiceSimulation(simConf);
+  updateLogs(
+    sim.getMinRolls(),
+    sim.getMaxRolls(),
+    sim.getAverageRolls(),
+    sim.getTotalRolls()
+  );
 
   // after the game is simulated, alter corresponding HTML elements
   document.getElementById("mean_label").innerHTML =
@@ -175,17 +188,14 @@ function simulate() {
   delete sim;
 
   // re-enable all the html elments
-  for (let i = 0; i < 11; i++) {
-    document.getElementById(`count${i}`).disabled = false;
-  }
   button.disabled = false;
 }
 
 function randomPlacement() {
   // clear chips
-  for (let i = 0; i < 10; i++) {
-    document.getElementById(`count${i}`).value = "";
-    updateChipsCount(document.getElementById(`count${i}`));
+  for (let i = 2; i < 13; i++) {
+    document.getElementById(`card${i}label`).innerHTML = "0";
+    simConf.get("chipsPlaced")[i - 2] = 0;
   }
 
   //randomly place chips
@@ -193,11 +203,11 @@ function randomPlacement() {
   while (chipsPlaced < simConf.get("reqChips")) {
     // generate a random number of chips between 1 and reqChips - chipsPlaced (chip amount)
     let chipAmount = Math.ceil(
-      Math.random() * (simConf.get("reqChips") - chipsPlaced)
+      Math.random() * (simConf.get("reqChips") - chipsPlaced / 2)
     );
 
     // generate a random number between 0 and 10 (card index)
-    let card = Math.floor(Math.random() * 10);
+    let card = Math.floor(Math.random() * 10) + 2;
 
     //check if newChips is too large, and adjust it to be exactly right
     if (chipsPlaced + chipAmount > simConf.get("reqChips")) {
@@ -205,64 +215,57 @@ function randomPlacement() {
     }
 
     // add chips if values already exist in that box
-    if (!isNaN(document.getElementById(`count${card}`).value)) {
-      document.getElementById(`count${card}`).value =
-        chipAmount + Number(document.getElementById(`count${card}`).value);
-    } else {
-      document.getElementById(`count${card}`).value = chipAmount;
-    }
+    document.getElementById(`card${card}label`).innerHTML =
+      chipAmount +
+      Number(document.getElementById(`card${card}label`).innerHTML);
 
-    updateChipsCount(document.getElementById(`count${card}`));
+    simConf.get("chipsPlaced")[card - 2] = Number(
+      document.getElementById(`card${card}label`).innerHTML
+    );
 
     //update number of chips placed
     chipsPlaced += chipAmount;
   }
+  simConf.set("totalChipsPlaced", 10);
+  updateRemainingChips(0);
+  updateSimulateButton();
 }
 
-// BROKEN
-var drawn = false;
-function updateDistChart() {
-  anychart.onDocumentReady(function () {
-    // set the data
-    var data = {
-      header: ["Name", "Number of Chips"],
-      rows: [
-        [2, simConf.get("chipsPlaced")[0]],
-        [3, simConf.get("chipsPlaced")[1]],
-        [4, simConf.get("chipsPlaced")[2]],
-        [5, simConf.get("chipsPlaced")[3]],
-        [6, simConf.get("chipsPlaced")[4]],
-        [7, simConf.get("chipsPlaced")[5]],
-        [8, simConf.get("chipsPlaced")[6]],
-        [9, simConf.get("chipsPlaced")[7]],
-        [10, simConf.get("chipsPlaced")[8]],
-        [11, simConf.get("chipsPlaced")[9]],
-        [12, simConf.get("chipsPlaced")[10]],
-      ],
-    };
+function updateLogs(min, max, avg, tot) {
+  lastIdx = gameLog.length - 1;
+  gameLog[lastIdx] = new Array(4);
+  gameLog[lastIdx][0] = min;
+  gameLog[lastIdx][1] = max;
+  gameLog[lastIdx][2] = avg;
+  gameLog[lastIdx][3] = tot;
 
-    // create the chart
-    var chart = anychart.column();
+  // for loop putting the distribution into a string
+  let distStr = "";
+  for (let i = 0; i < 11; i++) {
+    distStr += simConf.get("chipsPlaced")[i];
+    distStr += " ";
+  }
 
-    // add the data
-    chart.data(data);
+  // content to add
+  let newRowContent = `<td>${gameLog[lastIdx][0]}</td>\n
+      <td>${gameLog[lastIdx][1]}</td>\n
+      <td>${gameLog[lastIdx][2]}</td>\n
+      <td>${gameLog[lastIdx][3]}</td>\n
+      <td>${simConf.get("numRuns")}</td>\n
+      <td>${distStr}</td>\n
+  `;
 
-    // draw
-    if (drawn == false) {
-      // set padding between column groups
-      chart.barGroupsPadding(0);
+  let tableRef = document
+    .getElementById("rollDataTable")
+    .getElementsByTagName("tbody")[0];
 
-      // set the chart title
-      chart.title("Chip Distribution Across Cards");
+  let newRow = tableRef.insertRow(tableRef.rows.length);
+  newRow.innerHTML = newRowContent;
+}
 
-      // specify container
-      chart.container("chartContainer");
-
-      // draw
-      chart.draw();
-
-      // raise flag
-      drawn = true;
-    }
-  });
+function clearTable() {
+  let table = document
+    .getElementById("rollDataTable")
+    .getElementsByTagName("tbody")[0];
+  table.innerHTML = "";
 }

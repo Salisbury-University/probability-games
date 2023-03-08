@@ -1,3 +1,8 @@
+// variables for sound effect audio
+const AUDIO_ROLL = new Audio("../sounds/dice_roll.mp3");
+const AUDIO_WRONG = new Audio("../sounds/wrong.mp3");
+const AUDIO_CORRECT = new Audio("../sounds/point_2.mp3");
+
 // determines if dice will be weighted or not
 var isWeighted = Math.floor(Math.random() * 2) + 1;
 
@@ -24,8 +29,15 @@ var heavierSide = Math.floor(Math.random() * 6) + 1;
 
 // Function to roll dice
 function rollDice() {
+	// plays rolling dice audio
+	AUDIO_ROLL.play();
+
+	// makes weighted and not weighted buttons reappear
+	document.getElementById("weighted").hidden = false;
+	document.getElementById("notWeighted").hidden = false;
+
 	// reset weight display
-	document.getElementById("weightAmount").innerHTML = "Weight: ";
+	document.getElementById("weightAmount").innerHTML = "";
 
 	// reset counts display
 	document.getElementById("oneTotal").innerHTML = 0;
@@ -80,6 +92,7 @@ function rollDice() {
 				sixCount += 1;
 			}
 			
+			// assigning count variables to table values
 			document.getElementById("oneTotal").innerHTML = oneCount;
 			document.getElementById("twoTotal").innerHTML = twoCount;
 			document.getElementById("threeTotal").innerHTML = threeCount;
@@ -130,6 +143,7 @@ function rollDice() {
 				sixCount += 1;
 			}
 			
+			// assigning count variables to table values
 			document.getElementById("oneTotal").innerHTML = oneCount;
 			document.getElementById("twoTotal").innerHTML = twoCount;
 			document.getElementById("threeTotal").innerHTML = threeCount;
@@ -180,6 +194,7 @@ function rollDice() {
 				sixCount += 1;
 			}
 			
+			// assigning count variables to table values
 			document.getElementById("oneTotal").innerHTML = oneCount;
 			document.getElementById("twoTotal").innerHTML = twoCount;
 			document.getElementById("threeTotal").innerHTML = threeCount;
@@ -230,6 +245,7 @@ function rollDice() {
 				sixCount += 1;
 			}
 			
+			// assigning count variables to table values
 			document.getElementById("oneTotal").innerHTML = oneCount;
 			document.getElementById("twoTotal").innerHTML = twoCount;
 			document.getElementById("threeTotal").innerHTML = threeCount;
@@ -280,6 +296,7 @@ function rollDice() {
 				sixCount += 1;
 			}
 			
+			// assigning count variables to table values
 			document.getElementById("oneTotal").innerHTML = oneCount;
 			document.getElementById("twoTotal").innerHTML = twoCount;
 			document.getElementById("threeTotal").innerHTML = threeCount;
@@ -330,6 +347,7 @@ function rollDice() {
 				sixCount += 1;
 			}
 			
+			// assigning count variables to table values
 			document.getElementById("oneTotal").innerHTML = oneCount;
 			document.getElementById("twoTotal").innerHTML = twoCount;
 			document.getElementById("threeTotal").innerHTML = threeCount;
@@ -381,6 +399,7 @@ function rollDice() {
 				sixCount += 1;
 			}
 		
+		// assigning count variables to table values
 		document.getElementById("oneTotal").innerHTML = oneCount;
 		document.getElementById("twoTotal").innerHTML = twoCount;
 		document.getElementById("threeTotal").innerHTML = threeCount;
@@ -392,8 +411,15 @@ function rollDice() {
 
 // Function to roll dice multiple times
 function rollDiceMultiple() {
+	// plays rolling dice audio
+	AUDIO_ROLL.play();
+
+	// makes weighted and not weighted buttons reappear
+	document.getElementById("weighted").hidden = false;
+	document.getElementById("notWeighted").hidden = false;
+
 	// reset weight display
-	document.getElementById("weightAmount").innerHTML = "Weight: ";
+	document.getElementById("weightAmount").innerHTML = "";
 
 	// reset counts display
 	document.getElementById("oneTotal").innerHTML = 0;
@@ -454,12 +480,16 @@ function rollDiceMultiple() {
 					sixAmount += 1;
 				}
 			}
+
+			// assigning count variables to table values
 			document.getElementById("oneTotal").innerHTML = oneCount;
 			document.getElementById("twoTotal").innerHTML = twoCount;
 			document.getElementById("threeTotal").innerHTML = threeCount;
 			document.getElementById("fourTotal").innerHTML = fourCount;
 			document.getElementById("fiveTotal").innerHTML = fiveCount;
 			document.getElementById("sixTotal").innerHTML = sixCount;
+
+			// displays the amount of times landed on each side
 			document.querySelector("h1").innerHTML = "One: " + oneAmount + ", Two: " + twoAmount + ", Three: " + threeAmount + ", Four: " + fourAmount + ", Five: " + fiveAmount + ", Six: " + sixAmount;
 		}
 
@@ -501,12 +531,16 @@ function rollDiceMultiple() {
 					sixAmount += 1;
 				}
 			}
+
+			// assigning count variables to table values
 			document.getElementById("oneTotal").innerHTML = oneCount;
 			document.getElementById("twoTotal").innerHTML = twoCount;
 			document.getElementById("threeTotal").innerHTML = threeCount;
 			document.getElementById("fourTotal").innerHTML = fourCount;
 			document.getElementById("fiveTotal").innerHTML = fiveCount;
 			document.getElementById("sixTotal").innerHTML = sixCount;
+
+			// displays the amount of times landed on each side
 			document.querySelector("h1").innerHTML = "One: " + oneAmount + ", Two: " + twoAmount + ", Three: " + threeAmount + ", Four: " + fourAmount + ", Five: " + fiveAmount + ", Six: " + sixAmount;
 		}
 
@@ -548,12 +582,16 @@ function rollDiceMultiple() {
 					sixAmount += 1;
 				}
 			}
+
+			// assigning count variables to table values
 			document.getElementById("oneTotal").innerHTML = oneCount;
 			document.getElementById("twoTotal").innerHTML = twoCount;
 			document.getElementById("threeTotal").innerHTML = threeCount;
 			document.getElementById("fourTotal").innerHTML = fourCount;
 			document.getElementById("fiveTotal").innerHTML = fiveCount;
 			document.getElementById("sixTotal").innerHTML = sixCount;
+
+			// displays the amount of times landed on each side
 			document.querySelector("h1").innerHTML = "One: " + oneAmount + ", Two: " + twoAmount + ", Three: " + threeAmount + ", Four: " + fourAmount + ", Five: " + fiveAmount + ", Six: " + sixAmount;
 		}
 
@@ -595,12 +633,16 @@ function rollDiceMultiple() {
 					sixAmount += 1;
 				}
 			}
+
+			// assigning count variables to table values
 			document.getElementById("oneTotal").innerHTML = oneCount;
 			document.getElementById("twoTotal").innerHTML = twoCount;
 			document.getElementById("threeTotal").innerHTML = threeCount;
 			document.getElementById("fourTotal").innerHTML = fourCount;
 			document.getElementById("fiveTotal").innerHTML = fiveCount;
 			document.getElementById("sixTotal").innerHTML = sixCount;
+
+			// displays the amount of times landed on each side
 			document.querySelector("h1").innerHTML = "One: " + oneAmount + ", Two: " + twoAmount + ", Three: " + threeAmount + ", Four: " + fourAmount + ", Five: " + fiveAmount + ", Six: " + sixAmount;
 		}
 
@@ -642,12 +684,16 @@ function rollDiceMultiple() {
 					sixAmount += 1;
 				}
 			}
+
+			// assigning count variables to table values
 			document.getElementById("oneTotal").innerHTML = oneCount;
 			document.getElementById("twoTotal").innerHTML = twoCount;
 			document.getElementById("threeTotal").innerHTML = threeCount;
 			document.getElementById("fourTotal").innerHTML = fourCount;
 			document.getElementById("fiveTotal").innerHTML = fiveCount;
 			document.getElementById("sixTotal").innerHTML = sixCount;
+
+			// displays the amount of times landed on each side
 			document.querySelector("h1").innerHTML = "One: " + oneAmount + ", Two: " + twoAmount + ", Three: " + threeAmount + ", Four: " + fourAmount + ", Five: " + fiveAmount + ", Six: " + sixAmount;
 		}
 
@@ -689,12 +735,16 @@ function rollDiceMultiple() {
 					sixAmount += 1;
 				}
 			}
+
+			// assigning count variables to table values
 			document.getElementById("oneTotal").innerHTML = oneCount;
 			document.getElementById("twoTotal").innerHTML = twoCount;
 			document.getElementById("threeTotal").innerHTML = threeCount;
 			document.getElementById("fourTotal").innerHTML = fourCount;
 			document.getElementById("fiveTotal").innerHTML = fiveCount;
 			document.getElementById("sixTotal").innerHTML = sixCount;
+
+			// displays the amount of times landed on each side
 			document.querySelector("h1").innerHTML = "One: " + oneAmount + ", Two: " + twoAmount + ", Three: " + threeAmount + ", Four: " + fourAmount + ", Five: " + fiveAmount + ", Six: " + sixAmount;
 		}
 	}
@@ -737,18 +787,30 @@ function rollDiceMultiple() {
 				sixAmount += 1;
 			}
 		}
+
+		// assigning count variables to table values
 		document.getElementById("oneTotal").innerHTML = oneCount;
 		document.getElementById("twoTotal").innerHTML = twoCount;
 		document.getElementById("threeTotal").innerHTML = threeCount;
 		document.getElementById("fourTotal").innerHTML = fourCount;
 		document.getElementById("fiveTotal").innerHTML = fiveCount;
 		document.getElementById("sixTotal").innerHTML = sixCount;
+
+		// displays the amount of times landed on each side
 		document.querySelector("h1").innerHTML = "One: " + oneAmount + ", Two: " + twoAmount + ", Three: " + threeAmount + ", Four: " + fourAmount + ", Five: " + fiveAmount + ", Six: " + sixAmount;
 	}
 }
 
+// function for when user guesses weighted
 function weightedGuess() {
+	// hides weighteed and not weighted button when user makes guess
+	document.getElementById("weighted").hidden = true;
+	document.getElementById("notWeighted").hidden = true;
+
 	if(isWeighted == 1) {
+		// plays correct guess audio
+		AUDIO_CORRECT.play();
+
 		document.querySelector("h1").innerHTML = "Your guess was correct, the dice was weighted";
 
 		if(heavierSide == 1)
@@ -765,8 +827,11 @@ function weightedGuess() {
 			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightHeavierSide) + "%";
 	}
 	else {
+		// plays wrong guess audio
+		AUDIO_WRONG.play();
+		
 		document.querySelector("h1").innerHTML = "Your guess was incorrect, the dice was not weighted";
-		document.getElementById("weightAmount").innerHTML = "Weight: 16.66/16.66/16.66/16.66/16.66/16.66";
+		document.getElementById("weightAmount").innerHTML = "Weight: 16.66%/16.66%/16.66%/16.66%/16.66%/16.66%";
 	}
 	
 
@@ -784,8 +849,16 @@ function weightedGuess() {
 	heavierSide = Math.floor(Math.random() * 6) + 1;
 }
 
+// function for when user guesses not weighted
 function notWeightedGuess() {
+	// hides weighteed and not weighted button when user makes guess
+	document.getElementById("weighted").hidden = true;
+	document.getElementById("notWeighted").hidden = true;
+
 	if(isWeighted == 1) {
+		// plays wrong guess audio
+		AUDIO_WRONG.play();
+
 		document.querySelector("h1").innerHTML = "Your guess was incorrect, the dice was weighted";
 
 		if(heavierSide == 1)
@@ -802,8 +875,11 @@ function notWeightedGuess() {
 			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightHeavierSide) + "%";
 	}
 	else {
+		// plays correct guess audio
+		AUDIO_CORRECT.play();
+
 		document.querySelector("h1").innerHTML = "Your guess was correct, the dice was not weighted";
-		document.getElementById("weightAmount").innerHTML = "Weight: 16.66/16.66/16.66/16.66/16.66/16.66";
+		document.getElementById("weightAmount").innerHTML = "Weight: 16.66%/16.66%/16.66%/16.66%/16.66%/16.66%";
 	}
 
 	// resetting global variables
@@ -818,4 +894,29 @@ function notWeightedGuess() {
 	restOfWeight = 100 - weightHeavierSide;
 	weightLighterSides = restOfWeight / 5.0;
 	heavierSide = Math.floor(Math.random() * 6) + 1;
+}
+
+
+// Get the modal
+var modal = document.getElementById("helpModal");
+// Get the button that opens the modal
+var btn = document.getElementById("helpButton");
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
 }
