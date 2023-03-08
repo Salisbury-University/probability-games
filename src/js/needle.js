@@ -152,20 +152,24 @@ function needleXY() {
     botX = xCenter + x;
     botY = yCenter + y;
     */
+   var pos = 0;
+   var neg = 0;
     if ((angle < halfPi) || (Math.PI < angle) && (angle < (3 * halfPi))) {
       topX = xCenter + x;
       topY = yCenter + y;
       botX = xCenter - x;
       botY = yCenter - y;
-
+      pos ++;
     }
     else {
       topX = xCenter - x;
       topY = yCenter + y;
       botX = xCenter + x;
       botY = yCenter - y;
+      neg ++;
 
     }
+    
     //want to drop needles of one color and tint?/change color after a sleep function
     // .tint = color
     // yellow? 0xfcba03
@@ -218,6 +222,8 @@ function needleXY() {
     //pushing the new line into the array
     lineArray.push(lineInArray);*/
   }
+  console.log(neg);
+  console.log(pos);
 
 
   // this is all the stats to put on the screen 
