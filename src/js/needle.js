@@ -34,6 +34,8 @@ let neg = 0;
 let needleDrop = 0;
 let dropTypeValue = "Cumulative";
 var needleDropSound = new Audio('../sounds/needleDrop.mp3');
+let pos = 0;
+let neg = 0;
 
 
 let lineInArray = new PIXI.Graphics(); //created a new line variable to test out working code
@@ -178,6 +180,7 @@ function needleXY() {
       topY = yCenter + y;
       botX = xCenter - x;
       botY = yCenter - y;
+      pos++;
 
     }
     else if(halfPi < angle < Math.PI || 3(halfPi) < angle < 2(Math.PI)) { //other part of math we did
@@ -185,6 +188,7 @@ function needleXY() {
       topY = yCenter + y;
       botX = xCenter + x;
       botY = yCenter - y;
+      neg++;
 
     }
     //want to drop needles of one color and tint?/change color after a sleep function
@@ -238,6 +242,8 @@ function needleXY() {
     app.stage.addChild(lineInArray);
     //pushing the new line into the array
     lineArray.push(lineInArray);*/
+    console.log("Pos: " + pos);
+    console.log("Neg: " + neg);
   }
 
 
@@ -272,6 +278,9 @@ function needleXY() {
 }*/
 //clears needles from page and removes them from the array
 function clearNeedles() {
+  neg= 0;
+  pos= 0;
+  console.log("Next Empty size: " + nextEmpty);
 
   //this code removes them from the stage
   lineArray.forEach(lineInArray => {
