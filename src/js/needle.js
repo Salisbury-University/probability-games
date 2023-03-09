@@ -29,8 +29,6 @@ const lines = [];
 let needles = [];
 let nextEmpty = 0;
 let needleCross = 0;
-let pos = 0;
-let neg = 0;
 let needleDrop = 0;
 let dropTypeValue = "Cumulative";
 var needleDropSound = new Audio('../sounds/needleDrop.mp3');
@@ -80,7 +78,7 @@ function dropType(type) {
 
 function customLength() {
   let percent = document.getElementById("percentageOfNeedle").value;
-  if(percent > 100){
+  if (percent > 100) {
     percent = 100;
     alert("Custom Length Has to be less then 100");
   }
@@ -161,7 +159,7 @@ function needleXY() {
     //calculate the angle
     let angle = Math.floor(Math.random() * 360);
     angle = toRadians(angle);
-    console.log("Radian: " + angle);
+    //console.log("Radian: " + angle);
 
     //creating angle/line
     //sin must go to the y value and x to cos
@@ -183,7 +181,7 @@ function needleXY() {
       pos++;
 
     }
-    else if(halfPi < angle < Math.PI || 3(halfPi) < angle < 2(Math.PI)) { //other part of math we did
+    else { //other part of math we did
       topX = xCenter - x;
       topY = yCenter + y;
       botX = xCenter + x;
@@ -242,9 +240,10 @@ function needleXY() {
     app.stage.addChild(lineInArray);
     //pushing the new line into the array
     lineArray.push(lineInArray);*/
-    console.log("Pos: " + pos);
-    console.log("Neg: " + neg);
   }
+  console.log("Pos: " + pos);
+  console.log("Neg: " + neg);
+
 
 
   // this is all the stats to put on the screen 
@@ -278,8 +277,8 @@ function needleXY() {
 }*/
 //clears needles from page and removes them from the array
 function clearNeedles() {
-  neg= 0;
-  pos= 0;
+  neg = 0;
+  pos = 0;
   console.log("Next Empty size: " + nextEmpty);
 
   //this code removes them from the stage
