@@ -32,10 +32,8 @@ class ProbabilitySimulator {
   }
 
   displayStats() {
-    for (let i = 0; i < 28; i++) {
-      document.getElementById("roll" + i).innerHTML = this.stats[i];
-    }
     document.getElementById("totalRolls").innerHTML = this.totalRolls;
+    document.getElementById("totalGames").innerHTML = this.stats[0];
   }
 }
 
@@ -77,6 +75,7 @@ function updateChart(data) {
     .domain(data.map((d, i) => i))
     .range([0, width])
     .padding(0.1);
+
   const y = d3.scaleLinear()
     .domain([0, d3.max(data)])
     .range([height, 0]);
@@ -102,4 +101,12 @@ function updateChart(data) {
     .attr("y", d => y(d))
     .attr("width", x.bandwidth())
     .attr("height", d => height - y(d));
+}
+
+const heightOutput = document.querySelector("#height");
+const widthOutput = document.querySelector("#width");
+
+
+function resize() {
+  simulator.resize();
 }
