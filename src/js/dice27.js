@@ -8,6 +8,76 @@ const windowWidth = window.innerWidth * .98;
 const windowHeight = window.innerHeight;
 const Graphics = PIXI.Graphics;
 const Sprite = PIXI.Sprite;
+/*
+class Coin {
+    constructor() {
+        this.state = 0;
+        this.graphic = new Graphics();
+
+        this.graphic.beginFill("0xFFD700");
+        this.graphic.lineStyle(1, "0x000000", 1);
+        this.graphic.
+
+    }
+    getState() {
+        return this.state;
+    }
+    setState(newState) {
+        this.state = newState;
+    }
+    resize
+}
+
+class Dice27 {
+    constructor() {
+        this.app = new PIXI.Application({
+            backgroundAlpha: 0,
+            width: windowWidth,
+            height: windowHeight * .15
+        });
+        this.diceApp = new PIXI.Application({
+            backgroundAlpha: 0,
+            width: windowWidth,
+            height: windowHeight * .15
+        });
+        this.currTotal = baseTotal;
+        this.stats = [];
+        this.lines = [];
+        this.coins = [];
+
+        diceApp.loader.baseUrl = "../images/";
+        diceApp.loader
+            .add("dice0", "dice0.png")
+            .add("dice1", "dice1.png")
+            .add("dice2", "dice2.png")
+            .add("dice3", "dice3.png")
+            .add("dice4", "dice4.png")
+            .add("dice5", "dice5.png")
+            .add("dice6", "dice6.png");
+        diceApp.loader.load();
+
+        document.getElementById("overalScore").innerHTML = currTotal;
+        document.getElementById("player0").innerHTML = scoreboard[0];
+        document.getElementById("player1").innerHTML = scoreboard[1];
+        //set array to size
+        for (let i = 0; i <= baseTotal; i++) {
+            stats[i] = 0;
+        }
+    }
+
+    createGame() {
+        document.getElementById("mainPrompt").textContent = "Player 1 Roll";
+        document.getElementById("mainPrompt").style = "color:red;";
+        document.getElementById("app").appendChild(app.view);
+        document.getElementById("diceApp").appendChild(diceApp.view);
+
+        let j;
+        for (let i = 0; i < baseTotal; i++) {
+            j = i;
+            coins[i] = new Coin();
+        }
+    }
+}*/
 
 var chipSize = windowWidth * .016;
 var currTotal = 27;
