@@ -14,6 +14,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
@@ -26,6 +29,43 @@
 </head>
 
 <body>
+
+	<!-- Modal -->
+	<div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Settings</h5>
+					<button type="button" class="close" onclick="closeModal()" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+						<div class="form-group">
+							<button onclick="showDropType()"> Drop Type</button>
+							<button onclick="showGridInfo()">Grid Info</button>
+							<div id="dropTypeData">
+								<p>Cumulative: Each time you click drop needles, the needles are added to the page</p>
+								<p>Singular: Each time you click drop needles, the page and data are reset</p>
+								<input type="radio" name="dropType" value="Cumulative">Cumulative<br>
+								<input type="radio" name="dropType" value="Singular">Singular<br>
+							</div>
+							<div id="gridData" hidden>
+								<p> There are  <span id="gridAmount"></span> grid lines</p>
+
+							</div>
+						</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
+					<button type="button" class="btn btn-primary" onclick="dropType()">Save
+						changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!-- Navbar here-->
 	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
 		<div class="container-fluid">
@@ -45,30 +85,47 @@
 							href="https://github.com/Salisbury-University/probability-games.git">GitHub</a>
 					</li>
 				</ul>
+
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModal">
+					<img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
+				</button>
 			</div>
 		</div>
 	</nav>
 
-	<div class="row g-0 bg-secondary" style="text-align: center;">
-		<div class="col">
-			<h1>Buffon's Needles</h1>
+	<div class="row g-0 bg-secondary">
+		<div class="col" style="text-align: center;">
+			<h1>Buffon's Needles </h1>
+		</div>
+	</div>
+
+	<div class="row g-0 bg-secondary">
+
+		<div class="col" style="text-align: left;margin-left: 12%;">
 			<input type="number" id="percentageOfNeedle" placeholder="Length Of Needle">
+			<input type="button" id="changeValue" value="Custom Length" onclick="customLength()">
+		</div>
+
+		<div class="col" style="text-align: right;margin-right: 12%;">
+			<input type="number" id="amountOfNeedles" placeholder="# Needles to Drop">
+		</div>
+	</div>
+
+	<div class="row g-0 bg-secondary" style="padding-top: 5px;">
+
+		<div class="col" style="margin-left:12%;">
 			<input type="button" id="25percent" value="25 percent" onclick="changeNeedleLength(.25)">
 			<input type="button" id="50percent" value="50 percent" onclick="changeNeedleLength(.5)">
 			<input type="button" id="75percent" value="75 percent" onclick="changeNeedleLength(.75)">
 			<input type="button" id="100percent" value="100 percent" onclick="changeNeedleLength(1)">
 		</div>
-	</div>
 
-	<!-- buttons for needle length-->
-	<div class="row g-0 bg-secondary"
-		style="text-align: center;padding-top: 10px; padding-bottom: 10px;border-bottom: 4px solid black;">
-		<div class="col">
-			<input type="number" id="amountOfNeedles" placeholder="# Needles to Drop">
-			<button onclick="needleXY()">Drop Needles</button>
+		<div class="col" style="text-align: right;margin-right: 12%;padding-bottom: 5px;">
+			<button type="submit" onclick="needleXY()">Drop Needles </button>
 			<button onclick="clearNeedles()">Clear Screen</button>
 		</div>
 	</div>
+
 
 	<script src="js/pixi.min.js"></script>
 	<script src="js/needle.js"></script>
