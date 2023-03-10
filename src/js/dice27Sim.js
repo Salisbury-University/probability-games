@@ -42,14 +42,14 @@ let simulator = new ProbabilitySimulator();
 function simulate() {
   let userInput = Number(document.getElementById("userInput").value);
   simulator.simulate(userInput);
-  simulator.displayStats();
+  //simulator.displayStats();
   updateChart(simulator.stats);
 
 }
 
 function reset() {
   simulator.resetStats();
-  simulator.displayStats();
+  //simulator.displayStats();
   updateChart(simulator.stats);
 
 }
