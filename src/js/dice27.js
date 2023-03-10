@@ -8,45 +8,125 @@ const windowWidth = window.innerWidth * .98;
 const windowHeight = window.innerHeight;
 const Graphics = PIXI.Graphics;
 const Sprite = PIXI.Sprite;
-/*
+
+class WindowInfo{
+    constructor(){
+        this.windowWidth = window.innerWidth * .98;
+        this.windowHeight = window.innerHeight;
+    }
+    getWindowWidth(){
+        return this.windowWidth;
+    }
+    getWindowHeight(){
+        return this.windowHeight;
+    }
+    resizeWindow(){
+        this.windowWidth = window.innerHeight * .98;
+        this.windowHeight = window.innerHeight;
+    }
+}
+
+class App{
+    constructor(windowInfo, appName){
+        this.app = this.createApp(windowInfo);
+        this.name = appName;
+    }
+    createApp(){
+        return new PIXI.Application({
+            backgroundAlpha: 0,
+            width: windowInfo.getWindowWidth(),
+            height: windowInfo.getWindowHeight() * .15
+        });
+    }
+    appendApp(){
+        document.getElementById(this.appName).appendChild(this.app.view);
+    }
+    getAppName(){
+        return this.appName;
+    }
+    getApp(){
+        return this.app;
+    }
+    resize(windowInfo){
+        this.app.destroy();
+        this.app = this.createApp(windowInfo);
+        this.appendApp();
+    }
+}
+
 class Coin {
-    constructor() {
+    constructor(windowInfo, dist) {
         this.state = 0;
-        this.graphic = new Graphics();
-
-        this.graphic.beginFill("0xFFD700");
-        this.graphic.lineStyle(1, "0x000000", 1);
-        this.graphic.
-
+        this.coin = new Graphics();
+        this.createCoin(windowInfo, dist);        
     }
     getState() {
         return this.state;
     }
+    getCoin(){
+        return this.coin;
+    }
     setState(newState) {
         this.state = newState;
     }
-    resize
+    createCoin(windowInfo, dist){
+        this.coin.beginFill("0xFFD700");
+        this.coin.lineStyle(1, "0x000000", 1);
+        this.coin.drawCircle(dist, windowInfo.getWindowHeight() * .07, windowInfo.getWindowWidth() * .016);
+        this.coin.interactive = false;
+        this.coin.buttonMode = true;
+        this.coin.on("pointerdown", () => this.mark())
+            .on("pointerdown", () => this.removeCoin())
+            .on("pointerover", () => this.hover())
+            .on("pointerout", () => this.hoverOut());
+        this.coin.endFill();
+    }
+    resizeCoin(app, windowInfo, dist){
+        this.coin.destory();
+        this.coin = new Graphics();
+        this.createCoin(windowInfo, dist);
+    }
+    mark(gameState){
+        if(gameState == 0){
+            if(this.coinState == 0){
+                this.graphic.tint = 0x788cf0;
+                this.coinState = 1;
+                return 1;
+            }
+            else{
+                this.graphic.tint = 0xFFFFFF;
+                this.coinState = 0;
+                return -1;
+            }
+        }
+    }
+    removeCoin(gameState, app){
+        if(gameState == 1){
+            app.getApp().stage.removeChild(this.coin);
+        }
+    }
+    hover(){
+        this.alpha = .5;
+    }
+    hoverOut(){
+        this.alpha = 1;
+    }
+
 }
 
 class Dice27 {
     constructor() {
-        this.app = new PIXI.Application({
-            backgroundAlpha: 0,
-            width: windowWidth,
-            height: windowHeight * .15
-        });
-        this.diceApp = new PIXI.Application({
-            backgroundAlpha: 0,
-            width: windowWidth,
-            height: windowHeight * .15
-        });
+        this.window = new WindowInfo();
+        this.app = new App(this.window, "app");
+        this.diceApp = new App(this.window, "diceApp");
         this.currTotal = baseTotal;
         this.stats = [];
         this.lines = [];
         this.coins = [];
-
-        diceApp.loader.baseUrl = "../images/";
-        diceApp.loader
+        this.scoreboard = [0, 0];
+        
+        this.diceApp.getApp().loader.baseUrl = "../images/";
+        this.diceApp.getApp().loader
             .add("dice0", "dice0.png")
             .add("dice1", "dice1.png")
             .add("dice2", "dice2.png")
@@ -54,7 +134,7 @@ class Dice27 {
             .add("dice4", "dice4.png")
             .add("dice5", "dice5.png")
             .add("dice6", "dice6.png");
-        diceApp.loader.load();
+        this.diceApp.getApp().loader.load();
 
         document.getElementById("overalScore").innerHTML = currTotal;
         document.getElementById("player0").innerHTML = scoreboard[0];
@@ -68,16 +148,25 @@ class Dice27 {
     createGame() {
         document.getElementById("mainPrompt").textContent = "Player 1 Roll";
         document.getElementById("mainPrompt").style = "color:red;";
-        document.getElementById("app").appendChild(app.view);
-        document.getElementById("diceApp").appendChild(diceApp.view);
-
+        this.app.appendApp();
+        this.diceApp.appendApp();
         let j;
+        let dist = this.window.getWindowWidth() * .025;
+        let add = this.window.getWindowWidth() * .025;
         for (let i = 0; i < baseTotal; i++) {
             j = i;
-            coins[i] = new Coin();
+            coins[i] = new Coin(this.window, dist);
+            dist = dist + add;
         }
     }
-}*/
+
+    resize(){
+        window.resizeWindow();
+        for(let i = 0; i < baseTotal; i++){
+            coins[i].resizeCoin(this.window);
+        }
+    }
+}
 
 var chipSize = windowWidth * .016;
 var currTotal = 27;
