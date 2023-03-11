@@ -102,11 +102,3 @@ function updateChart(data) {
     .attr("width", x.bandwidth())
     .attr("height", d => height - y(d));
 }
-
-const heightOutput = document.querySelector("#height");
-const widthOutput = document.querySelector("#width");
-
-
-function resize() {
-  simulator.resize();
-}
