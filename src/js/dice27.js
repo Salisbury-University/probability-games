@@ -365,9 +365,17 @@ class Dice27 {
             document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Answer";
             document.getElementById("pilesInput").focus();
         }
-        document.getElementById("mainPrompt").textContent = "Good Job! Create Another Pile";
+        else {
+            document.getElementById("mainPrompt").textContent = "Good Job! Create Another Pile";
+        }
     }
     auto() {
+        if (this.#currTotal < this.#rollValue) {
+            document.getElementById("pilesMake").hidden = true;
+            document.getElementById("pilesQuestion").hidden = false;
+            document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Answer";
+            document.getElementById("pilesInput").focus();
+        }
         let totalPiles = Math.floor(this.#currTotal / this.#rollValue);
         while (this.#numberPiles != totalPiles) {
             this.#createPile();
