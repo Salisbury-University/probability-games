@@ -135,8 +135,8 @@ function needleXY() {
   for (let j = 0; j < dropNeedles; j++) {
     //randomzied x and y centers
     xCenter = Math.random() * windowWidth;
-    
-    //testing dropping needles not on edge
+
+    //testing dropping needles not on edge (or we randomly drop again)
     if(xCenter < needleLength){
       xCenter += needleLength
     }else if(xCenter > windowWidth-needleLength){
