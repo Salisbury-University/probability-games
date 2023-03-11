@@ -8,7 +8,6 @@ const MINRUNS = 1;
 const MAXRUNS = 1000000;
 
 var gameLog = [];
-var presets = [];
 
 class SumOfDiceSimulation {
   constructor(confMap) {
@@ -86,17 +85,21 @@ simConf.set("totalChipsPlaced", 0);
 simConf.set("reqChips", 10);
 simConf.set("numRuns", 100);
 
+const distributions = new Map();
+var distCounter = 0;
+
 function updateSimulateButton() {
   if (simConf.get("totalChipsPlaced") == simConf.get("reqChips")) {
     document.getElementById("simBtn").disabled = false;
-    // updateDistChart();
+    document.getElementById("saveButton").disabled = false;
   } else {
     document.getElementById("simBtn").disabled = true;
+    document.getElementById("saveButton").disabled = true;
   }
 }
 
 function removeChips(ele) {
-  let cardNo = Number(ele.parentElement.id.split("d")[1]) - 2;
+  let cardNo = Number(ele.parentElement.parentElement.id.split("d")[1]) - 2;
   let numChips = Number(ele.innerHTML.split("-")[1]);
 
   currChips = simConf.get("chipsPlaced")[cardNo];
@@ -118,13 +121,16 @@ function removeChips(ele) {
 }
 
 function addChips(ele) {
-  let cardNo = Number(ele.parentElement.id.split("d")[1]) - 2;
-  let numChips = Number(ele.innerHTML.charAt(1));
+  let cardNo = Number(ele.parentElement.parentElement.id.split("d")[1]) - 2;
+  let numChips = Number(ele.innerHTML.split("+")[1]);
 
   // update the card
   currChips = simConf.get("chipsPlaced")[cardNo];
+
+  // if the total is still in range, add chips
   if (simConf.get("totalChipsPlaced") + numChips <= 10) {
     simConf.get("chipsPlaced")[cardNo] = currChips + numChips;
+    console.log(simConf.get("chipsPlaced")[cardNo]);
 
     // update the totals
     tot = simConf.get("totalChipsPlaced");
@@ -139,6 +145,16 @@ function addChips(ele) {
     );
     updateSimulateButton();
   }
+}
+
+function clearChips() {
+  for (let i = 0; i < 10; i++) {
+    document.getElementById(`card${i + 2}label`).innerHTML = "0";
+    simConf.get("chipsPlaced")[i] = 0;
+  }
+  simConf.set("totalChipsPlaced", 0);
+  updateRemainingChips(10);
+  updateSimulateButton();
 }
 
 // updates the remaining chips label
@@ -189,6 +205,86 @@ function simulate() {
 
   // re-enable all the html elments
   button.disabled = false;
+}
+
+function switchDistribution(ele) {
+  let dropdown = document.getElementById("distDropdown");
+
+  let originalDist = dropdown.innerHTML;
+  let newDist = ele.innerHTML;
+
+  dropdown.innerHTML = newDist;
+  ele.innerHTML = originalDist;
+
+  if (newDist == "New Distribution") {
+    document.getElementById("saveButton").innerHTML = "Save Distribution";
+  } else {
+    document.getElementById(
+      "saveButton"
+    ).innerHTML = `Overwrite Distribution ${Number(newDist.split(" ")[1])}`;
+  }
+
+  loadDistribution(newDist);
+}
+
+function loadDistribution(html) {
+  let distNo = Number(html.split(" ")[1]);
+
+  // don't load a new [undefined] distribution
+  if (distNo != 0) {
+    let dist = distributions.get(`Distribution${distNo}`);
+
+    for (let i = 0; i < 11; i++) {
+      // set the inner HTML for each card, then call the addChips function
+      document.getElementById(`card${i + 2}label`).innerHTML = dist[i];
+
+      // actually update the internal counter
+      simConf.get("chipsPlaced")[i] = dist[i];
+    }
+  }
+}
+
+function saveDistribution() {
+  let dropdown = document.getElementById("distDropdown");
+  let distName = dropdown.innerHTML.replace(/\s/g, "");
+
+  // if creating a new distribution
+  if (distName == "NewDistribution") {
+    // save preset
+    distName = `Distribution${distCounter + 1}`;
+
+    // this line breaks things
+    distributions.set(distName, new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+
+    for (let i = 0; i < 11; i++) {
+      distributions.get(distName)[i] = simConf.get("chipsPlaced")[i];
+    }
+
+    // add html
+    dropdownList = document.getElementById("dropdownList");
+
+    // create new Distribution HTML with the stuff
+    newDistribution = document.createElement("li");
+    newDistribution.innerHTML = `<p class="dropdown-item" onclick="switchDistribution(this);">Distribution ${
+      distCounter + 1
+    }</p> `;
+
+    // add new distribution to the list
+    dropdownList.appendChild(newDistribution);
+
+    //update distribution counter
+    distCounter += 1;
+  } else {
+    // overwrite an existing distribution
+    let distNum = distName.split("t")[1];
+
+    // reset the distribution
+    for (let i = 0; i < 11; i++) {
+      distributions.get(distName)[i] = simConf.get("chipsPlaced")[i];
+    }
+  }
+
+  // add a message 'distribution saved as preset #'
 }
 
 function randomPlacement() {
