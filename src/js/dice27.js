@@ -1,6 +1,4 @@
-const baseTotal = 27;
-const PLAYER_1 = 0;
-const PLAYER_2 = 1;
+const baseTotal = 3;
 const AUDIO_ROLL = new Audio("../sounds/dice_roll.mp3");
 const AUDIO_WRONG = new Audio("../sounds/wrong.mp3");
 const AUDIO_CORRECT = new Audio("../sounds/point_2.mp3");
@@ -83,8 +81,12 @@ class Coin {
         this.#state = 0;
     }
     #removeCoin() {
-
+        if (game.getGameState() == 1) {
+            game.getApp().stage.removeChild(this.#coin);
+            game.updateScore();
+        }
     }
+
     #hover() {
         this.#coin.alpha = .5;
     }
@@ -183,6 +185,9 @@ class Dice27 {
             this.#stats[i] = 0;
         }
     }
+    getApp() {
+        return this.#app.getApp();
+    }
     getGameState() {
         return this.#gameState;
     }
@@ -227,12 +232,12 @@ class Dice27 {
         this.#diceApp.getApp().ticker.add(() => {
             //rolling swap images
             if (ticks % 5 == 0 && ticks < 50) {
-                this.#rollValue = Math.floor(Math.random() * 6) + 1;
+                this.#rollValue = ((Math.floor(Math.random() * 600) + 1) % 6) + 1;
                 this.#dice.texture = this.#diceApp.getApp().loader.resources[`dice${this.#rollValue}`].texture;
             }
             //done rolling
             else if (ticks == 50) {
-                document.getElementById("mainPrompt").textContent = "Player " + (playerTurn + 1) + " Answer";
+                document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Answer";
                 document.getElementById("questionCard").hidden = false;
                 document.getElementById("rollNumber1").textContent = this.#rollValue;
                 document.getElementById("rollNumber2").textContent = this.#rollValue;
@@ -240,7 +245,6 @@ class Dice27 {
 
                 //set the gamestate to pile creation state and make coins interactive
                 this.#gameState = 0;
-                console.log(this.#rollValue);
                 for (let i = 0; i < this.#currTotal; i++) {
                     this.#coins[i].setInteractive(1);
                 }
@@ -259,7 +263,10 @@ class Dice27 {
     }
     checkPile() {
         if (this.#currTotal < this.#rollValue) {
-            //skip
+            document.getElementById("pilesMake").hidden = true;
+            document.getElementById("pilesQuestion").hidden = false;
+            document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Answer";
+            document.getElementById("pilesInput").focus();
         }
         else if (this.#numberClicked == this.#rollValue) {
             playAudio(AUDIO_CORRECT);
@@ -273,7 +280,6 @@ class Dice27 {
     checkPileAnswer() {
         let userInput = document.getElementById("pilesInput").value;
         if (userInput == this.#numberPiles) {
-            this.#numberPiles = 0;
             playAudio(AUDIO_CORRECT);
             document.getElementById("pilesQuestion").hidden = true;
             document.getElementById("remainderQuestion").hidden = false;
@@ -303,11 +309,8 @@ class Dice27 {
                 }
             }
             else {
-                document.getElementById("remainderQuestion").hidden = true;
-                document.getElementById("remainderInput").value = "";
-                document.getElementById("questionCard").hidden = true;
-                this.#turn == 0 ? this.#turn = 1 : this.#turn = 0;
-                this.#resetTint();
+                this.#swapPlayer();
+
             }
         }
         else {
@@ -315,6 +318,47 @@ class Dice27 {
             document.getElementById("remainderInput").click();
             document.getElementById("mainPrompt").textContent = "Wrong try again";
         }
+    }
+    updateScore() {
+        this.#currTotal--;
+        this.#scoreboard[this.#turn]++;
+        document.getElementById("overalScore").innerHTML = this.#currTotal;
+        document.getElementById("player" + this.#turn).innerHTML = this.#scoreboard[this.#turn];
+        if (this.#currTotal == 0) {
+            document.getElementById("app").removeChild(this.#app.getApp().view);
+            document.getElementById("diceApp").removeChild(this.#diceApp.getApp().view);
+            document.getElementById("rollButton").hidden = true;
+            document.getElementById("mainPrompt").hidden = true;
+            if (this.#scoreboard[0] > this.#scoreboard[1]) {
+                document.getElementById("overalScore").innerHTML = "Player 1 Wins!";
+            }
+            else {
+                document.getElementById("overalScore").innerHTML = "Player 2 Wins!";
+            }
+            document.getElementById("resetButton").hidden = false;
+            document.getElementById("results").hidden = false;
+        }
+        else if (this.#currTotal == (this.#numberPiles * this.#rollValue)) {
+            this.#swapPlayer();
+        }
+    }
+    #swapPlayer() {
+        this.#turn == 0 ? this.#turn = 1 : this.#turn = 0;
+        if (this.#turn == 0) {
+            document.getElementById("mainPrompt").style = "color:red;";
+        }
+        else {
+            document.getElementById("mainPrompt").style = "color:blue;";
+        }
+        this.#numberPiles = 0;
+        this.#resetTint();
+        this.#removeLines();
+        document.getElementById("remainderQuestion").hidden = true;
+        document.getElementById("remainderInput").value = "";
+        document.getElementById("questionCard").hidden = true;
+        document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Roll";
+        document.getElementById("rollButton").hidden = false;
+
     }
     #createPile() {
         this.#resetTint();
@@ -327,7 +371,7 @@ class Dice27 {
         this.#numberPiles++;
         this.#numberClicked = 0;
         if (this.#numberPiles == Math.floor(this.#currTotal / this.#rollValue)) {
-            for (let i = temp; i < currTotal; i++) {
+            for (let i = temp; i < this.#currTotal; i++) {
                 this.#coins[i].setInteractive(0);
             }
             document.getElementById("pilesQuestion").hidden = false;
@@ -347,6 +391,11 @@ class Dice27 {
     #resetTint() {
         for (let i = this.#numberPiles * this.#rollValue; i < this.#currTotal; i++) {
             this.#coins[i].unmark();
+        }
+    }
+    #removeLines() {
+        for (let i = 0; i < baseTotal; i++) {
+            this.#app.getApp().stage.removeChild(this.#lines[i].getLine());
         }
     }
     resize() {
