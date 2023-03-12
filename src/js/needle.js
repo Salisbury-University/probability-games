@@ -84,7 +84,16 @@ function changeLines(num) {
   }
 }
 
+function guessPI(){
+  console.log("Function called");
+  document.getElementsById("statsLocated").setAttribute("hidden","hidden");
+  document.getElementById("guessingPI").removeAttribute("hidden");
+}
+
 function needleXY() {
+  
+  document.getElementById("guessPIButton").removeAttribute("disabled");
+
   let dropNeedles = document.getElementById("amountOfNeedles").value;
   console.log("Value of lines.length: " + lines.length);
   for (let i = 0; i < lines.length; i++) {

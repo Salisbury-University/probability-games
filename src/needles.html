@@ -5,8 +5,7 @@
 	<style>
 		canvas {
 			margin-top: 5px;
-			background-color: red;
-			padding: 10px;
+			border: 4px solid black;
 			margin-left: 12%;
 		}
 	</style>
@@ -42,22 +41,22 @@
 					</button>
 				</div>
 				<div class="modal-body">
-						<div class="form-group">
-							<button onclick="showDropType()"> Drop Type</button>
-							<button onclick="showGridInfo()">Grid Info</button>
-							<div id="dropTypeData">
-								<p>Cumulative: Each time you click drop needles, the needles are added to the page</p>
-								<p>Singular: Each time you click drop needles, the page and data are reset</p>
-								<input type="radio" name="dropType" value="Cumulative">Cumulative<br>
-								<input type="radio" name="dropType" value="Singular">Singular<br>
-							</div>
-							<div id="gridData" hidden>
-								<p> There are  <span id="gridAmount"></span> grid lines</p>
-								<button class="btn btn-primary" onclick="changeLines(1)">+1</button>
-								<button class="btn btn-primary" onclick="changeLines(-1)">-1</button>
-
-							</div>
+					<div class="form-group">
+						<button onclick="showDropType()"> Drop Type</button>
+						<button onclick="showGridInfo()">Grid Info</button>
+						<div id="dropTypeData">
+							<p>Cumulative: Each time you click drop needles, the needles are added to the page</p>
+							<p>Singular: Each time you click drop needles, the page and data are reset</p>
+							<input type="radio" name="dropType" value="Cumulative">Cumulative<br>
+							<input type="radio" name="dropType" value="Singular">Singular<br>
 						</div>
+						<div id="gridData" hidden>
+							<p> There are <span id="gridAmount"></span> grid lines</p>
+							<button class="btn btn-primary" onclick="changeLines(1)">+1</button>
+							<button class="btn btn-primary" onclick="changeLines(-1)">-1</button>
+
+						</div>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
@@ -134,21 +133,26 @@
 
 	<!--This is the stats area-->
 	<div class="row g-0 bg-success" style="text-align: center;border-top: 4px solid black;">
-		<h1> Stats</h1>
-		<div class="col">
+		<h1 id="statsH1"> Stats <button id="guessPIButton" onclick="guessPI()" disabled> Guess PI</button></h1>
+		<div id="guessingPI" hidden>
+			<h1>Hlello there</h1>
+		</div>
+
+		<div class="col" id="statsLocated">
 			<h3 id="estimation"></h3>
 			<h3 id="realPi"> </h3>
 			<h3 id="percentError"></h3>
 		</div>
-		<div class="col">
+		<div class="col" id="statsLocated">
 			<h3 id="total"> </h3>
 			<h3 id="needCross"></h3>
 			<h3 id="needleDontCross"> </h3>
 		</div>
-		<div class="col">
+		<div class="col" id="statsLocated">
 			<h3 id="needLength"></h3>
 			<h3 id="gridSpace"> </h3>
 		</div>
+
 	</div>
 </body>
 
