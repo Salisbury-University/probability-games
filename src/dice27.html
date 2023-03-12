@@ -1,14 +1,15 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/dice27.css" type="text/css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="../css/dice27.css" type="text/css">
 
-    <title>Game of 27</title>
+  <title>Game of 27</title>
 
 </head>
 
@@ -31,156 +32,104 @@
             <a class="nav-link" href="https://github.com/Salisbury-University/probability-games.git">GitHub</a>
           </li>
         </ul>
+        <div class="btn-group mx-2" role="group" aria-label="Basic radio toggle button group">
+          <input type="radio" class="btn-check" name="btnradio" id="basic_btn" autocomplete="off" checked />
+          <label class="btn btn-outline-primary" for="basic_btn">Basic</label>
+
+          <input type="radio" class="btn-check" name="btnradio" id="advanced_btn" autocomplete="off" />
+          <label class="btn btn-outline-primary" for="advanced_btn">Advanced</label>
+        </div>
+
+        <script>
+          document.getElementById("advanced_btn").onclick = function () {
+            window.location.href = "dice27Sim.html";
+          };
+        </script>
       </div>
     </div>
   </nav>
 
-    <div id="app"></div>
+  <div id="container" class="container-fluid text-center">
 
-    <div class="container text-center">
-        <div class="row">
-            <div id="overalScore"></div>
-        </div>
-        <div class="row">
-          <h2 id="mainPrompt">Press Play Game to Play!</h2>
-      </div>
-        <div class="row">
-            <div class="col customCard">
-                <div class="customCard">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body" style="color:red;">
-                            <div class="player">Player 1</div>
-                            <div class="score" id="player0"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                
-                <div id="questionCard" class="customCard" hidden>
-                    <div class="card" style="width: 18rem;">
-                        <div id="pilesQuestion" class="card-body" hidden>
-                            <div>Create the maximum number of piles of  <strong><span id="rollNumber"></span></strong> by selecting groups. Press submit once a group is made.</div>
-                            <!-- <label for="remainderInput" class="visually-hidden">Number of Piles</label>
-                            <input type="number" min="0" class="form-control" id="pilesInput" placeholder="Number of Piles" required> -->
-                            <button type="button" class="btn btn-success" onclick="numberPilesCheck()">Submit</button>
-                            <button type="button" class="btn btn-success" onclick="autoComplete()">Auto</button>
-                        </div>
-                        <div id="reminaderQuestion" class="card-body" hidden>
-                            <div>How many chips are left over?</div>
-                            <label for="remainderInput" class="visually-hidden">Remainder</label>
-                            <input type="number" min="0" class="form-control" id="remainderInput" placeholder="Remainder" required>
-                            <button type="button" class="btn btn-success" onclick="remainderCheck()">Submit</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="customCard">
-                    <div class="card" style="width: 18rem;">
-                        <div class="card-body" style="color:blue;">
-                            <div class="player"">Player 2</div>
-                            <div class="score" id="player1"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div id="diceApp"></div>
-        </div>
-        <br>
-        <div class="row">
-            <button id="createGame" type="button" class="btn btn-success btn-lg" onclick="createGame()">Play Game</button>
-            <button id="rollButton" type="button" class="btn btn-primary btn-lg" onclick="roll()" hidden>Roll</button>
-            <button id="resetButton" type="button" class="btn btn-danger btn-lg" onclick="reset()" hidden>Reset</button>
-        </div>
-        <br>
-        <div class="row">
-            <table id="results" class="table" hidden>
-                <thead>
-                  <tr>
-                    <th scope="col">Total Rolls</th>
-                    <th scope="col">1</th>
-                    <th scope="col">2</th>
-                    <th scope="col">3</th>
-                    <th scope="col">4</th>
-                    <th scope="col">5</th>
-                    <th scope="col">6</th>
-                    <th scope="col">7</th>
-                    <th scope="col">8</th>
-                    <th scope="col">9</th>
-                    <th scope="col">10</th>
-                    <th scope="col">11</th>
-                    <th scope="col">12</th>
-                    <th scope="col">13</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td id="roll0">0</td>
-                    <td id="roll1">0</td>
-                    <td id="roll2">0</td>
-                    <td id="roll3">0</td>
-                    <td id="roll4">0</td>
-                    <td id="roll5">0</td>
-                    <td id="roll6">0</td>
-                    <td id="roll7">0</td>
-                    <td id="roll8">0</td>
-                    <td id="roll9">0</td>
-                    <td id="roll10">0</td>
-                    <td id="roll11">0</td>
-                    <td id="roll12">0</td>
-                    <td id="roll13">0</td>
-                  </tr>
-                </tbody>
-                <thead>
-                    <tr>
-                      <th scope="col">14</th>
-                      <th scope="col">15</th>
-                      <th scope="col">16</th>
-                      <th scope="col">17</th>
-                      <th scope="col">18</th>
-                      <th scope="col">19</th>
-                      <th scope="col">20</th>
-                      <th scope="col">21</th>
-                      <th scope="col">22</th>
-                      <th scope="col">23</th>
-                      <th scope="col">24</th>
-                      <th scope="col">25</th>
-                      <th scope="col">26</th>
-                      <th scope="col">27</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                        <td id="roll14">0</td>
-                        <td id="roll15">0</td>
-                        <td id="roll16">0</td>
-                        <td id="roll17">0</td>
-                        <td id="roll18">0</td>
-                        <td id="roll19">0</td>
-                        <td id="roll20">0</td>
-                        <td id="roll21">0</td>
-                        <td id="roll22">0</td>
-                        <td id="roll23">0</td>
-                        <td id="roll24">0</td>
-                        <td id="roll25">0</td>
-                        <td id="roll26">0</td>
-                        <td id="roll27">0</td>
-                    </tr>
-                  </tbody>
-              </table>
-        </div>
+    <div class="row">
+      <div id="app"></div>
+    </div>
+    <div class="row">
+      <div id="overalScore"></div>
+    </div>
+    <div class="row">
+      <h2 id="mainPrompt">Press Play Game to Play!</h2>
     </div>
 
-    <div class="col text-center" id="helpButton">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-          How to Play
-        </button>
+    <div class="row">
+      <div class="col">
+        <div class="card border-0" style="color:red; margin-left: 40%;">
+          <div class="player">Player 1</div>
+          <div class="score" id="player0"></div>
+        </div>
       </div>
-    
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
+      <div class="col">
+        <div id="questionCard" class="card" hidden>
+          <div id="pilesMake" class="card-body" hidden>
+            <div>Create the maximum number of piles of <strong><span id="rollNumber1"></span></strong> by selecting
+              groups. Press submit once a group is made.</div>
+            <button type="button" class="btn btn-success mx-auto" onclick="createPile()">Submit</button>
+            <button type="button" class="btn btn-success mx-auto" onclick="autoComplete()">Auto</button>
+          </div>
+          <div id="pilesQuestion" class="card-body" hidden>
+            <div>How many piles of <strong><span id="rollNumber2"></span></strong> did you create?</div>
+            <label for="pilesInput" class="visually-hidden">Number of Piles</label>
+            <div class="col-sm-5 text-center">
+              <input type="number" min="0" class="form-control" id="pilesInput" placeholder="Number of Piles" required>
+            </div>
+            <button type="button" class="btn btn-success mx-auto" onclick="pileCountCheck()">Submit</button>
+          </div>
+          <div id="remainderQuestion" class="card" hidden>
+            <div>How many chips are left over?</div>
+            <label for="remainderInput" class="visually-hidden">Remainder</label>
+            <input type="number" min="0" class="form-control" id="remainderInput" placeholder="Remainder" required>
+            <button type="button" class="btn btn-success mx-auto" onclick="remainderCheck()">Submit</button>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card border-0" style="color:blue; margin-right: 40%;">
+          <div class="player">Player 2</div>
+          <div class="score" id="player1"></div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div id="diceApp"></div>
+    </div>
+
+    <div class="row">
+      <button id="createGame" type="button" class="btn btn-success col-6 mx-auto" onclick="createGame()">Play
+        Game</button>
+      <button id="rollButton" type="button" class="btn btn-primary col-6 mx-auto" onclick="roll()" hidden>Roll</button>
+      <button id="resetButton" type="button" class="btn btn-danger col-6 mx-auto" onclick="reset()"
+        hidden>Reset</button>
+    </div>
+
+
+    <br>
+    <div class="row">
+      <div id="graph" hidden>
+        <h2>Number of Rolls: <div id="numberRolls"></div>
+        </h2>
+        <svg width="960" height="500"></svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="col text-center" id="helpButton">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      How to Play
+    </button>
+  </div>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -203,8 +152,8 @@
       </div>
     </div>
   </div>
-        
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
+
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -227,12 +176,13 @@
       </div>
     </div>
   </div>
-    
-    <script src="js/pixi.min.js"></script>
-    <script src="js/dice27.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+
+  <script src="js/d3.min.js"></script>
+  <script src="js/pixi.min.js"></script>
+  <script src="js/dice27.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>
