@@ -470,9 +470,11 @@ function updateChart() {
     .range([0, width])
     .padding(0.1);
 
+  let ymax = d3.max(data);
+
   const y = d3
     .scaleLinear()
-    .domain([0, d3.max(data)])
+    .domain([0, ymax > 0 ? ymax : 1])
     .range([height, 0]);
 
   // create the X and Y axes
