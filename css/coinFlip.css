@@ -26,6 +26,13 @@ h2 {
 	text-align: left;
 }
 
+h3 {
+	font-family: "Calibri";
+	text-shadow: 2px 0 #33373c;
+	font-size: 1.5rem;
+	color: #EBEBDD;
+}
+
 .helpArea {
 	text-align: left;
 }

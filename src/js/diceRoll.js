@@ -814,24 +814,24 @@ function weightedGuess() {
 		document.querySelector("h1").innerHTML = "Your guess was correct, the dice was weighted";
 
 		if(heavierSide == 1)
-			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightHeavierSide) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%";
+			document.getElementById("weightAmount").innerHTML = "Weight: Side 1 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
 		else if(heavierSide == 2)
-			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightLighterSides) + "%/" + (weightHeavierSide) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%";
+			document.getElementById("weightAmount").innerHTML = "Weight: Side 2 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
 		else if(heavierSide == 3)
-			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightHeavierSide) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%";
+			document.getElementById("weightAmount").innerHTML = "Weight: Side 3 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
 		else if(heavierSide == 4)
-			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightHeavierSide) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%";
+			document.getElementById("weightAmount").innerHTML = "Weight: Side 4 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
 		else if(heavierSide == 5)
-			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightHeavierSide) + "%/" + (weightLighterSides) + "%";
+			document.getElementById("weightAmount").innerHTML = "Weight: Side 5 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
 		else
-			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightHeavierSide) + "%";
+			document.getElementById("weightAmount").innerHTML = "Weight: Side 6 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
 	}
 	else {
 		// plays wrong guess audio
 		AUDIO_WRONG.play();
 		
 		document.querySelector("h1").innerHTML = "Your guess was incorrect, the dice was not weighted";
-		document.getElementById("weightAmount").innerHTML = "Weight: 16.66%/16.66%/16.66%/16.66%/16.66%/16.66%";
+		document.getElementById("weightAmount").innerHTML = "Weight: All sides have an even split of 16.66%";
 	}
 	
 
@@ -862,24 +862,24 @@ function notWeightedGuess() {
 		document.querySelector("h1").innerHTML = "Your guess was incorrect, the dice was weighted";
 
 		if(heavierSide == 1)
-			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightHeavierSide) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%";
+			document.getElementById("weightAmount").innerHTML = "Weight: Side 1 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
 		else if(heavierSide == 2)
-			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightLighterSides) + "%/" + (weightHeavierSide) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%";
+			document.getElementById("weightAmount").innerHTML = "Weight: Side 2 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
 		else if(heavierSide == 3)
-			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightHeavierSide) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%";
+			document.getElementById("weightAmount").innerHTML = "Weight: Side 3 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
 		else if(heavierSide == 4)
-			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightHeavierSide) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%";
+			document.getElementById("weightAmount").innerHTML = "Weight: Side 4 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
 		else if(heavierSide == 5)
-			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightHeavierSide) + "%/" + (weightLighterSides) + "%";
+			document.getElementById("weightAmount").innerHTML = "Weight: Side 5 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
 		else
-			document.getElementById("weightAmount").innerHTML = "Weight: " + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightLighterSides) + "%/" + (weightHeavierSide) + "%";
+			document.getElementById("weightAmount").innerHTML = "Weight: Side 6 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
 	}
 	else {
 		// plays correct guess audio
 		AUDIO_CORRECT.play();
 
 		document.querySelector("h1").innerHTML = "Your guess was correct, the dice was not weighted";
-		document.getElementById("weightAmount").innerHTML = "Weight: 16.66%/16.66%/16.66%/16.66%/16.66%/16.66%";
+		document.getElementById("weightAmount").innerHTML = "Weight: All sides have an even split of 16.66%";
 	}
 
 	// resetting global variables
