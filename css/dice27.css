@@ -5,8 +5,14 @@
     font-weight: 100;
 }
 
+
 #rollButton{
     text-align: center;
+}
+
+#questionCard{
+    margin-left: 20%;
+    margin-right: 20%;
 }
 
 #dice{
@@ -14,6 +20,15 @@
     height: auto;
     margin: auto;
 }
+
+.graph div {
+    font: 10px sans-serif;
+    background-color: steelblue;
+    text-align: right;
+    padding: 3px;
+    margin: 1px;
+    color: white;
+  }
 
 .player{
     font-size: 50px;

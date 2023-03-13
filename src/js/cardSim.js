@@ -1,14 +1,53 @@
 // TODO
-// Add "Save Distributions" Button
-// Add cards with +1,2,5 buttons
-// Add clear cards button
-// Move cards to bottom
+// add maximum game number
+// graphs
+// make the table sortable
 
 const MINRUNS = 1;
 const MAXRUNS = 1000000;
 
+function test(ele) {
+  sortBy = ele.innerHTML.replace(/\s/g, "");
+
+  let table, rows, sorting, i, x, y, shouldSwap;
+  let rowIdx = -1;
+
+  if (sortBy == "Min") {
+    rowIdx = 0;
+  } else if (sortBy == "Max") {
+    rowIdx = 1;
+  } else if (sortBy == "Mean") {
+    rowIdx = 2;
+  } else if (sortBy == "Total") {
+    rowIdx = 3;
+  } else if (sortBy == "GamesPlayed") {
+    rowIdx = 4;
+  }
+
+  table = document.getElementById("rollDataTable");
+
+  while (rowIdx != -1 && sorting) {
+    sorting = false;
+    rows = table.rows;
+
+    for (i = 1; i < rows.length - 1; i++) {
+      shouldSwitch = false;
+      x = rows[i].getElementsByTagName("td")[rowIdx];
+      y = rows[i + 1].getElementsByTagName("td")[rowIdx];
+
+      if (Number(x.innerHTML) > Number(y.innerHTML)) {
+        shouldSwitch = true;
+        break;
+      }
+    }
+    if (shouldSwitch) {
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      sorting = true;
+    }
+  }
+}
+
 var gameLog = [];
-var presets = [];
 
 class SumOfDiceSimulation {
   constructor(confMap) {
@@ -86,17 +125,42 @@ simConf.set("totalChipsPlaced", 0);
 simConf.set("reqChips", 10);
 simConf.set("numRuns", 100);
 
+const distributions = new Map();
+var distCounter = 0;
+
+const stats = new Map();
+stats.set("averages", []);
+stats.set("mins", []);
+stats.set("maxes", []);
+
 function updateSimulateButton() {
   if (simConf.get("totalChipsPlaced") == simConf.get("reqChips")) {
     document.getElementById("simBtn").disabled = false;
-    // updateDistChart();
+    document.getElementById("saveButton").disabled = false;
   } else {
     document.getElementById("simBtn").disabled = true;
+    document.getElementById("saveButton").disabled = true;
+  }
+  // also update card highlighting for cards that do/don't have chips on them
+  updateCardColors();
+}
+
+function updateCardColors() {
+  for (let i = 0; i < 11; i++) {
+    if (simConf.get("chipsPlaced")[i] > 0) {
+      document.getElementById(`card${i + 2}`).classList.remove("bg-secondary");
+      document.getElementById(`card${i + 2}`).classList.add("bg-success");
+    } else if (
+      document.getElementById(`card${i + 2}`).classList.contains("bg-success")
+    ) {
+      document.getElementById(`card${i + 2}`).classList.remove("bg-success");
+      document.getElementById(`card${i + 2}`).classList.add("bg-secondary");
+    }
   }
 }
 
 function removeChips(ele) {
-  let cardNo = Number(ele.parentElement.id.split("d")[1]) - 2;
+  let cardNo = Number(ele.parentElement.parentElement.id.split("d")[1]) - 2;
   let numChips = Number(ele.innerHTML.split("-")[1]);
 
   currChips = simConf.get("chipsPlaced")[cardNo];
@@ -118,13 +182,16 @@ function removeChips(ele) {
 }
 
 function addChips(ele) {
-  let cardNo = Number(ele.parentElement.id.split("d")[1]) - 2;
-  let numChips = Number(ele.innerHTML.charAt(1));
+  let cardNo = Number(ele.parentElement.parentElement.id.split("d")[1]) - 2;
+  let numChips = Number(ele.innerHTML.split("+")[1]);
 
   // update the card
   currChips = simConf.get("chipsPlaced")[cardNo];
+
+  // if the total is still in range, add chips
   if (simConf.get("totalChipsPlaced") + numChips <= 10) {
     simConf.get("chipsPlaced")[cardNo] = currChips + numChips;
+    console.log(simConf.get("chipsPlaced")[cardNo]);
 
     // update the totals
     tot = simConf.get("totalChipsPlaced");
@@ -139,6 +206,16 @@ function addChips(ele) {
     );
     updateSimulateButton();
   }
+}
+
+function clearChips() {
+  for (let i = 0; i < 10; i++) {
+    document.getElementById(`card${i + 2}label`).innerHTML = "0";
+    simConf.get("chipsPlaced")[i] = 0;
+  }
+  simConf.set("totalChipsPlaced", 0);
+  updateRemainingChips(10);
+  updateSimulateButton();
 }
 
 // updates the remaining chips label
@@ -174,6 +251,9 @@ function simulate() {
     sim.getTotalRolls()
   );
 
+  // append the stats based on the simulation
+  data.unshift(sim.getAverageRolls());
+
   // after the game is simulated, alter corresponding HTML elements
   document.getElementById("mean_label").innerHTML =
     "Mean Rolls: " + sim.getAverageRolls();
@@ -186,9 +266,93 @@ function simulate() {
   document.getElementById("middle_heading").innerHTML = "Results";
   // delete the sim object
   delete sim;
+  updateChart();
 
   // re-enable all the html elments
   button.disabled = false;
+}
+
+function switchDistribution(ele) {
+  let dropdown = document.getElementById("distDropdown");
+
+  let originalDist = dropdown.innerHTML;
+  let newDist = ele.innerHTML;
+
+  dropdown.innerHTML = newDist;
+  ele.innerHTML = originalDist;
+
+  if (Number(newDist.split(" ")[1]) == 0) {
+    document.getElementById("saveButton").innerHTML = "Save Distribution";
+  } else {
+    document.getElementById(
+      "saveButton"
+    ).innerHTML = `Overwrite Distribution ${Number(newDist.split(" ")[1])}`;
+  }
+
+  loadDistribution(newDist);
+}
+
+function loadDistribution(html) {
+  let distNo = Number(html.split(" ")[1]);
+
+  // don't load a new [undefined] distribution
+  if (distNo != 0) {
+    let dist = distributions.get(`Distribution${distNo}`);
+
+    for (let i = 0; i < 11; i++) {
+      // set the inner HTML for each card, then call the addChips function
+      document.getElementById(`card${i + 2}label`).innerHTML = dist[i];
+
+      // actually update the internal counter
+      simConf.get("chipsPlaced")[i] = dist[i];
+    }
+    simConf.set("totalChipsPlaced", 10);
+    updateRemainingChips(0);
+    updateSimulateButton();
+  }
+}
+
+function saveDistribution() {
+  let dropdown = document.getElementById("distDropdown");
+  let distName = dropdown.innerHTML.replace(/\s/g, "");
+
+  // if creating a new distribution
+  if (distName == "NewDistribution") {
+    // save preset
+    distName = `Distribution${distCounter + 1}`;
+
+    // this line breaks things
+    distributions.set(distName, new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+
+    for (let i = 0; i < 11; i++) {
+      distributions.get(distName)[i] = simConf.get("chipsPlaced")[i];
+    }
+
+    // add html
+    dropdownList = document.getElementById("dropdownList");
+
+    // create new Distribution HTML with the stuff
+    newDistribution = document.createElement("li");
+    newDistribution.innerHTML = `<p class="dropdown-item" onclick="switchDistribution(this);">Distribution ${
+      distCounter + 1
+    }</p> `;
+
+    // add new distribution to the list
+    dropdownList.appendChild(newDistribution);
+
+    //update distribution counter
+    distCounter += 1;
+  } else {
+    // overwrite an existing distribution
+    let distNum = distName.split("t")[1];
+
+    // reset the distribution
+    for (let i = 0; i < 11; i++) {
+      distributions.get(distName)[i] = simConf.get("chipsPlaced")[i];
+    }
+  }
+
+  // add a message 'distribution saved as preset #'
 }
 
 function randomPlacement() {
@@ -268,4 +432,83 @@ function clearTable() {
     .getElementById("rollDataTable")
     .getElementsByTagName("tbody")[0];
   table.innerHTML = "";
+}
+
+data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+function clearChart() {
+  data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+  updateChart();
+}
+
+function updateChart() {
+  if (data.length > 10) {
+    data.pop();
+  }
+
+  // set the dimensions of the chart
+  const margin = { top: 20, right: 20, bottom: 30, left: 40 };
+  const width = 500 - margin.left - margin.right;
+  const height = 300 - margin.top - margin.bottom;
+
+  // select the SVG element
+  const svg = d3.select("svg");
+
+  // remove any existing chart elements
+  svg.selectAll("*").remove();
+
+  // create the chart container
+  const chart = svg
+    .append("g")
+    .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+  // create the X and Y scales
+  const x = d3
+    .scaleBand()
+    .domain(data.map((d, i) => i + 1))
+    .range([0, width])
+    .padding(0.1);
+
+  const y = d3
+    .scaleLinear()
+    .domain([0, d3.max(data)])
+    .range([height, 0]);
+
+  // create the X and Y axes
+  const xAxis = d3.axisBottom(x);
+  const yAxis = d3.axisLeft(y);
+
+  // add the X and Y axes to the chart
+  chart.append("g").attr("transform", `translate(0, ${height})`).call(xAxis);
+  chart.append("g").call(yAxis);
+
+  // create the bars
+  chart
+    .selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("class", "bar")
+    .attr("x", (d, i) => x(i + 1))
+    .attr("y", (d) => y(d))
+    .attr("width", x.bandwidth())
+    .attr("height", (d) => height - y(d));
+
+  // chart
+  //   .append("text")
+  //   .attr("class", "x label")
+  //   .attr("text-anchor", "end")
+  //   .attr("x", width)
+  //   .attr("y", height + 20)
+  //   .text("Most Recent to Least Recent Simulations");
+
+  chart
+    .append("text")
+    .attr("class", "y label")
+    .attr("text-anchor", "end")
+    .attr("y", -40)
+    .attr("dy", ".75em")
+    .attr("transform", "rotate(-90)")
+    .text("Average Rolls per Game");
 }
