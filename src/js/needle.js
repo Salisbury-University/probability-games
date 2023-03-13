@@ -237,7 +237,7 @@ function needleXY() {
       }
     }
 
-    playAudio();
+   // playAudio();
     // this is all the stats to put on the screen 
     let pi = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop)); // pi estimation 
     let error = Math.abs((pi - Math.PI) / Math.PI) * 100; //percent error
