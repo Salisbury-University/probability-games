@@ -6,37 +6,28 @@
 }
 
 
-#rollButton{
+#rollButton {
     text-align: center;
 }
 
-#questionCard{
+#questionCard {
     margin-left: 20%;
     margin-right: 20%;
 }
 
-#dice{
+#dice {
     max-width: 10%;
     height: auto;
     margin: auto;
 }
 
-.graph div {
-    font: 10px sans-serif;
-    background-color: steelblue;
-    text-align: right;
-    padding: 3px;
-    margin: 1px;
-    color: white;
-  }
-
-.player{
+.player {
     font-size: 50px;
     text-align: center;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
-.score{
+.score {
     font-size: 50px;
     text-align: center;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;

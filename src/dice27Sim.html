@@ -53,21 +53,22 @@
     <div class="row">
       <h1>Game of 27 Simulator</h1>
     </div>
+
     <div class="row">
-      <label for="pilesInput" class="visually-hidden">Number of Piles</label>
-      <div class="col-sm-5">
-        <input type="number" min="0" class="form-control" id="userInput" placeholder="Number of Games" required>
-        <button type="button" class="btn btn-success mx-auto" onclick="simulate()">Submit</button>
-        <button type="button" class="btn btn-danger mx-auto" onclick="reset()">Reset</button>
+      <div class="col-sm-5 mx-auto">
+        <input type="text" pattern="[0-9]+" class="form-control" id="userInput" placeholder="Number of Games" required>
       </div>
-
-      <div>
-        <svg width="960" height="500"></svg>
-      </div>
-
     </div>
     <div class="row">
-      <div class="graph"></div>
+      <div class="col-sm-5 mx-auto">
+        <button type="button" class="btn btn-success" onclick="simulate()">Submit</button>
+        <button type="button" class="btn btn-danger" onclick="reset()">Reset</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <svg id="chart" width="960" height="500"></svg>
+      </div>
     </div>
     <div class="row">
       <h1>Results</h1>
@@ -75,6 +76,9 @@
     <div class="row">
       <div class="col">
         <h2>Total Rolls: <div id="totalRolls">0</div>
+      </div>
+      <div class="col">
+        <h2>Number of Hits: <div id="quantity"></div>
       </div>
       <div class="col">
         <h2>Number of Games: <div id="totalGames">0</div>
@@ -85,16 +89,9 @@
     <div id="table">
     </div>
   </div>
-  <p>Resize the browser window to fire the <code>resize</code> event.</p>
-  <p>Window height: <span id="height"></span></p>
-  <p>Window width: <span id="width"></span></p>
-
 
   <script src="js/d3.min.js"></script>
   <script src="js/dice27Sim.js"></script>
-  <script>
-    window.addEventListener("resize", resize);
-  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
