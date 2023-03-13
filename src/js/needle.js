@@ -1,6 +1,6 @@
 // create window height variable
-const windowWidth = document.body.clientWidth * .75;
-const windowHeight = window.innerHeight * .65;
+let windowWidth = document.body.clientWidth * .75;
+let windowHeight = window.innerHeight * .65;
 let canvas = document.getElementById('my-canvas');
 const halfPi = Math.PI / 2
 
@@ -24,12 +24,11 @@ document.getElementById("amountOfNeedles").addEventListener("keydown", function 
 
 
 function resizeCanvas() {
-  canvas.width = document.body.clientWidth * .75;; // Set the canvas width to half of the window width
-  canvas.height = window.innerHeight * .65; // Set the canvas height to half of the window height
+  canvas.width = document.body.clientWidth * .75;; // Set the canvas width to 75% of the window width
+  canvas.height = window.innerHeight * .65; // Set the canvas height to 65% of the window height
+  windowWidth = document.body.clientWidth * .75;
+  windowHeight = window.innerHeight * .65;
 }
-
-// Call resizeCanvas initially to set the initial canvas size
-resizeCanvas();
 
 // Add an event listener to resize the canvas when the window size changes
 window.addEventListener('resize', resizeCanvas);
@@ -99,13 +98,13 @@ function changeLines(num) {
   }
 }
 
-function continueGame(){
+function continueGame() {
   document.getElementById("resultArea").setAttribute("hidden", "hidden");
   document.getElementById("statsLocated1").removeAttribute("hidden");
   document.getElementById("statsLocated2").removeAttribute("hidden");
   document.getElementById("statsLocated3").removeAttribute("hidden");
   document.getElementById("guessPIButton").removeAttribute("hidden");
-  document.getElementById("continueButton").setAttribute("hidden","hidden");
+  document.getElementById("continueButton").setAttribute("hidden", "hidden");
 
   document.getElementById("guessPIButton").setAttribute("disabled", "disabled");
   document.getElementById("dropNeedleButton").removeAttribute("disabled");
@@ -118,7 +117,7 @@ function guessingPIfunc() {
   document.getElementById("percentErrorSection").innerHTML = "Percent Error: " + Math.abs((document.getElementById("guessingPiNum").value - Math.PI) / Math.PI) * 100 + "%";
   document.getElementById("guessingPI").setAttribute("hidden", "hidden");
 
-  document.getElementById("guessPIButton").setAttribute("hidden","hidden");
+  document.getElementById("guessPIButton").setAttribute("hidden", "hidden");
   document.getElementById("continueButton").removeAttribute("hidden");
 }
 
@@ -142,8 +141,6 @@ function guessPI() {
 
 function needleXY() {
 
-  document.getElementById("guessPIButton").removeAttribute("disabled");
-
   let dropNeedles = document.getElementById("amountOfNeedles").value;
   console.log("Value of lines.length: " + lines.length);
   for (let i = 0; i < lines.length; i++) {
@@ -151,7 +148,10 @@ function needleXY() {
   }
   if (dropNeedles > 50000) {
     alert("Please enter 50,000 Needles or less");
+  } else if (dropNeedles <= 0) {
+    alert("Please enter 1 or more Needles");
   } else {
+    document.getElementById("guessPIButton").removeAttribute("disabled");
 
     if (dropTypeValue == "Singular") {
       clearNeedles();
@@ -237,7 +237,7 @@ function needleXY() {
       }
     }
 
-    playAudio();
+    // playAudio();
     // this is all the stats to put on the screen 
     let pi = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop)); // pi estimation 
     let error = Math.abs((pi - Math.PI) / Math.PI) * 100; //percent error
