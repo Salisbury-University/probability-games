@@ -8,6 +8,15 @@ const delay = 10000;
 
 var check = 0;
 
+window.onload = function () {
+    let volume = document.getElementById("volume-control");
+    volume.addEventListener("input", function (e) {
+        AUDIO_ROLL.volume = e.currentTarget.value / 100;
+        AUDIO_WRONG.volume = e.currentTarget.value / 100;
+        AUDIO_CORRECT.volume = e.currentTarget.value / 100;
+    });
+};
+
 class Line {
     #line;
     constructor(dist, chipSize) {
@@ -484,10 +493,10 @@ class Dice27 {
             .attr("width", x.bandwidth())
             .attr("height", d => height - y(d));
     }
-    #playAudio(audioName) {/*
+    #playAudio(audioName) {
         audioName.pause();
         audioName.currentTime = 0;
-        audioName.play();*/
+        audioName.play();
     }
     /*resize() {
         this.#window.resizeWindow();
@@ -543,6 +552,8 @@ function autoComplete() {
 function remainderCheck() {
     game.checkRemainderAnswer();
 }
+
+
 /*
 function resize() {
     if (check >= (Date.now() - delay))
