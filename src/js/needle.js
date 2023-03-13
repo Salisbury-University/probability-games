@@ -335,7 +335,7 @@ function playAudio() {
   needleDropSound.play();
 }
 
-function needleXY() {
+/*function needleXY() {
 
   if (dropTypeValue == "Singular") {
     clearNeedles();
@@ -399,8 +399,8 @@ function needleXY() {
       app.stage.addChild(lineInArray);
       //pushing the new line into the array
       lineArray.push(lineInArray);
-      setTimeout(colorNeedles(yEnd, yCenter), 1500);
-      lineInArray.tint = needleColor
+      //setTimeout(colorNeedles(yEnd, yCenter), 1500);
+      //lineInArray.tint = needleColor
     }
 
 
@@ -418,11 +418,11 @@ function needleXY() {
   document.getElementById("needleDontCross").innerHTML = "Needles that Don't Cross a Line: " + (needleDrop - needleCross);
   document.getElementById("total").innerHTML = "Total Needles Dropped: " + needleDrop;
   document.getElementById("percentError").innerHTML = "Percent Error for PI: " + Math.round(error * 10000) / 10000 + "%";
-}
+}*/
 
 
 function colorNeedles(yEnd, yCenter) { // over writes the colors even though the for loop it's copied from doesn't
-  
+  for (let k = 0; k < lines.length; k++) {
     //checks to see if the needle dropped not crosses the grid lines and changes color red
     if ((yEnd <= lines[k] && yCenter <= lines[k]) || (yEnd >= lines[k] && yCenter >= lines[k])) {
       needleColor = 0xbf40bf;
@@ -431,7 +431,9 @@ function colorNeedles(yEnd, yCenter) { // over writes the colors even though the
     else {
       needleColor = 0xf50c878;
       needleCross++;
+      k = lines.length;
     }
+  }
 }
 //clears needles from page and removes them from the array
 function clearNeedles() {
