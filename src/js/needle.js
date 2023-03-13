@@ -1,12 +1,12 @@
 // create window height variable
 const windowWidth = document.body.clientWidth * .75;
 const windowHeight = window.innerHeight * .65;
-const canvas = document.getElementById('my-canvas');
+let canvas = document.getElementById('my-canvas');
 const halfPi = Math.PI / 2
 
 //create Application Window
 let app = new PIXI.Application({
-  //view: canvas,
+  view: canvas,
   backgroundColor: 0x323031,
   width: windowWidth,
   height: windowHeight
@@ -21,6 +21,18 @@ document.getElementById("amountOfNeedles").addEventListener("keydown", function 
     needleXY();
   }
 });
+
+
+function resizeCanvas() {
+  canvas.width = document.body.clientWidth * .75;; // Set the canvas width to half of the window width
+  canvas.height = window.innerHeight * .65; // Set the canvas height to half of the window height
+}
+
+// Call resizeCanvas initially to set the initial canvas size
+resizeCanvas();
+
+// Add an event listener to resize the canvas when the window size changes
+window.addEventListener('resize', resizeCanvas);
 
 
 
