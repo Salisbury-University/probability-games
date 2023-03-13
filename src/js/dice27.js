@@ -484,10 +484,10 @@ class Dice27 {
             .attr("width", x.bandwidth())
             .attr("height", d => height - y(d));
     }
-    #playAudio(audioName) {
+    #playAudio(audioName) {/*
         audioName.pause();
         audioName.currentTime = 0;
-        audioName.play();
+        audioName.play();*/
     }
     /*resize() {
         this.#window.resizeWindow();
