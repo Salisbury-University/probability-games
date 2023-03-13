@@ -1,5 +1,6 @@
 // variables for sound effect audio
 const AUDIO_FLIP = new Audio("../sounds/coin_flip.mp3");
+AUDIO_FLIP.playbackRate=2.5;
 const AUDIO_WRONG = new Audio("../sounds/wrong.mp3");
 const AUDIO_CORRECT = new Audio("../sounds/point_2.mp3");
 
@@ -19,6 +20,10 @@ var weightHeavierSide = Math.floor(Math.random() * difference) + min;
 
 // determines if tails or heads is the heavier side (1 for heads and 2 for tails)
 var heavierSide = Math.floor(Math.random() * 2) + 1;
+
+//hide yes and no buttons for guessing weight
+document.getElementById("yesGuessWeight").hidden = true;
+document.getElementById("noGuessWeight").hidden = true;
 
 // Function to flip coin
 function flipCoin() {
@@ -189,9 +194,13 @@ function flipCoinMultiple() {
 }
 
 function weightedGuess() {
-	// hides weighteed and not weighted button when user makes guess
+	// hides weighted and not weighted button when user makes guess
 	document.getElementById("weighted").hidden = true;
 	document.getElementById("notWeighted").hidden = true;
+
+	//document.querySelector("h3").innerHTML = "Would you like to guess the weight?";
+	//document.getElementById("yesGuessWeight").hidden = false;
+	//document.getElementById("noGuessWeight").hidden = false;
 
 	if(isWeighted == 1) {
 		// plays correct guess audio
@@ -221,9 +230,13 @@ function weightedGuess() {
 }
 
 function notWeightedGuess() {
-	// hides weighteed and not weighted button when user makes guess
+	// hides weighted and not weighted button when user makes guess
 	document.getElementById("weighted").hidden = true;
 	document.getElementById("notWeighted").hidden = true;
+
+	//document.querySelector("h3").innerHTML = "Would you like to guess the weight?";
+	//document.getElementById("yesGuessWeight").hidden = false;
+	//document.getElementById("noGuessWeight").hidden = false;
 
 	if(isWeighted == 1) {
 		// plays wrong guess audio
@@ -251,6 +264,7 @@ function notWeightedGuess() {
 	weightHeavierSide = Math.floor(Math.random() * difference) + min;
 	heavierSide = Math.floor(Math.random() * 2) + 1;
 }
+
 
 
 // Get the modal
