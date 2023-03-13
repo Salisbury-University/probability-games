@@ -1,6 +1,6 @@
 // create window height variable
-const windowWidth = document.body.clientWidth * .75;
-const windowHeight = window.innerHeight * .65;
+let windowWidth = document.body.clientWidth * .75;
+let windowHeight = window.innerHeight * .65;
 let canvas = document.getElementById('my-canvas');
 const halfPi = Math.PI / 2
 
@@ -24,12 +24,11 @@ document.getElementById("amountOfNeedles").addEventListener("keydown", function 
 
 
 function resizeCanvas() {
-  canvas.width = document.body.clientWidth * .75;; // Set the canvas width to half of the window width
-  canvas.height = window.innerHeight * .65; // Set the canvas height to half of the window height
+  canvas.width = document.body.clientWidth * .75;; // Set the canvas width to 75% of the window width
+  canvas.height = window.innerHeight * .65; // Set the canvas height to 65% of the window height
+  windowWidth = document.body.clientWidth * .75;
+  windowHeight = window.innerHeight * .65;
 }
-
-// Call resizeCanvas initially to set the initial canvas size
-resizeCanvas();
 
 // Add an event listener to resize the canvas when the window size changes
 window.addEventListener('resize', resizeCanvas);
@@ -237,7 +236,7 @@ function needleXY() {
       }
     }
 
-   // playAudio();
+    // playAudio();
     // this is all the stats to put on the screen 
     let pi = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop)); // pi estimation 
     let error = Math.abs((pi - Math.PI) / Math.PI) * 100; //percent error
