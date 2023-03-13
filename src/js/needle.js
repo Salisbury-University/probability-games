@@ -98,13 +98,13 @@ function changeLines(num) {
   }
 }
 
-function continueGame(){
+function continueGame() {
   document.getElementById("resultArea").setAttribute("hidden", "hidden");
   document.getElementById("statsLocated1").removeAttribute("hidden");
   document.getElementById("statsLocated2").removeAttribute("hidden");
   document.getElementById("statsLocated3").removeAttribute("hidden");
   document.getElementById("guessPIButton").removeAttribute("hidden");
-  document.getElementById("continueButton").setAttribute("hidden","hidden");
+  document.getElementById("continueButton").setAttribute("hidden", "hidden");
 
   document.getElementById("guessPIButton").setAttribute("disabled", "disabled");
   document.getElementById("dropNeedleButton").removeAttribute("disabled");
@@ -117,7 +117,7 @@ function guessingPIfunc() {
   document.getElementById("percentErrorSection").innerHTML = "Percent Error: " + Math.abs((document.getElementById("guessingPiNum").value - Math.PI) / Math.PI) * 100 + "%";
   document.getElementById("guessingPI").setAttribute("hidden", "hidden");
 
-  document.getElementById("guessPIButton").setAttribute("hidden","hidden");
+  document.getElementById("guessPIButton").setAttribute("hidden", "hidden");
   document.getElementById("continueButton").removeAttribute("hidden");
 }
 
@@ -141,8 +141,6 @@ function guessPI() {
 
 function needleXY() {
 
-  document.getElementById("guessPIButton").removeAttribute("disabled");
-
   let dropNeedles = document.getElementById("amountOfNeedles").value;
   console.log("Value of lines.length: " + lines.length);
   for (let i = 0; i < lines.length; i++) {
@@ -150,7 +148,10 @@ function needleXY() {
   }
   if (dropNeedles > 50000) {
     alert("Please enter 50,000 Needles or less");
+  } else if (dropNeedles <= 0) {
+    alert("Please enter 1 or more Needles");
   } else {
+    document.getElementById("guessPIButton").removeAttribute("disabled");
 
     if (dropTypeValue == "Singular") {
       clearNeedles();
