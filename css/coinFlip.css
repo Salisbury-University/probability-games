@@ -26,6 +26,13 @@ h2 {
 	text-align: left;
 }
 
+h3 {
+	font-family: "Calibri";
+	text-shadow: 2px 0 #33373c;
+	font-size: 1.5rem;
+	color: #EBEBDD;
+}
+
 .helpArea {
 	text-align: left;
 }
@@ -71,15 +78,13 @@ table{
 .modal {
 	display: none; /* Hidden by default */
 	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	padding-top: 75px; /* Location of the box */
-	width: 50%; /* Full width */
+	padding-top: 0px; /* Location of the box */
+	width: 100%; /* Full width */
 	height: 100%; /* Full height */
 	overflow: auto; /* Enable scroll if needed */
-	top: 10%;
-  	left: 25%;
-	/*background-color: rgb(0,0,0); /* Fallback color */
-	/*background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	top: 13%;
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,.5); /* Black w/ opacity */
 }
   
   /* Modal Content */

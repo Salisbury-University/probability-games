@@ -5,23 +5,29 @@
     font-weight: 100;
 }
 
-#rollButton{
+
+#rollButton {
     text-align: center;
 }
 
-#dice{
+#questionCard {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+#dice {
     max-width: 10%;
     height: auto;
     margin: auto;
 }
 
-.player{
+.player {
     font-size: 50px;
     text-align: center;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 
-.score{
+.score {
     font-size: 50px;
     text-align: center;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
