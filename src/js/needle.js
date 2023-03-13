@@ -30,6 +30,7 @@ let needles = [];
 let nextEmpty = 0;
 let needleCross = 0;
 let needleDrop = 0;
+let needleColor = 0xffffff;
 let dropTypeValue = "Cumulative";
 var needleDropSound = new Audio('../sounds/needleDrop.mp3');
 
@@ -169,41 +170,20 @@ function needleXY() {
 
     //lineInArray.lineStyle(1, 0xfcba03, 1);
     for (let k = 0; k < lines.length; k++) {
-      //checks to see if the needle dropped not crosses the grid lines and changes color red
-      if ((yEnd <= lines[k] && yCenter<= lines[k]) || (yEnd>= lines[k] && yCenter >= lines[k])) {
-        //lineInArray.tint = 0xFF0000;
-        lineInArray.lineStyle(1, 0xbf40bf, 1);
-      }
-      //checks to see if the needle does dropped crosses the grid line and changes color green
-      else {
-        //lineInArray.tint = 0xAAFF00;
-        lineInArray.lineStyle(1, 0xf50c878, 1);
-        needleCross++;
-        //we stop so the colors don't overwrite the colors 
-        k = lines.length;//sets as lines length to stop for loop
-      }
+     
       //copied previous line code, just rewrote the variable name
+      lineInArray.lineStyle(1,0xffffff ,1);
       lineInArray.moveTo(xCenter, yCenter);
       lineInArray.lineTo(xEnd, yEnd);
       lineInArray.closePath();
       app.stage.addChild(lineInArray);
       //pushing the new line into the array
       lineArray.push(lineInArray);
+      setTimeout(colorNeedles(yEnd, yCenter), 1500);
+      lineInArray.tint = needleColor
     }
 
-    //setTimeout(clearNeedles(botY, topY), 1500)
 
-    //copied previous line code, just rewrote the variable name
-    /*lineInArray.moveTo(xCenter, yCenter);
-    lineInArray.lineTo(topX, topY);
- 
-    //we can just move line to bottom locations
-    lineInArray.lineTo(botX, botY);
-    lineInArray.closePath();
- 
-    app.stage.addChild(lineInArray);
-    //pushing the new line into the array
-    lineArray.push(lineInArray);*/
   }
 
 
@@ -221,21 +201,18 @@ function needleXY() {
 }
 
 
-/*function colorNeedles(botY, topY) {
-  for (let k = 0; k < lines.length; k++) {
+function colorNeedles(yEnd, yCenter) { // over writes the colors even though the for loop it's copied from doesn't
+  
     //checks to see if the needle dropped not crosses the grid lines and changes color red
-    if ((topY <= lines[k] && botY <= lines[k]) || (topY >= lines[k] && botY >= lines[k])) {
-      lineInArray.tint = 0xFF0000;
+    if ((yEnd <= lines[k] && yCenter <= lines[k]) || (yEnd >= lines[k] && yCenter >= lines[k])) {
+      needleColor = 0xbf40bf;
     }
     //checks to see if the needle does dropped crosses the grid line and changes color green
     else {
-      lineInArray.tint = 0xAAFF00;
+      needleColor = 0xf50c878;
       needleCross++;
-      //we stop so the colors don't overwrite the colors 
-      k = lines.length;//sets as lines length to stop for loop
     }
-  }
-}*/
+}
 //clears needles from page and removes them from the array
 function clearNeedles() {
   neg= 0;
