@@ -23,6 +23,8 @@ document.getElementById("amountOfNeedles").addEventListener("keydown", function 
 });
 
 
+
+
 let line = new PIXI.Graphics();
 let lines = [];
 let needles = [];
@@ -60,7 +62,7 @@ function changeLines(num) {
   } else {
     amountLines += num;
     console.log(amountLines);
-    document.getElementById("gridAmount").innerHTML = amountLines-1;
+    document.getElementById("gridAmount").innerHTML = amountLines - 1;
     clearNeedles();
     line.destroy(); //destroy lines to build again
     lines = [];
@@ -84,14 +86,49 @@ function changeLines(num) {
   }
 }
 
-function guessPI(){
+function continueGame(){
+  document.getElementById("resultArea").setAttribute("hidden", "hidden");
+  document.getElementById("statsLocated1").removeAttribute("hidden");
+  document.getElementById("statsLocated2").removeAttribute("hidden");
+  document.getElementById("statsLocated3").removeAttribute("hidden");
+  document.getElementById("guessPIButton").removeAttribute("hidden");
+  document.getElementById("continueButton").setAttribute("hidden","hidden");
+
+  document.getElementById("guessPIButton").setAttribute("disabled", "disabled");
+  document.getElementById("dropNeedleButton").removeAttribute("disabled");
+  clearNeedles();
+}
+
+function guessingPIfunc() {
+  document.getElementById("resultArea").removeAttribute("hidden");
+  document.getElementById("userGuessSection").innerHTML = "You guessed: " + document.getElementById("guessingPiNum").value;
+  document.getElementById("percentErrorSection").innerHTML = "Percent Error: " + Math.abs((document.getElementById("guessingPiNum").value - Math.PI) / Math.PI) * 100 + "%";
+  document.getElementById("guessingPI").setAttribute("hidden", "hidden");
+
+  document.getElementById("guessPIButton").setAttribute("hidden","hidden");
+  document.getElementById("continueButton").removeAttribute("hidden");
+}
+
+function guessPI() {
+
+  document.getElementById("guessingPiNum").addEventListener("keydown", function (e) {
+    if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+      guessingPIfunc();
+    }
+  });
+
   console.log("Function called");
-  document.getElementsById("statsLocated").setAttribute("hidden","hidden");
+  document.getElementById("statsLocated1").setAttribute("hidden", "hidden");
+  document.getElementById("statsLocated2").setAttribute("hidden", "hidden");
+  document.getElementById("statsLocated3").setAttribute("hidden", "hidden");
+  document.getElementById("dropNeedleButton").setAttribute("disabled", "disabled");
+
+
   document.getElementById("guessingPI").removeAttribute("hidden");
 }
 
 function needleXY() {
-  
+
   document.getElementById("guessPIButton").removeAttribute("disabled");
 
   let dropNeedles = document.getElementById("amountOfNeedles").value;
@@ -130,7 +167,7 @@ function needleXY() {
       }*/
       let max = lines[lines.length - 1];
       let min = lines[0]
-      yCenter = Math.floor(Math.random() * (max - min) ) + min;
+      yCenter = Math.floor(Math.random() * (max - min)) + min;
       if (yCenter > lines[lines.length - 1]) {
         console.log("Y center for needle: " + j + ": " + yCenter);
       }
@@ -257,7 +294,7 @@ function showDropType() {
 function showGridInfo() {
   document.getElementById("gridData").removeAttribute("hidden");
   document.getElementById("dropTypeData").setAttribute("hidden", "hidden");
-  document.getElementById("gridAmount").innerHTML = amountLines-1;
+  document.getElementById("gridAmount").innerHTML = amountLines - 1;
   console.log("Show grid info");
 }
 

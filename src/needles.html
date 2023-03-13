@@ -122,7 +122,7 @@
 		</div>
 
 		<div class="col" style="text-align: right;margin-right: 12%;padding-bottom: 5px;">
-			<button type="submit" onclick="needleXY()">Drop Needles </button>
+			<button id="dropNeedleButton" type="submit" onclick="needleXY()">Drop Needles </button>
 			<button onclick="clearNeedles()">Clear Screen</button>
 		</div>
 	</div>
@@ -133,22 +133,34 @@
 
 	<!--This is the stats area-->
 	<div class="row g-0 bg-success" style="text-align: center;border-top: 4px solid black;">
-		<h1 id="statsH1"> Stats <button id="guessPIButton" onclick="guessPI()" disabled> Guess PI</button></h1>
+		<h1 id="statsH1"> Stats <button id="guessPIButton" onclick="guessPI()" disabled> Guess PI</button> <button
+				id="continueButton" onclick="continueGame()" hidden>Continue</button></h1>
+		<div id="resultArea" hidden>
+			<div class="col">
+				<p> The real value of PI is: 3.14159265....</p>
+				<p id="userGuessSection"></p>
+				<p id="percentErrorSection"></p>
+			</div>
+		</div>
 		<div id="guessingPI" hidden>
-			<h1>Hlello there</h1>
+			<div class="col">
+				<p>Please guess the value of PI: <input type="number" id="guessingPiNum"></p>
+				<p> The formula for finding PI is: (2 * Length of the Needle)/(Distance Between Grid Lines * (Needles
+					That Cross/Total Needles Dropped))</p>
+			</div>
 		</div>
 
-		<div class="col" id="statsLocated">
+		<div class="col" id="statsLocated1">
 			<h3 id="estimation"></h3>
 			<h3 id="realPi"> </h3>
 			<h3 id="percentError"></h3>
 		</div>
-		<div class="col" id="statsLocated">
+		<div class="col" id="statsLocated2">
 			<h3 id="total"> </h3>
 			<h3 id="needCross"></h3>
 			<h3 id="needleDontCross"> </h3>
 		</div>
-		<div class="col" id="statsLocated">
+		<div class="col" id="statsLocated3">
 			<h3 id="needLength"></h3>
 			<h3 id="gridSpace"> </h3>
 		</div>
