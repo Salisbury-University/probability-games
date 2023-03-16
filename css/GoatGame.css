@@ -1,89 +1,88 @@
-
 .centerText {
-    text-align: center;
-    font-size: 32pt;
-    color: black;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-  input[type=number]{
-    border-radius: 5px;
-    border: 2px solid green;
-  }
-
-
-  html{
-    margin: 0px; 
-    padding: 0px; 
-    height: 100%; 
-    width: 100%;
-    background-color: grey;
-  }
-
-  body {
-    overflow: scroll; /* Show scrollbars */
-    margin: 0px; 
-    padding: 0px; 
-    height: 100%; 
-    width: 100%;
-    background-color: grey;
-  }
-
-.border{
-    background-color: aqua;
-    border-top: 4pt solid black;
-    margin: 0px; 
-    padding: 0px; 
-    width: 100%;
-    height: 100%;
+  text-align: center;
+  font-size: 32pt;
+  color: black;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-.statsSection{
-    border-top: 4pt solid black;
-    background-color: grey;
-    padding-bottom: 8px;
-}
-.biggerText{
-    font-size: 24pt;
+input[type=number] {
+  border-radius: 5px;
+  border: 2px solid green;
 }
 
-.stageSection{
+
+html {
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  overflow: scroll;
+  /* Show scrollbars */
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: grey;
+}
+
+.border {
+  background-color: aqua;
+  border-top: 4pt solid black;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.statsSection {
+  border-top: 4pt solid black;
+  background-color: grey;
+  padding-bottom: 8px;
+}
+
+.biggerText {
+  font-size: 24pt;
+}
+
+.stageSection {
   border-top: 4pt solid black;
   background-color: aqua;
   padding-bottom: 10px;
 
 }
 
-.firstSentence{
+.firstSentence {
   color: black;
   font-size: 18pt;
 }
 
-.contn{
-    position: relative;
-    width: 30%;
-    background-color: orange;
+.contn {
+  position: relative;
+  width: 30%;
+  background-color: orange;
 }
 
-  /* Style the button and place it in the middle of the container/image */
+/* Style the button and place it in the middle of the container/image */
 .container .btns {
-    position: absolute;
-    top: 80%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    background-color: rgb(58, 5, 5);
-    color: white;
-    font-size: 16px;
-   
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-  }
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: rgb(58, 5, 5);
+  color: white;
+  font-size: 16px;
 
-  .imgHolder{
-    width: 100%;
-  }
-  
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.imgHolder {
+  width: 100%;
+}

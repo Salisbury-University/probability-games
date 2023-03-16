@@ -70,7 +70,7 @@
 
     <div class="row">
       <div class="col">
-        <div class="card border-0" style="color:red; margin-left: 40%;">
+        <div class="card border-0" style="color: #990000; margin-left: 40%;">
           <div class="player">Player 1</div>
           <div class="score" id="player0"></div>
         </div>
@@ -81,7 +81,8 @@
             <div>Create the maximum number of piles of <strong><span id="rollNumber1"></span></strong> by selecting
               groups. Press submit once a group is made.</div>
             <button type="button" class="btn btn-success mx-auto" onclick="createPile()">Submit</button>
-            <button type="button" class="btn btn-primary mx-auto" onclick="autoComplete()">Auto</button>
+            <button type="button" class="btn btn-dark mx-auto" style="background-color: #8064A2 !important;"
+              onclick="autoComplete()">Auto</button>
           </div>
           <div id="pilesQuestion" class="card-body" hidden>
             <div>How many piles of <strong><span id="rollNumber2"></span></strong> did you create?</div>
@@ -100,7 +101,7 @@
         </div>
       </div>
       <div class="col">
-        <div class="card border-0" style="color:blue; margin-right: 40%;">
+        <div class="card border-0" style="color:#4206c5; margin-right: 40%;">
           <div class="player">Player 2</div>
           <div class="score" id="player1"></div>
         </div>
@@ -114,7 +115,7 @@
     <div class="row">
       <button id="createGame" type="button" class="btn btn-success col-6 mx-auto" onclick="createGame()">Play
         Game</button>
-      <button id="rollButton" type="button" class="btn btn-primary col-6 mx-auto" onclick="roll()" hidden>Roll</button>
+      <button id="rollButton" type="button" class="btn btn-success col-6 mx-auto" onclick="roll()" hidden>Roll</button>
       <button id="resetButton" type="button" class="btn btn-danger col-6 mx-auto" onclick="reset()"
         hidden>Reset</button>
     </div>
@@ -177,8 +178,7 @@
       </div>
     </div>
   </div>
-  <<<<<<< HEAD=======<div class="modal fade" id="bugModal" tabindex="-1" aria-labelledby="settingsModalLabel"
-    aria-hidden="true">
+  <div class="modal fade" id="bugModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
@@ -194,19 +194,17 @@
         </div>
       </div>
     </div>
-    </div>
+  </div>
 
-
-    >>>>>>> 2f09a4b6b7404b15b8138687025237aab5400365
-    <script src="js/d3.min.js"></script>
-    <script src="js/pixi.min.js"></script>
-    <script src="js/dice27.js"></script>
-    <script>
-      /*window.addEventListener("resize", resize);*/
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"></script>
+  <script src="js/d3.min.js"></script>
+  <script src="js/pixi.min.js"></script>
+  <script src="js/dice27.js"></script>
+  <script>
+    /*window.addEventListener("resize", resize);*/
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>
