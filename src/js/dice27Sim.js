@@ -25,6 +25,7 @@ class ProbabilitySimulator {
   }
 
   resetStats() {
+
     this.totalRolls = 0;
     for (let i = 0; i < 28; i++) {
       this.stats[i] = 0;
@@ -41,22 +42,25 @@ let simulator = new ProbabilitySimulator();
 
 function simulate() {
   let userInput = Number(document.getElementById("userInput").value);
+  if (userInput == 0) {
+    return;
+  }
   simulator.simulate(userInput);
-  //simulator.displayStats();
+  simulator.displayStats();
   updateChart(simulator.stats);
 
 }
 
 function reset() {
   simulator.resetStats();
-  //simulator.displayStats();
+  simulator.displayStats();
   updateChart(simulator.stats);
 
 }
 
 function updateChart(data) {
   // set the dimensions of the chart
-  const margin = { top: 20, right: 20, bottom: 30, left: 40 };
+  const margin = { top: 20, right: 20, bottom: 50, left: 75 };
   const width = 960 - margin.left - margin.right;
   const height = 500 - margin.top - margin.bottom;
 
@@ -76,8 +80,10 @@ function updateChart(data) {
     .range([0, width])
     .padding(0.1);
 
+  let yMax = d3.max(data);
+
   const y = d3.scaleLinear()
-    .domain([0, d3.max(data)])
+    .domain([0, yMax > 0 ? yMax : 1])
     .range([height, 0]);
 
   // create the X and Y axes
@@ -91,6 +97,23 @@ function updateChart(data) {
   chart.append("g")
     .call(yAxis);
 
+  // add the X and Y axis labels
+  chart.append("text")
+    .attr("class", "x label")
+    .attr("text-anchor", "middle")
+    .attr("x", width / 2)
+    .attr("y", height + margin.bottom - 5)
+    .text("Number of Chips Remaining");
+  chart.append("text")
+    .attr("class", "y label")
+    .attr("text-anchor", "middle")
+    .attr("x", -height / 2)
+    .attr("y", -margin.left + 15)
+    .attr("transform", `rotate(-90)`)
+    .text("Number of Hits");
+
+  var div = d3.select("#quantity");
+
   // create the bars
   chart.selectAll(".bar")
     .data(data)
@@ -100,5 +123,23 @@ function updateChart(data) {
     .attr("x", (d, i) => x(i))
     .attr("y", d => y(d))
     .attr("width", x.bandwidth())
-    .attr("height", d => height - y(d));
+    .attr("height", d => height - y(d))
+    .attr('fill', '#6495ED')
+    .on('mouseover', function (d, i) {
+      d3.select(this).transition()
+        .duration('50')
+        .attr('opacity', '.85');
+      div.transition()
+        .duration(50)
+        .style("opacity", 1);
+      div.html(i)
+    })
+    .on('mouseout', function (d, i) {
+      d3.select(this).transition()
+        .duration('50')
+        .attr('opacity', '1');
+      div.transition()
+        .duration('50')
+        .style("opacity", 0);
+    });
 }
