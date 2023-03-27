@@ -119,6 +119,8 @@ function guessingPIfunc() {
 
   document.getElementById("guessPIButton").setAttribute("hidden", "hidden");
   document.getElementById("continueButton").removeAttribute("hidden");
+  document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10) / 10 + " Units"; // units is pixels
+  document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10) / 10 + " Units";
 }
 
 function guessPI() {
@@ -243,8 +245,8 @@ function needleXY() {
     let error = Math.abs((pi - Math.PI) / Math.PI) * 100; //percent error
     document.getElementById("estimation").innerHTML = "PI Estimation: " + Math.round(pi * 10000) / 10000;
     document.getElementById("realPi").innerHTML = "Real value of PI : " + Math.round(Math.PI * 10000) / 10000;
-    document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10000) / 10000;
-    document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10000) / 10000;
+    document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10) / 10 + "Uniis"; // units is pixels
+    document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10) / 10 + " Units";
     document.getElementById("needCross").innerHTML = "Needles that Cross a Line: " + needleCross;
     document.getElementById("needleDontCross").innerHTML = "Needles that Don't Cross a Line: " + (needleDrop - needleCross);
     document.getElementById("total").innerHTML = "Total Needles Dropped: " + needleDrop;
@@ -335,90 +337,6 @@ function playAudio() {
   needleDropSound.play();
 }
 
-/*function needleXY() {
-
-  if (dropTypeValue == "Singular") {
-    clearNeedles();
-  }
-  //gets user input for needles
-  let dropNeedles = document.getElementById("amountOfNeedles").value;
-  let xCenter, yCenter;
-  let x, y;
-  let xEnd, yEnd;
-  playAudio();
-
-
-  //drops needles j times
-  for (let j = 0; j < dropNeedles; j++) {
-    //randomzied x and y centers
-    xCenter = Math.random() * windowWidth;
-    
-    //testing dropping needles not on edge
-    if(xCenter < needleLength){
-      xCenter += needleLength
-    }else if(xCenter > windowWidth-needleLength){
-      xCenter -= needleLength;
-    }
-    yCenter = Math.random() * (lines[6] - lines[1] + 1) + lines[1];
-    needleDrop++;
-
-    //calculate the angle
-    let angle = Math.floor(Math.random() * 360);
-    console.log(angle);
-    angle = toRadians(angle);
-
-
-    //creating angle/line
-    //sin must go to the y value and x to cos
-    y = (needleLength) * (Math.sin(angle));
-    x = (needleLength) * (Math.cos(angle));
-    console.log("run: " + x);
-    console.log("Rise: " + y);
-    //want to drop needles of one color and tint?/change color after a sleep function
-    // .tint = color
-    // yellow? 0xfcba03
-    // different yellow #FFEA00
-    // white? 0xffffff
-    // bright purple #BF40BF
-    //different green #50C878
-    //now using xCenter and yCenter as end points
-    xEnd = xCenter + x;
-    yEnd = yCenter + y;
-    console.log("xEnd =" + xEnd);
-    console.log("yEnd =" + yEnd);
-    //this for loop section chooses the color of the line to be dropped
-
-    //lineInArray.lineStyle(1, 0xfcba03, 1);
-    for (let k = 0; k < lines.length; k++) {
-     
-      //copied previous line code, just rewrote the variable name
-      lineInArray.lineStyle(1,0xffffff ,1);
-      lineInArray.moveTo(xCenter, yCenter);
-      lineInArray.lineTo(xEnd, yEnd);
-      lineInArray.closePath();
-      app.stage.addChild(lineInArray);
-      //pushing the new line into the array
-      lineArray.push(lineInArray);
-      //setTimeout(colorNeedles(yEnd, yCenter), 1500);
-      //lineInArray.tint = needleColor
-    }
-
-
-  }
-
-
-  // this is all the stats to put on the screen 
-  let pi = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop)); // pi estimation 
-  let error = Math.abs((pi - Math.PI) / Math.PI) * 100; //percent error
-  document.getElementById("estimation").innerHTML = "PI Estimation: " + Math.round(pi * 10000) / 10000;
-  document.getElementById("realPi").innerHTML = "Real value of PI : " + Math.round(Math.PI * 10000) / 10000;
-  document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10000) / 10000;
-  document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10000) / 10000;
-  document.getElementById("needCross").innerHTML = "Needles that Cross a Line: " + needleCross;
-  document.getElementById("needleDontCross").innerHTML = "Needles that Don't Cross a Line: " + (needleDrop - needleCross);
-  document.getElementById("total").innerHTML = "Total Needles Dropped: " + needleDrop;
-  document.getElementById("percentError").innerHTML = "Percent Error for PI: " + Math.round(error * 10000) / 10000 + "%";
-}*/
 
 
 function colorNeedles(yEnd, yCenter) { // over writes the colors even though the for loop it's copied from doesn't
