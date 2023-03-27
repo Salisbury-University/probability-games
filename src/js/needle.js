@@ -42,6 +42,7 @@ let needles = [];
 let nextEmpty = 0;
 let needleCross = 0;
 let needleDrop = 0;
+let needleColor = 0xffffff;
 let dropTypeValue = "Cumulative";
 var needleDropSound = new Audio('../sounds/needleDrop.mp3');
 
@@ -118,6 +119,8 @@ function guessingPIfunc() {
 
   document.getElementById("guessPIButton").setAttribute("hidden", "hidden");
   document.getElementById("continueButton").removeAttribute("hidden");
+  document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10) / 10 + " Units"; // units is pixels
+  document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10) / 10 + " Units";
 }
 
 function guessPI() {
@@ -242,8 +245,8 @@ function needleXY() {
     let error = Math.abs((pi - Math.PI) / Math.PI) * 100; //percent error
     document.getElementById("estimation").innerHTML = "PI Estimation: " + Math.round(pi * 10000) / 10000;
     document.getElementById("realPi").innerHTML = "Real value of PI : " + Math.round(Math.PI * 10000) / 10000;
-    document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10000) / 10000;
-    document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10000) / 10000;
+    document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10) / 10 + "Uniis"; // units is pixels
+    document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10) / 10 + " Units";
     document.getElementById("needCross").innerHTML = "Needles that Cross a Line: " + needleCross;
     document.getElementById("needleDontCross").innerHTML = "Needles that Don't Cross a Line: " + (needleDrop - needleCross);
     document.getElementById("total").innerHTML = "Total Needles Dropped: " + needleDrop;
@@ -334,21 +337,22 @@ function playAudio() {
   needleDropSound.play();
 }
 
-/*function colorNeedles(botY, topY) {
+
+
+function colorNeedles(yEnd, yCenter) { // over writes the colors even though the for loop it's copied from doesn't
   for (let k = 0; k < lines.length; k++) {
     //checks to see if the needle dropped not crosses the grid lines and changes color red
-    if ((topY <= lines[k] && botY <= lines[k]) || (topY >= lines[k] && botY >= lines[k])) {
-      lineInArray.tint = 0xFF0000;
+    if ((yEnd <= lines[k] && yCenter <= lines[k]) || (yEnd >= lines[k] && yCenter >= lines[k])) {
+      needleColor = 0xbf40bf;
     }
     //checks to see if the needle does dropped crosses the grid line and changes color green
     else {
-      lineInArray.tint = 0xAAFF00;
+      needleColor = 0xf50c878;
       needleCross++;
-      //we stop so the colors don't overwrite the colors 
-      k = lines.length;//sets as lines length to stop for loop
+      k = lines.length;
     }
   }
-}*/
+}
 //clears needles from page and removes them from the array
 function clearNeedles() {
   neg = 0;
