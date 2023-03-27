@@ -131,7 +131,7 @@ class WindowInfo {
         return this.#windowHeight;
     }
     /*resizeWindow() {
-        this.#windowWidth = window.innerHeight * .98;
+        this.#windowWidth = window.innerWidth * .98;
         this.#windowHeight = window.innerHeight;
     }*/
 }
