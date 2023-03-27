@@ -4,6 +4,18 @@ const AUDIO_WRONG = new Audio("../sounds/wrong.mp3");
 const AUDIO_CORRECT = new Audio("../sounds/point_2.mp3");
 const Graphics = PIXI.Graphics;
 const Sprite = PIXI.Sprite;
+const delay = 10000;
+
+var check = 0;
+
+window.onload = function () {
+    let volume = document.getElementById("volume-control");
+    volume.addEventListener("input", function (e) {
+        AUDIO_ROLL.volume = e.currentTarget.value / 100;
+        AUDIO_WRONG.volume = e.currentTarget.value / 100;
+        AUDIO_CORRECT.volume = e.currentTarget.value / 100;
+    });
+};
 
 class Line {
     #line;
@@ -16,6 +28,13 @@ class Line {
     getLine() {
         return this.#line;
     }
+    /*resize(dist, chipSize) {
+        this.#line.destroy();
+        this.#line = new Graphics;
+        this.#line.beginFill("0x000000");
+        this.#line.drawRect(dist + chipSize, 0, 5, 5000);
+        this.#line.endFill();
+    }*/
 }
 
 class Coin {
@@ -84,13 +103,18 @@ class Coin {
             game.updateScore();
         }
     }
-
     #hover() {
         this.#coin.alpha = .5;
     }
     #hoverOut() {
         this.#coin.alpha = 1;
     }
+    /*resize(dist, yAxis, chipSize, app) {
+        this.#coin.destroy();
+        this.#coin = new Graphics;
+        this.#createCoin(dist, yAxis, chipSize);
+        console.log("new coin");
+    }*/
 }
 
 class WindowInfo {
@@ -106,10 +130,10 @@ class WindowInfo {
     getWindowHeight() {
         return this.#windowHeight;
     }
-    resizeWindow() {
+    /*resizeWindow() {
         this.#windowWidth = window.innerHeight * .98;
         this.#windowHeight = window.innerHeight;
-    }
+    }*/
 }
 
 class App {
@@ -135,6 +159,12 @@ class App {
     getApp() {
         return this.#app;
     }
+    /*resize(windowInfo) {
+        document.getElementById(this.#appName).removeChild(this.#app.view);
+        this.#app.destroy();
+        this.#app = this.#createApp(windowInfo);
+        this.appendApp();
+    }*/
 }
 
 class Dice27 {
@@ -468,8 +498,31 @@ class Dice27 {
         audioName.currentTime = 0;
         audioName.play();
     }
-}
+    /*resize() {
+        this.#window.resizeWindow();
+        let dist = this.#window.getWindowWidth() * .025;
+        let add = this.#window.getWindowWidth() * .036;
+        let chipSize = this.#window.getWindowWidth() * .016;
+        let yAxis = this.#window.getWindowHeight() * .07;
 
+        
+        this.#app.resize(this.#window);
+        this.#diceApp.resize(this.#window);
+
+        for (let i = 0; i < baseTotal; i++) {
+            this.#coins[i].resize(dist, yAxis, chipSize, this.#app);
+            this.#lines[i].resize(dist, chipSize);
+            dist = dist + add;
+            this.#app.getApp().stage.addChild(this.#coins[i].getCoin());
+
+        }
+
+        this.#dice.destroy();
+        this.#dice = new Sprite.from(this.#diceApp.getApp().loader.resources["dice0"].texture);
+        this.#dice.x = (this.#window.getWindowWidth() / 2) - (this.#dice.width / 2);
+        this.#diceApp.getApp().stage.addChild(this.#dice);
+    }*/
+}
 var game = new Dice27();
 
 function roll() {
@@ -483,7 +536,6 @@ function reset() {
 function createGame() {
     game.createGame();
 }
-
 
 function pileCountCheck() {
     game.checkPileAnswer();
@@ -500,3 +552,13 @@ function autoComplete() {
 function remainderCheck() {
     game.checkRemainderAnswer();
 }
+
+
+/*
+function resize() {
+    if (check >= (Date.now() - delay))
+        return;
+    check = Date.now();
+    console.log("resize");
+    game.resize();
+}*/
