@@ -223,7 +223,7 @@ class Dice27 {
 
         //update the html elements of the the page
         document.getElementById("mainPrompt").textContent = "Player 1 Roll";
-        document.getElementById("mainPrompt").style = "color:red;";
+        document.getElementById("mainPrompt").style = "color:#dc143c;";
         this.#app.appendApp();
         this.#diceApp.appendApp();
 
@@ -288,7 +288,7 @@ class Dice27 {
         }
         else {
             this.#playAudio(AUDIO_WRONG);
-            document.getElementById("mainPrompt").textContent = "Wrong try again";
+            document.getElementById("mainPrompt").textContent = "Try again";
         }
     }
     checkPileAnswer() {
@@ -304,7 +304,7 @@ class Dice27 {
         else {
             this.#playAudio(AUDIO_WRONG);
             document.getElementById("pilesInput").click();
-            document.getElementById("mainPrompt").textContent = "Wrong try again";
+            document.getElementById("mainPrompt").textContent = "Try again";
         }
     }
     checkRemainderAnswer() {
@@ -330,7 +330,7 @@ class Dice27 {
         else {
             this.#playAudio(AUDIO_WRONG);
             document.getElementById("remainderInput").click();
-            document.getElementById("mainPrompt").textContent = "Wrong try again";
+            document.getElementById("mainPrompt").textContent = "Try again";
         }
     }
     updateScore() {
@@ -360,10 +360,10 @@ class Dice27 {
     #swapPlayer() {
         this.#turn == 0 ? this.#turn = 1 : this.#turn = 0;
         if (this.#turn == 0) {
-            document.getElementById("mainPrompt").style = "color:red;";
+            document.getElementById("mainPrompt").style = "color:#dc143c;";
         }
         else {
-            document.getElementById("mainPrompt").style = "color:blue;";
+            document.getElementById("mainPrompt").style = "color:#4206c5;";
         }
         this.#dice.texture = this.#diceApp.getApp().loader.resources['dice0'].texture;
         this.#numberPiles = 0;
