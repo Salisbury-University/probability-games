@@ -4,6 +4,11 @@ AUDIO_FLIP.playbackRate=2.5;
 const AUDIO_WRONG = new Audio("../sounds/wrong.mp3");
 const AUDIO_CORRECT = new Audio("../sounds/point_2.mp3");
 
+// hide weight guessing buttons
+document.getElementById("guess1").hidden = true;
+document.getElementById("guess2").hidden = true;
+document.getElementById("guess3").hidden = true;
+
 // determines if coin will be weighted or not
 var isWeighted = Math.floor(Math.random() * 2) + 1;
 
@@ -21,9 +26,8 @@ var weightHeavierSide = Math.floor(Math.random() * difference) + min;
 // determines if tails or heads is the heavier side (1 for heads and 2 for tails)
 var heavierSide = Math.floor(Math.random() * 2) + 1;
 
-//hide yes and no buttons for guessing weight
-document.getElementById("yesGuessWeight").hidden = true;
-document.getElementById("noGuessWeight").hidden = true;
+// determine which button contains the correct weight when guessing it
+var correctWeightButn = Math.floor(Math.random() * 3) + 1;
 
 // Function to flip coin
 function flipCoin() {
@@ -33,6 +37,11 @@ function flipCoin() {
 	// makes weighted and not weighted buttons reappear
 	document.getElementById("weighted").hidden = false;
 	document.getElementById("notWeighted").hidden = false;
+
+	// hide weight guessing buttons
+	document.getElementById("guess1").hidden = true;
+	document.getElementById("guess2").hidden = true;
+	document.getElementById("guess3").hidden = true;	
 
 	// reset weight display
 	document.getElementById("weightAmount").innerHTML = "";
@@ -113,6 +122,11 @@ function flipCoinMultiple() {
 	// makes weighted and not weighted buttons reappear
 	document.getElementById("weighted").hidden = false;
 	document.getElementById("notWeighted").hidden = false;
+
+	// hide weight guessing buttons
+	document.getElementById("guess1").hidden = true;
+	document.getElementById("guess2").hidden = true;
+	document.getElementById("guess3").hidden = true;
 
 	// reset weight display
 	document.getElementById("weightAmount").innerHTML = "";
@@ -198,20 +212,56 @@ function weightedGuess() {
 	document.getElementById("weighted").hidden = true;
 	document.getElementById("notWeighted").hidden = true;
 
-	//document.querySelector("h3").innerHTML = "Would you like to guess the weight?";
-	//document.getElementById("yesGuessWeight").hidden = false;
-	//document.getElementById("noGuessWeight").hidden = false;
-
 	if(isWeighted == 1) {
 		// plays correct guess audio
 		AUDIO_CORRECT.play();
 
+		// message displays at top of screen
 		document.querySelector("h1").innerHTML = "Your guess was correct, the coin was weighted";
 
-		if(heavierSide == 1)
-			document.getElementById("weightAmount").innerHTML = "Weight: " + weightHeavierSide + "%/" + (100 - weightHeavierSide) + "%";
+		// guess weight message displays
+		document.getElementById("guessWeight").innerHTML = "Guess the weight of the coin";
+
+		// add weights to guessing weight buttons (correct button is button one)
+		if(correctWeightButn == 1)
+		{
+			if(heavierSide == 1)
+				document.getElementById("guess1").innerHTML = weightHeavierSide + "%/" + (100 - weightHeavierSide) + "%";
+			else
+				document.getElementById("guess1").innerHTML = (100 - weightHeavierSide) + "%/" + weightHeavierSide + "%"; 
+
+			document.getElementById("guess2").innerHTML = "30%/70%";
+			document.getElementById("guess3").innerHTML = "65%/35%";
+		}
+
+		// add weights to guessing weight buttons (correct button is button two)
+		else if(correctWeightButn == 2)
+		{
+			if(heavierSide == 1)
+				document.getElementById("guess2").innerHTML = weightHeavierSide + "%/" + (100 - weightHeavierSide) + "%";
+			else
+				document.getElementById("guess2").innerHTML = (100 - weightHeavierSide) + "%/" + weightHeavierSide + "%"; 
+
+			document.getElementById("guess1").innerHTML = "30%/70%";
+			document.getElementById("guess3").innerHTML = "65%/35%";
+		}
+
+		// add weights to guessing weight buttons (correct button is button three)
 		else
-			document.getElementById("weightAmount").innerHTML = "Weight: " + (100 - weightHeavierSide) + "%/" + weightHeavierSide + "%";
+		{
+			if(heavierSide == 1)
+				document.getElementById("guess3").innerHTML = weightHeavierSide + "%/" + (100 - weightHeavierSide) + "%";
+			else
+				document.getElementById("guess3").innerHTML = (100 - weightHeavierSide) + "%/" + weightHeavierSide + "%"; 
+
+			document.getElementById("guess1").innerHTML = "30%/70%";
+			document.getElementById("guess2").innerHTML = "65%/35%";
+		}
+
+		// reveal guessing weight buttons
+		document.getElementById("guess1").hidden = false;
+		document.getElementById("guess2").hidden = false;
+		document.getElementById("guess3").hidden = false;	
 	}
 	else {
 		// plays wrong guess audio
@@ -219,14 +269,16 @@ function weightedGuess() {
 
 		document.querySelector("h1").innerHTML = "Your guess was incorrect, the coin was not weighted";
 		document.getElementById("weightAmount").innerHTML = "Weight: 50%/50%";
+
+		// reset weight
+		isWeighted = Math.floor(Math.random() * 2) + 1;
+		weightHeavierSide = Math.floor(Math.random() * difference) + min;
+		heavierSide = Math.floor(Math.random() * 2) + 1;
 	}
 	
-	// resetting global variables
+	// reset counts
 	headCount = 0;
 	tailCount = 0;
-	isWeighted = Math.floor(Math.random() * 2) + 1;
-	weightHeavierSide = Math.floor(Math.random() * difference) + min;
-	heavierSide = Math.floor(Math.random() * 2) + 1;
 }
 
 function notWeightedGuess() {
@@ -234,20 +286,25 @@ function notWeightedGuess() {
 	document.getElementById("weighted").hidden = true;
 	document.getElementById("notWeighted").hidden = true;
 
-	//document.querySelector("h3").innerHTML = "Would you like to guess the weight?";
-	//document.getElementById("yesGuessWeight").hidden = false;
-	//document.getElementById("noGuessWeight").hidden = false;
-
 	if(isWeighted == 1) {
 		// plays wrong guess audio
 		AUDIO_WRONG.play();
 
+		// message displays at top of screen
 		document.querySelector("h1").innerHTML = "Your guess was incorrect, the coin was weighted";
 
-		if(heavierSide == 1)
-			document.getElementById("weightAmount").innerHTML = "Weight: " + weightHeavierSide + "%/" + (100 - weightHeavierSide) + "%";
-		else
-			document.getElementById("weightAmount").innerHTML = "Weight: " + (100 - weightHeavierSide) + "%/" + weightHeavierSide + "%";
+		// guess weight message displays
+		document.getElementById("guessWeight").innerHTML = "Guess the weight of the coin";
+
+		// add weights to guessing weight buttons
+		document.getElementById("guess1").innerHTML = correctWeightButn;
+		document.getElementById("guess2").innerHTML = correctWeightButn;
+		document.getElementById("guess3").innerHTML = correctWeightButn;
+
+		// reveal guessing weight buttons
+		document.getElementById("guess1").hidden = false;
+		document.getElementById("guess2").hidden = false;
+		document.getElementById("guess3").hidden = false;	
 	}
 	else {
 		// plays correct guess audio
@@ -255,14 +312,115 @@ function notWeightedGuess() {
 
 		document.querySelector("h1").innerHTML = "Your guess was correct, the coin was not weighted";
 		document.getElementById("weightAmount").innerHTML = "Weight: 50%/50%";
+
+		// reset weight
+		isWeighted = Math.floor(Math.random() * 2) + 1;
+		weightHeavierSide = Math.floor(Math.random() * difference) + min;
+		heavierSide = Math.floor(Math.random() * 2) + 1;
 	}
 	
-	// resetting global variables
+	// resetting counts
 	headCount = 0;
 	tailCount = 0;
+}
+
+function weightGuessOne() {
+	if(correctWeightButn == 1)
+	{
+		if(heavierSide == 1)
+			document.querySelector("h1").innerHTML = "You guessed the weight correctly, it was " + weightHeavierSide + "%/" + (100 - weightHeavierSide) + "%";
+		else
+			document.querySelector("h1").innerHTML = "You guessed the weight correctly, it was "  + (100 - weightHeavierSide) + "%/" + weightHeavierSide + "%";
+	}
+	else
+	{
+		if(heavierSide == 1)
+			document.querySelector("h1").innerHTML = "You guessed the weight incorrectly, it was " + weightHeavierSide + "%/" + (100 - weightHeavierSide) + "%";
+		else
+			document.querySelector("h1").innerHTML = "You guessed the weight incorrectly, it was "  + (100 - weightHeavierSide) + "%/" + weightHeavierSide + "%";
+	}
+
+	// reset which button will contain correct weight
+	correctWeightButn = Math.floor(Math.random() * 3) + 1;
+
+	// reset weight
 	isWeighted = Math.floor(Math.random() * 2) + 1;
 	weightHeavierSide = Math.floor(Math.random() * difference) + min;
 	heavierSide = Math.floor(Math.random() * 2) + 1;
+
+	// hide weight guessing buttons
+	document.getElementById("guess1").hidden = true;
+	document.getElementById("guess2").hidden = true;
+	document.getElementById("guess3").hidden = true;
+
+	// reset guessing weight message
+	document.getElementById("guessWeight").innerHTML = "";
+}
+
+function weightGuessTwo() {
+	if(correctWeightButn == 2)
+	{
+		if(heavierSide == 1)
+			document.querySelector("h1").innerHTML = "You guessed the weight correctly, it was " + weightHeavierSide + "%/" + (100 - weightHeavierSide) + "%";
+		else
+			document.querySelector("h1").innerHTML = "You guessed the weight correctly, it was "  + (100 - weightHeavierSide) + "%/" + weightHeavierSide + "%";
+	}
+	else
+	{
+		if(heavierSide == 1)
+			document.querySelector("h1").innerHTML = "You guessed the weight incorrectly, it was " + weightHeavierSide + "%/" + (100 - weightHeavierSide) + "%";
+		else
+			document.querySelector("h1").innerHTML = "You guessed the weight incorrectly, it was "  + (100 - weightHeavierSide) + "%/" + weightHeavierSide + "%";
+	}
+
+	// reset which button will contain correct weight
+	correctWeightButn = Math.floor(Math.random() * 3) + 1;
+
+	// reset weight
+	isWeighted = Math.floor(Math.random() * 2) + 1;
+	weightHeavierSide = Math.floor(Math.random() * difference) + min;
+	heavierSide = Math.floor(Math.random() * 2) + 1;
+
+	// hide weight guessing buttons
+	document.getElementById("guess1").hidden = true;
+	document.getElementById("guess2").hidden = true;
+	document.getElementById("guess3").hidden = true;
+
+	// reset guessing weight message
+	document.getElementById("guessWeight").innerHTML = "";
+}
+
+function weightGuessThree() {
+	if(correctWeightButn == 3)
+	{
+		if(heavierSide == 1)
+			document.querySelector("h1").innerHTML = "You guessed the weight correctly, it was " + weightHeavierSide + "%/" + (100 - weightHeavierSide) + "%";
+		else
+			document.querySelector("h1").innerHTML = "You guessed the weight correctly, it was "  + (100 - weightHeavierSide) + "%/" + weightHeavierSide + "%";
+	}
+	else
+	{
+		if(heavierSide == 1)
+			document.querySelector("h1").innerHTML = "You guessed the weight incorrectly, it was " + weightHeavierSide + "%/" + (100 - weightHeavierSide) + "%";
+		else
+			document.querySelector("h1").innerHTML = "You guessed the weight incorrectly, it was "  + (100 - weightHeavierSide) + "%/" + weightHeavierSide + "%";
+	}
+
+	// reset which button will contain correct weight
+	correctWeightButn = Math.floor(Math.random() * 3) + 1;
+
+	// reset weight
+	isWeighted = Math.floor(Math.random() * 2) + 1;
+	weightHeavierSide = Math.floor(Math.random() * difference) + min;
+	heavierSide = Math.floor(Math.random() * 2) + 1;
+
+	// hide weight guessing buttons
+	document.getElementById("guess1").hidden = true;
+	document.getElementById("guess2").hidden = true;
+	document.getElementById("guess3").hidden = true;
+
+	// reset guessing weight message
+	document.getElementById("guessWeight").innerHTML = "";
 }
 
 
