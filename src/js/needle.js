@@ -124,25 +124,22 @@ function guessingPIfunc() {
 }
 
 function guessPI() {
-
   document.getElementById("guessingPiNum").addEventListener("keydown", function (e) {
     if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
       guessingPIfunc();
     }
   });
 
-  console.log("Function called");
   document.getElementById("statsLocated1").setAttribute("hidden", "hidden");
   document.getElementById("statsLocated2").setAttribute("hidden", "hidden");
+  document.getElementById("statsLocated3").setAttribute("hidden", "hidden");
   document.getElementById("formulaValue").setAttribute("hidden", "hidden");
   document.getElementById("dropNeedleButton").setAttribute("disabled", "disabled");
-
 
   document.getElementById("guessingPI").removeAttribute("hidden");
 }
 
 function needleXY() {
-
   let dropNeedles = document.getElementById("amountOfNeedles").value;
   console.log("Value of lines.length: " + lines.length);
   for (let i = 0; i < lines.length; i++) {
@@ -174,12 +171,6 @@ function needleXY() {
         xCenter = Math.random() * windowWidth;
       } while (xCenter < needleLength || xCenter > windowWidth - needleLength);
 
-      //testing dropping needles not on edge (or we randomly drop again)
-      /*if (xCenter < needleLength) {
-        xCenter += needleLength
-      } else if (xCenter > windowWidth - needleLength) {
-        xCenter -= needleLength;
-      }*/
       let max = lines[lines.length - 1];
       let min = lines[0]
       yCenter = Math.floor(Math.random() * (max - min)) + min;
@@ -198,20 +189,8 @@ function needleXY() {
       //sin must go to the y value and x to cos
       y = (needleLength) * (Math.sin(angle));
       x = (needleLength) * (Math.cos(angle));
-      //console.log("run: " + x);
-      //console.log("Rise: " + y);
-      //want to drop needles of one color and tint?/change color after a sleep function
-      // .tint = color
-      // yellow? 0xfcba03
-      // different yellow #FFEA00
-      // white? 0xffffff
-      // bright purple #BF40BF
-      //different green #50C878
-      //now using xCenter and yCenter as end points
       xEnd = xCenter + x;
       yEnd = yCenter + y;
-      //console.log("xEnd =" + xEnd);
-      //console.log("yEnd =" + yEnd);
       //this for loop section chooses the color of the line to be dropped
 
       //lineInArray.lineStyle(1, 0xfcba03, 1);
@@ -239,7 +218,7 @@ function needleXY() {
       }
     }
 
-    // playAudio();
+    playAudio();
     // this is all the stats to put on the screen 
     let pi = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop)); // pi estimation 
     let error = Math.abs((pi - Math.PI) / Math.PI) * 100; //percent error
