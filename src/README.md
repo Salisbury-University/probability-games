@@ -4,7 +4,7 @@
 2. [Weighted Coin Flip](#Coin-Flip)
 3. [Weighted Dice Roll](#Dice-Roll)
 4. [2-12 Card Game](#2-12-Card-Game)
-5. [Buffon's Needles](#Buffon's Needles)
+5. [Buffon's Needles](#Buffon's-Needles)
 ---
 ## Monty Hall Problem
 ### How to Play
