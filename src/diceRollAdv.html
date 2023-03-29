@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Roll</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+
+    <link rel="stylesheet" href="../css/diceRoll.css" type="text/css">
+</head>
+
+<body>
+    <!-- How to Play Modal -->
+    <div class="modal fade" id="howToPlay" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">How to Play</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ol>
+                        <li>Player can flip the coin as many times as they'd like, either once at a time, or in sets of
+                            multiple flips</li>
+                        <li>After each flip of the coin, the table will display which side the coin landed on</li>
+                        <li>When done flipping the coin, the player must guess if the coin is weighted or not based on
+                            the table results</li>
+                        <li>After the player makes their guess, the actual weight of the coin will display</li>
+                        <li>To start a new game, start flipping the coin again</li>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bug Modal -->
+    <div class="modal fade" id="bugModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="settingsModalLabel">Bug Report</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">Email: mdemchuk1@gulls.salisbury.edu with any bugs found
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Settings Modal -->
+    <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="settingsModalLabel">Settings</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Volume:</p>
+                    <p>
+                        <input type="range" id="volume-control" value="100" />
+                    </p>
+                    <hr class="featurette-divider" />
+                    <p>
+                        <input class="form-check-input m-1" type="checkbox" autocomplete="off" id="randPlacements" />
+                        Sound Effects
+                    </p>
+                    <p>
+                        <input class="form-check-input m-1" type="checkbox" autocomplete="off" id="muteBtn" />
+                        Music
+                    </p>
+                    <hr class="featurette-divider" />
+                    <div class="dropdown">
+                        Theme:
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Light Mode
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="#">Dark Mode</a></li>
+                            <li><a class="dropdown-item" href="#">Solarized</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png"
+                    style="max-height: 35px" /></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Games
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="diceRoll.html">Dice Roll</a></li>
+                            <li><a class="dropdown-item" href="coinFlip.html">Coin Flip</a></li>
+                            <li><a class="dropdown-item" href="GoatGame.html">Monty Hall Problem</a></li>
+                            <li><a class="dropdown-item" href="needles.html">Buffons Needles</a></li>
+                            <li><a class="dropdown-item" href="card.html">12 Card Game</a></li>
+                            <li><a class="dropdown-item" href="dice27.html">Game of 27</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link"
+                            href="https://github.com/Salisbury-University/probability-games.git">GitHub</a>
+                    </li>
+                </ul>
+                <button type="radio" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bugModal">Report
+                    Bug</button>
+
+                <!-- Advanced/Basic buttons: TRY TABS INSTEAD OF RADIO BUTTONS -->
+                <div class="btn-group mx-2" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio" id="basic_btn" autocomplete="off" />
+                    <label class="btn btn-outline-primary" for="basic_btn">Basic</label>
+
+                    <input type="radio" class="btn-check" name="btnradio" id="advanced_btn" autocomplete="off"
+                        checked />
+                    <label class="btn btn-outline-primary" for="advanced_btn">Advanced</label>
+                </div>
+
+                <script>
+                    document.getElementById("basic_btn").onclick = function () {
+                        window.location.href = "diceRoll.html";
+                    };
+                </script>
+
+                <!-- settings button -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModal">
+                    <img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1>Roll The Dice!</h1>
+        <div class="helpArea">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#howToPlay">
+                Help
+            </button>
+        </div>
+        <div class="dice">
+            <img class="img" id="dice" src="../images/dice1.png">
+            <!--<div id="diceApp"></div>-->
+        </div>
+    </div>
+
+    <div class="container bottom">
+        <button type="button" class="butn" onClick="rollDice()">Roll Dice</button>
+    </div>
+
+    <div class="container bottom">
+        <label for="quantity" class="lab">How Many Times To Roll?</label>
+        <input type="number" id="quantity" min="1" value=1 />
+        <button id="roll" type="button" class="butn" onClick="rollDiceMultiple()">Roll Dice Multiple Times</button>
+
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">
+                        <h1>1</h1>
+                    </th>
+                    <th scope="col">
+                        <h1>2</h1>
+                    </th>
+                    <th scope="col">
+                        <h1>3</h1>
+                    </th>
+                    <th scope="col">
+                        <h1>4</h1>
+                    </th>
+                    <th scope="col">
+                        <h1>5</h1>
+                    </th>
+                    <th scope="col">
+                        <h1>6</h1>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <h1>
+                            <div id="oneTotal">0</div>
+                        </h1>
+                    </td>
+                    <td>
+                        <h1>
+                            <div id="twoTotal">0</div>
+                        </h1>
+                    </td>
+                    <td>
+                        <h1>
+                            <div id="threeTotal">0</div>
+                        </h1>
+                    </td>
+                    <td>
+                        <h1>
+                            <div id="fourTotal">0</div>
+                        </h1>
+                    </td>
+                    <td>
+                        <h1>
+                            <div id="fiveTotal">0</div>
+                        </h1>
+                    </td>
+                    <td>
+                        <h1>
+                            <div id="sixTotal">0</div>
+                        </h1>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <button id="weighted" type="button" class="butn" onClick="weightedGuess()">Weighted</button>
+        <button id="notWeighted" type="button" class="butn" onClick="notWeightedGuess()">Not Weighted</button>
+    </div>
+
+    <div class="container bottom">
+        <h1>
+            <div id="weightAmount"> </div>
+        </h1>
+    </div>
+
+    <script src="js/diceRoll.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
