@@ -85,6 +85,6 @@
 ## Buffon's Needles
 There is a gird of parallel horizontal lines that needles of a certain length are dropped in random spaces with a random angle. 
 The length of the needles, the grid space, the number of needles that cross a line and the total number of needles drop can be used to estimate Pi.
-the lengths we use is pixels but on the game we put units because the kids might not know what a pixel is and it's not that important that they do. 
+The lengths we use is pixels but on the game we put units because the kids might not know what a pixel is and it's not that important that they do. 
 
 
