@@ -142,6 +142,8 @@ function updateChart(data) {
         .style("opacity", 1);
       div.html(getX(i) + ": " + i)
     })
+  div.html(getX(i) + ":<br>" + i)
+});/*
     .on('mouseout', function (d, i) {
       d3.select(this).transition()
         .duration('50')
@@ -149,5 +151,5 @@ function updateChart(data) {
       div.transition()
         .duration('50')
         .style("opacity", 0);
-    });
+    });* /
 }
