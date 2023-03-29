@@ -46,6 +46,9 @@ function flipCoin() {
 	// reset weight display
 	document.getElementById("weightAmount").innerHTML = "";
 
+	// reset guessing weight message 
+	document.getElementById("guessWeight").innerHTML = "";
+
 	// reset counts display
 	document.getElementById("headTotal").innerHTML = 0;
 	document.getElementById("tailTotal").innerHTML = 0;
@@ -130,6 +133,9 @@ function flipCoinMultiple() {
 
 	// reset weight display
 	document.getElementById("weightAmount").innerHTML = "";
+
+	// reset guessing weight message 
+	document.getElementById("guessWeight").innerHTML = "";
 
 	// reset counts display
 	document.getElementById("headTotal").innerHTML = 0;
@@ -216,6 +222,10 @@ function weightedGuess() {
 		// plays correct guess audio
 		AUDIO_CORRECT.play();
 
+		// make flipping coins unclickable until user gueses weight
+		document.getElementById("flipCoin").disabled = true; 
+		document.getElementById("flipCoinMultiple").disabled = true; 
+
 		// message displays at top of screen
 		document.querySelector("h1").innerHTML = "Your guess was correct, the coin was weighted";
 
@@ -290,16 +300,51 @@ function notWeightedGuess() {
 		// plays wrong guess audio
 		AUDIO_WRONG.play();
 
+		// make flipping coins unclickable until user gueses weight
+		document.getElementById("flipCoin").disabled = true; 
+		document.getElementById("flipCoinMultiple").disabled = true; 
+
 		// message displays at top of screen
 		document.querySelector("h1").innerHTML = "Your guess was incorrect, the coin was weighted";
 
 		// guess weight message displays
 		document.getElementById("guessWeight").innerHTML = "Guess the weight of the coin";
 
-		// add weights to guessing weight buttons
-		document.getElementById("guess1").innerHTML = correctWeightButn;
-		document.getElementById("guess2").innerHTML = correctWeightButn;
-		document.getElementById("guess3").innerHTML = correctWeightButn;
+		// add weights to guessing weight buttons (correct button is button one)
+		if(correctWeightButn == 1)
+		{
+			if(heavierSide == 1)
+				document.getElementById("guess1").innerHTML = weightHeavierSide + "%/" + (100 - weightHeavierSide) + "%";
+			else
+				document.getElementById("guess1").innerHTML = (100 - weightHeavierSide) + "%/" + weightHeavierSide + "%"; 
+
+			document.getElementById("guess2").innerHTML = "30%/70%";
+			document.getElementById("guess3").innerHTML = "65%/35%";
+		}
+
+		// add weights to guessing weight buttons (correct button is button two)
+		else if(correctWeightButn == 2)
+		{
+			if(heavierSide == 1)
+				document.getElementById("guess2").innerHTML = weightHeavierSide + "%/" + (100 - weightHeavierSide) + "%";
+			else
+				document.getElementById("guess2").innerHTML = (100 - weightHeavierSide) + "%/" + weightHeavierSide + "%"; 
+
+			document.getElementById("guess1").innerHTML = "30%/70%";
+			document.getElementById("guess3").innerHTML = "65%/35%";
+		}
+
+		// add weights to guessing weight buttons (correct button is button three)
+		else
+		{
+			if(heavierSide == 1)
+				document.getElementById("guess3").innerHTML = weightHeavierSide + "%/" + (100 - weightHeavierSide) + "%";
+			else
+				document.getElementById("guess3").innerHTML = (100 - weightHeavierSide) + "%/" + weightHeavierSide + "%"; 
+
+			document.getElementById("guess1").innerHTML = "30%/70%";
+			document.getElementById("guess2").innerHTML = "65%/35%";
+		}
 
 		// reveal guessing weight buttons
 		document.getElementById("guess1").hidden = false;
@@ -353,6 +398,10 @@ function weightGuessOne() {
 	document.getElementById("guess2").hidden = true;
 	document.getElementById("guess3").hidden = true;
 
+	// make flipping buttons clickable again
+	document.getElementById("flipCoin").disabled = false; 
+	document.getElementById("flipCoinMultiple").disabled = false;
+
 	// reset guessing weight message
 	document.getElementById("guessWeight").innerHTML = "";
 }
@@ -386,6 +435,10 @@ function weightGuessTwo() {
 	document.getElementById("guess2").hidden = true;
 	document.getElementById("guess3").hidden = true;
 
+	// make flipping buttons clickable again
+	document.getElementById("flipCoin").disabled = false; 
+	document.getElementById("flipCoinMultiple").disabled = false;
+
 	// reset guessing weight message
 	document.getElementById("guessWeight").innerHTML = "";
 }
@@ -418,6 +471,10 @@ function weightGuessThree() {
 	document.getElementById("guess1").hidden = true;
 	document.getElementById("guess2").hidden = true;
 	document.getElementById("guess3").hidden = true;
+
+	// make flipping buttons clickable again
+	document.getElementById("flipCoin").disabled = false; 
+	document.getElementById("flipCoinMultiple").disabled = false;
 
 	// reset guessing weight message
 	document.getElementById("guessWeight").innerHTML = "";
