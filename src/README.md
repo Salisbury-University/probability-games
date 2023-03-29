@@ -4,6 +4,7 @@
 2. [Weighted Coin Flip](#Coin-Flip)
 3. [Weighted Dice Roll](#Dice-Roll)
 4. [2-12 Card Game](#2-12-Card-Game)
+5. [Buffon's Needles](#Buffon's Needles)
 ---
 ## Monty Hall Problem
 ### How to Play
@@ -69,6 +70,7 @@
 		  - Else: Remove no chips from the cards and get no points.
 	6. Repeat steps 4 - 5 until either Player 1 or 2 reach 10
 		   points and Win the Game.
+
 ### Features
 - Moving chips with click of card
 - Disappearing chips if dice roll equal to a card value of player's chip
@@ -80,3 +82,9 @@
  - [ ] How to play button on the page
  - [ ] Replay Button
  - [ ] Information about the game and statistics
+## Buffon's Needles
+There is a gird of parallel horizontal lines that needles of a certain length are dropped in random spaces with a random angle. 
+The length of the needles, the grid space, the number of needles that cross a line and the total number of needles drop can be used to estimate Pi.
+the lengths we use is pixels but on the game we put units because the kids might not know what a pixel is and it's not that important that they do. 
+
+
