@@ -140,7 +140,7 @@ function updateChart(data) {
       div.transition()
         .duration(50)
         .style("opacity", 1);
-      div.html(getX(i) + ":<br>" + i)
+      div.html(getX(i) + ": " + i)
     })
     .on('mouseout', function (d, i) {
       d3.select(this).transition()
