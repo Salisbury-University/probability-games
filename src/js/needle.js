@@ -134,7 +134,7 @@ function guessPI() {
   console.log("Function called");
   document.getElementById("statsLocated1").setAttribute("hidden", "hidden");
   document.getElementById("statsLocated2").setAttribute("hidden", "hidden");
-  document.getElementById("statsLocated3").setAttribute("hidden", "hidden");
+  document.getElementById("formulaValue").setAttribute("hidden", "hidden");
   document.getElementById("dropNeedleButton").setAttribute("disabled", "disabled");
 
 
@@ -245,7 +245,7 @@ function needleXY() {
     let error = Math.abs((pi - Math.PI) / Math.PI) * 100; //percent error
     document.getElementById("estimation").innerHTML = "PI Estimation: " + Math.round(pi * 10000) / 10000;
     document.getElementById("realPi").innerHTML = "Real value of PI : " + Math.round(Math.PI * 10000) / 10000;
-    document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10) / 10 + "Uniis"; // units is pixels
+    document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10) / 10 + " Units"; // units is pixels
     document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10) / 10 + " Units";
     document.getElementById("needCross").innerHTML = "Needles that Cross a Line: " + needleCross;
     document.getElementById("needleDontCross").innerHTML = "Needles that Don't Cross a Line: " + (needleDrop - needleCross);
