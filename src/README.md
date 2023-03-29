@@ -86,5 +86,13 @@
 There is a gird of parallel horizontal lines that needles of a certain length are dropped in random spaces with a random angle. 
 The length of the needles, the grid space, the number of needles that cross a line and the total number of needles drop can be used to estimate Pi.
 The lengths we use is pixels but on the game we put units because the kids might not know what a pixel is and it's not that important that they do. 
+### Backlog
+ - [ ]  Drop down menus for needle length and grid lines 
+ - [ ]  Can drop needle with enter in the estimate Pi screen (bug)
+ - [ ]  Define terms and write as a more formal formula 
+ - [ ] Readme for users is a unit is a pixel 
+ - [ ] Make all the values they need for the formula on the estimate pi screen
+ - [ ] Fix the bug for going back to dropping needles 
+ - [ ] Read me file (how to play)
 
 
