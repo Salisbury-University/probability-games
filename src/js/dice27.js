@@ -6,8 +6,6 @@ const Graphics = PIXI.Graphics;
 const Sprite = PIXI.Sprite;
 const delay = 10000;
 
-var check = 0;
-
 window.onload = function () {
     let volume = document.getElementById("volume-control");
     volume.addEventListener("input", function (e) {
@@ -523,7 +521,7 @@ class Dice27 {
         this.#diceApp.getApp().stage.addChild(this.#dice);
     }*/
 }
-var game = new Dice27();
+const game = new Dice27();
 
 function roll() {
     game.roll();
