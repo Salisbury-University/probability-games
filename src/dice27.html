@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
   <link rel="stylesheet" href="../css/dice27.css" type="text/css">
   <title>Game of 27</title>
-
 </head>
 
 <body>
@@ -97,6 +96,7 @@
     </div>
   </div>
 
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png"
@@ -154,13 +154,14 @@
     </div>
   </nav>
 
+  <!-- Main Content -->
   <div id="container" class="container-fluid text-center">
 
     <div class="row">
-      <div id="app"></div>
+      <div id="app" />
     </div>
     <div class="row">
-      <div id="overalScore"></div>
+      <div id="overalScore" />
     </div>
     <div class="row">
       <h2 id="mainPrompt">Press Play Game to Play!</h2>
@@ -201,13 +202,13 @@
       <div class="col">
         <div class="card border-0" style="color:#4206c5; margin-right: 40%;">
           <div class="player">Player 2</div>
-          <div class="score" id="player1"></div>
+          <div class="score" id="player1" />
         </div>
       </div>
     </div>
     <br>
     <div class="row">
-      <div id="diceApp"></div>
+      <div id="diceApp" />
     </div>
 
     <div class="row">
@@ -224,15 +225,9 @@
       <div id="graph" hidden>
         <h2>Number of Rolls: <div id="numberRolls"></div>
         </h2>
-        <svg width="960" height="500"></svg>
+        <svg width="960" height="500" />
       </div>
     </div>
-  </div>
-
-  <div class="col text-center" id="helpButton">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#howToPlay">
-      How to Play
-    </button>
   </div>
 
   <script src="js/d3.min.js"></script>
