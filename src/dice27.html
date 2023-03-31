@@ -4,6 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!--CSS stylsheets used-->
   <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
   <link rel="stylesheet" href="../css/dice27.css" type="text/css">
   <title>Game of 27</title>
@@ -35,11 +37,11 @@
     </div>
   </div>
   <!-- Bug Modal -->
-  <div class="modal fade" id="bugModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+  <div class="modal fade" id="bugModal" tabindex="-1" aria-labelledby="bugModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="settingsModalLabel">Bug Report</h1>
+          <h1 class="modal-title fs-5">Bug Report</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">Email: mdemchuk1@gulls.salisbury.edu with any bugs found
@@ -57,7 +59,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="settingsModalLabel">Settings</h1>
+          <h1 class="modal-title fs-5">Settings</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -104,7 +106,7 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
             <a class="nav-link" href="about.html">About</a>
@@ -133,31 +135,19 @@
               Play</button>
           </div>
           <div class="btn-group me-2" role="group" aria-label="Second group">
+            <input type="radio" class="btn-check" name="btnradio" id="basic_btn" autocomplete="off" checked />
+            <label class="btn btn-outline-primary" for="basic_btn">Basic</label>
+            <input type="radio" class="btn-check" name="btnradio" id="advanced_btn" autocomplete="off"
+              onclick="window.location.href = 'dice27Sim.html'" />
+            <label class="btn btn-outline-primary" for="advanced_btn">Advanced</label>
+          </div>
+          <div class="btn-group me-2" role="group" aria-label="Third group">
             <button type="radio" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bugModal">Report
               Bug</button>
-          </div>
-          <div class="btn-group" role="group" aria-label="Third group">
-            <div class="btn-group mx-2" role="group" aria-label="Basic radio toggle button group">
-              <input type="radio" class="btn-check" name="btnradio" id="basic_btn" autocomplete="off" checked />
-              <label class="btn btn-outline-primary" for="basic_btn">Basic</label>
-
-              <input type="radio" class="btn-check" name="btnradio" id="advanced_btn" autocomplete="off" />
-              <label class="btn btn-outline-primary" for="advanced_btn">Advanced</label>
-            </div>
           </div>
           <div class="btn-group" role="group" aria-label="Fourth group">
           </div>
         </div>
-
-        <!-- Advanced/Basic buttons: TRY TABS INSTEAD OF RADIO BUTTONS -->
-
-
-        <script>
-          document.getElementById("advanced_btn").onclick = function () {
-            window.location.href = "dice27Sim.html";
-          };
-        </script>
-
         <!-- settings button -->
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModal">
           <img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
@@ -220,7 +210,7 @@
       </div>
       <br>
       <div class="row">
-        <div id="diceApp" />
+        <div id="diceApp"></div>
       </div>
 
       <div class="row">
@@ -244,6 +234,7 @@
     </div>
   </main>
 
+  <!--Javascripts used for the page-->
   <script src="js/d3.min.js"></script>
   <script src="js/pixi.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
