@@ -131,9 +131,19 @@
 	<!-- this is the section where user clicks on needle amount to drop-->
 	<div class="container-fluid">
 		<div class="row bg-secondary">
+			<!-- contains preset percentile of needle length-->
 			<div class="col-3" style="text-align: left;margin-left: 12%;">
-				<input type="number" id="percentageOfNeedle" placeholder="Length Of Needle" min="0">
-				<input type="button" id="changeValue" value="Custom Length" onclick="customLength()">
+				<button class="btn btn-info dropdown-toggle" type="button" id="dropDownDropType"
+					data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Needle Length
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropDownDropType">
+					<h5 id="displayNeedleLength">Current Needle Length:<br> 90% of distance between lines </h5>
+					<button class="btn btn-primary" onclick="changeNeedleLength(.1);event.stopPropagation()"> Increase by 10%
+						Lines</button> <br>
+					<button class="btn btn-primary" onclick="changeNeedleLength(-0.1);event.stopPropagation()"> Decrease by 10%
+						Lines</button>
+				</div>
 			</div>
 
 			<div class="col-3 offset-3" style="text-align: right;margin-right: 12%;">
@@ -143,23 +153,8 @@
 
 		<!-- this is section wehre user clicks to change needle length-->
 		<div class="row bg-secondary" style="padding-top: 5px;">
-			<div class="col-4" style="margin-left:12%;">
-				<button class="btn btn-info dropdown-toggle" type="button" id="dropDownDropType"
-					data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Needle Length
-				</button>
-				<div class="dropdown-menu" aria-labelledby="dropDownDropType">
-					<button class="btn btn-primary"	onclick="changeNeedleLength(.25)"> 25% Distance Between Lines</button> <br>
-					<button class="btn btn-primary"	onclick="changeNeedleLength(.5)"> 50% Distance Between Lines</button><br>
-					<button class="btn btn-primary"	onclick="changeNeedleLength(.75)"> 75% Distance Between Lines</button> <br>
-					<button class="btn btn-primary"	onclick="changeNeedleLength(1)"> 100% Distance Between Lines</button>
-				</div>
-
-			</div>
-
 			<!-- this section would have dorp type and grid amount-->
-			<div class="col-3">
-
+			<div class="col-4" style="margin-left:12%;">
 				<!-- drop type-->
 				<button class="btn btn-info dropdown-toggle" type="button" id="dropDownDropType"
 					data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -180,14 +175,17 @@
 					<button class="btn btn-primary" onclick="changeLines(-1);event.stopPropagation()">-1</button>
 
 				</div>
+			</div>
 
+			<div class="col-2">
 
 			</div>
 
 			<!-- this section is drop needles and clear screen button-->
-			<div class="col-2" style="text-align: right;margin-right: 12%;padding-bottom: 5px;">
-				<button id="dropNeedleButton" type="submit" onclick="needleXY()">Drop Needles </button>
-				<button onclick="clearNeedles()">Clear Screen</button>
+			<div class="col-3" style="text-align: right;margin-right: 12%;padding-bottom: 5px;">
+				<button class="btn btn-primary" id="dropNeedleButton" type="submit" onclick="needleXY()">Drop Needles
+				</button>
+				<button class="btn btn-primary" onclick="clearNeedles()">Clear Screen</button>
 			</div>
 		</div>
 	</div>
