@@ -47,10 +47,12 @@ class DiceGame {
     #totalRolls = 0;
     #faceTotals;
     #app;
+    #window;
 
     constructor() {
-        this.#faceTotals = new Array(6).fill(0);
+        this.#window = new WindowInfo();
         this.#app = new App();
+        this.#faceTotals = new Array(6).fill(0);
     }
 
     #updateTable() {
@@ -86,9 +88,6 @@ class DiceGame {
         this.#numberRolls++;
     }
     guess() {
-        if (this.#total)
-    }
-    #setWeight() {
 
     }
     #playAudio(audioName) {
