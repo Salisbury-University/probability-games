@@ -54,7 +54,7 @@ let lineSpace = windowHeight / amountLines;
 let needleLength = lineSpace * 0.9;
 let yValue = lineSpace; //yValue is space between lines
 console.log(lineSpace);
-//lines[0] = 0;
+
 //creates the grid lines of the webpage
 for (let i = 0; i < amountLines - 1; i++) {
   line.lineStyle(1, 0x0096FF, 1);
@@ -239,6 +239,7 @@ function toRadians(angle) {
 }
 
 function dropType(type) {
+  /*
   var radioButtons = document.getElementsByName('dropType');
   var selectedValue;
   for (var i = 0; i < radioButtons.length; i++) {
@@ -246,8 +247,9 @@ function dropType(type) {
       var selectedValue = radioButtons[i].value;
       break;
     }
-  }
-  dropTypeValue = selectedValue;
+  }*/
+
+  dropTypeValue = type;
   clearNeedles();
   closeModal();
   console.log(dropTypeValue);

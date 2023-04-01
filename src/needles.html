@@ -47,8 +47,8 @@
 						<div id="dropTypeData">
 							<p>Cumulative: Each time you click drop needles, the needles are added to the page</p>
 							<p>Singular: Each time you click drop needles, the page and data are reset</p>
-							<input type="radio" name="dropType" value="Cumulative">Cumulative<br>
-							<input type="radio" name="dropType" value="Singular">Singular<br>
+							<input type="radio" name="dropype" value="Cumulative">Cumulative<br>
+							<input type="radio" name="dropype" value="Singular">Singular<br>
 						</div>
 						<div id="gridData" hidden>
 							<p> There are <span id="gridAmount"></span> grid lines</p>
@@ -102,29 +102,59 @@
 	</div>
 
 	<!-- this is the section where user clicks on needle amount to drop-->
-	<div class="row g-0 bg-secondary">
-		<div class="col" style="text-align: left;margin-left: 12%;">
-			<input type="number" id="percentageOfNeedle" placeholder="Length Of Needle" min="0">
-			<input type="button" id="changeValue" value="Custom Length" onclick="customLength()">
+	<div class="container-fluid">
+		<div class="row bg-secondary">
+			<div class="col-3" style="text-align: left;margin-left: 12%;">
+				<input type="number" id="percentageOfNeedle" placeholder="Length Of Needle" min="0">
+				<input type="button" id="changeValue" value="Custom Length" onclick="customLength()">
+			</div>
+
+			<div class="col-3 offset-3" style="text-align: right;margin-right: 12%;">
+				<input type="number" id="amountOfNeedles" placeholder="# Needles to Drop" min="0">
+			</div>
 		</div>
 
-		<div class="col" style="text-align: right;margin-right: 12%;">
-			<input type="number" id="amountOfNeedles" placeholder="# Needles to Drop" min="0">
-		</div>
-	</div>
+		<!-- this is section wehre user clicks to change needle length-->
+		<div class="row bg-secondary" style="padding-top: 5px;">
+			<div class="col-4" style="margin-left:12%;">
+				<input type="button" id="25percent" value="25 percent" onclick="changeNeedleLength(.25)">
+				<input type="button" id="50percent" value="50 percent" onclick="changeNeedleLength(.5)">
+				<input type="button" id="75percent" value="75 percent" onclick="changeNeedleLength(.75)">
+				<input type="button" id="100percent" value="100 percent" onclick="changeNeedleLength(1)">
+			</div>
 
-	<!-- this is section wehre user clicks to change needle length-->
-	<div class="row g-0 bg-secondary" style="padding-top: 5px;">
-		<div class="col" style="margin-left:12%;">
-			<input type="button" id="25percent" value="25 percent" onclick="changeNeedleLength(.25)">
-			<input type="button" id="50percent" value="50 percent" onclick="changeNeedleLength(.5)">
-			<input type="button" id="75percent" value="75 percent" onclick="changeNeedleLength(.75)">
-			<input type="button" id="100percent" value="100 percent" onclick="changeNeedleLength(1)">
-		</div>
+			<!-- this section would have dorp type and grid amount-->
+			<div class="col-3">
 
-		<div class="col" style="text-align: right;margin-right: 12%;padding-bottom: 5px;">
-			<button id="dropNeedleButton" type="submit" onclick="needleXY()">Drop Needles </button>
-			<button onclick="clearNeedles()">Clear Screen</button>
+				<!-- drop type-->
+				<button class="btn btn-info dropdown-toggle" type="button" id="dropDownDropType"
+					data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Drop Type
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropDownDropType">
+					<button class="btn btn-primary" onclick="dropType('Cumulative')">Cumulative</button> <br>
+					<button class="btn btn-primary" onclick="dropType('Singular')">Singular</button>
+				</div>
+
+				<!-- grid amount-->
+				<button class="btn btn-info dropdown-toggle" type="button" id="dropDownGridLines"
+					data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Number Grid Lines
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropDownGridLines">
+					<button class="btn btn-primary" onclick="changeLines(1);event.stopPropagation()">+1</button>
+					<button class="btn btn-primary" onclick="changeLines(-1);event.stopPropagation()">-1</button>
+
+				</div>
+
+
+			</div>
+
+			<!-- this section is drop needles and clear screen button-->
+			<div class="col-2" style="text-align: right;margin-right: 12%;padding-bottom: 5px;">
+				<button id="dropNeedleButton" type="submit" onclick="needleXY()">Drop Needles </button>
+				<button onclick="clearNeedles()">Clear Screen</button>
+			</div>
 		</div>
 	</div>
 
