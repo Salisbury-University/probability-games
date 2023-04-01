@@ -51,7 +51,8 @@ let lineInArray = new PIXI.Graphics(); //created a new line variable to test out
 let lineArray = [];//an array of the lineInArray pixi graphics object
 let amountLines = 7;
 let lineSpace = windowHeight / amountLines;
-let needleLength = lineSpace * 0.9;
+let needleLengthPercent = 0.9;
+let needleLength = lineSpace * needleLengthPercent;
 let yValue = lineSpace; //yValue is space between lines
 console.log(lineSpace);
 
@@ -264,23 +265,19 @@ function dropType(type) {
   console.log(dropTypeValue);
 }
 
-function customLength() {
-  let percent = document.getElementById("percentageOfNeedle").value;
-  if (percent > 100) {
-    percent = 100;
-    alert("Custom Length Has to be less then 100");
-  } else if (percent <= 0) {
-    percent = 100;
-    alert("Custom Length Has to be greater then 0");
-  }
-  percent /= 100;
-  console.log(percent);
-  needleLength = lineSpace * percent;
-  clearNeedles();
-}
-
 function changeNeedleLength(size) {
-  needleLength = lineSpace * (size);
+
+  needleLengthPercent += size;
+
+  if (needleLengthPercent*100 > 100) {
+    needleLengthPercent = 1;
+    alert("The Needle Cannot Be Longer The The Distance Between Lines!");
+  } else if (needleLengthPercent*100 < 10) {
+    needleLengthPercent = .1;
+    alert("The Needle Length Cannot Be Zero!");
+  }
+  needleLength = lineSpace * (needleLengthPercent);
+  document.getElementById("displayNeedleLength").innerHTML = "Current Needle Length:<br> " + Math.round(needleLengthPercent * 100) + "% of distance between lines";
   clearNeedles();
 }
 
