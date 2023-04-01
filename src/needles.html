@@ -54,8 +54,8 @@
 						<div id="dropTypeData">
 							<p>Cumulative: Each time you click drop needles, the needles are added to the page</p>
 							<p>Singular: Each time you click drop needles, the page and data are reset</p>
-							<input type="radio" name="dropType" value="Cumulative">Cumulative<br>
-							<input type="radio" name="dropType" value="Singular">Singular<br>
+							<input type="radio" name="dropype" value="Cumulative">Cumulative<br>
+							<input type="radio" name="dropype" value="Singular">Singular<br>
 						</div>
 						<div id="gridData" hidden>
 							<p> There are <span id="gridAmount"></span> grid lines</p>
@@ -129,29 +129,66 @@
 	</div>
 
 	<!-- this is the section where user clicks on needle amount to drop-->
-	<div class="row g-0 bg-secondary">
-		<div class="col" style="text-align: left;margin-left: 12%;">
-			<input type="number" id="percentageOfNeedle" placeholder="Length Of Needle" min="0">
-			<input type="button" id="changeValue" value="Custom Length" onclick="customLength()">
+	<div class="container-fluid">
+		<div class="row bg-secondary">
+			<div class="col-3" style="text-align: left;margin-left: 12%;">
+				<input type="number" id="percentageOfNeedle" placeholder="Length Of Needle" min="0">
+				<input type="button" id="changeValue" value="Custom Length" onclick="customLength()">
+			</div>
+
+			<div class="col-3 offset-3" style="text-align: right;margin-right: 12%;">
+				<input type="number" id="amountOfNeedles" placeholder="# Needles to Drop" min="0">
+			</div>
 		</div>
 
-		<div class="col" style="text-align: right;margin-right: 12%;">
-			<input type="number" id="amountOfNeedles" placeholder="# Needles to Drop" min="0">
-		</div>
-	</div>
+		<!-- this is section wehre user clicks to change needle length-->
+		<div class="row bg-secondary" style="padding-top: 5px;">
+			<div class="col-4" style="margin-left:12%;">
+				<button class="btn btn-info dropdown-toggle" type="button" id="dropDownDropType"
+					data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Needle Length
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropDownDropType">
+					<button class="btn btn-primary"	onclick="changeNeedleLength(.25)"> 25% Distance Between Lines</button> <br>
+					<button class="btn btn-primary"	onclick="changeNeedleLength(.5)"> 50% Distance Between Lines</button><br>
+					<button class="btn btn-primary"	onclick="changeNeedleLength(.75)"> 75% Distance Between Lines</button> <br>
+					<button class="btn btn-primary"	onclick="changeNeedleLength(1)"> 100% Distance Between Lines</button>
+				</div>
 
-	<!-- this is section wehre user clicks to change needle length-->
-	<div class="row g-0 bg-secondary" style="padding-top: 5px;">
-		<div class="col" style="margin-left:12%;">
-			<input type="button" id="25percent" value="25 percent" onclick="changeNeedleLength(.25)">
-			<input type="button" id="50percent" value="50 percent" onclick="changeNeedleLength(.5)">
-			<input type="button" id="75percent" value="75 percent" onclick="changeNeedleLength(.75)">
-			<input type="button" id="100percent" value="100 percent" onclick="changeNeedleLength(1)">
-		</div>
+			</div>
 
-		<div class="col" style="text-align: right;margin-right: 12%;padding-bottom: 5px;">
-			<button id="dropNeedleButton" type="submit" onclick="needleXY()">Drop Needles </button>
-			<button onclick="clearNeedles()">Clear Screen</button>
+			<!-- this section would have dorp type and grid amount-->
+			<div class="col-3">
+
+				<!-- drop type-->
+				<button class="btn btn-info dropdown-toggle" type="button" id="dropDownDropType"
+					data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Drop Type
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropDownDropType">
+					<button class="btn btn-primary" onclick="dropType('Cumulative')">Cumulative</button> <br>
+					<button class="btn btn-primary" onclick="dropType('Singular')">Singular</button>
+				</div>
+
+				<!-- grid amount-->
+				<button class="btn btn-info dropdown-toggle" type="button" id="dropDownGridLines"
+					data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Number Grid Lines
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropDownGridLines">
+					<button class="btn btn-primary" onclick="changeLines(1);event.stopPropagation()">+1</button>
+					<button class="btn btn-primary" onclick="changeLines(-1);event.stopPropagation()">-1</button>
+
+				</div>
+
+
+			</div>
+
+			<!-- this section is drop needles and clear screen button-->
+			<div class="col-2" style="text-align: right;margin-right: 12%;padding-bottom: 5px;">
+				<button id="dropNeedleButton" type="submit" onclick="needleXY()">Drop Needles </button>
+				<button onclick="clearNeedles()">Clear Screen</button>
+			</div>
 		</div>
 	</div>
 
@@ -163,9 +200,12 @@
 
 	<!--This is the stats area-->
 	<div class="row g-0 bg-success" style="text-align: center;border-top: 4px solid black;">
+		<!-- this section shows estimate pi button, continue button and stats header-->
 		<h1 id="statsH1"> Stats <button id="guessPIButton" onclick="guessPI()" disabled> Estimate PI</button>
 			<button id="continueButton" onclick="continueGame()" hidden>Continue</button>
 		</h1>
+
+		<!-- resultArea, the last section to be displayed-->
 		<div id="resultArea" hidden>
 			<div class="col">
 				<p> The real value of PI is: 3.14159265....</p>
@@ -173,8 +213,13 @@
 				<p id="percentErrorSection"></p>
 			</div>
 		</div>
+		<!-- guessing PI, second section to appear and lets user guess (estimate) the value of PI-->
 		<div id="guessingPI" hidden>
+			<!-- rows in bootstrap are used to group items together
+				review bootstrap grid view, and mess around with site	
+			-->
 			<div class="row">
+				<!-- there are 12 columns to the view of a website, helps organize website-->
 				<div class="col">
 					<p>Using the fomula below estimate the value of Pi</p>
 					<p>Please estimate PI: <input type="number" id="guessingPiNum"></p>
@@ -183,6 +228,7 @@
 						That Cross/Total Needles Dropped))</p>
 				</div>
 			</div>
+			<!-- this area shows needleLength, grid space-->
 			<div class="row">
 				<div class="col">
 					<p id="needLength"></p>
@@ -194,8 +240,6 @@
 				</div>
 			</div>
 
-			<!--<p id="needLength" ></p>
-					<p id="gridSpace"></p>-->
 		</div>
 
 		<div class="col" id="statsLocated1">

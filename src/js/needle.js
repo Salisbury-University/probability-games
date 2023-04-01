@@ -54,7 +54,7 @@ let lineSpace = windowHeight / amountLines;
 let needleLength = lineSpace * 0.9;
 let yValue = lineSpace; //yValue is space between lines
 console.log(lineSpace);
-//lines[0] = 0;
+
 //creates the grid lines of the webpage
 for (let i = 0; i < amountLines - 1; i++) {
   line.lineStyle(1, 0x0096FF, 1);
@@ -98,6 +98,43 @@ function changeLines(num) {
   }
 }
 
+//first function to be called while user guessing PI
+function guessPI() {
+
+  document.getElementById("guessingPiNum").addEventListener("keydown", function (e) {
+    if (e.code === "Enter") {  //checks whether the pressed key is "Enter" (if enter is pressed then calls next function)
+      guessingPIfunc();
+    }
+  });
+
+  //this hides the previous page (the stats for the page)
+  document.getElementById("statsLocated1").setAttribute("hidden", "hidden");
+  document.getElementById("statsLocated2").setAttribute("hidden", "hidden");
+  document.getElementById("statsLocated3").setAttribute("hidden", "hidden");
+  document.getElementById("formulaValue").setAttribute("hidden", "hidden");
+  //disables the button to drop needles
+  document.getElementById("dropNeedleButton").setAttribute("disabled", "disabled");
+
+  //shows guessingPI section
+  document.getElementById("guessingPI").removeAttribute("hidden");
+}
+//the second function to be called (by user pressing enter)
+function guessingPIfunc() {
+  //shows result area
+  document.getElementById("resultArea").removeAttribute("hidden");
+  document.getElementById("userGuessSection").innerHTML = "You guessed: " + document.getElementById("guessingPiNum").value;
+  document.getElementById("percentErrorSection").innerHTML = "Percent Error: " + Math.abs((document.getElementById("guessingPiNum").value - Math.PI) / Math.PI) * 100 + "%";
+  document.getElementById("guessingPI").setAttribute("hidden", "hidden");
+
+  //shows the guess pi button (which brings us back to first page)
+  document.getElementById("guessPIButton").setAttribute("hidden", "hidden");
+  //shows continuebutton (which continues to the last section [showing how accurate user is])
+  document.getElementById("continueButton").removeAttribute("hidden");
+  document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10) / 10 + " Units"; // units is pixels
+  document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10) / 10 + " Units";
+}
+
+//last section displayed (resets back to how website originally looked)
 function continueGame() {
   document.getElementById("resultArea").setAttribute("hidden", "hidden");
   document.getElementById("statsLocated1").removeAttribute("hidden");
@@ -109,34 +146,6 @@ function continueGame() {
   document.getElementById("guessPIButton").setAttribute("disabled", "disabled");
   document.getElementById("dropNeedleButton").removeAttribute("disabled");
   clearNeedles();
-}
-
-function guessingPIfunc() {
-  document.getElementById("resultArea").removeAttribute("hidden");
-  document.getElementById("userGuessSection").innerHTML = "You guessed: " + document.getElementById("guessingPiNum").value;
-  document.getElementById("percentErrorSection").innerHTML = "Percent Error: " + Math.abs((document.getElementById("guessingPiNum").value - Math.PI) / Math.PI) * 100 + "%";
-  document.getElementById("guessingPI").setAttribute("hidden", "hidden");
-
-  document.getElementById("guessPIButton").setAttribute("hidden", "hidden");
-  document.getElementById("continueButton").removeAttribute("hidden");
-  document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10) / 10 + " Units"; // units is pixels
-  document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10) / 10 + " Units";
-}
-
-function guessPI() {
-  document.getElementById("guessingPiNum").addEventListener("keydown", function (e) {
-    if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
-      guessingPIfunc();
-    }
-  });
-
-  document.getElementById("statsLocated1").setAttribute("hidden", "hidden");
-  document.getElementById("statsLocated2").setAttribute("hidden", "hidden");
-  document.getElementById("statsLocated3").setAttribute("hidden", "hidden");
-  document.getElementById("formulaValue").setAttribute("hidden", "hidden");
-  document.getElementById("dropNeedleButton").setAttribute("disabled", "disabled");
-
-  document.getElementById("guessingPI").removeAttribute("hidden");
 }
 
 function needleXY() {
@@ -239,6 +248,7 @@ function toRadians(angle) {
 }
 
 function dropType(type) {
+  /*
   var radioButtons = document.getElementsByName('dropType');
   var selectedValue;
   for (var i = 0; i < radioButtons.length; i++) {
@@ -246,8 +256,9 @@ function dropType(type) {
       var selectedValue = radioButtons[i].value;
       break;
     }
-  }
-  dropTypeValue = selectedValue;
+  }*/
+
+  dropTypeValue = type;
   clearNeedles();
   closeModal();
   console.log(dropTypeValue);
