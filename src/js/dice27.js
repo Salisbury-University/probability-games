@@ -151,9 +151,6 @@ class App {
     appendApp() {
         document.getElementById(this.#appName).appendChild(this.#app.view);
     }
-    getAppName() {
-        return this.#appName;
-    }
     getApp() {
         return this.#app;
     }
