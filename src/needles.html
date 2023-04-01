@@ -117,10 +117,17 @@
 		<!-- this is section wehre user clicks to change needle length-->
 		<div class="row bg-secondary" style="padding-top: 5px;">
 			<div class="col-4" style="margin-left:12%;">
-				<input type="button" id="25percent" value="25 percent" onclick="changeNeedleLength(.25)">
-				<input type="button" id="50percent" value="50 percent" onclick="changeNeedleLength(.5)">
-				<input type="button" id="75percent" value="75 percent" onclick="changeNeedleLength(.75)">
-				<input type="button" id="100percent" value="100 percent" onclick="changeNeedleLength(1)">
+				<button class="btn btn-info dropdown-toggle" type="button" id="dropDownDropType"
+					data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Needle Length
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropDownDropType">
+					<button class="btn btn-primary"	onclick="changeNeedleLength(.25)"> 25% Distance Between Lines</button> <br>
+					<button class="btn btn-primary"	onclick="changeNeedleLength(.5)"> 50% Distance Between Lines</button><br>
+					<button class="btn btn-primary"	onclick="changeNeedleLength(.75)"> 75% Distance Between Lines</button> <br>
+					<button class="btn btn-primary"	onclick="changeNeedleLength(1)"> 100% Distance Between Lines</button>
+				</div>
+
 			</div>
 
 			<!-- this section would have dorp type and grid amount-->
