@@ -98,7 +98,7 @@
     </div>
     <!-- Navbar -->
     <header>
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar">
             <div class="container-fluid">
                 <a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png" alt="logo"
                         style="max-height: 35px" /></a>
@@ -161,9 +161,19 @@
             </div>
         </nav>
     </header>
-
+    <div class="welcome-scene">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-md-3 text-center">
+                    <h1>Welcome to the Dice Rolling Game!</h1>
+                    <p>Click the button below to start rolling the dice:</p>
+                    <button class="btn btn-success" id="close-welcome">Play</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <main>
-        <div class="container-fluid text-center">
+        <div class="container text-center">
             <!-- PixiJS Application-->
             <div class="row">
                 <h1>Dice Roll Game</h1>
@@ -172,16 +182,66 @@
                 <div id="app"></div>
             </div>
             <div class="row">
-                <button type="radio" class="btn btn-primary" id="singleRoll" onclick="roll(0)">Roll Dice</button>
-            </div>
-            <div class="row">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Number of Rolls"
-                        aria-label="Recipient's username" aria-describedby="multiRoll" id="numberRolls">
-                    <button class="btn btn-success" type="button" id="multiRoll" onclick="roll(1)">Submit</button>
+                <div class="col">
+                    <h6>Single Roll:</h6>
+                    <button type="radio" class="btn btn-primary" id="singleRoll" onclick="roll(0)">Roll Dice</button>
+                </div>
+                <div class="col">
+                    <h6>Multiple Rolls:</h6>
+                    <div class="input-group align-items-center">
+                        <input type="text" class="form-control" placeholder="Number of Rolls"
+                            aria-label="Recipient's username" aria-describedby="multiRoll" id="numberRolls">
+                        <button class="btn btn-primary" type="button" id="multiRoll" onclick="roll(1)">Submit</button>
+                    </div>
                 </div>
             </div>
-            <div class="row"></div>
+
+            <div class="row">
+                <div class="row m-3">
+                    <div class="col m-2 p-2 border rounded bg-secondary text-white">
+                        <div class="text-center">
+                            <img src="../images/dice1.png">
+                            <hr class="featurette-divider" />
+                            <h1 id="face1">0</h1>
+                        </div>
+                    </div>
+                    <div class="col m-2 p-2 border rounded bg-secondary text-white">
+                        <div class="text-center">
+                            <img src="../images/dice2.png">
+                            <hr class="featurette-divider" />
+                            <h1 id="face2">0</h1>
+                        </div>
+                    </div>
+                    <div class="col m-2 p-2 border rounded bg-secondary text-white">
+                        <div class="text-center">
+                            <img src="../images/dice3.png">
+                            <hr class="featurette-divider" />
+                            <h1 id="face3">0</h1>
+                        </div>
+                    </div>
+                    <div class="col m-2 p-2 border rounded bg-secondary text-white">
+                        <div class="text-center">
+                            <img src="../images/dice4.png">
+                            <hr class="featurette-divider" />
+                            <h1 id="face4">0</h1>
+                        </div>
+                    </div>
+                    <div class="col m-2 p-2 border rounded bg-secondary text-white">
+                        <div class="text-center">
+                            <img src="../images/dice5.png">
+                            <hr class="featurette-divider" />
+                            <h1 id="face5">0</h1>
+                        </div>
+                    </div>
+                    <div class="col m-2 p-2 border rounded bg-secondary text-white">
+                        <div class="text-center">
+                            <img src="../images/dice6.png">
+                            <hr class="featurette-divider" />
+                            <h1 id="face6">0</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 

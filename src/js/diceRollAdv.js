@@ -8,7 +8,7 @@ class WindowInfo {
     #windowWidth;
     #windowHeight;
     constructor() {
-        this.#windowWidth = window.innerWidth * .98;
+        this.#windowWidth = document.querySelector('.container').getBoundingClientRect().width;
         this.#windowHeight = window.innerHeight;
     }
     getWindowWidth() {
@@ -30,7 +30,7 @@ class App {
         return new PIXI.Application({
             backgroundAlpha: 0,
             width: windowInfo.getWindowWidth(),
-            height: windowInfo.getWindowHeight() * .15
+            height: windowInfo.getWindowHeight() * .2
         });
     }
     appendApp() {
@@ -63,15 +63,11 @@ class DiceGame {
 
 
         this.#dice = new Sprite(this.#app.getApp().loader.resources["dice0"].texture);
-        this.#dice.x = (this.#window.getWindowWidth() / 2) - (this.#dice.width / 2);
+        this.#dice.x = (this.#window.getWindowWidth() / 2) - 65;
         this.#app.getApp().stage.addChild(this.#dice);
         this.#app.appendApp();
 
         this.#faceTotals = new Array(6).fill(0);
-    }
-
-    #updateTable() {
-
     }
     roll(check) {
         //hide roll button and play the audio
@@ -92,6 +88,9 @@ class DiceGame {
                 if (check == 1) {
                     this.#multi();
                 }
+                else {
+                }
+                this.#updateTable();
                 document.getElementById("singleRoll").disabled = false;
                 document.getElementById("multiRoll").disabled = false;
                 ticks++;
@@ -101,14 +100,17 @@ class DiceGame {
 
     }
     #multi() {
-        let numberRolls = document.getElementById("numberRolls").value;
+        let numberRolls = document.getElementById("numberRolls").value - 1;
+        let rollValue;
         for (let i = 0; i < numberRolls; i++) {
             rollValue = ((Math.floor(Math.random() * 600) + 1) % 6) + 1;
             this.#faceTotals[rollValue - 1]++;
         }
     }
-    guess() {
-
+    #updateTable() {
+        for (let i = 0; i < 6; i++) {
+            document.getElementById(`face${i + 1}`).innerHTML = this.#faceTotals[i];
+        }
     }
     #playAudio(audioName) {/*
         audioName.pause();
@@ -122,3 +124,16 @@ const game = new DiceGame();
 function roll(check) {
     game.roll(check);
 }
+
+// Get the welcome scene and the full page elements
+const welcomeScene = document.querySelector('.welcome-scene');
+const fullPage = document.querySelector('.container text-center');
+
+// Get the close button from the welcome scene
+const closeButton = document.querySelector('#close-welcome');
+
+// When the close button is clicked, hide the welcome scene and show the full page
+closeButton.addEventListener('click', function () {
+    welcomeScene.style.display = 'none';
+    fullPage.style.display = 'block';
+});
