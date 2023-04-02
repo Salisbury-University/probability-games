@@ -71,6 +71,9 @@ class DiceGame {
     }
     roll(check) {
         //hide roll button and play the audio
+        for (let i = 1; i <= 6; i++) {
+            document.getElementById(`card${i}`).classList.remove("bg-success");
+        }
         document.getElementById("singleRoll").disabled = true;
         document.getElementById("multiRoll").disabled = true;
         this.#playAudio(AUDIO_ROLL);
@@ -89,6 +92,7 @@ class DiceGame {
                     this.#multi();
                 }
                 else {
+                    document.getElementById(`card${rollValue}`).classList.add("bg-success");
                 }
                 this.#updateTable();
                 document.getElementById("singleRoll").disabled = false;
