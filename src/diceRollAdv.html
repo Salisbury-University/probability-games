@@ -163,13 +163,23 @@
     </header>
 
     <main>
-        <div class="container-fluid">
+        <div class="container-fluid text-center">
             <!-- PixiJS Application-->
+            <div class="row">
+                <h1>Dice Roll Game</h1>
+            </div>
             <div class="row">
                 <div id="app"></div>
             </div>
             <div class="row">
-                <button type="radio" class="btn btn-primary">Roll Dice</button>
+                <button type="radio" class="btn btn-primary" id="singleRoll" onclick="roll(0)">Roll Dice</button>
+            </div>
+            <div class="row">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Number of Rolls"
+                        aria-label="Recipient's username" aria-describedby="multiRoll" id="numberRolls">
+                    <button class="btn btn-success" type="button" id="multiRoll" onclick="roll(1)">Submit</button>
+                </div>
             </div>
             <div class="row"></div>
         </div>
@@ -179,7 +189,7 @@
 
 
     <script src="js/bootstrap.bundle.min.js"></script>
-
+    <script src="js/pixi.min.js"></script>
     <script src="js/diceRollAdv.js"></script>
 
 </body>

@@ -493,30 +493,6 @@ class Dice27 {
         audioName.currentTime = 0;
         audioName.play();
     }
-    /*resize() {
-        this.#window.resizeWindow();
-        let dist = this.#window.getWindowWidth() * .025;
-        let add = this.#window.getWindowWidth() * .036;
-        let chipSize = this.#window.getWindowWidth() * .016;
-        let yAxis = this.#window.getWindowHeight() * .07;
-
-        
-        this.#app.resize(this.#window);
-        this.#diceApp.resize(this.#window);
-
-        for (let i = 0; i < baseTotal; i++) {
-            this.#coins[i].resize(dist, yAxis, chipSize, this.#app);
-            this.#lines[i].resize(dist, chipSize);
-            dist = dist + add;
-            this.#app.getApp().stage.addChild(this.#coins[i].getCoin());
-
-        }
-
-        this.#dice.destroy();
-        this.#dice = new Sprite.from(this.#diceApp.getApp().loader.resources["dice0"].texture);
-        this.#dice.x = (this.#window.getWindowWidth() / 2) - (this.#dice.width / 2);
-        this.#diceApp.getApp().stage.addChild(this.#dice);
-    }*/
 }
 const game = new Dice27();
 
@@ -547,13 +523,3 @@ function autoComplete() {
 function remainderCheck() {
     game.checkRemainderAnswer();
 }
-
-
-/*
-function resize() {
-    if (check >= (Date.now() - delay))
-        return;
-    check = Date.now();
-    console.log("resize");
-    game.resize();
-}*/
