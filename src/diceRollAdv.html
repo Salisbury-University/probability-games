@@ -30,6 +30,7 @@
                     </ol>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="">Tutorial</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -174,13 +175,15 @@
     </div>
     <main>
         <div class="container text-center">
-            <!-- PixiJS Application-->
+            <!--Title of the game-->
             <div class="row">
                 <h1>Dice Roll Game</h1>
             </div>
+            <!-- PixiJS Application-->
             <div class="row">
                 <div id="app"></div>
             </div>
+            <!-- buttons to roll the dice-->
             <div class="row">
                 <div class="col">
                     <h6>Single Roll:</h6>
@@ -195,7 +198,7 @@
                     </div>
                 </div>
             </div>
-
+            <!--table to store all of the roll totals-->
             <div class="row">
                 <div class="row m-3">
                     <div class="col m-2 p-2 border rounded bg-secondary text-white" id="card1">
@@ -242,11 +245,11 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+
+            </div>
         </div>
     </main>
-
-
-
 
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/pixi.min.js"></script>

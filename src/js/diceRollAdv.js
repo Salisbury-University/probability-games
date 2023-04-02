@@ -70,10 +70,10 @@ class DiceGame {
         this.#faceTotals = new Array(6).fill(0);
     }
     roll(check) {
-        //hide roll button and play the audio
         for (let i = 1; i <= 6; i++) {
             document.getElementById(`card${i}`).classList.remove("bg-success");
         }
+
         document.getElementById("singleRoll").disabled = true;
         document.getElementById("multiRoll").disabled = true;
         this.#playAudio(AUDIO_ROLL);
