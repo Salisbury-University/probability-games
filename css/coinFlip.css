@@ -18,23 +18,11 @@ h1 {
 	text-align: center;
 }
 
-h2 {
-	margin: 2px;
-	font-family: "Calibri";
-	font-size: 1.25rem;
-	color: black;
-	text-align: left;
-}
-
 h3 {
 	font-family: "Calibri";
 	text-shadow: 2px 0 #33373c;
 	font-size: 1.5rem;
 	color: #EBEBDD;
-}
-
-.helpArea {
-	text-align: left;
 }
 
 #coin {
@@ -113,11 +101,4 @@ table {
 	color: #000;
 	text-decoration: none;
 	cursor: pointer;
-}
-
-
-.topright {
-	position: absolute;
-	right: 0;
-	top: -1;
 }

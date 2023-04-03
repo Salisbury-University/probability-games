@@ -62,13 +62,13 @@ function flipCoin() {
 			
 			// if weighted coin is heads
 			if (num <= weightHeavierSide) {
-				document.querySelector("h1").innerHTML = "You got Heads!";
+				document.getElementById("head").innerHTML = "You got Heads!";
 				document.getElementById("coin").setAttribute("src", "../images/coinHead.png");
 				headCount += 1;
 			} 
 			// if weighted coin is tails
 			else {
-				document.querySelector("h1").innerHTML = "You got Tails!";
+				document.getElementById("head").innerHTML = "You got Tails!";
 				document.getElementById("coin").setAttribute("src", "../images/coinTail.png");
 				tailCount += 1;
 			}
@@ -82,13 +82,13 @@ function flipCoin() {
 			let num = Math.floor(Math.random() * 100) + 1;
 			// weighted coin is tails
 			if (num <= weightHeavierSide) {
-				document.querySelector("h1").innerHTML = "You got Tails!";
+				document.getElementById("head").innerHTML = "You got Tails!";
 				document.getElementById("coin").setAttribute("src", "../images/coinTail.png");
 				tailCount += 1;
 			} 
 			// weighted coin is heads
 			else {
-				document.querySelector("h1").innerHTML = "You got Heads!";
+				document.getElementById("head").innerHTML = "You got Heads!";
 				document.getElementById("coin").setAttribute("src", "../images/coinHead.png");
 				headCount += 1;
 			}
@@ -103,13 +103,13 @@ function flipCoin() {
 			
 		// if regular coin is heads
 		if (num <= 50) {
-			document.querySelector("h1").innerHTML = "You got Heads!";
+			document.getElementById("head").innerHTML = "You got Heads!";
 			document.getElementById("coin").setAttribute("src", "../images/coinHead.png");
 			headCount += 1;
 		} 
 		// if regular coin is tails
 		else {
-			document.querySelector("h1").innerHTML = "You got Tails!";
+			document.getElementById("head").innerHTML = "You got Tails!";
 			document.getElementById("coin").setAttribute("src", "../images/coinTail.png");
 			tailCount += 1;
 		}
@@ -171,7 +171,7 @@ function flipCoinMultiple() {
 			}
 			document.getElementById("headTotal").innerHTML = headCount;
 			document.getElementById("tailTotal").innerHTML = tailCount;
-			document.querySelector("h1").innerHTML = "You got Heads " + headAmount + " times, and got Tails " + tailAmount + " times";
+			document.getElementById("head").innerHTML = "You got Heads " + headAmount + " times, and got Tails " + tailAmount + " times";
 		}
 
 		else {
@@ -191,7 +191,7 @@ function flipCoinMultiple() {
 			}
 			document.getElementById("headTotal").innerHTML = headCount;
 			document.getElementById("tailTotal").innerHTML = tailCount;
-			document.querySelector("h1").innerHTML = "You got Heads " + headAmount + " times, and got Tails " + tailAmount + " times";
+			document.getElementById("head").innerHTML = "You got Heads " + headAmount + " times, and got Tails " + tailAmount + " times";
 		}
 	} 
 
@@ -213,7 +213,7 @@ function flipCoinMultiple() {
 		}
 		document.getElementById("headTotal").innerHTML = headCount;
 		document.getElementById("tailTotal").innerHTML = tailCount;
-		document.querySelector("h1").innerHTML = "You got Heads " + headAmount + " times, and got Tails " + tailAmount + " times";
+		document.getElementById("head").innerHTML = "You got Heads " + headAmount + " times, and got Tails " + tailAmount + " times";
 	}
 }
 
@@ -231,7 +231,7 @@ function weightedGuess() {
 		document.getElementById("flipCoinMultiple").disabled = true; 
 
 		// message displays at top of screen
-		document.querySelector("h1").innerHTML = "The coin is in fact weighted";
+		document.getElementById("head").innerHTML = "The coin is in fact weighted";
 
 		// guess weight message displays
 		document.getElementById("guessWeight").innerHTML = "Guess the weight of the coin";
@@ -244,7 +244,7 @@ function weightedGuess() {
 		// plays wrong guess audio
 		AUDIO_WRONG.play();
 
-		document.querySelector("h1").innerHTML = "In this case the coin is actually not weighted";
+		document.querySelector("head").innerHTML = "In this case the coin is actually not weighted";
 		document.getElementById("weightAmount").innerHTML = "Weight: 50%/50%";
 
 		// reset weight
@@ -273,7 +273,7 @@ function notWeightedGuess() {
 		document.getElementById("flipCoinMultiple").disabled = true; 
 
 		// message displays at top of screen
-		document.querySelector("h1").innerHTML = "In this case the coin is actually weighted";
+		document.getElementById("head").innerHTML = "In this case the coin is actually weighted";
 
 		// guess weight message displays
 		document.getElementById("guessWeight").innerHTML = "Guess the weight of the coin";
@@ -286,7 +286,7 @@ function notWeightedGuess() {
 		// plays correct guess audio
 		AUDIO_CORRECT.play();
 
-		document.querySelector("h1").innerHTML = "The coin is in fact not weighted";
+		document.getElementById("head").innerHTML = "The coin is in fact not weighted";
 		document.getElementById("weightAmount").innerHTML = "Weight: 50%/50%";
 
 		// reset weight
