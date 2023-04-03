@@ -30,7 +30,8 @@
                     </ol>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="">Tutorial</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        id="openTutorial">Tutorial</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -173,6 +174,17 @@
             </div>
         </div>
     </div>
+    <div class="tutorial">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-md-3 text-center">
+                    <h1>Welcome to Dice Rolling Game Tutorial</h1>
+                    <p>Click the button below to begin</p>
+                    <button class="btn btn-success" id="closeTutorial">Play</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <main>
         <div class="container text-center">
             <!--Title of the game-->
@@ -198,8 +210,10 @@
                     </div>
                 </div>
             </div>
+            <br>
             <!--table to store all of the roll totals-->
             <div class="row">
+                <hr class="featurette-divider" />
                 <div class="row m-3">
                     <div class="col m-2 p-2 border rounded bg-secondary text-white" id="card1">
                         <div class="text-center">
@@ -245,8 +259,12 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-
+            <div class="row" id="guessSection" hidden>
+                <h1>Is the Dice Weighted?</h1>
+                <div class="col">
+                    <button type="radio" class="btn btn-primary" onclick="guess(true)">Weighted</button>
+                    <button type="radio" class="btn btn-primary" onclick="guess(false)">Not Weighted</button>
+                </div>
             </div>
         </div>
     </main>
