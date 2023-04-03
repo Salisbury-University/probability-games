@@ -224,13 +224,19 @@ function needleXY() {
       for (let k = 0; k < lines.length; k++) {
         //checks to see if the needle dropped not crosses the grid lines and changes color red
         if ((yEnd <= lines[k] && yCenter <= lines[k]) || (yEnd >= lines[k] && yCenter >= lines[k])) {
-          //lineInArray.tint = 0xFF0000;
-          lineInArray.lineStyle(1, 0xbf40bf, 1);
+         //F248F2
+         //F331F3
+         //FB00FB
+         //F900E8
+
+          lineInArray.lineStyle(1, 0xFB00FB, 1);
         }
         //checks to see if the needle does dropped crosses the grid line and changes color green
         else {
           //lineInArray.tint = 0xAAFF00;
-          lineInArray.lineStyle(1, 0xf50c878, 1);
+          //08B908
+          //f50c878
+          lineInArray.lineStyle(1, 0x08B908, 1);
           needleCross++;
           //we stop so the colors don't overwrite the colors 
           k = lines.length;//sets as lines length to stop for loop
