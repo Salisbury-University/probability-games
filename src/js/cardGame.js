@@ -1,17 +1,14 @@
 // ship.js: this file is the javascript implementation of
 // the 12-card dice game
-// it includes the pixijs code for generating the cards, chips, dice, scoreboards, and roll button
-// in order for pixi=js to work correctly, it must be run in a live environment, can use http-server on linux,
-// or liveserver in vscode
-// run http-server like this on linux:
-// $ http-server -c-1 -a localhost -p 8000 /path/to/project
-// -c-1 so that the cache refreshes and page is updated when javascript is
 
-// should've created card objects with chips, titles, and pixiJS roundedRect object
-
-document.getElementById("play-again-button").onclick = function () {
-  resetGame();
-};
+// TO DO BEFORE PRESENTATION
+// 1. finish how to play thing (video + instructions + setup)
+// 2. Add header
+// 2. start on tutorial
+// 3. show dark mode
+// 4. write presentation
+// 5. fix the boxes around the player prompts
+// 6. fix the powerbar/remove it
 
 // constants for arrays holding values for p1 and p2
 const PLAYER_1 = 0;
@@ -22,7 +19,7 @@ const teal = 0x177e89;
 const oceanic = 0x084c61;
 const red = 0xdb3a34;
 const yellow = 0xffc857;
-const charcoal = 0xd3d3d3;
+var charcoal = 0xd3d3d3;
 const green = 0x3bb143;
 const black = 0x000000;
 const white = 0xffffff;
@@ -102,7 +99,7 @@ var scoreStyle = new PIXI.TextStyle({
 
 //create Application Window
 let app = new PIXI.Application({
-  backgroundColor: 0xffffff,
+  transparent: true,
   width: windowWidth,
   height: windowHeight * 0.77,
 });
@@ -216,6 +213,8 @@ var chipStack2 = new Array(11);
 let chipsPlaced1 = new Array(11); // where all the chips were initially placed, doesn't change after chips are removed
 let chipsPlaced2 = new Array(11);
 
+let playerBackgrounds = [];
+
 // initialize the created arrays
 for (let i = 0; i < 11; i++) {
   chipsPlaced1[i] = 0;
@@ -226,32 +225,6 @@ for (let i = 0; i < 11; i++) {
 const cardHeight = windowHeight * 0.23;
 const cardWidth = windowWidth * 0.07;
 const cornerRadius = 6;
-
-// reset all variables, prompts, player scores
-// reset dice, unstage and restage chips
-function resetGame() {
-  //reset cardChips variables
-  for (let i = 0; i < 11; i++) {
-    cardChips1[i] = 0;
-    cardChips2[i] = 0;
-    chipStack1[i] = 0;
-    chipStack2[i] = 0;
-    chipsPlaced1[i] = 0;
-    chipsPlaced2[i] = 0;
-  }
-  updatePrompt("Player 1 click on a card to place your chip", PLAYER_1);
-  rollButton.interactive = false;
-  app.stage.removeChild(rollButton);
-  app.stage.removeChild(powerBar);
-
-  // remove all chips so they can be replaced
-  for (let i = 0; i < 11; i++) {
-    app.stage.removeChild(chips1[i]);
-    app.stage.removeChild(chips2[i]);
-  }
-
-  createGame();
-}
 
 // function creates the dice, roll button, and power bar
 function createGame() {
@@ -308,11 +281,8 @@ function createChips(chips1, chips2, playerText, playerScoreText, scoreboard) {
     chips2[i].lineStyle(1, 0x000000, 1);
     chips1[i].drawEllipse(0, 0, chipWidth, chipHeight); // position + size of the ellipse (topleft x, topleft y, height, width)
     chips2[i].drawEllipse(0, 0, chipWidth, chipHeight);
-    chips1[i].x = playerScoreText[PLAYER_1].x - chips1[0].width;
-    chips2[i].x =
-      playerScoreText[PLAYER_2].x +
-      playerScoreText[PLAYER_2].width +
-      chips1[0].width;
+    chips1[i].x = playerText[PLAYER_1].x + playerText[PLAYER_1].width / 2;
+    chips2[i].x = playerText[PLAYER_2].x + playerText[PLAYER_2].width / 2;
     chips1[i].y =
       playerText[PLAYER_1].y +
       chips1[0].height * 6 -
@@ -386,23 +356,28 @@ function createPrompt() {
   app.stage.addChild(prompt);
 }
 
+tutorialOverlay = new Graphics();
+tutorialOverlay.drawRect();
+
 //global variables
 // - scoreboard
 function createPlayerScores(playerText, playerScoreText, scoreboard) {
   //create player names with styling
-  playerText[PLAYER_1] = new Text("PLAYER 1\nRemaining Chips:", {
+  playerText[PLAYER_1] = new Text("Player 1's chip stack", {
     fontSize: windowWidth * 0.015,
     fontFamily: '"Arial Black", Gadget, sans-serif',
     fontWeight: "bold",
     fill: red,
     align: "center",
+    resolution: 2,
   });
-  playerText[PLAYER_2] = new Text("PLAYER 2\nRemaining Chips:", {
+  playerText[PLAYER_2] = new Text("Player 2's chip stack", {
     fontSize: windowWidth * 0.015,
     fontFamily: '"Arial Black", Gadget, sans-serif',
     fontWeight: "bold",
     fill: teal,
     align: "center",
+    resolution: 2,
   });
   playerScoreText[PLAYER_1] = new Text("0", scoreStyle);
   playerScoreText[PLAYER_2] = new Text("0", scoreStyle);
@@ -411,14 +386,11 @@ function createPlayerScores(playerText, playerScoreText, scoreboard) {
   // position and size the text based on window size
   playerText[PLAYER_1].x = windowWidth * 0.05;
   playerText[PLAYER_2].x = windowWidth * 0.95 - playerText[PLAYER_2].width;
+
   playerScoreText[PLAYER_1].x =
-    playerText[PLAYER_1].x +
-    playerText[PLAYER_1].width / 2 -
-    playerScoreText[PLAYER_1].width / 2;
+    windowWidth * 0.05 + playerText[PLAYER_1].width / 2;
   playerScoreText[PLAYER_2].x =
-    playerText[PLAYER_2].x +
-    playerText[PLAYER_2].width / 2 -
-    playerScoreText[PLAYER_2].width / 2;
+    windowWidth * 0.95 - playerText[PLAYER_2].width / 2;
 
   playerText[PLAYER_1].y = windowHeight * 0.35;
   playerText[PLAYER_2].y = windowHeight * 0.35;
@@ -492,6 +464,42 @@ function createCards(
     app.stage.addChild(cards[i]);
     app.stage.addChild(titles[i]);
   }
+
+  // add each players background thing
+  playerBackgrounds[PLAYER_1] = new Graphics();
+  playerBackgrounds[PLAYER_2] = new Graphics();
+  playerBackgrounds[PLAYER_1].beginFill(red);
+  playerBackgrounds[PLAYER_1].lineStyle(4, charcoal, 4);
+  playerBackgrounds[PLAYER_1].alpha = 0.2;
+  playerBackgrounds[PLAYER_1].drawRoundedRect(
+    0,
+    0,
+    playerText[PLAYER_1].width,
+    windowHeight * 0.3,
+    10
+  );
+  playerBackgrounds[PLAYER_1].x = playerText[PLAYER_1].x;
+  playerBackgrounds[PLAYER_1].y = playerText[PLAYER_1].y;
+
+  playerBackgrounds[PLAYER_2].beginFill(teal);
+  playerBackgrounds[PLAYER_2].lineStyle(4, charcoal, 4);
+  playerBackgrounds[PLAYER_2].alpha = 0.2;
+  playerBackgrounds[PLAYER_2].drawRoundedRect(
+    0,
+    0,
+    playerText[PLAYER_2].width,
+    windowHeight * 0.3,
+    10
+  );
+  playerBackgrounds[PLAYER_2].x = playerText[PLAYER_2].x;
+  playerBackgrounds[PLAYER_2].y = playerText[PLAYER_2].y;
+
+  app.stage.addChild(playerBackgrounds[PLAYER_1]);
+  app.stage.addChild(playerBackgrounds[PLAYER_2]);
+
+  // adding player info labels to screen
+  app.stage.addChild(playerText[PLAYER_1]);
+  app.stage.addChild(playerText[PLAYER_2]);
 }
 
 //global variables
@@ -731,8 +739,28 @@ function cardClick(
       cards[j].buttonMode = false;
       cards[j].on("pointerover", () => hover(cards[j], 1));
     }
-    app.stage.addChild(playerText[PLAYER_1]);
-    app.stage.addChild(playerText[PLAYER_2]);
+
+    // updating the player prompt
+    playerText[PLAYER_1].text = "Player 1's\n Remaining Chips:";
+    playerText[PLAYER_2].text = "Player 2's\n Remaining Chips:";
+
+    // centering the text
+    playerScoreText[PLAYER_1].x =
+      playerText[PLAYER_1].x +
+      playerText[PLAYER_1].width / 2 -
+      playerScoreText[PLAYER_1].width / 2;
+
+    playerScoreText[PLAYER_2].x =
+      playerText[PLAYER_2].x +
+      playerText[PLAYER_2].width / 2 -
+      playerScoreText[PLAYER_2].width / 2;
+
+    // realign the backgrounds
+    playerBackgrounds[PLAYER_1].width = playerText[PLAYER_1].width + 4;
+    playerBackgrounds[PLAYER_2].width = playerText[PLAYER_2].width + 4;
+    playerText[PLAYER_1].x = playerBackgrounds[PLAYER_1].x;
+    playerText[PLAYER_2].x = playerBackgrounds[PLAYER_2].x;
+
     app.stage.addChild(playerScoreText[PLAYER_1]);
     app.stage.addChild(playerScoreText[PLAYER_2]);
 
@@ -895,9 +923,6 @@ function roll(playerText, playerScoreText, scoreboard) {
 
       // app.stage.addChild(winText);
       document.getElementById("win-header").innerHTML = winStr;
-      document.getElementById("play-again-button").onclick = function () {
-        resetGame();
-      };
 
       // get rid of all the gameplay objects
       for (let i = 0; i < 11; i++) {
@@ -933,7 +958,12 @@ function chipClick(
         scoreboard[PLAYER_1] -= 1;
         cardChips1[clickableCard] -= 1;
         playerScoreText[PLAYER_1].text = scoreboard[PLAYER_1];
-        app.stage.addChild(playerScoreText[PLAYER_1]);
+
+        // recenter the score text
+        playerScoreText[PLAYER_1].x =
+          playerText[PLAYER_1].x +
+          playerText[PLAYER_1].width / 2 -
+          playerScoreText[PLAYER_1].width / 2;
 
         // allow game to continue5
         rollButton.interactive = true;
@@ -959,7 +989,12 @@ function chipClick(
         scoreboard[PLAYER_2] -= 1;
         cardChips2[clickableCard] -= 1;
         playerScoreText[PLAYER_2].text = scoreboard[PLAYER_2];
-        app.stage.addChild(playerScoreText[PLAYER_2]);
+
+        // recenter the text
+        playerScoreText[PLAYER_2].x =
+          playerText[PLAYER_2].x +
+          playerText[PLAYER_2].width / 2 -
+          playerScoreText[PLAYER_2].width / 2;
 
         // allow game to continue
         rollButton.interactive = true;
@@ -981,5 +1016,33 @@ function chipClick(
       audio_misclick.time = 0;
       audio_misclick.play();
     }
+  }
+}
+
+function swapTheme(dropdown) {
+  theme = dropdown.innerHTML.replace(/\s/g, "").toLowerCase();
+
+  // change to Light Mode
+  if (theme == "lightmode") {
+    document.body.style.backgroundColor = "#ffffff";
+    charcoal = 0xd3d3d3;
+    document.getElementById("dropdownThemeLabel").innerHTML = "Light Mode";
+    dropdown.innerHTML = "Dark Mode";
+
+    // update html elemnets to work in dark mode
+    document.getElementById("page-header").classList.remove("text-white");
+    document.getElementById("win-header").classList.remove("bg-dark");
+    document.getElementById("win-header").classList.add("bg-light");
+    // change to Dark Mode
+  } else if (theme == "darkmode") {
+    document.body.style.backgroundColor = "#666666";
+    charcoal = 0xffffff;
+    document.getElementById("dropdownThemeLabel").innerHTML = "Dark Mode";
+    dropdown.innerHTML = "Light Mode";
+
+    // update html elemnets to work in dark mode
+    document.getElementById("page-header").classList.add("text-white");
+    document.getElementById("win-header").classList.remove("bg-light");
+    document.getElementById("win-header").classList.add("bg-dark");
   }
 }
