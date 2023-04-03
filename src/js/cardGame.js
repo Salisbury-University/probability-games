@@ -359,7 +359,7 @@ function createPrompt() {
 tutorialOverlay = new Graphics();
 tutorialOverlay.drawRect();
 
-//global variables
+//global vars
 // - scoreboard
 function createPlayerScores(playerText, playerScoreText, scoreboard) {
   //create player names with styling
