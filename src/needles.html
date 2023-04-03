@@ -30,7 +30,7 @@
 				</div>
 				<div class="modal-body">
 					<ol>
-						<li>Player rolls dice.</li>
+						<li>.</li>
 						<li>Player asked what is the max number of piles that can be made based on dice roll.</li>
 						<li>Player asked how many chips remain after creating piles.</li>
 						<li>If the remainder is greater than 0 the player gets those chips as points.</li>
@@ -73,28 +73,34 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<div class="form-group">
-						<button onclick="showDropType()"> Drop Type</button>
-						<button onclick="showGridInfo()">Grid Info</button>
-						<div id="dropTypeData">
-							<p>Cumulative: Each time you click drop needles, the needles are added to the page</p>
-							<p>Singular: Each time you click drop needles, the page and data are reset</p>
-							<input type="radio" name="dropype" value="Cumulative">Cumulative<br>
-							<input type="radio" name="dropype" value="Singular">Singular<br>
-						</div>
-						<div id="gridData" hidden>
-							<p> There are <span id="gridAmount"></span> grid lines</p>
-							<button class="btn btn-primary" onclick="changeLines(1)">+1</button>
-							<button class="btn btn-primary" onclick="changeLines(-1)">-1</button>
-
-						</div>
+					<p>Volume:</p>
+					<p>
+						<input type="range" id="volume-control" value="100" />
+					</p>
+					<hr class="featurette-divider" />
+					<p>
+						<input class="form-check-input m-1" type="checkbox" autocomplete="off" id="randPlacements" />
+						Sound Effects
+					</p>
+					<p>
+						<input class="form-check-input m-1" type="checkbox" autocomplete="off" id="muteBtn" />
+						Music
+					</p>
+					<hr class="featurette-divider" />
+					<div class="dropdown">
+						Theme:
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+							data-bs-toggle="dropdown" aria-expanded="false">
+							Light Mode
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							<li><a class="dropdown-item" href="#">Dark Mode</a></li>
+							<li><a class="dropdown-item" href="#">Solarized</a></li>
+						</ul>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-						Cancel
-					</button>
-					<button type="button" class="btn btn-primary" onclick="dropType()">Save
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save
 						changes</button>
 				</div>
 			</div>

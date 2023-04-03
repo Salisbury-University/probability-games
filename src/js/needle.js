@@ -35,7 +35,6 @@ window.addEventListener('resize', resizeCanvas);
 
 
 
-
 let line = new PIXI.Graphics();
 let lines = [];
 let needles = [];
@@ -55,6 +54,15 @@ let needleLengthPercent = 0.9;
 let needleLength = lineSpace * needleLengthPercent;
 let yValue = lineSpace; //yValue is space between lines
 console.log(lineSpace);
+
+needleDropSound.volume = 0.5;
+
+window.onload = function () {
+  let volume = document.getElementById("volume-control");
+  volume.addEventListener("input", function (e) {
+    needleDropSound.volume = e.currentTarget.value / 100;
+  });
+};
 
 //creates the grid lines of the webpage
 for (let i = 0; i < amountLines - 1; i++) {
@@ -269,10 +277,10 @@ function changeNeedleLength(size) {
 
   needleLengthPercent += size;
 
-  if (needleLengthPercent*100 > 100) {
+  if (needleLengthPercent * 100 > 100) {
     needleLengthPercent = 1;
     alert("The Needle Cannot Be Longer The The Distance Between Lines!");
-  } else if (needleLengthPercent*100 < 10) {
+  } else if (needleLengthPercent * 100 < 10) {
     needleLengthPercent = .1;
     alert("The Needle Length Cannot Be Zero!");
   }
@@ -319,7 +327,7 @@ function showGridInfo() {
 }
 
 function playAudio() {
-  needleDropSound.pause();
+  //needleDropSound.pause();
   needleDropSound.currentTime = 1.7;
   needleDropSound.play();
 }
