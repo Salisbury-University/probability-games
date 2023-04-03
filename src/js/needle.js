@@ -64,6 +64,17 @@ window.onload = function () {
   });
 };
 
+
+document.getElementById("disableSound").addEventListener("click", function () {
+  if (this.checked) {
+    needleDropSound.muted = true;
+    // Do something when checkbox is checked
+  } else {
+    needleDropSound.muted = false;
+    // Do something when checkbox is unchecked
+  }
+});
+
 //creates the grid lines of the webpage
 for (let i = 0; i < amountLines - 1; i++) {
   line.lineStyle(1, 0x0096FF, 1);
