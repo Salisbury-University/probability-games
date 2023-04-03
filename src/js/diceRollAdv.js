@@ -49,13 +49,14 @@ class DiceGame {
     #probabilities;
     #weighted;
     #numberRolls = 0;
+    #weightedSide = 0;
+    #clickable = false;
 
     constructor() {
         this.#window = new WindowInfo();
         this.#app = new App(this.#window, "app");
         this.#app.getApp().loader.baseUrl = "../images/";
         this.#app.getApp().loader
-            .add("dice0", "dice0.png")
             .add("dice1", "dice1.png")
             .add("dice2", "dice2.png")
             .add("dice3", "dice3.png")
@@ -65,13 +66,11 @@ class DiceGame {
         this.#app.getApp().loader.load();
 
 
-        this.#dice = new Sprite(this.#app.getApp().loader.resources["dice0"].texture);
+        this.#dice = new Sprite(this.#app.getApp().loader.resources["dice1"].texture);
         this.#dice.x = (this.#window.getWindowWidth() / 2) - 65;
         this.#app.getApp().stage.addChild(this.#dice);
         this.#app.appendApp();
-
-        this.#faceTotals = new Array(6).fill(0);
-        this.#isWeighted();
+        this.#reset();
     }
     roll(check) {
         for (let i = 1; i <= 6; i++) {
@@ -107,7 +106,8 @@ class DiceGame {
                 document.getElementById("multiRoll").disabled = false;
                 ticks++;
                 if (this.#numberRolls >= 10) {
-                    document.getElementById("guessSection").hidden = false;
+                    document.getElementById("prompt").innerHTML = "Is the Dice Weighted?";
+                    document.getElementById("guessButtons").hidden = false;
                 }
             }
             ticks++;
@@ -117,13 +117,19 @@ class DiceGame {
     guess(check) {
         if (this.#weighted == check) {
             this.#playAudio(AUDIO_CORRECT);
+            document.getElementById("guessButtons").hidden = true;
             if (this.#weighted) {
-
+                document.getElementById("prompt").innerHTML = "Which side is weighted? Click the side you think it is.";
+                this.#clickable = true
+                this.#changeCursor();
+            } else {
+                document.getElementById("prompt").innerHTML = "Correct, the Dice isn't Weighted! Lets play again";
+                this.#reset();
             }
         }
         else {
             this.#playAudio(AUDIO_WRONG);
-
+            document.getElementById("prompt").innerHTML = "Try Again";
         }
     }
     #rollDice() {
@@ -155,6 +161,31 @@ class DiceGame {
             document.getElementById(`face${i + 1}`).innerHTML = this.#faceTotals[i];
         }
     }
+    #changeCursor() {
+        if (this.#clickable) {
+            for (let i = 1; i <= 6; i++) {
+                document.getElementById(`card${i}`).style.cursor = "pointer";
+            }
+        }
+        else {
+            for (let i = 1; i <= 6; i++) {
+                document.getElementById(`card${i}`).style.cursor = "default";
+            }
+        }
+    }
+
+    cardSelect(side) {
+        if (this.#clickable) {
+            if (side == this.#weightedSide) {
+                this.#playAudio(AUDIO_CORRECT);
+                document.getElementById("prompt").innerHTML = "Correct the " + side + " side is the weighted.";
+                this.#reset();
+            }
+            else {
+                document.getElementById("prompt").innerHTML = "Wrong side try again";
+            }
+        }
+    }
     #playAudio(audioName) {/*
         audioName.pause();
         audioName.currentTime = 0;
@@ -171,12 +202,19 @@ class DiceGame {
             // Set the probabilities to favor the weighted face
             this.#probabilities = new Array(6).fill(2 / 15);
             this.#probabilities[weightedIndex] = 1 / 3;
+            this.#weightedSide = weightedIndex + 1;
             this.#weighted = true;
         } else {
             this.#weighted = false;
             // If the dice is not weighted, return equal probabilities for all faces
             this.#probabilities = new Array(6).fill(1 / 6);
         }
+    }
+    #reset() {
+        this.#faceTotals = new Array(6).fill(0);
+        this.#clickable = false;
+        this.#changeCursor();
+        this.#isWeighted();
     }
 }
 
@@ -187,6 +225,9 @@ function roll(check) {
 }
 function guess(check) {
     game.guess(check);
+}
+function cardSelect(side) {
+    game.cardSelect(side);
 }
 
 // Get the welcome scene and the full page elements
