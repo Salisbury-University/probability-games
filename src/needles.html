@@ -21,22 +21,38 @@
 
 <body>
 	<!-- How to Play Modal -->
-	<div class="modal fade" id="howToPlay" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
+	<div class="modal fade modal-lg" id="howToPlay" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content modal-lg">
 				<div class="modal-header">
 					<h1 class="modal-title fs-5">How to Play: Buffon's Needles</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
+					<h5> <b> Required </b></h5>
 					<ol>
-						<li>.</li>
-						<li>Player asked what is the max number of piles that can be made based on dice roll.</li>
-						<li>Player asked how many chips remain after creating piles.</li>
-						<li>If the remainder is greater than 0 the player gets those chips as points.</li>
-						<li>Swap to the other player.</li>
-						<li>Repeat steps 1 - 5 until the total number of chips is 0 then the player with the most chips
-							wins.</li>
+						<li>Enter How Many Needles To Drop</li>
+						<li>Press Enter or Click "Drop Needles" To Drop Needles</li>
+						<li>After You Dropped Enough Needles Click "Estimate Pi"</li>
+						<li>Follow The Provided Formula To Estimate Your Value of PI</li>
+						<li>See How Accurate You Were and Play Again!</li>
+					</ol>
+					<hr>
+					<h5> <b>Optional Settings </b></h5>
+
+					<ol>
+						<li>Needle Length:</li>
+						<p>Needle Length is a percentage of the distance between grid lines. <br>
+							Automatically the Needle Length is 90% the distance between grid lines.</p>
+						<li>Drop Type:</li>
+						<p>Drop Type Refers to what happens to the screen after you Click "Drop Needles". <br>
+							Singular Means each time you click "Drop Needles" The Previous Drop is Cleared <br>
+							Cumulative Means each time you click "Drop Needles" The Previous Drop is Added To</p>
+						<li>Number of Gird Lines</li>
+						<p>
+							This allows you to change the amount of grid lines that appear on the screen, there can be
+							between 2-9 grid lines.
+						</p>
 					</ol>
 				</div>
 				<div class="modal-footer">
