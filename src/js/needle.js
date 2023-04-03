@@ -236,7 +236,7 @@ function needleXY() {
           //lineInArray.tint = 0xAAFF00;
           //08B908
           //f50c878
-          lineInArray.lineStyle(1, 0x08B908, 1);
+          lineInArray.lineStyle(1, 0xf50c878, 1);
           needleCross++;
           //we stop so the colors don't overwrite the colors 
           k = lines.length;//sets as lines length to stop for loop
