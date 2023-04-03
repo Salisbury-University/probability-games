@@ -95,7 +95,7 @@ function changeLines(num) {
   } else {
     amountLines += num;
     console.log(amountLines);
-    document.getElementById("gridAmount").innerHTML = amountLines - 1;
+    //document.getElementById("gridAmount").innerHTML = amountLines - 1;
     clearNeedles();
     line.destroy(); //destroy lines to build again
     lines = [];
