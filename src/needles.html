@@ -21,22 +21,38 @@
 
 <body>
 	<!-- How to Play Modal -->
-	<div class="modal fade" id="howToPlay" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
+	<div class="modal fade modal-lg" id="howToPlay" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content modal-lg">
 				<div class="modal-header">
 					<h1 class="modal-title fs-5">How to Play: Buffon's Needles</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
+					<h5> <b> Required </b></h5>
 					<ol>
-						<li>Player rolls dice.</li>
-						<li>Player asked what is the max number of piles that can be made based on dice roll.</li>
-						<li>Player asked how many chips remain after creating piles.</li>
-						<li>If the remainder is greater than 0 the player gets those chips as points.</li>
-						<li>Swap to the other player.</li>
-						<li>Repeat steps 1 - 5 until the total number of chips is 0 then the player with the most chips
-							wins.</li>
+						<li>Enter How Many Needles To Drop</li>
+						<li>Press Enter or Click "Drop Needles" To Drop Needles</li>
+						<li>After You Dropped Enough Needles Click "Estimate Pi"</li>
+						<li>Follow The Provided Formula To Estimate Your Value of PI</li>
+						<li>See How Accurate You Were and Play Again!</li>
+					</ol>
+					<hr>
+					<h5> <b>Optional Settings </b></h5>
+
+					<ol>
+						<li>Needle Length:</li>
+						<p>Needle Length is a percentage of the distance between grid lines. <br>
+							Automatically the Needle Length is 90% the distance between grid lines.</p>
+						<li>Drop Type:</li>
+						<p>Drop Type Refers to what happens to the screen after you Click "Drop Needles". <br>
+							Singular Means each time you click "Drop Needles" The Previous Drop is Cleared <br>
+							Cumulative Means each time you click "Drop Needles" The Previous Drop is Added To</p>
+						<li>Number of Gird Lines</li>
+						<p>
+							This allows you to change the amount of grid lines that appear on the screen, there can be
+							between 2-9 grid lines.
+						</p>
 					</ol>
 				</div>
 				<div class="modal-footer">
@@ -73,28 +89,30 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<div class="form-group">
-						<button onclick="showDropType()"> Drop Type</button>
-						<button onclick="showGridInfo()">Grid Info</button>
-						<div id="dropTypeData">
-							<p>Cumulative: Each time you click drop needles, the needles are added to the page</p>
-							<p>Singular: Each time you click drop needles, the page and data are reset</p>
-							<input type="radio" name="dropype" value="Cumulative">Cumulative<br>
-							<input type="radio" name="dropype" value="Singular">Singular<br>
-						</div>
-						<div id="gridData" hidden>
-							<p> There are <span id="gridAmount"></span> grid lines</p>
-							<button class="btn btn-primary" onclick="changeLines(1)">+1</button>
-							<button class="btn btn-primary" onclick="changeLines(-1)">-1</button>
-
-						</div>
+					<p>Volume:</p>
+					<p>
+						<input type="range" id="volume-control" value="100" />
+					</p>
+					<hr class="featurette-divider" />
+					<p>
+						<input class="form-check-input m-1" type="checkbox" autocomplete="off" id="disableSound" />
+						Disable Sound Effects
+					</p>
+					<hr class="featurette-divider" />
+					<div class="dropdown">
+						Theme:
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+							data-bs-toggle="dropdown" aria-expanded="false">
+							Light Mode
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							<li><a class="dropdown-item" href="#">Dark Mode</a></li>
+							<li><a class="dropdown-item" href="#">Solarized</a></li>
+						</ul>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-						Cancel
-					</button>
-					<button type="button" class="btn btn-primary" onclick="dropType()">Save
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save
 						changes</button>
 				</div>
 			</div>
@@ -251,54 +269,61 @@
 		<!-- resultArea, the last section to be displayed-->
 		<div id="resultArea" hidden>
 			<div class="col">
-				<p> The real value of PI is: 3.14159265....</p>
+				<p id = estimation></p>
 				<p id="userGuessSection"></p>
 				<p id="percentErrorSection"></p>
 			</div>
 		</div>
-		<!-- guessing PI, second section to appear and lets user guess (estimate) the value of PI-->
+		<!-- guessing PI, second section to appear and lets user guess (estimate) the value of PI based on the data from the game-->
 		<div id="guessingPI" hidden>
 			<!-- rows in bootstrap are used to group items together
 				review bootstrap grid view, and mess around with site	
 			-->
-			<div class="row">
+	
 				<!-- there are 12 columns to the view of a website, helps organize website-->
 				<div class="col">
 					<p>Using the fomula below estimate the value of Pi</p>
 					<p>Please estimate PI: <input type="number" id="guessingPiNum"></p>
-					<p> The formula for finding PI is: (2 * Length of the Needle)/(Distance Between Grid Lines *
-						(Needles
-						That Cross/Total Needles Dropped))</p>
+					<p>l = length of needle</p>
+					<p>d = distance between Lines</p>
+					<p>c = needles that cross a grid line</p>
+					<p>t = total number of needles dropped</p>
+					<p> The formula for finding PI is: (2 * l)/(d *(c/t))</p>
 				</div>
-			</div>
+		
 			<!-- this area shows needleLength, grid space-->
-			<div class="row">
+		
 				<div class="col">
 					<p id="needLength"></p>
 					<p id="gridSpace"></p>
 				</div>
-				<div class="col" id="formulaValue">
+				<div class = "col">
+					<p id="needCross"></p>
+					<p id="total"></p>
+				</div>
+				<!--<div class="col" id="formulaValue">
 					<h3 id="needLength"></h3>
 					<h3 id="gridSpace"> </h3>
-				</div>
+				</div>-->
 			</div>
 
-		</div>
+		
 
-		<div class="col" id="statsLocated1">
-			<h3 id="estimation"></h3>
-			<h3 id="realPi"> </h3>
-			<h3 id="percentError"></h3>
-		</div>
-		<div class="col" id="statsLocated2">
-			<h3 id="total"> </h3>
-			<h3 id="needCross"></h3>
-			<h3 id="needleDontCross"> </h3>
-		</div>
-		<div class="col" id="statsLocated3">
-			<h3 id="needLength"></h3>
-			<h3 id="gridSpace"> </h3>
-		</div>
+			<div class="col"  id="statsLocated1">
+				<h3 id="estimation"></h3>
+				<h3 id="realPi"> </h3>
+				<h3 id="percentError"></h3>
+			</div>
+			<div class="col" id="statsLocated2">
+				<h3 id="total"> </h3>
+				<h3 id="needCross"></h3>
+				<h3 id="needleDontCross"> </h3>
+			</div>
+			<!--<div class="column" id="statsLocated3">
+				<h3 id="needLength"></h3>
+				<h3 id="gridSpace"> </h3>
+			</div>-->
+		
 	</div>
 </body>
 
