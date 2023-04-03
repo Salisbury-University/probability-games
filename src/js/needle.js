@@ -87,6 +87,16 @@ for (let i = 0; i < amountLines - 1; i++) {
   yValue = yValue + lineSpace;
 }
 
+function changeDarkTheme(){
+  console.log("Changing to Dark Theme");
+  document.getElementById("themeType").innerHTML = "Dark Theme";
+}
+
+function changeLightTheme(){
+  console.log("Changing to Light Theme");
+  document.getElementById("themeType").innerHTML = "Light Theme";
+}
+
 function changeLines(num) {
   if (amountLines == 10 && num == 1) {
     alert("Can not go over ten lines");
