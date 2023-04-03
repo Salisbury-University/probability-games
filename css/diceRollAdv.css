@@ -11,6 +11,9 @@
     z-index: 10;
 }
 
+.modal fade {
+    z-index: 50;
+}
 
 .tutorial {
     position: fixed;
