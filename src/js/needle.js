@@ -130,8 +130,8 @@ function guessPI() {
   //this hides the previous page (the stats for the page)
   document.getElementById("statsLocated1").setAttribute("hidden", "hidden");
   document.getElementById("statsLocated2").setAttribute("hidden", "hidden");
-  document.getElementById("statsLocated3").setAttribute("hidden", "hidden");
-  document.getElementById("formulaValue").setAttribute("hidden", "hidden");
+  //document.getElementById("statsLocated3").setAttribute("hidden", "hidden");
+  //document.getElementById("formulaValue").setAttribute("hidden", "hidden");
   //disables the button to drop needles
   document.getElementById("dropNeedleButton").setAttribute("disabled", "disabled");
 
@@ -142,6 +142,9 @@ function guessPI() {
 function guessingPIfunc() {
   //shows result area
   document.getElementById("resultArea").removeAttribute("hidden");
+  //document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10) / 10 + " Units"; // units is pixels
+  //document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10) / 10 + " Units";
+  //document.getElementById("statsLocated3").removeAttribute("hidden");
   document.getElementById("userGuessSection").innerHTML = "You guessed: " + document.getElementById("guessingPiNum").value;
   document.getElementById("percentErrorSection").innerHTML = "Percent Error: " + Math.abs((document.getElementById("guessingPiNum").value - Math.PI) / Math.PI) * 100 + "%";
   document.getElementById("guessingPI").setAttribute("hidden", "hidden");
@@ -150,8 +153,6 @@ function guessingPIfunc() {
   document.getElementById("guessPIButton").setAttribute("hidden", "hidden");
   //shows continuebutton (which continues to the last section [showing how accurate user is])
   document.getElementById("continueButton").removeAttribute("hidden");
-  document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10) / 10 + " Units"; // units is pixels
-  document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10) / 10 + " Units";
 }
 
 //last section displayed (resets back to how website originally looked)
@@ -159,7 +160,7 @@ function continueGame() {
   document.getElementById("resultArea").setAttribute("hidden", "hidden");
   document.getElementById("statsLocated1").removeAttribute("hidden");
   document.getElementById("statsLocated2").removeAttribute("hidden");
-  document.getElementById("statsLocated3").removeAttribute("hidden");
+  //document.getElementById("statsLocated3").removeAttribute("hidden");
   document.getElementById("guessPIButton").removeAttribute("hidden");
   document.getElementById("continueButton").setAttribute("hidden", "hidden");
 
