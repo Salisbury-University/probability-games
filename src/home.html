@@ -1,85 +1,23 @@
-
 <!doctype html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-  <meta name="generator" content="Hugo 0.104.2">
+  <meta name="author" content="Matthew Demchuk, Jovanni Rodriguez">
   <title>Probability Games!</title>
-
-  <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/carousel/">
 
   <link href="../css/bootstrap.min.css" rel="stylesheet">
   <link href="../css/home.css" rel="stylesheet">
 
-  <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      user-select: none;
-    }
-
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-
-    .b-example-divider {
-      height: 3rem;
-      background-color: rgba(0, 0, 0, .1);
-      border: solid rgba(0, 0, 0, .15);
-      border-width: 1px 0;
-      box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
-    }
-
-    .b-example-vr {
-      flex-shrink: 0;
-      width: 1.5rem;
-      height: 100vh;
-    }
-
-    .bi {
-      vertical-align: -.125em;
-      fill: currentColor;
-    }
-
-    .nav-scroller {
-      position: relative;
-      z-index: 2;
-      height: 2.75rem;
-      overflow-y: hidden;
-    }
-
-    .nav-scroller .nav {
-      display: flex;
-      flex-wrap: nowrap;
-      padding-bottom: 1rem;
-      margin-top: -1px;
-      overflow-x: auto;
-      text-align: center;
-      white-space: nowrap;
-      -webkit-overflow-scrolling: touch;
-    }
-  </style>
-
-
-  <!-- Custom styles for this template -->
-  <link href="../css/carousel.css" rel="stylesheet">
 </head>
 
 <body>
-
   <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="./home.html"><img src="../images/logo.png" id="logo_img"
-            style="max-height: 50px;"></img></a>
+        <a class="navbar-brand" href="home.html"><img src="../images/logo.png" id="logo_img"
+            style="max-height: 35px;"></img></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
           aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -87,87 +25,56 @@
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Games
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="diceRoll.html">Dice Roll</a></li>
+                <li><a class="dropdown-item" href="coinFlip.html">Coin Flip</a></li>
+                <li><a class="dropdown-item" href="GoatGame.html">Monty Hall Problem</a></li>
+                <li><a class="dropdown-item" href="needles.html">Buffons Needles</a></li>
+                <li><a class="dropdown-item" href="card.html">12 Card Game</a></li>
+                <li><a class="dropdown-item" href="dice27.html">Game of 27</a></li>
+              </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
+              <a class="nav-link" href="https://github.com/Salisbury-University/probability-games.git" target="_blank"
+                rel="noopener noreferrer">GitHub</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="https://github.com/Salisbury-University/probability-games.git">GitHub</a>
-            </li>
+
           </ul>
         </div>
       </div>
     </nav>
   </header>
 
+  <!--Main -->
   <main>
-
-    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
-          aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      </div>
-      <!-- screenshots go here -->
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="../images/cardGame.png" width="100%" height="100%" style="opacity:0.3;filter:blur(6px);"></img>
-          <div class="container">
-            <div class="carousel-caption text-start" style="color: #000000">
-              <h1>12 Card Game</h1>
-              <p>Learn about the distribution of rolling two die!</p>
-              <p><a class="btn btn-lg btn-primary" href="card.html">Play Game</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img src="../images/goatGame.png" width="100%" height="100%" style="opacity:0.3;filter:blur(6px);"></img>
-          <div class="container">
-            <div class="carousel-caption" style="color:#000000">
-              <h1>Monty Hall Game</h1>
-              <p>Learn about probability with the class Monty Hall problem!</p>
-              <p><a class="btn btn-lg btn-primary" href="GoatGame.html">Play Game</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="carousel-item">
-          <img src="../images/gameOf27.png" width="100%" height="100%" style="opacity:0.3;filter:blur(6px);">
-          <rect width="100%" height="100%" fill="#777" />
-          </svg>
-          <div class="container">
-            <div class="carousel-caption text-end" style="color: #000000">
-              <h1>Game of 27!</h1>
-              <p>Learn about remainders with the Game of 27!</p>
-              <p><a class="btn btn-lg btn-primary" href="dice27.html">Play Game</a></p>
-            </div>
+    <div class="pb-0 mb-0 container">
+      <div class="pt-5 pb-0 text-center">
+        <img class="d-block mx-auto mb-4" src="../images/logo.png" alt="logo" width="371" height="120">
+        <h1 class="display-5 fw-bold text-body-emphasis">Welcome to Probability Games!</h1>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-4">Play fun probability games and learn about probability concepts.</p>
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <a class="btn btn-primary btn-lg px-4 gap-3" href="about.html">About</a>
+            <a class="btn btn-outline-secondary btn-lg px-4"
+              href="https://github.com/Salisbury-University/probability-games.git" target="_blank"
+              rel="noopener noreferrer">GitHub</a>
           </div>
         </div>
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-
-
-    <!-- Marketing messaging and featurettes
-  ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
-
-    <div class="container marketing">
-
-      <!-- Three columns of text below the carousel -->
+      <hr class="px-0 featurette-divider">
+      <div class="row text-center">
+        <h1 class="display-5 fw-bold text-body-emphasis">Lets Play Some Games!</h1>
+      </div>
       <div class="row">
         <div class="col-lg-4">
           <img src="../images/12card_thumbnail.png" class="rounded-circle" width="140" height="140">
           <title>12 Card Game</title>
-
           <h2 class="fw-normal">12 Card Game</h2>
           <p>First player to get rid of all of their chips from rolling the die wins!</p>
           <p><a class="btn btn-secondary" href="card.html">Play Game &raquo;</a></p>
@@ -177,12 +84,10 @@
           <h2 class="fw-normal">Monty Hall Game</h2>
           <p>Try to guess which door the prize is behind, with one opportunity to switch!
           </p>
-          </svg>
           <p><a class="btn btn-secondary" href="GoatGame.html">Play Game &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
           <img src="../images/27_thumbnail.png" class="rounded-circle" width="140" height="140">
-
           <h2 class="fw-normal">Game of 27</h2>
           <p>Use divisoin to get the most points!</p>
           <p><a class="btn btn-secondary" href="dice27.html">Play Game &raquo;</a></p>
@@ -190,48 +95,36 @@
       </div><!-- /.row -->
       <div class="row">
         <div class="col-lg-4">
-
           <img src="../images/die_thumbnail.jpg" class="rounded-circle" width="140" height="140">
           <h2 class="fw-normal">Weighted Die Game</h2>
-          <p>Roll two die, and guess whether or not they are weighted to win!
-          </p>
+          <p>Roll a die and guess whether or not it is weighted!</p>
           <p><a class="btn btn-secondary" href="diceRoll.html">Play Game &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-
           <img src="../images/coin_thumbnail.png" class="rounded-circle" width="140" height="140">
           <h2 class="fw-normal">Coin Flipper</h2>
           <p>Flip a coin, and predict whether or not it is weighted to win!
           </p>
-          </svg>
           <p><a class="btn btn-secondary" href="coinFlip.html">Play Game &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-
           <img src="../images/buffon_thumbnail.png" class="rounded-circle" width="140" height="140">
           <h2 class="fw-normal">Buffon's Needles</h2>
           <p>Simulate dropping needles onto a grid, and see how many touch the gridlines.
           </p>
-          </svg>
           <p><a class="btn btn-secondary" href="needles.html">Play Game &raquo;</a></p>
         </div><!-- /.col-lg-4 -->
-
       </div>
       <hr class="featurette-divider">
     </div><!-- /.container -->
-
-
-    <!-- FOOTER -->
-      <footer class="container">
-        <p class="float-end"><a href="#">Back to top</a></p>
-        <p> &middot; Salisbury University &middot; </p>
-      </footer>
   </main>
 
-
+  <!-- FOOTER -->
+  <footer class="container">
+    <p class="float-end"><a href="#">Back to top</a></p>
+    <p> &middot; Salisbury University &middot; </p>
+  </footer>
   <script src="js/bootstrap.bundle.min.js"></script>
-
-
 </body>
 
 </html>
