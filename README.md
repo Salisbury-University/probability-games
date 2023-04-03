@@ -1,4 +1,3 @@
-[![Issues][issues-shield]][issues-url]
 # Probability Games
 ## Purpose:
 The purpose of this project is to create a website that hosts a number of different games to educate middle school and high school students on probability. The project has to be a website because public schools will not allow an .exe file to be installed on the school computers.
