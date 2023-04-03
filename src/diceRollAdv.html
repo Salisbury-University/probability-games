@@ -30,6 +30,8 @@
                     </ol>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        id="openTutorial">Tutorial</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -98,7 +100,7 @@
     </div>
     <!-- Navbar -->
     <header>
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar">
             <div class="container-fluid">
                 <a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png" alt="logo"
                         style="max-height: 35px" /></a>
@@ -161,25 +163,115 @@
             </div>
         </nav>
     </header>
-
+    <div class="welcome-scene">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-md-3 text-center">
+                    <h1>Welcome to the Dice Rolling Game!</h1>
+                    <p>Click the button below to start rolling the dice:</p>
+                    <button class="btn btn-success" id="close-welcome">Play</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tutorial">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 offset-md-3 text-center">
+                    <h1>Welcome to Dice Rolling Game Tutorial</h1>
+                    <p>Click the button below to begin</p>
+                    <button class="btn btn-success" id="closeTutorial">Play</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <main>
-        <div class="container-fluid">
+        <div class="container text-center">
+            <!--Title of the game-->
+            <div class="row">
+                <h1>Dice Roll Game</h1>
+            </div>
             <!-- PixiJS Application-->
             <div class="row">
                 <div id="app"></div>
             </div>
+            <!-- buttons to roll the dice-->
             <div class="row">
-                <button type="radio" class="btn btn-primary">Roll Dice</button>
+                <div class="col">
+                    <h6>Single Roll:</h6>
+                    <button type="radio" class="btn btn-primary" id="singleRoll" onclick="roll(0)"
+                        style="z-index: 500;">Roll Dice</button>
+                </div>
+                <div class="col">
+                    <h6>Multiple Rolls:</h6>
+                    <div class="input-group align-items-center">
+                        <input type="text" class="form-control" placeholder="Number of Rolls"
+                            aria-label="Recipient's username" aria-describedby="multiRoll" id="numberRolls">
+                        <button class="btn btn-primary" type="button" id="multiRoll" onclick="roll(1)">Submit</button>
+                    </div>
+                </div>
             </div>
-            <div class="row"></div>
+            <br>
+            <!--table to store all of the roll totals-->
+            <div class="row">
+                <hr class="featurette-divider" />
+                <div class="row m-3">
+                    <div class="col m-2 p-2 border rounded bg-secondary text-white" id="card1">
+                        <div class="text-center">
+                            <img src="../images/dice1.png">
+                            <hr class="featurette-divider" />
+                            <h1 id="face1">0</h1>
+                        </div>
+                    </div>
+                    <div class="col m-2 p-2 border rounded bg-secondary text-white" id="card2">
+                        <div class="text-center">
+                            <img src="../images/dice2.png">
+                            <hr class="featurette-divider" />
+                            <h1 id="face2">0</h1>
+                        </div>
+                    </div>
+                    <div class="col m-2 p-2 border rounded bg-secondary text-white" id="card3">
+                        <div class="text-center">
+                            <img src="../images/dice3.png">
+                            <hr class="featurette-divider" />
+                            <h1 id="face3">0</h1>
+                        </div>
+                    </div>
+                    <div class="col m-2 p-2 border rounded bg-secondary text-white" id="card4">
+                        <div class="text-center">
+                            <img src="../images/dice4.png">
+                            <hr class="featurette-divider" />
+                            <h1 id="face4">0</h1>
+                        </div>
+                    </div>
+                    <div class="col m-2 p-2 border rounded bg-secondary text-white" id="card5">
+                        <div class="text-center">
+                            <img src="../images/dice5.png">
+                            <hr class="featurette-divider" />
+                            <h1 id="face5">0</h1>
+                        </div>
+                    </div>
+                    <div class="col m-2 p-2 border rounded bg-secondary text-white" id="card6">
+                        <div class="text-center">
+                            <img src="../images/dice6.png">
+                            <hr class="featurette-divider" />
+                            <h1 id="face6">0</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="guessSection" hidden>
+                <h1>Is the Dice Weighted?</h1>
+                <div class="col">
+                    <button type="radio" class="btn btn-primary" onclick="guess(true)">Weighted</button>
+                    <button type="radio" class="btn btn-primary" onclick="guess(false)">Not Weighted</button>
+                </div>
+            </div>
         </div>
     </main>
 
-
-
-
     <script src="js/bootstrap.bundle.min.js"></script>
-
+    <script src="js/pixi.min.js"></script>
     <script src="js/diceRollAdv.js"></script>
 
 </body>
