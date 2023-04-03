@@ -106,8 +106,8 @@
 							Light Mode
 						</button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-							<li><button class="dropdown-item" href="#">Dark Mode</button></li>
-							<li><button class="dropdown-item" href="#">Light Mode</button></li>
+							<li><a class="dropdown-item" href="#">Dark Mode</a></li>
+							<li><a class="dropdown-item" href="#">Solarized</a></li>
 						</ul>
 					</div>
 				</div>
@@ -157,6 +157,14 @@
 							data-bs-target="#howToPlay">How to
 							Play</button>
 					</div>
+					<div class="btn-group me-2" role="group" aria-label="Second group">
+						<input type="radio" class="btn-check" name="btnradio" id="basic_btn" autocomplete="off"
+							checked />
+						<label class="btn btn-outline-primary" for="basic_btn">Basic</label>
+						<input type="radio" class="btn-check" name="btnradio" id="advanced_btn" autocomplete="off"
+							onclick="window.location.href = 'needles.html'" />
+						<label class="btn btn-outline-primary" for="advanced_btn">Advanced</label>
+					</div>
 					<div class="btn-group me-2" role="group" aria-label="Third group">
 						<button type="radio" class="btn btn-primary" data-bs-toggle="modal"
 							data-bs-target="#bugModal">Report
@@ -200,8 +208,8 @@
 				</div>
 			</div>
 
-			<div class="col-2 offset-4" style="text-align: right;margin-right: 12%;">
-				<input class="form-control" type="number" id="amountOfNeedles" placeholder="# Needles to Drop" min="0">
+			<div class="col-3 offset-3" style="text-align: right;margin-right: 12%;">
+				<input type="number" id="amountOfNeedles" placeholder="# Needles to Drop" min="0">
 			</div>
 		</div>
 
@@ -322,7 +330,7 @@
 			<h3 class="total"></h3>
 			<h3 class="needCross"></h3>
 			<h3 id="needleDontCross"></h3>
-			
+			</div>
 		
 	</div>
 </body>
