@@ -1,267 +1,397 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+    <link href="../css/home.css" rel="stylesheet" />
 
-  <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
-  <link rel="stylesheet" href="../css/card.css" type="text/css" />
+    <!-- favicon stuff -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="../images/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../images/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="../images/favicon-16x16.png"
+    />
+    <link rel="manifest" href="../images/site.webmanifest" />
 
-  <!-- favicon stuff -->
-  <link rel="apple-touch-icon" sizes="180x180" href="../images/apple-touch-icon.png" />
-  <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png" />
-  <link rel="manifest" href="../images/site.webmanifest" />
+    <title>Sum of Two Dice Game</title>
+  </head>
 
-  <title>Sum of Two Dice Game</title>
-</head>
+  <body>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
 
-<body>
-  <!-- How to Play Modal -->
-  <div class="modal fade" id="howToPlay" tabindex="-1" aria-labelledby="instructionsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="instructionsModalLabel">
-            How to Play
-          </h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <ol>
-            <li>
-              Player's each take turns adding their chips to the numbered
-              cards, until there are no chips remaining in their piles
-            </li>
-            <li>Player 1 rolls the two dice and adds the sum of the dice.</li>
-            <dl>
-              If Player 1 has a chip on the card equal to the sum of the dice
-              remove the chip and get a point.
-            </dl>
-            <dl>Otherwise, move onto player 2's roll</dl>
-            <li>Player 2 rolls the two dice and adds the sum of the dice.</li>
-            <dl>
-              Now, if Player 2 has a chip on the card equal to the sum of the
-              dice remove the chip and get a point.
-            </dl>
-            <dl>Otherwise, it becomes player 1's turn to roll again</dl>
-            <li>
-              Continue rolling the dice and removing chips, until one player
-              removes all of their chips
-            </li>
-            <li>
-              First player to remove all of their chips from their cards wins!
-            </li>
-            <li>
-              Try to place your chips where you think the dice will roll more
-              often than not!
-            </li>
-          </ol>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Bug Modal -->
-  <div class="modal fade" id="bugModal" tabindex="-1" aria-labelledby="bugModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5">Bug Report</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">Email: mdemchuk1@gulls.salisbury.edu with any bugs found
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Settings Modal -->
-  <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5">Settings</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>Volume:</p>
-          <p>
-            <input type="range" id="volume-control" value="100" />
-          </p>
-          <hr class="featurette-divider" />
-          <p>
-            <input class="form-check-input m-1" type="checkbox" autocomplete="off" id="randPlacements" />
-            Sound Effects
-          </p>
-          <p>
-            <input class="form-check-input m-1" type="checkbox" autocomplete="off" id="muteBtn" />
-            Music
-          </p>
-          <hr class="featurette-divider" />
-          <div class="dropdown">
-            Theme:
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              Light Mode
+    <!-- Settings Modal -->
+    <div
+      class="modal fade"
+      id="settingsModal"
+      tabindex="-1"
+      aria-labelledby="settingsModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="settingsModalLabel">Settings</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>Volume:</p>
+            <p>
+              <input type="range" id="volume-control" value="100" />
+            </p>
+            <hr class="featurette-divider" />
+            <p>
+              <input
+                class="form-check-input m-1"
+                type="checkbox"
+                autocomplete="off"
+                id="randPlacements"
+              />
+              Sound Effects
+            </p>
+            <p>
+              <input
+                class="form-check-input m-1"
+                type="checkbox"
+                autocomplete="off"
+                id="muteBtn"
+              />
+              Music
+            </p>
+            <hr class="featurette-divider" />
+            <div class="dropdown">
+              Theme:
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dropdownThemeLabel"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Light Mode
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li>
+                  <a class="dropdown-item" onclick="swapTheme(this)"
+                    >Dark Mode</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
             </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Dark Mode</a></li>
-              <li><a class="dropdown-item" href="#">Solarized</a></li>
-            </ul>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
         </div>
       </div>
     </div>
-  </div>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png" alt="logo"
-          style="max-height: 35px" /></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item">
-            <a class="nav-link" href="about.html">About</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Games
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="diceRoll.html">Dice Roll</a></li>
-              <li><a class="dropdown-item" href="coinFlip.html">Coin Flip</a></li>
-              <li><a class="dropdown-item" href="GoatGame.html">Monty Hall Problem</a></li>
-              <li><a class="dropdown-item" href="needles.html">Buffons Needles</a></li>
-              <li><a class="dropdown-item" href="card.html">12 Card Game</a></li>
-              <li><a class="dropdown-item" href="dice27.html">Game of 27</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://github.com/Salisbury-University/probability-games.git">GitHub</a>
-          </li>
-        </ul>
 
-        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-          <div class="btn-group me-2" role="group" aria-label="First group">
-            <button type="radio" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#howToPlay">How to
-              Play</button>
-          </div>
-          <div class="btn-group me-2" role="group" aria-label="Second group">
-            <input type="radio" class="btn-check" name="btnradio" id="basic_btn" autocomplete="off" checked />
+    <!-- header -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="home.html" style="color: white"
+          ><img src="../images/logo.png" style="max-height: 35px"
+        /></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
+
+          <!-- Advanced/Basic buttons: TRY TABS INSTEAD OF RADIO BUTTONS -->
+          <div
+            class="btn-group mx-2"
+            role="group"
+            aria-label="Basic radio toggle button group"
+          >
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="basic_btn"
+              autocomplete="off"
+              checked
+            />
             <label class="btn btn-outline-primary" for="basic_btn">Basic</label>
-            <input type="radio" class="btn-check" name="btnradio" id="advanced_btn" autocomplete="off"
-              onclick="window.location.href = 'cardSim.html'" />
-            <label class="btn btn-outline-primary" for="advanced_btn">Advanced</label>
+
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="advanced_btn"
+              autocomplete="off"
+            />
+            <label class="btn btn-outline-primary" for="advanced_btn"
+              >Advanced</label
+            >
           </div>
-          <div class="btn-group me-2" role="group" aria-label="Third group">
-            <button type="radio" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bugModal">Report
-              Bug</button>
-          </div>
-          <div class="btn-group" role="group" aria-label="Fourth group">
-          </div>
+
+          <script>
+            document.getElementById("advanced_btn").onclick = function () {
+              window.location.href = "cardSim.html";
+            };
+          </script>
+
+          <!-- settings button -->
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#settingsModal"
+          >
+            <img
+              src="../images/setting.png"
+              style="max-height: 22px; vertical-align: middle"
+            />
+          </button>
         </div>
-        <!-- settings button -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModal">
-          <img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
+      </div>
+    </nav>
+
+    <!-- window title -->
+    <div class="text-center mt-4">
+      <h1 class="display-5" id="page-header">
+        <b> Sum of Two Dice Game!</b>
+      </h1>
+    </div>
+
+    <span class="border-top border-right border-left" id="border" hidden>
+      <h1 class="mb-2 p-3 text-center bg-light" id="win-header">
+        Player _ Won in _ rolls!
+      </h1>
+      <h3 class="mb-2 p-2 text-center">Player Chip Placements:</h3>
+      <div class="col text-center">
+        <table class="table table-hover table-sm" id="table1">
+          <thead>
+            <tr>
+              <th scope="col">Player #</th>
+              <th scope="col">Card 2</th>
+              <th scope="col">Card 3</th>
+              <th scope="col">Card 4</th>
+              <th scope="col">Card 5</th>
+              <th scope="col">Card 6</th>
+              <th scope="col">Card 7</th>
+              <th scope="col">Card 8</th>
+              <th scope="col">Card 9</th>
+              <th scope="col">Card 10</th>
+              <th scope="col">Card 11</th>
+              <th scope="col">Card 12</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td id="r1c1">-</td>
+              <td id="r1c2">-</td>
+              <td id="r1c3">-</td>
+              <td id="r1c4">-</td>
+              <td id="r1c5">-</td>
+              <td id="r1c6">-</td>
+              <td id="r1c7">-</td>
+              <td id="r1c8">-</td>
+              <td id="r1c9">-</td>
+              <td id="r1c10">-</td>
+              <td id="r1c11">-</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td id="r2c1">-</td>
+              <td id="r2c2">-</td>
+              <td id="r2c3">-</td>
+              <td id="r2c4">-</td>
+              <td id="r2c5">-</td>
+              <td id="r2c6">-</td>
+              <td id="r2c7">-</td>
+              <td id="r2c8">-</td>
+              <td id="r2c9">-</td>
+              <td id="r2c10">-</td>
+              <td id="r2c11">-</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col text-center">
+        <button
+          type="button"
+          class="btn btn-primary"
+          id="play-again-button"
+          onclick="playAgain();"
+        >
+          Play Again
         </button>
       </div>
+    </span>
+
+    <script src="js/pixi.min.js"></script>
+    <script src="js/cardGame.js"></script>
+
+    <!-- instructions modal -->
+    <div
+      class="modal fade"
+      id="instructionsModal"
+      tabindex="-1"
+      aria-labelledby="instructionsModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="instructionsModalLabel">
+              How to Play
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" style="height: 30em; overflow-y: auto">
+            <secion>
+              <div class="container m-2 p-2">
+                <div class="row">
+                  <div id="list-example" class="list-group col-3">
+                    <a
+                      class="list-group-item list-group-item-action"
+                      href="#list-item-1"
+                      >Game Setup</a
+                    >
+                    <a
+                      class="list-group-item list-group-item-action"
+                      href="#list-item-2"
+                      >Placing Chips</a
+                    >
+                    <a
+                      class="list-group-item list-group-item-action"
+                      href="#list-item-3"
+                      >Rolling the Dice</a
+                    >
+                    <a
+                      class="list-group-item list-group-item-action"
+                      href="#list-item-4"
+                      >Removing Chips</a
+                    >
+                    <a
+                      class="list-group-item list-group-item-action"
+                      href="#list-item-4"
+                      >Winning the Game</a
+                    >
+                  </div>
+                  <div
+                    data-bs-spy="scroll"
+                    data-bs-target="#list-example"
+                    data-bs-offset="0"
+                    class="scrollspy-example col"
+                    tabindex="0"
+                  >
+                    <h4 id="list-item-1">Game Setup</h4>
+                    <ul>
+                      <li>There are <b> 2 players</b></li>
+                      <li>
+                        There are <b>12 cards labeled 2, 3, 4, 5, .., 12</b>,
+                        representing all possible sums of the roll of two dice
+                      </li>
+                      <li>Each player starts with <b>10 chips</b></li>
+                    </ul>
+                    <h4 id="list-item-2">Placing Chips</h4>
+                    <p>
+                      In the first phase of the game, players take turns
+                      spreading their chips out accross all cards one at a time.
+                      To place a chip on a card, when it is the players turn,
+                      they can
+                      <b
+                        >click on a card, and their next chip will be placed
+                        there.</b
+                      >
+                      Players take turns placing their chips until all 10 are
+                      placed.
+                    </p>
+                    <h4 id="list-item-3">Rolling the Dice</h4>
+                    <p>
+                      After all of the chips are placed, a roll button will
+                      appear. The player whose turn it is can simply
+                      <b>click on the roll button to roll the dice.</b>
+                    </p>
+                    <h4 id="list-item-4">Removing Chips</h4>
+                    <p>
+                      When the player rolls the dice, they must add up the sum
+                      of the two dice. Once they get the sum, they check the
+                      card labeled with that sum. If they have a chip on that
+                      card, they can <b>click their chip on that card</b>, and
+                      it will be removed from it.
+                    </p>
+                    <h4 id="list-item-4">Winning the Game</h4>
+                    <p>
+                      The player who is able to
+                      <b
+                        >remove all of their chips from the cards first wins!</b
+                      >
+                      So remember to place your chips on the cards with the dice
+                      sums you think are likely to be rolled most often.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </secion>
+
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </nav>
 
-  <span class="border-top border-right border-left" id="border" hidden>
-    <h1 class="mb-2 p-3 text-center bg-light" id="win-header">
-      Player _ Won in _ rolls!
-    </h1>
-    <h3 class="mb-2 p-2 text-center">Player Chip Placements:</h3>
-    <div class="col text-center">
-      <table class="table table-hover table-sm" id="table1">
-        <thead>
-          <tr>
-            <th scope="col">Player #</th>
-            <th scope="col">Card 2</th>
-            <th scope="col">Card 3</th>
-            <th scope="col">Card 4</th>
-            <th scope="col">Card 5</th>
-            <th scope="col">Card 6</th>
-            <th scope="col">Card 7</th>
-            <th scope="col">Card 8</th>
-            <th scope="col">Card 9</th>
-            <th scope="col">Card 10</th>
-            <th scope="col">Card 11</th>
-            <th scope="col">Card 12</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td id="r1c1">-</td>
-            <td id="r1c2">-</td>
-            <td id="r1c3">-</td>
-            <td id="r1c4">-</td>
-            <td id="r1c5">-</td>
-            <td id="r1c6">-</td>
-            <td id="r1c7">-</td>
-            <td id="r1c8">-</td>
-            <td id="r1c9">-</td>
-            <td id="r1c10">-</td>
-            <td id="r1c11">-</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td id="r2c1">-</td>
-            <td id="r2c2">-</td>
-            <td id="r2c3">-</td>
-            <td id="r2c4">-</td>
-            <td id="r2c5">-</td>
-            <td id="r2c6">-</td>
-            <td id="r2c7">-</td>
-            <td id="r2c8">-</td>
-            <td id="r2c9">-</td>
-            <td id="r2c10">-</td>
-            <td id="r2c11">-</td>
-          </tr>
-        </tbody>
-      </table>
+    <!-- add this for a footer -->
+    <div class="fixed-bottom">
+      <hr class="featurette-divider" />
+      <footer class="container">
+        <p
+          class="float-end"
+          data-bs-toggle="modal"
+          data-bs-target="#instructionsModal"
+          data-bs-theme="dark"
+        >
+          <button type="button" class="btn btn-primary">
+            <a>How to Play</a>
+          </button>
+        </p>
+        <p>&middot; Salisbury University &middot;</p>
+      </footer>
     </div>
-    <div class="col text-center">
-      <button type="button" class="btn btn-primary" id="play-again-button">
-        Play Again
-      </button>
-    </div>
-  </span>
-
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/pixi.min.js"></script>
-  <script src="js/cardGame.js"></script>
-
-  <!-- add this for a footer -->
-  <div class="fixed-bottom">
-    <hr class="featurette-divider" />
-    <footer class="container">
-      <p class="float-end" data-bs-toggle="modal" data-bs-target="#instructionsModal">
-
-      </p>
-      <p>&middot; Salisbury University &middot;</p>
-    </footer>
-  </div>
-</body>
-
+  </body>
 </html>
