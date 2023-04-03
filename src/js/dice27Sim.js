@@ -25,7 +25,6 @@ class ProbabilitySimulator {
   }
 
   resetStats() {
-
     this.totalRolls = 0;
     for (let i = 0; i < 28; i++) {
       this.stats[i] = 0;
@@ -36,6 +35,7 @@ class ProbabilitySimulator {
     document.getElementById("totalRolls").innerHTML = this.totalRolls;
     document.getElementById("totalGames").innerHTML = this.stats[0];
   }
+
 }
 
 let simulator = new ProbabilitySimulator();
@@ -56,6 +56,14 @@ function reset() {
   simulator.displayStats();
   updateChart(simulator.stats);
 
+}
+
+function getX(y) {
+  for (let i = 0; i < 28; i++) {
+    if (simulator.stats[i] == y) {
+      return i;
+    }
+  }
 }
 
 function updateChart(data) {
@@ -132,8 +140,8 @@ function updateChart(data) {
       div.transition()
         .duration(50)
         .style("opacity", 1);
-      div.html(i)
-    })
+      div.html(getX(i) + ": " + i)
+    });/*
     .on('mouseout', function (d, i) {
       d3.select(this).transition()
         .duration('50')
@@ -141,5 +149,5 @@ function updateChart(data) {
       div.transition()
         .duration('50')
         .style("opacity", 0);
-    });
+    });*/
 }

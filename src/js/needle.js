@@ -35,13 +35,13 @@ window.addEventListener('resize', resizeCanvas);
 
 
 
-
 let line = new PIXI.Graphics();
 let lines = [];
 let needles = [];
 let nextEmpty = 0;
 let needleCross = 0;
 let needleDrop = 0;
+let needleColor = 0xffffff;
 let dropTypeValue = "Cumulative";
 var needleDropSound = new Audio('../sounds/needleDrop.mp3');
 
@@ -50,10 +50,31 @@ let lineInArray = new PIXI.Graphics(); //created a new line variable to test out
 let lineArray = [];//an array of the lineInArray pixi graphics object
 let amountLines = 7;
 let lineSpace = windowHeight / amountLines;
-let needleLength = lineSpace * 0.9;
+let needleLengthPercent = 0.9;
+let needleLength = lineSpace * needleLengthPercent;
 let yValue = lineSpace; //yValue is space between lines
 console.log(lineSpace);
-//lines[0] = 0;
+
+needleDropSound.volume = 0.5;
+
+window.onload = function () {
+  let volume = document.getElementById("volume-control");
+  volume.addEventListener("input", function (e) {
+    needleDropSound.volume = e.currentTarget.value / 100;
+  });
+};
+
+
+document.getElementById("disableSound").addEventListener("click", function () {
+  if (this.checked) {
+    needleDropSound.muted = true;
+    // Do something when checkbox is checked
+  } else {
+    needleDropSound.muted = false;
+    // Do something when checkbox is unchecked
+  }
+});
+
 //creates the grid lines of the webpage
 for (let i = 0; i < amountLines - 1; i++) {
   line.lineStyle(1, 0x0096FF, 1);
@@ -97,6 +118,43 @@ function changeLines(num) {
   }
 }
 
+//first function to be called while user guessing PI
+function guessPI() {
+
+  document.getElementById("guessingPiNum").addEventListener("keydown", function (e) {
+    if (e.code === "Enter") {  //checks whether the pressed key is "Enter" (if enter is pressed then calls next function)
+      guessingPIfunc();
+    }
+  });
+
+  //this hides the previous page (the stats for the page)
+  document.getElementById("statsLocated1").setAttribute("hidden", "hidden");
+  document.getElementById("statsLocated2").setAttribute("hidden", "hidden");
+  document.getElementById("statsLocated3").setAttribute("hidden", "hidden");
+  document.getElementById("formulaValue").setAttribute("hidden", "hidden");
+  //disables the button to drop needles
+  document.getElementById("dropNeedleButton").setAttribute("disabled", "disabled");
+
+  //shows guessingPI section
+  document.getElementById("guessingPI").removeAttribute("hidden");
+}
+//the second function to be called (by user pressing enter)
+function guessingPIfunc() {
+  //shows result area
+  document.getElementById("resultArea").removeAttribute("hidden");
+  document.getElementById("userGuessSection").innerHTML = "You guessed: " + document.getElementById("guessingPiNum").value;
+  document.getElementById("percentErrorSection").innerHTML = "Percent Error: " + Math.abs((document.getElementById("guessingPiNum").value - Math.PI) / Math.PI) * 100 + "%";
+  document.getElementById("guessingPI").setAttribute("hidden", "hidden");
+
+  //shows the guess pi button (which brings us back to first page)
+  document.getElementById("guessPIButton").setAttribute("hidden", "hidden");
+  //shows continuebutton (which continues to the last section [showing how accurate user is])
+  document.getElementById("continueButton").removeAttribute("hidden");
+  document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10) / 10 + " Units"; // units is pixels
+  document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10) / 10 + " Units";
+}
+
+//last section displayed (resets back to how website originally looked)
 function continueGame() {
   document.getElementById("resultArea").setAttribute("hidden", "hidden");
   document.getElementById("statsLocated1").removeAttribute("hidden");
@@ -110,36 +168,7 @@ function continueGame() {
   clearNeedles();
 }
 
-function guessingPIfunc() {
-  document.getElementById("resultArea").removeAttribute("hidden");
-  document.getElementById("userGuessSection").innerHTML = "You guessed: " + document.getElementById("guessingPiNum").value;
-  document.getElementById("percentErrorSection").innerHTML = "Percent Error: " + Math.abs((document.getElementById("guessingPiNum").value - Math.PI) / Math.PI) * 100 + "%";
-  document.getElementById("guessingPI").setAttribute("hidden", "hidden");
-
-  document.getElementById("guessPIButton").setAttribute("hidden", "hidden");
-  document.getElementById("continueButton").removeAttribute("hidden");
-}
-
-function guessPI() {
-
-  document.getElementById("guessingPiNum").addEventListener("keydown", function (e) {
-    if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
-      guessingPIfunc();
-    }
-  });
-
-  console.log("Function called");
-  document.getElementById("statsLocated1").setAttribute("hidden", "hidden");
-  document.getElementById("statsLocated2").setAttribute("hidden", "hidden");
-  document.getElementById("statsLocated3").setAttribute("hidden", "hidden");
-  document.getElementById("dropNeedleButton").setAttribute("disabled", "disabled");
-
-
-  document.getElementById("guessingPI").removeAttribute("hidden");
-}
-
 function needleXY() {
-
   let dropNeedles = document.getElementById("amountOfNeedles").value;
   console.log("Value of lines.length: " + lines.length);
   for (let i = 0; i < lines.length; i++) {
@@ -171,12 +200,6 @@ function needleXY() {
         xCenter = Math.random() * windowWidth;
       } while (xCenter < needleLength || xCenter > windowWidth - needleLength);
 
-      //testing dropping needles not on edge (or we randomly drop again)
-      /*if (xCenter < needleLength) {
-        xCenter += needleLength
-      } else if (xCenter > windowWidth - needleLength) {
-        xCenter -= needleLength;
-      }*/
       let max = lines[lines.length - 1];
       let min = lines[0]
       yCenter = Math.floor(Math.random() * (max - min)) + min;
@@ -195,20 +218,8 @@ function needleXY() {
       //sin must go to the y value and x to cos
       y = (needleLength) * (Math.sin(angle));
       x = (needleLength) * (Math.cos(angle));
-      //console.log("run: " + x);
-      //console.log("Rise: " + y);
-      //want to drop needles of one color and tint?/change color after a sleep function
-      // .tint = color
-      // yellow? 0xfcba03
-      // different yellow #FFEA00
-      // white? 0xffffff
-      // bright purple #BF40BF
-      //different green #50C878
-      //now using xCenter and yCenter as end points
       xEnd = xCenter + x;
       yEnd = yCenter + y;
-      //console.log("xEnd =" + xEnd);
-      //console.log("yEnd =" + yEnd);
       //this for loop section chooses the color of the line to be dropped
 
       //lineInArray.lineStyle(1, 0xfcba03, 1);
@@ -236,14 +247,14 @@ function needleXY() {
       }
     }
 
-    // playAudio();
+    playAudio();
     // this is all the stats to put on the screen 
     let pi = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop)); // pi estimation 
     let error = Math.abs((pi - Math.PI) / Math.PI) * 100; //percent error
     document.getElementById("estimation").innerHTML = "PI Estimation: " + Math.round(pi * 10000) / 10000;
     document.getElementById("realPi").innerHTML = "Real value of PI : " + Math.round(Math.PI * 10000) / 10000;
-    document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10000) / 10000;
-    document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10000) / 10000;
+    document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10) / 10 + " Units"; // units is pixels
+    document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10) / 10 + " Units";
     document.getElementById("needCross").innerHTML = "Needles that Cross a Line: " + needleCross;
     document.getElementById("needleDontCross").innerHTML = "Needles that Don't Cross a Line: " + (needleDrop - needleCross);
     document.getElementById("total").innerHTML = "Total Needles Dropped: " + needleDrop;
@@ -257,6 +268,7 @@ function toRadians(angle) {
 }
 
 function dropType(type) {
+  /*
   var radioButtons = document.getElementsByName('dropType');
   var selectedValue;
   for (var i = 0; i < radioButtons.length; i++) {
@@ -264,30 +276,27 @@ function dropType(type) {
       var selectedValue = radioButtons[i].value;
       break;
     }
-  }
-  dropTypeValue = selectedValue;
+  }*/
+
+  dropTypeValue = type;
   clearNeedles();
   closeModal();
   console.log(dropTypeValue);
 }
 
-function customLength() {
-  let percent = document.getElementById("percentageOfNeedle").value;
-  if (percent > 100) {
-    percent = 100;
-    alert("Custom Length Has to be less then 100");
-  } else if (percent <= 0) {
-    percent = 100;
-    alert("Custom Length Has to be greater then 0");
-  }
-  percent /= 100;
-  console.log(percent);
-  needleLength = lineSpace * percent;
-  clearNeedles();
-}
-
 function changeNeedleLength(size) {
-  needleLength = lineSpace * (size);
+
+  needleLengthPercent += size;
+
+  if (needleLengthPercent * 100 > 100) {
+    needleLengthPercent = 1;
+    alert("The Needle Cannot Be Longer The The Distance Between Lines!");
+  } else if (needleLengthPercent * 100 < 10) {
+    needleLengthPercent = .1;
+    alert("The Needle Length Cannot Be Zero!");
+  }
+  needleLength = lineSpace * (needleLengthPercent);
+  document.getElementById("displayNeedleLength").innerHTML = "Current Needle Length:<br> " + Math.round(needleLengthPercent * 100) + "% of distance between lines";
   clearNeedles();
 }
 
@@ -329,26 +338,27 @@ function showGridInfo() {
 }
 
 function playAudio() {
-  needleDropSound.pause();
+  //needleDropSound.pause();
   needleDropSound.currentTime = 1.7;
   needleDropSound.play();
 }
 
-/*function colorNeedles(botY, topY) {
+
+
+function colorNeedles(yEnd, yCenter) { // over writes the colors even though the for loop it's copied from doesn't
   for (let k = 0; k < lines.length; k++) {
     //checks to see if the needle dropped not crosses the grid lines and changes color red
-    if ((topY <= lines[k] && botY <= lines[k]) || (topY >= lines[k] && botY >= lines[k])) {
-      lineInArray.tint = 0xFF0000;
+    if ((yEnd <= lines[k] && yCenter <= lines[k]) || (yEnd >= lines[k] && yCenter >= lines[k])) {
+      needleColor = 0xbf40bf;
     }
     //checks to see if the needle does dropped crosses the grid line and changes color green
     else {
-      lineInArray.tint = 0xAAFF00;
+      needleColor = 0xf50c878;
       needleCross++;
-      //we stop so the colors don't overwrite the colors 
-      k = lines.length;//sets as lines length to stop for loop
+      k = lines.length;
     }
   }
-}*/
+}
 //clears needles from page and removes them from the array
 function clearNeedles() {
   neg = 0;
