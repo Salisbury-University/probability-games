@@ -1,6 +1,7 @@
 // create window height variable
 let windowWidth = document.body.clientWidth * .75;
 let windowHeight = window.innerHeight * .65;
+let pi = 0;
 let canvas = document.getElementById('my-canvas');
 const halfPi = Math.PI / 2
 
@@ -142,11 +143,8 @@ function guessPI() {
 function guessingPIfunc() {
   //shows result area
   document.getElementById("resultArea").removeAttribute("hidden");
-  //document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10) / 10 + " Units"; // units is pixels
-  //document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10) / 10 + " Units";
-  //document.getElementById("statsLocated3").removeAttribute("hidden");
   document.getElementById("userGuessSection").innerHTML = "You guessed: " + document.getElementById("guessingPiNum").value;
-  document.getElementById("percentErrorSection").innerHTML = "Percent Error: " + Math.abs((document.getElementById("guessingPiNum").value - Math.PI) / Math.PI) * 100 + "%";
+  document.getElementById("percentErrorSection").innerHTML = "Percent Error: " + Math.abs((document.getElementById("guessingPiNum").value - pi) / pi) * 100 + "%";
   document.getElementById("guessingPI").setAttribute("hidden", "hidden");
 
   //shows the guess pi button (which brings us back to first page)
@@ -160,7 +158,6 @@ function continueGame() {
   document.getElementById("resultArea").setAttribute("hidden", "hidden");
   document.getElementById("statsLocated1").removeAttribute("hidden");
   document.getElementById("statsLocated2").removeAttribute("hidden");
-  //document.getElementById("statsLocated3").removeAttribute("hidden");
   document.getElementById("guessPIButton").removeAttribute("hidden");
   document.getElementById("continueButton").setAttribute("hidden", "hidden");
 
@@ -250,9 +247,10 @@ function needleXY() {
 
     playAudio();
     // this is all the stats to put on the screen 
-    let pi = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop)); // pi estimation 
+    pi = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop)); // pi estimation 
     let error = Math.abs((pi - Math.PI) / Math.PI) * 100; //percent error
-    document.getElementById("estimation").innerHTML = "PI Estimation: " + Math.round(pi * 10000) / 10000;
+    document.getElementsByClassName("estimation")[0].innerHTML = "PI Estimation: " + Math.round(pi * 10000) / 10000;
+    document.getElementsByClassName("estimation")[1].innerHTML = "PI Estimation: " + Math.round(pi * 10000) / 10000;
     document.getElementById("realPi").innerHTML = "Real value of PI : " + Math.round(Math.PI * 10000) / 10000;
     document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10) / 10 + " Units"; // units is pixels
     document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10) / 10 + " Units";
