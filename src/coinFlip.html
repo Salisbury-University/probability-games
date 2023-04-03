@@ -87,12 +87,19 @@
 	<div class="container bottom"> 
 		<h1><div id="weightAmount"> </div></h1>
 		<h3><div id="guessWeight"> </div></h3>
-		<button id="guess1" type="button" class="butn" onClick="weightGuessOne()"></button>
-	  	<button id="guess2" type="button" class="butn" onClick="weightGuessTwo()"></button>
-		<button id="guess3" type="button" class="butn" onClick="weightGuessThree()"></button>
+
+		<select name="weights" id="weightOptions">
+			<option value="90/10">90%/10%</option>
+			<option value="75/25">75%/25%</option>
+			<option value="60/40">60%/40%</option>
+			<option value="40/60">40%/60%</option>
+			<option value="25/75">25%/75%</option>
+			<option value="10/90">10%/90%</option>
+		</select>
+		<button id="submitButton" type="button" class="butn" onClick="submitWeight()">Submit</button>
+		
 	</div>
 
-	
 <script src="js/coinFlip.js" ></script>
 
 </body>
