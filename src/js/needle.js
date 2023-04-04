@@ -87,14 +87,33 @@ for (let i = 0; i < amountLines - 1; i++) {
   yValue = yValue + lineSpace;
 }
 
-function changeDarkTheme(){
+function changeDarkTheme() {
   console.log("Changing to Dark Theme");
   document.getElementById("themeType").innerHTML = "Dark Theme";
+  //changes top section to dark and text to white
+  document.getElementById("topPageSection").style.backgroundColor = "#313b4b";
+  document.getElementById("titleSection").style.color = "white";
+
+  document.getElementById("bottomSection").style.backgroundColor = "#313b4b";
+  document.getElementById("bottomSection").style.color = "white";
+  document.body.style.backgroundColor = "#262626";
+
+  //document.getElementById("body").style.backgroundColor = "#262626";
 }
 
-function changeLightTheme(){
+function changeLightTheme() {
   console.log("Changing to Light Theme");
   document.getElementById("themeType").innerHTML = "Light Theme";
+
+  //changes top section
+  document.getElementById("topPageSection").style.backgroundColor = "#FFEDC9";
+  document.getElementById("titleSection").style.color = "black";
+
+  //changes bottom section
+  document.getElementById("bottomSection").style.backgroundColor = "#FFEDC9";
+  document.getElementById("bottomSection").style.color = "black";
+
+  document.body.style.backgroundColor = "#ffd789";
 }
 
 function changeLines(num) {
