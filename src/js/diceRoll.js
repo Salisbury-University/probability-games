@@ -1,922 +1,254 @@
-// variables for sound effect audio
 const AUDIO_ROLL = new Audio("../sounds/dice_roll.mp3");
 const AUDIO_WRONG = new Audio("../sounds/wrong.mp3");
 const AUDIO_CORRECT = new Audio("../sounds/point_2.mp3");
+const Graphics = PIXI.Graphics;
+const Sprite = PIXI.Sprite;
 
-// determines if dice will be weighted or not
-var isWeighted = Math.floor(Math.random() * 2) + 1;
-
-// counters for all sides
-var oneCount = 0;
-var twoCount = 0;
-var threeCount = 0;
-var fourCount = 0;
-var fiveCount = 0;
-var sixCount = 0;
-
-// determines amount of weight for the heavier side 
-var min = 25;
-var max = 36;
-var difference = max - min;
-var weightHeavierSide = Math.floor(Math.random() * difference) + min;
-
-// determines amount of weight for rest of sides
-var restOfWeight = 100 - weightHeavierSide;
-var weightLighterSides = restOfWeight / 5.0;
-
-// determines which side of dice is the heavier side
-var heavierSide = Math.floor(Math.random() * 6) + 1;
-
-// Function to roll dice
-function rollDice() {
-	// plays rolling dice audio
-	AUDIO_ROLL.play();
-
-	// makes weighted and not weighted buttons reappear
-	document.getElementById("weighted").hidden = false;
-	document.getElementById("notWeighted").hidden = false;
-
-	// reset weight display
-	document.getElementById("weightAmount").innerHTML = "";
-
-	// reset counts display
-	document.getElementById("oneTotal").innerHTML = 0;
-	document.getElementById("twoTotal").innerHTML = 0;
-	document.getElementById("threeTotal").innerHTML = 0;
-	document.getElementById("fourTotal").innerHTML = 0;
-	document.getElementById("fiveTotal").innerHTML = 0;
-	document.getElementById("sixTotal").innerHTML = 0;
-
-	// if dice is weighted
-	if (isWeighted == 1) {
-
-		// heavier side is one
-		if(heavierSide == 1) {
-
-			let num = Math.floor(Math.random() * 100) + 1;
-		
-			// if weighted dice lands on one
-			if (num <= weightHeavierSide) {
-				document.querySelector("h1").innerHTML = "You rolled a One!";
-				document.getElementById("dice").setAttribute("src", "../images/dice1.png");
-				oneCount += 1;
-			} 
-			// if weighted dice lands on two
-			else if ((num > weightHeavierSide) && (num <= (weightHeavierSide + weightLighterSides))) {
-				document.querySelector("h1").innerHTML = "You rolled a Two!";
-				document.getElementById("dice").setAttribute("src", "../images/dice2.png");
-				twoCount += 1;
-			} 
-			// if weighted dice lands on three
-			else if ((num > (weightHeavierSide + weightLighterSides)) && (num <= (weightHeavierSide + (weightLighterSides * 2)))) {
-				document.querySelector("h1").innerHTML = "You rolled a Three!";
-				document.getElementById("dice").setAttribute("src", "../images/dice3.png");
-				threeCount += 1;
-			} 
-			// if weighted dice lands on four
-			else if ((num > (weightHeavierSide + (weightLighterSides * 2))) && (num <= (weightHeavierSide + (weightLighterSides * 3)))) {
-				document.querySelector("h1").innerHTML = "You rolled a Four!";
-				document.getElementById("dice").setAttribute("src", "../images/dice4.png");
-				fourCount += 1;
-			} 
-			// if weighted dice lands on five
-			else if ((num > (weightHeavierSide + (weightLighterSides * 3))) && (num <= (weightHeavierSide + (weightLighterSides * 4)))) {
-				document.querySelector("h1").innerHTML = "You rolled a Five!";
-				document.getElementById("dice").setAttribute("src", "../images/dice5.png");
-				fiveCount += 1;
-			} 
-			// if weighted dice lands on six
-			else {
-				document.querySelector("h1").innerHTML = "You rolled a Six!";
-				document.getElementById("dice").setAttribute("src", "../images/dice6.png");
-				sixCount += 1;
-			}
-			
-			// assigning count variables to table values
-			document.getElementById("oneTotal").innerHTML = oneCount;
-			document.getElementById("twoTotal").innerHTML = twoCount;
-			document.getElementById("threeTotal").innerHTML = threeCount;
-			document.getElementById("fourTotal").innerHTML = fourCount;
-			document.getElementById("fiveTotal").innerHTML = fiveCount;
-			document.getElementById("sixTotal").innerHTML = sixCount;
-		}
-
-		// heavier side is two
-		if(heavierSide == 2) {
-
-			let num = Math.floor(Math.random() * 100) + 1;
-
-			// if weighted dice lands on one
-			if ((num > weightHeavierSide) && (num <= (weightHeavierSide + weightLighterSides))) {
-				document.querySelector("h1").innerHTML = "You rolled a One!";
-				document.getElementById("dice").setAttribute("src", "../images/dice1.png");
-				oneCount += 1;
-			} 
-			// if weighted dice lands on two
-			else if (num <= weightHeavierSide) {
-				document.querySelector("h1").innerHTML = "You rolled a Two!";
-				document.getElementById("dice").setAttribute("src", "../images/dice2.png");
-				twoCount += 1;
-			} 
-			// if weighted dice lands on three
-			else if ((num > (weightHeavierSide + weightLighterSides)) && (num <= (weightHeavierSide + (weightLighterSides * 2)))) {
-				document.querySelector("h1").innerHTML = "You rolled a Three!";
-				document.getElementById("dice").setAttribute("src", "../images/dice3.png");
-				threeCount += 1;
-			} 
-			// if weighted dice lands on four
-			else if ((num > (weightHeavierSide + (weightLighterSides * 2))) && (num <= (weightHeavierSide + (weightLighterSides * 3)))) {
-				document.querySelector("h1").innerHTML = "You rolled a Four!";
-				document.getElementById("dice").setAttribute("src", "../images/dice4.png");
-				fourCount += 1;
-			} 
-			// if weighted dice lands on five
-			else if ((num > (weightHeavierSide + (weightLighterSides * 3))) && (num <= (weightHeavierSide + (weightLighterSides * 4)))) {
-				document.querySelector("h1").innerHTML = "You rolled a Five!";
-				document.getElementById("dice").setAttribute("src", "../images/dice5.png");
-				fiveCount += 1;
-			} 
-			// if weighted dice lands on six
-			else {
-				document.querySelector("h1").innerHTML = "You rolled a Six!";
-				document.getElementById("dice").setAttribute("src", "../images/dice6.png");
-				sixCount += 1;
-			}
-			
-			// assigning count variables to table values
-			document.getElementById("oneTotal").innerHTML = oneCount;
-			document.getElementById("twoTotal").innerHTML = twoCount;
-			document.getElementById("threeTotal").innerHTML = threeCount;
-			document.getElementById("fourTotal").innerHTML = fourCount;
-			document.getElementById("fiveTotal").innerHTML = fiveCount;
-			document.getElementById("sixTotal").innerHTML = sixCount;
-		}
-
-		// heavier side is three
-		else if(heavierSide == 3) {
-
-			let num = Math.floor(Math.random() * 100) + 1;
-		
-			// if weighted dice lands on one
-			if ((num > weightHeavierSide) && (num <= (weightHeavierSide + weightLighterSides))) {
-				document.querySelector("h1").innerHTML = "You rolled a One!";
-				document.getElementById("dice").setAttribute("src", "../images/dice1.png");
-				oneCount += 1;
-			} 
-			// if weighted dice lands on two
-			else if ((num > (weightHeavierSide + weightLighterSides)) && (num <= (weightHeavierSide + (weightLighterSides * 2)))) {
-				document.querySelector("h1").innerHTML = "You rolled a Two!";
-				document.getElementById("dice").setAttribute("src", "../images/dice2.png");
-				twoCount += 1;
-			} 
-			// if weighted dice lands on three
-			else if (num <= weightHeavierSide) {
-				document.querySelector("h1").innerHTML = "You rolled a Three!";
-				document.getElementById("dice").setAttribute("src", "../images/dice3.png");
-				threeCount += 1;
-			} 
-			// if weighted dice lands on four
-			else if ((num > (weightHeavierSide + (weightLighterSides * 2))) && (num <= (weightHeavierSide + (weightLighterSides * 3)))) {
-				document.querySelector("h1").innerHTML = "You rolled a Four!";
-				document.getElementById("dice").setAttribute("src", "../images/dice4.png");
-				fourCount += 1;
-			} 
-			// if weighted dice lands on five
-			else if ((num > (weightHeavierSide + (weightLighterSides * 3))) && (num <= (weightHeavierSide + (weightLighterSides * 4)))) {
-				document.querySelector("h1").innerHTML = "You rolled a Five!";
-				document.getElementById("dice").setAttribute("src", "../images/dice5.png");
-				fiveCount += 1;
-			} 
-			// if weighted dice lands on six
-			else {
-				document.querySelector("h1").innerHTML = "You rolled a Six!";
-				document.getElementById("dice").setAttribute("src", "../images/dice6.png");
-				sixCount += 1;
-			}
-			
-			// assigning count variables to table values
-			document.getElementById("oneTotal").innerHTML = oneCount;
-			document.getElementById("twoTotal").innerHTML = twoCount;
-			document.getElementById("threeTotal").innerHTML = threeCount;
-			document.getElementById("fourTotal").innerHTML = fourCount;
-			document.getElementById("fiveTotal").innerHTML = fiveCount;
-			document.getElementById("sixTotal").innerHTML = sixCount;
-		}
-
-		// heavier side is four
-		else if(heavierSide == 4) {
-
-			let num = Math.floor(Math.random() * 100) + 1;
-		
-			// if weighted dice lands on one
-			if ((num > weightHeavierSide) && (num <= (weightHeavierSide + weightLighterSides))) {
-				document.querySelector("h1").innerHTML = "You rolled a One!";
-				document.getElementById("dice").setAttribute("src", "../images/dice1.png");
-				oneCount += 1;
-			} 
-			// if weighted dice lands on two
-			else if ((num > (weightHeavierSide + weightLighterSides)) && (num <= (weightHeavierSide + (weightLighterSides * 2)))) {
-				document.querySelector("h1").innerHTML = "You rolled a Two!";
-				document.getElementById("dice").setAttribute("src", "../images/dice2.png");
-				twoCount += 1;
-			} 
-			// if weighted dice lands on three
-			else if ((num > (weightHeavierSide + (weightLighterSides * 2))) && (num <= (weightHeavierSide + (weightLighterSides * 3)))) {
-				document.querySelector("h1").innerHTML = "You rolled a Three!";
-				document.getElementById("dice").setAttribute("src", "../images/dice3.png");
-				threeCount += 1;
-			} 
-			// if weighted dice lands on four
-			else if (num <= weightHeavierSide) {
-				document.querySelector("h1").innerHTML = "You rolled a Four!";
-				document.getElementById("dice").setAttribute("src", "../images/dice4.png");
-				fourCount += 1;
-			} 
-			// if weighted dice lands on five
-			else if ((num > (weightHeavierSide + (weightLighterSides * 3))) && (num <= (weightHeavierSide + (weightLighterSides * 4)))) {
-				document.querySelector("h1").innerHTML = "You rolled a Five!";
-				document.getElementById("dice").setAttribute("src", "../images/dice5.png");
-				fiveCount += 1;
-			} 
-			// if weighted dice lands on six
-			else {
-				document.querySelector("h1").innerHTML = "You rolled a Six!";
-				document.getElementById("dice").setAttribute("src", "../images/dice6.png");
-				sixCount += 1;
-			}
-			
-			// assigning count variables to table values
-			document.getElementById("oneTotal").innerHTML = oneCount;
-			document.getElementById("twoTotal").innerHTML = twoCount;
-			document.getElementById("threeTotal").innerHTML = threeCount;
-			document.getElementById("fourTotal").innerHTML = fourCount;
-			document.getElementById("fiveTotal").innerHTML = fiveCount;
-			document.getElementById("sixTotal").innerHTML = sixCount;
-		}
-
-		// heavier side is five
-		else if(heavierSide == 5) {
-
-			let num = Math.floor(Math.random() * 100) + 1;
-		
-			// if weighted dice lands on one
-			if ((num > weightHeavierSide) && (num <= (weightHeavierSide + weightLighterSides))) {
-				document.querySelector("h1").innerHTML = "You rolled a One!";
-				document.getElementById("dice").setAttribute("src", "../images/dice1.png");
-				oneCount += 1;
-			} 
-			// if weighted dice lands on two
-			else if ((num > (weightHeavierSide + weightLighterSides)) && (num <= (weightHeavierSide + (weightLighterSides * 2)))) {
-				document.querySelector("h1").innerHTML = "You rolled a Two!";
-				document.getElementById("dice").setAttribute("src", "../images/dice2.png");
-				twoCount += 1;
-			} 
-			// if weighted dice lands on three
-			else if ((num > (weightHeavierSide + (weightLighterSides * 2))) && (num <= (weightHeavierSide + (weightLighterSides * 3)))) {
-				document.querySelector("h1").innerHTML = "You rolled a Three!";
-				document.getElementById("dice").setAttribute("src", "../images/dice3.png");
-				threeCount += 1;
-			} 
-			// if weighted dice lands on four
-			else if ((num > (weightHeavierSide + (weightLighterSides * 3))) && (num <= (weightHeavierSide + (weightLighterSides * 4)))) {
-				document.querySelector("h1").innerHTML = "You rolled a Four!";
-				document.getElementById("dice").setAttribute("src", "../images/dice4.png");
-				fourCount += 1;
-			} 
-			// if weighted dice lands on five
-			else if (num <= weightHeavierSide) {
-				document.querySelector("h1").innerHTML = "You rolled a Five!";
-				document.getElementById("dice").setAttribute("src", "../images/dice5.png");
-				fiveCount += 1;
-			} 
-			// if weighted dice lands on six
-			else {
-				document.querySelector("h1").innerHTML = "You rolled a Six!";
-				document.getElementById("dice").setAttribute("src", "../images/dice6.png");
-				sixCount += 1;
-			}
-			
-			// assigning count variables to table values
-			document.getElementById("oneTotal").innerHTML = oneCount;
-			document.getElementById("twoTotal").innerHTML = twoCount;
-			document.getElementById("threeTotal").innerHTML = threeCount;
-			document.getElementById("fourTotal").innerHTML = fourCount;
-			document.getElementById("fiveTotal").innerHTML = fiveCount;
-			document.getElementById("sixTotal").innerHTML = sixCount;
-		}
-
-		// heavier side is six
-		else if(heavierSide == 6) {
-
-			let num = Math.floor(Math.random() * 100) + 1;
-		
-			// if weighted dice lands on one
-			if ((num > weightHeavierSide) && (num <= (weightHeavierSide + weightLighterSides))) {
-				document.querySelector("h1").innerHTML = "You rolled a One!";
-				document.getElementById("dice").setAttribute("src", "../images/dice1.png");
-				oneCount += 1;
-			} 
-			// if weighted dice lands on two
-			else if ((num > (weightHeavierSide + weightLighterSides)) && (num <= (weightHeavierSide + (weightLighterSides * 2)))) {
-				document.querySelector("h1").innerHTML = "You rolled a Two!";
-				document.getElementById("dice").setAttribute("src", "../images/dice2.png");
-				twoCount += 1;
-			} 
-			// if weighted dice lands on three
-			else if ((num > (weightHeavierSide + (weightLighterSides * 2))) && (num <= (weightHeavierSide + (weightLighterSides * 3)))) {
-				document.querySelector("h1").innerHTML = "You rolled a Three!";
-				document.getElementById("dice").setAttribute("src", "../images/dice3.png");
-				threeCount += 1;
-			} 
-			// if weighted dice lands on four
-			else if ((num > (weightHeavierSide + (weightLighterSides * 3))) && (num <= (weightHeavierSide + (weightLighterSides * 4)))) {
-				document.querySelector("h1").innerHTML = "You rolled a Four!";
-				document.getElementById("dice").setAttribute("src", "../images/dice4.png");
-				fourCount += 1;
-			} 
-			// if weighted dice lands on five
-			else if ((num > (weightHeavierSide + (weightLighterSides * 4))) && (num <= (weightHeavierSide + (weightLighterSides * 5)))) {
-				document.querySelector("h1").innerHTML = "You rolled a Five!";
-				document.getElementById("dice").setAttribute("src", "../images/dice5.png");
-				fiveCount += 1;
-			} 
-			// if weighted dice lands on six
-			else {
-				document.querySelector("h1").innerHTML = "You rolled a Six!";
-				document.getElementById("dice").setAttribute("src", "../images/dice6.png");
-				sixCount += 1;
-			}
-			
-			// assigning count variables to table values
-			document.getElementById("oneTotal").innerHTML = oneCount;
-			document.getElementById("twoTotal").innerHTML = twoCount;
-			document.getElementById("threeTotal").innerHTML = threeCount;
-			document.getElementById("fourTotal").innerHTML = fourCount;
-			document.getElementById("fiveTotal").innerHTML = fiveCount;
-			document.getElementById("sixTotal").innerHTML = sixCount;
-		}
+class WindowInfo {
+	#windowWidth;
+	#windowHeight;
+	constructor() {
+		this.#windowWidth = document.querySelector('.container').getBoundingClientRect().width;
+		this.#windowHeight = window.innerHeight;
 	}
-
-	// if dice is not weighted
-	else {
-
-			let num = Math.floor(Math.random() * 6) + 1;
-			
-			// if nonweighted dice is one
-			if (num == 1) {
-				document.querySelector("h1").innerHTML = "You rolled a One!";
-				document.getElementById("dice").setAttribute("src", "../images/dice1.png");
-				oneCount += 1;
-			} 
-			// if nonweighted dice is two
-			else if (num == 2) {
-				document.querySelector("h1").innerHTML = "You rolled a Two!";
-				document.getElementById("dice").setAttribute("src", "../images/dice2.png");
-				twoCount += 1;
-			} 
-			// if nonweighted dice is three
-			else if (num == 3) {
-				document.querySelector("h1").innerHTML = "You rolled a Three!";
-				document.getElementById("dice").setAttribute("src", "../images/dice3.png");
-				threeCount += 1;
-			} 
-			// if nonweighted dice is four
-			else if (num == 4) {
-				document.querySelector("h1").innerHTML = "You rolled a Four!";
-				document.getElementById("dice").setAttribute("src", "../images/dice4.png");
-				fourCount += 1;
-			} 
-			// if nonweighted dice is five
-			else if (num == 5) {
-				document.querySelector("h1").innerHTML = "You rolled a Five!";
-				document.getElementById("dice").setAttribute("src", "../images/dice5.png");
-				fiveCount += 1;
-			} 
-			// if nonweighted dice is six
-			else if (num == 6) {
-				document.querySelector("h1").innerHTML = "You rolled a Six!";
-				document.getElementById("dice").setAttribute("src", "../images/dice6.png");
-				sixCount += 1;
-			}
-		
-		// assigning count variables to table values
-		document.getElementById("oneTotal").innerHTML = oneCount;
-		document.getElementById("twoTotal").innerHTML = twoCount;
-		document.getElementById("threeTotal").innerHTML = threeCount;
-		document.getElementById("fourTotal").innerHTML = fourCount;
-		document.getElementById("fiveTotal").innerHTML = fiveCount;
-		document.getElementById("sixTotal").innerHTML = sixCount;
+	getWindowWidth() {
+		return this.#windowWidth;
+	}
+	getWindowHeight() {
+		return this.#windowHeight;
 	}
 }
 
-// Function to roll dice multiple times
-function rollDiceMultiple() {
-	// plays rolling dice audio
-	AUDIO_ROLL.play();
+class App {
+	#app;
+	#appName;
+	constructor(windowInfo, appName) {
+		this.#app = this.#createApp(windowInfo);
+		this.#appName = appName;
+	}
+	#createApp(windowInfo) {
+		return new PIXI.Application({
+			backgroundAlpha: 0,
+			width: windowInfo.getWindowWidth(),
+			height: windowInfo.getWindowHeight() * .2
+		});
+	}
+	appendApp() {
+		document.getElementById(this.#appName).appendChild(this.#app.view);
+	}
+	getApp() {
+		return this.#app;
+	}
+}
 
-	// makes weighted and not weighted buttons reappear
-	document.getElementById("weighted").hidden = false;
-	document.getElementById("notWeighted").hidden = false;
+class DiceGame {
+	#faceTotals;
+	#app;
+	#dice;
+	#window;
+	#probabilities;
+	#weighted;
+	#numberRolls = 0;
+	#weightedSide = 0;
+	#clickable = false;
 
-	// reset weight display
-	document.getElementById("weightAmount").innerHTML = "";
+	constructor() {
+		this.#window = new WindowInfo();
+		this.#app = new App(this.#window, "app");
+		this.#app.getApp().loader.baseUrl = "../images/";
+		this.#app.getApp().loader
+			.add("dice1", "dice1.png")
+			.add("dice2", "dice2.png")
+			.add("dice3", "dice3.png")
+			.add("dice4", "dice4.png")
+			.add("dice5", "dice5.png")
+			.add("dice6", "dice6.png");
+		this.#app.getApp().loader.load();
 
-	// reset counts display
-	document.getElementById("oneTotal").innerHTML = 0;
-	document.getElementById("twoTotal").innerHTML = 0;
-	document.getElementById("threeTotal").innerHTML = 0;
-	document.getElementById("fourTotal").innerHTML = 0;
-	document.getElementById("fiveTotal").innerHTML = 0;
-	document.getElementById("sixTotal").innerHTML = 0;
 
-	// amount of rolls user specifies
-	let qty = document.getElementById("quantity").value;
+		this.#dice = new Sprite(this.#app.getApp().loader.resources["dice1"].texture);
+		this.#dice.x = (this.#window.getWindowWidth() / 2) - 65;
+		this.#app.getApp().stage.addChild(this.#dice);
+		this.#app.appendApp();
+		this.#reset();
+	}
+	roll(check) {
+		for (let i = 1; i <= 6; i++) {
+			document.getElementById(`card${i}`).classList.remove("bg-success");
+		}
+		document.getElementById("singleRoll").disabled = true;
+		document.getElementById("multiRoll").disabled = true;
+		this.#playAudio(AUDIO_ROLL);
+		let ticks = 0;
+		// Roll the dice using the probabilities
+		let rollValue = 0;
 
-	// for displaying amount of times each side was landed on for each individual set of rolls
-	let oneAmount = 0;
-	let twoAmount = 0;
-	let threeAmount = 0;
-	let fourAmount = 0;
-	let fiveAmount = 0;
-	let sixAmount = 0;
-
-	// if dice is weighted
-	if (isWeighted == 1) {
-		// heavier side is one
-		if(heavierSide == 1) {
-
-			for (let i = 0; i < qty; i++) {
-
-				let num = Math.floor(Math.random() * 100) + 1;
-			
-				// if weighted dice lands on one
-				if (num <= weightHeavierSide) {
-					oneCount += 1;
-					oneAmount += 1;
-				} 
-				// if weighted dice lands on two
-				else if ((num > weightHeavierSide) && (num <= (weightHeavierSide + weightLighterSides))) {
-					twoCount += 1;
-				    twoAmount += 1;
-				} 
-				// if weighted dice lands on three
-				else if ((num > (weightHeavierSide + weightLighterSides)) && (num <= (weightHeavierSide + (weightLighterSides * 2)))) {
-					threeCount += 1;
-					threeAmount += 1;
-				} 
-				// if weighted dice lands on four
-				else if ((num > (weightHeavierSide + (weightLighterSides * 2))) && (num <= (weightHeavierSide + (weightLighterSides * 3)))) {
-					fourCount += 1;
-					fourAmount += 1;
-				} 
-				// if weighted dice lands on five
-				else if ((num > (weightHeavierSide + (weightLighterSides * 3))) && (num <= (weightHeavierSide + (weightLighterSides * 4)))) {
-					fiveCount += 1;
-					fiveAmount += 1;
-				} 
-				// if weighted dice lands on six
+		this.#app.getApp().ticker.add(() => {
+			//rolling swap images
+			if (ticks % 5 == 0 && ticks < 50) {
+				rollValue = Math.floor(Math.random() * 6) + 1;
+				this.#dice.texture = this.#app.getApp().loader.resources[`dice${rollValue}`].texture;
+			}
+			//done rolling
+			else if (ticks == 50) {
+				rollValue = this.#rollDice();
+				this.#dice.texture = this.#app.getApp().loader.resources[`dice${rollValue}`].texture;
+				this.#faceTotals[rollValue - 1]++;
+				if (check == 1) {
+					this.#multi();
+				}
 				else {
-					sixCount += 1;
-					sixAmount += 1;
+					document.getElementById(`card${rollValue}`).classList.add("bg-success");
+				}
+				this.#updateTable();
+				document.getElementById("singleRoll").disabled = false;
+				document.getElementById("multiRoll").disabled = false;
+				ticks++;
+				if (this.#numberRolls >= 10) {
+					document.getElementById("prompt").innerHTML = "Is the Dice Weighted?";
+					document.getElementById("guessButtons").hidden = false;
 				}
 			}
+			ticks++;
+		});
 
-			// assigning count variables to table values
-			document.getElementById("oneTotal").innerHTML = oneCount;
-			document.getElementById("twoTotal").innerHTML = twoCount;
-			document.getElementById("threeTotal").innerHTML = threeCount;
-			document.getElementById("fourTotal").innerHTML = fourCount;
-			document.getElementById("fiveTotal").innerHTML = fiveCount;
-			document.getElementById("sixTotal").innerHTML = sixCount;
-
-			// displays the amount of times landed on each side
-			document.querySelector("h1").innerHTML = "One: " + oneAmount + ", Two: " + twoAmount + ", Three: " + threeAmount + ", Four: " + fourAmount + ", Five: " + fiveAmount + ", Six: " + sixAmount;
-		}
-
-		// heavier side is two
-		if(heavierSide == 2) {
-
-			for (let i = 0; i < qty; i++) {
-
-				let num = Math.floor(Math.random() * 100) + 1;
-
-				// if weighted dice lands on one
-				if ((num > weightHeavierSide) && (num <= (weightHeavierSide + weightLighterSides))) {
-					oneCount += 1;
-					oneAmount += 1;
-				} 
-				// if weighted dice lands on two
-				else if (num <= weightHeavierSide) {
-					twoCount += 1;
-					twoAmount += 1;
-				} 
-				// if weighted dice lands on three
-				else if ((num > (weightHeavierSide + weightLighterSides)) && (num <= (weightHeavierSide + (weightLighterSides * 2)))) {
-					threeCount += 1;
-					threeAmount += 1;
-				} 
-				// if weighted dice lands on four
-				else if ((num > (weightHeavierSide + (weightLighterSides * 2))) && (num <= (weightHeavierSide + (weightLighterSides * 3)))) {
-					fourCount += 1;
-					fourAmount += 1;
-				} 
-				// if weighted dice lands on five
-				else if ((num > (weightHeavierSide + (weightLighterSides * 3))) && (num <= (weightHeavierSide + (weightLighterSides * 4)))) {
-					fiveCount += 1;
-					fiveAmount += 1;
-				} 
-				// if weighted dice lands on six
-				else {
-					sixCount += 1;
-					sixAmount += 1;
-				}
+	}
+	guess(check) {
+		if (this.#weighted == check) {
+			this.#playAudio(AUDIO_CORRECT);
+			document.getElementById("guessButtons").hidden = true;
+			if (this.#weighted) {
+				document.getElementById("prompt").innerHTML = "Which side is weighted? Click the side you think it is.";
+				this.#clickable = true
+				this.#changeCursor();
+			} else {
+				document.getElementById("prompt").innerHTML = "Correct, the Dice isn't Weighted! Lets play again";
+				this.#reset();
 			}
-
-			// assigning count variables to table values
-			document.getElementById("oneTotal").innerHTML = oneCount;
-			document.getElementById("twoTotal").innerHTML = twoCount;
-			document.getElementById("threeTotal").innerHTML = threeCount;
-			document.getElementById("fourTotal").innerHTML = fourCount;
-			document.getElementById("fiveTotal").innerHTML = fiveCount;
-			document.getElementById("sixTotal").innerHTML = sixCount;
-
-			// displays the amount of times landed on each side
-			document.querySelector("h1").innerHTML = "One: " + oneAmount + ", Two: " + twoAmount + ", Three: " + threeAmount + ", Four: " + fourAmount + ", Five: " + fiveAmount + ", Six: " + sixAmount;
 		}
-
-		// heavier side is three
-		else if(heavierSide == 3) {
-
-			for (let i = 0; i < qty; i++) {
-
-				let num = Math.floor(Math.random() * 100) + 1;
-			
-				// if weighted dice lands on one
-				if ((num > weightHeavierSide) && (num <= (weightHeavierSide + weightLighterSides))) {
-					oneCount += 1;
-					oneAmount += 1;
-				} 
-				// if weighted dice lands on two
-				else if ((num > (weightHeavierSide + weightLighterSides)) && (num <= (weightHeavierSide + (weightLighterSides * 2)))) {
-					twoCount += 1;
-					twoAmount += 1;
-				} 
-				// if weighted dice lands on three
-				else if (num <= weightHeavierSide) {
-					threeCount += 1;
-					threeAmount += 1;
-				} 
-				// if weighted dice lands on four
-				else if ((num > (weightHeavierSide + (weightLighterSides * 2))) && (num <= (weightHeavierSide + (weightLighterSides * 3)))) {
-					fourCount += 1;
-					fourAmount += 1;
-				} 
-				// if weighted dice lands on five
-				else if ((num > (weightHeavierSide + (weightLighterSides * 3))) && (num <= (weightHeavierSide + (weightLighterSides * 4)))) {
-					fiveCount += 1;
-					fiveAmount += 1;
-				} 
-				// if weighted dice lands on six
-				else {
-					sixCount += 1;
-					sixAmount += 1;
-				}
-			}
-
-			// assigning count variables to table values
-			document.getElementById("oneTotal").innerHTML = oneCount;
-			document.getElementById("twoTotal").innerHTML = twoCount;
-			document.getElementById("threeTotal").innerHTML = threeCount;
-			document.getElementById("fourTotal").innerHTML = fourCount;
-			document.getElementById("fiveTotal").innerHTML = fiveCount;
-			document.getElementById("sixTotal").innerHTML = sixCount;
-
-			// displays the amount of times landed on each side
-			document.querySelector("h1").innerHTML = "One: " + oneAmount + ", Two: " + twoAmount + ", Three: " + threeAmount + ", Four: " + fourAmount + ", Five: " + fiveAmount + ", Six: " + sixAmount;
+		else {
+			this.#playAudio(AUDIO_WRONG);
+			document.getElementById("prompt").innerHTML = "Try Again";
 		}
+	}
+	#rollDice() {
+		this.#numberRolls++;
+		// Generate a random number between 0 and 1
+		let randomNum = Math.random();
 
-		// heavier side is four
-		else if(heavierSide == 4) {
+		// Initialize a cumulative probability variable
+		let cumProb = 0;
 
-			for (let i = 0; i < qty; i++) {
-
-				let num = Math.floor(Math.random() * 100) + 1;
-			
-				// if weighted dice lands on one
-				if ((num > weightHeavierSide) && (num <= (weightHeavierSide + weightLighterSides))) {
-					oneCount += 1;
-					oneAmount += 1;
-				} 
-				// if weighted dice lands on two
-				else if ((num > (weightHeavierSide + weightLighterSides)) && (num <= (weightHeavierSide + (weightLighterSides * 2)))) {
-					twoCount += 1;
-					twoAmount += 1;
-				} 
-				// if weighted dice lands on three
-				else if ((num > (weightHeavierSide + (weightLighterSides * 2))) && (num <= (weightHeavierSide + (weightLighterSides * 3)))) {
-					threeCount += 1;
-					threeAmount += 1;
-				} 
-				// if weighted dice lands on four
-				else if (num <= weightHeavierSide) {
-					fourCount += 1;
-					fourAmount += 1;
-				} 
-				// if weighted dice lands on five
-				else if ((num > (weightHeavierSide + (weightLighterSides * 3))) && (num <= (weightHeavierSide + (weightLighterSides * 4)))) {
-					fiveCount += 1;
-					fiveAmount += 1;
-				} 
-				// if weighted dice lands on six
-				else {
-					sixCount += 1;
-					sixAmount += 1;
-				}
+		// Loop through the probabilities and determine which face of the dice was rolled
+		for (let i = 0; i < this.#probabilities.length; i++) {
+			cumProb += this.#probabilities[i];
+			if (randomNum < cumProb) {
+				return i + 1; // Return the face value (1 to 6)
 			}
-
-			// assigning count variables to table values
-			document.getElementById("oneTotal").innerHTML = oneCount;
-			document.getElementById("twoTotal").innerHTML = twoCount;
-			document.getElementById("threeTotal").innerHTML = threeCount;
-			document.getElementById("fourTotal").innerHTML = fourCount;
-			document.getElementById("fiveTotal").innerHTML = fiveCount;
-			document.getElementById("sixTotal").innerHTML = sixCount;
-
-			// displays the amount of times landed on each side
-			document.querySelector("h1").innerHTML = "One: " + oneAmount + ", Two: " + twoAmount + ", Three: " + threeAmount + ", Four: " + fourAmount + ", Five: " + fiveAmount + ", Six: " + sixAmount;
 		}
-
-		// heavier side is five
-		else if(heavierSide == 5) {
-
-			for (let i = 0; i < qty; i++) {
-
-				let num = Math.floor(Math.random() * 100) + 1;
-			
-				// if weighted dice lands on one
-				if ((num > weightHeavierSide) && (num <= (weightHeavierSide + weightLighterSides))) {
-					oneCount += 1;
-					oneAmount += 1;
-				} 
-				// if weighted dice lands on two
-				else if ((num > (weightHeavierSide + weightLighterSides)) && (num <= (weightHeavierSide + (weightLighterSides * 2)))) {
-					twoCount += 1;
-					twoAmount += 1;
-				} 
-				// if weighted dice lands on three
-				else if ((num > (weightHeavierSide + (weightLighterSides * 2))) && (num <= (weightHeavierSide + (weightLighterSides * 3)))) {
-					threeCount += 1;
-					threeAmount += 1;
-				} 
-				// if weighted dice lands on four
-				else if ((num > (weightHeavierSide + (weightLighterSides * 3))) && (num <= (weightHeavierSide + (weightLighterSides * 4)))) {
-					fourCount += 1;
-					fourAmount += 1;
-				} 
-				// if weighted dice lands on five
-				else if (num <= weightHeavierSide) {
-					fiveCount += 1;
-					fiveAmount += 1;
-				} 
-				// if weighted dice lands on six
-				else {
-					sixCount += 1;
-					sixAmount += 1;
-				}
-			}
-
-			// assigning count variables to table values
-			document.getElementById("oneTotal").innerHTML = oneCount;
-			document.getElementById("twoTotal").innerHTML = twoCount;
-			document.getElementById("threeTotal").innerHTML = threeCount;
-			document.getElementById("fourTotal").innerHTML = fourCount;
-			document.getElementById("fiveTotal").innerHTML = fiveCount;
-			document.getElementById("sixTotal").innerHTML = sixCount;
-
-			// displays the amount of times landed on each side
-			document.querySelector("h1").innerHTML = "One: " + oneAmount + ", Two: " + twoAmount + ", Three: " + threeAmount + ", Four: " + fourAmount + ", Five: " + fiveAmount + ", Six: " + sixAmount;
+	}
+	#multi() {
+		let numberRolls = document.getElementById("numberRolls").value - 1;
+		let rollValue;
+		for (let i = 0; i < numberRolls; i++) {
+			rollValue = this.#rollDice();
+			this.#faceTotals[rollValue - 1]++;
 		}
-
-		// heavier side is six
-		else if(heavierSide == 6) {
-
-			for (let i = 0; i < qty; i++) {
-
-				let num = Math.floor(Math.random() * 100) + 1;
-			
-				// if weighted dice lands on one
-				if ((num > weightHeavierSide) && (num <= (weightHeavierSide + weightLighterSides))) {
-					oneCount += 1;
-					oneAmount += 1;
-				} 
-				// if weighted dice lands on two
-				else if ((num > (weightHeavierSide + weightLighterSides)) && (num <= (weightHeavierSide + (weightLighterSides * 2)))) {
-					twoCount += 1;
-					twoAmount += 1;
-				} 
-				// if weighted dice lands on three
-				else if ((num > (weightHeavierSide + (weightLighterSides * 2))) && (num <= (weightHeavierSide + (weightLighterSides * 3)))) {
-					threeCount += 1;
-					threeAmount += 1;
-				} 
-				// if weighted dice lands on four
-				else if ((num > (weightHeavierSide + (weightLighterSides * 3))) && (num <= (weightHeavierSide + (weightLighterSides * 4)))) {
-					fourCount += 1;
-					fourAmount += 1;
-				} 
-				// if weighted dice lands on five
-				else if ((num > (weightHeavierSide + (weightLighterSides * 4))) && (num <= (weightHeavierSide + (weightLighterSides * 5)))) {
-					fiveCount += 1;
-					fiveAmount += 1;
-				} 
-				// if weighted dice lands on six
-				else {
-					sixCount += 1;
-					sixAmount += 1;
-				}
+	}
+	#updateTable() {
+		for (let i = 0; i < 6; i++) {
+			document.getElementById(`face${i + 1}`).innerHTML = this.#faceTotals[i];
+		}
+	}
+	#changeCursor() {
+		if (this.#clickable) {
+			for (let i = 1; i <= 6; i++) {
+				document.getElementById(`card${i}`).style.cursor = "pointer";
 			}
-
-			// assigning count variables to table values
-			document.getElementById("oneTotal").innerHTML = oneCount;
-			document.getElementById("twoTotal").innerHTML = twoCount;
-			document.getElementById("threeTotal").innerHTML = threeCount;
-			document.getElementById("fourTotal").innerHTML = fourCount;
-			document.getElementById("fiveTotal").innerHTML = fiveCount;
-			document.getElementById("sixTotal").innerHTML = sixCount;
-
-			// displays the amount of times landed on each side
-			document.querySelector("h1").innerHTML = "One: " + oneAmount + ", Two: " + twoAmount + ", Three: " + threeAmount + ", Four: " + fourAmount + ", Five: " + fiveAmount + ", Six: " + sixAmount;
+		}
+		else {
+			for (let i = 1; i <= 6; i++) {
+				document.getElementById(`card${i}`).style.cursor = "default";
+			}
 		}
 	}
 
-	// if dice is not weighted
-	else {
-
-		for (let i = 0; i < qty; i++) {
-
-			let num = Math.floor(Math.random() * 6) + 1;
-			
-			// if nonweighted dice is one
-			if (num == 1) {
-				oneCount += 1;
-				oneAmount += 1;
-			} 
-			// if nonweighted dice is two
-			else if (num == 2) {
-				twoCount += 1;
-				twoAmount += 1;
-			} 
-			// if nonweighted dice is three
-			else if (num == 3) {
-				threeCount += 1;
-				threeAmount += 1;
-			} 
-			// if nonweighted dice is four
-			else if (num == 4) {
-				fourCount += 1;
-				fourAmount += 1;
-			} 
-			// if nonweighted dice is five
-			else if (num == 5) {
-				fiveCount += 1;
-				fiveAmount += 1;
-			} 
-			// if nonweighted dice is six
-			else if (num == 6) {
-				sixCount += 1;
-				sixAmount += 1;
+	cardSelect(side) {
+		if (this.#clickable) {
+			if (side == this.#weightedSide) {
+				this.#playAudio(AUDIO_CORRECT);
+				document.getElementById("prompt").innerHTML = "Correct the " + side + " side is the weighted.";
+				this.#reset();
+			}
+			else {
+				document.getElementById("prompt").innerHTML = "Wrong side try again";
 			}
 		}
+	}
+	#playAudio(audioName) {/*
+        audioName.pause();
+        audioName.currentTime = 0;
+        audioName.play();*/
+	}
+	#isWeighted() {
+		// Randomly choose whether the dice is weighted or not
+		let isWeighted = Math.random() < 0.5;
 
-		// assigning count variables to table values
-		document.getElementById("oneTotal").innerHTML = oneCount;
-		document.getElementById("twoTotal").innerHTML = twoCount;
-		document.getElementById("threeTotal").innerHTML = threeCount;
-		document.getElementById("fourTotal").innerHTML = fourCount;
-		document.getElementById("fiveTotal").innerHTML = fiveCount;
-		document.getElementById("sixTotal").innerHTML = sixCount;
+		if (isWeighted) {
+			// Randomly choose the index of the weighted face
+			let weightedIndex = Math.floor(Math.random() * 6);
 
-		// displays the amount of times landed on each side
-		document.querySelector("h1").innerHTML = "One: " + oneAmount + ", Two: " + twoAmount + ", Three: " + threeAmount + ", Four: " + fourAmount + ", Five: " + fiveAmount + ", Six: " + sixAmount;
+			// Set the probabilities to favor the weighted face
+			this.#probabilities = new Array(6).fill(2 / 15);
+			this.#probabilities[weightedIndex] = 1 / 3;
+			this.#weightedSide = weightedIndex + 1;
+			this.#weighted = true;
+		} else {
+			this.#weighted = false;
+			// If the dice is not weighted, return equal probabilities for all faces
+			this.#probabilities = new Array(6).fill(1 / 6);
+		}
+	}
+	#reset() {
+		this.#faceTotals = new Array(6).fill(0);
+		this.#clickable = false;
+		this.#changeCursor();
+		this.#isWeighted();
 	}
 }
 
-// function for when user guesses weighted
-function weightedGuess() {
-	// hides weighteed and not weighted button when user makes guess
-	document.getElementById("weighted").hidden = true;
-	document.getElementById("notWeighted").hidden = true;
+const game = new DiceGame();
 
-	if(isWeighted == 1) {
-		// plays correct guess audio
-		AUDIO_CORRECT.play();
-
-		document.querySelector("h1").innerHTML = "Your guess was correct, the dice was weighted";
-
-		if(heavierSide == 1)
-			document.getElementById("weightAmount").innerHTML = "Weight: Side 1 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
-		else if(heavierSide == 2)
-			document.getElementById("weightAmount").innerHTML = "Weight: Side 2 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
-		else if(heavierSide == 3)
-			document.getElementById("weightAmount").innerHTML = "Weight: Side 3 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
-		else if(heavierSide == 4)
-			document.getElementById("weightAmount").innerHTML = "Weight: Side 4 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
-		else if(heavierSide == 5)
-			document.getElementById("weightAmount").innerHTML = "Weight: Side 5 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
-		else
-			document.getElementById("weightAmount").innerHTML = "Weight: Side 6 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
-	}
-	else {
-		// plays wrong guess audio
-		AUDIO_WRONG.play();
-		
-		document.querySelector("h1").innerHTML = "Your guess was incorrect, the dice was not weighted";
-		document.getElementById("weightAmount").innerHTML = "Weight: All sides have an even split of 16.66%";
-	}
-	
-
-	// resetting global variables
-	oneCount = 0;
-	twoCount = 0;
-	threeCount = 0;
-	fourCount = 0;
-	fiveCount = 0;
-	sixCount = 0;
-	isWeighted = Math.floor(Math.random() * 2) + 1;
-	weightHeavierSide = Math.floor(Math.random() * difference) + min;
-	restOfWeight = 100 - weightHeavierSide;
-	weightLighterSides = restOfWeight / 5.0;
-	heavierSide = Math.floor(Math.random() * 6) + 1;
+function roll(check) {
+	game.roll(check);
+}
+function guess(check) {
+	game.guess(check);
+}
+function cardSelect(side) {
+	game.cardSelect(side);
 }
 
-// function for when user guesses not weighted
-function notWeightedGuess() {
-	// hides weighteed and not weighted button when user makes guess
-	document.getElementById("weighted").hidden = true;
-	document.getElementById("notWeighted").hidden = true;
+// Get the welcome scene and the full page elements
+const welcomeScene = document.querySelector('.welcome-scene');
+const tutorial = document.querySelector('.tutorial');
+//const fullPage = document.querySelector('.container text-center');
 
-	if(isWeighted == 1) {
-		// plays wrong guess audio
-		AUDIO_WRONG.play();
+// Get the close button from the welcome scene
+const closeButton = document.querySelector('#close-welcome');
+const openTutorial = document.querySelector('#openTutorial');
+const closeTutorial = document.querySelector('#closeTutorial');
 
-		document.querySelector("h1").innerHTML = "Your guess was incorrect, the dice was weighted";
-
-		if(heavierSide == 1)
-			document.getElementById("weightAmount").innerHTML = "Weight: Side 1 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
-		else if(heavierSide == 2)
-			document.getElementById("weightAmount").innerHTML = "Weight: Side 2 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
-		else if(heavierSide == 3)
-			document.getElementById("weightAmount").innerHTML = "Weight: Side 3 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
-		else if(heavierSide == 4)
-			document.getElementById("weightAmount").innerHTML = "Weight: Side 4 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
-		else if(heavierSide == 5)
-			document.getElementById("weightAmount").innerHTML = "Weight: Side 5 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
-		else
-			document.getElementById("weightAmount").innerHTML = "Weight: Side 6 has a weight of " + (weightHeavierSide) + "%, and the other sides have a weight of 16.66%";
-	}
-	else {
-		// plays correct guess audio
-		AUDIO_CORRECT.play();
-
-		document.querySelector("h1").innerHTML = "Your guess was correct, the dice was not weighted";
-		document.getElementById("weightAmount").innerHTML = "Weight: All sides have an even split of 16.66%";
-	}
-
-	// resetting global variables
-	oneCount = 0;
-	twoCount = 0;
-	threeCount = 0;
-	fourCount = 0;
-	fiveCount = 0;
-	sixCount = 0;
-	isWeighted = Math.floor(Math.random() * 2) + 1;
-	weightHeavierSide = Math.floor(Math.random() * difference) + min;
-	restOfWeight = 100 - weightHeavierSide;
-	weightLighterSides = restOfWeight / 5.0;
-	heavierSide = Math.floor(Math.random() * 6) + 1;
-}
-
-
-// Get the modal
-var modal = document.getElementById("helpModal");
-// Get the button that opens the modal
-var btn = document.getElementById("helpButton");
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
+// When the close button is clicked, hide the welcome scene and show the full page
+closeButton.addEventListener('click', function () {
+	welcomeScene.style.display = 'none';
+	//fullPage.style.display = 'block';
+});
+openTutorial.addEventListener('click', function () {
+	tutorial.style.display = 'flex';
+	//fullPage.style.display = 'block';
+});
+closeTutorial.addEventListener('click', function () {
+	welcomeScene.style.display = 'none';
+	//fullPage.style.display = 'block';
+});

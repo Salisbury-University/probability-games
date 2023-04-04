@@ -1,123 +1,34 @@
-.container {
-	width: 95%;
-	margin: auto;
-	text-align: center;
+.welcome-scene {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 10;
 }
 
-body {
-	background-color: #999999;
-	margin: auto;
+.modal fade {
+	z-index: 50;
 }
 
-h1 {
-	margin: 2px;
-	font-family: "Calibri";
-	text-shadow: 2px 0 #33373c;
-	font-size: 2rem;
-	color: #EBEBDD;
-	text-align: center;
+.tutorial {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(255, 255, 255, 0.75);
+	display: none;
+	align-items: center;
+	justify-content: center;
+	z-index: 15;
 }
 
-h2 {
-	margin: 2px;
-	font-family: "Calibri";
-	font-size: 1.25rem;
-	color: black;
-	text-align: left;
-}
-
-h3 {
-	font-family: "Calibri";
-	text-shadow: 2px 0 #33373c;
-	font-size: 1.5rem;
-	color: #EBEBDD;
-}
-
-.helpArea {
-	text-align: left;
-}
-
-#coin {
-	width: 12%;
-}
-
-.bottom {
-	padding-top: 10px;
-}
-
-.butn {
-	background: #A0A098;
-	font-family: "Calibri";
-	border-radius: 10px;
-	color: #ffff;
-	font-size: 18px;
-	text-decoration: none;
-}
-
-.butn:hover {
-	background: #232931;
-	text-decoration: none;
-}
-
-.lab {
-	font-family: "Calibri";
-	text-shadow: 2px 0 #33373c;
-	font-size: 1.5rem;
-	color: #EBEBDD;
-}
-
-table {
-	font-family: "Calibri";
-	text-shadow: 2px 0 #33373c;
-	font-size: 1.5rem;
-	color: #EBEBDD;
-}
-
-
-
-/* Add Animation */
-@-webkit-keyframes animatetop {
-	from {
-		top: -300px;
-		opacity: 0
-	}
-
-	to {
-		top: 0;
-		opacity: 1
-	}
-}
-
-@keyframes animatetop {
-	from {
-		top: -300px;
-		opacity: 0
-	}
-
-	to {
-		top: 0;
-		opacity: 1
-	}
-}
-
-/* The Close Button */
-.close {
-	color: white;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-	color: #000;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-
-.topright {
-	position: absolute;
-	right: 0;
-	top: -1;
+.container text-center {
+	position: relative;
+	z-index: 1;
 }
