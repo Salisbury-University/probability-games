@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 
 <head>
   <meta charset="utf-8" />
@@ -18,7 +18,7 @@
 </head>
 
 <body>
-  <!-- How to Play Modal -->
+  <!-- How to Play-->
   <div class="modal fade" id="howToPlay" tabindex="-1" aria-labelledby="instructionsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -28,59 +28,70 @@
           </h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          <ol>
-            <li>
-              Player's each take turns adding their chips to the numbered
-              cards, until there are no chips remaining in their piles
-            </li>
-            <li>Player 1 rolls the two dice and adds the sum of the dice.</li>
-            <dl>
-              If Player 1 has a chip on the card equal to the sum of the dice
-              remove the chip and get a point.
-            </dl>
-            <dl>Otherwise, move onto player 2's roll</dl>
-            <li>Player 2 rolls the two dice and adds the sum of the dice.</li>
-            <dl>
-              Now, if Player 2 has a chip on the card equal to the sum of the
-              dice remove the chip and get a point.
-            </dl>
-            <dl>Otherwise, it becomes player 1's turn to roll again</dl>
-            <li>
-              Continue rolling the dice and removing chips, until one player
-              removes all of their chips
-            </li>
-            <li>
-              First player to remove all of their chips from their cards wins!
-            </li>
-            <li>
-              Try to place your chips where you think the dice will roll more
-              often than not!
-            </li>
-          </ol>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Bug Modal -->
-  <div class="modal fade" id="bugModal" tabindex="-1" aria-labelledby="bugModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5">Bug Report</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">Email: mdemchuk1@gulls.salisbury.edu with any bugs found
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
+        <div class="modal-body" style="height: 30em; overflow-y: auto">
+          <secion>
+            <div class="container m-2 p-2">
+              <div class="row">
+                <div id="list-example" class="list-group col-3">
+                  <a class="list-group-item list-group-item-action" href="#list-item-1">Game Setup</a>
+                  <a class="list-group-item list-group-item-action" href="#list-item-2">Placing Chips</a>
+                  <a class="list-group-item list-group-item-action" href="#list-item-3">Rolling the Dice</a>
+                  <a class="list-group-item list-group-item-action" href="#list-item-4">Removing Chips</a>
+                  <a class="list-group-item list-group-item-action" href="#list-item-4">Winning the Game</a>
+                </div>
+                <div data-bs-spy="scroll" data-bs-target="#list-example" data-bs-offset="0"
+                  class="scrollspy-example col" tabindex="0">
+                  <h4 id="list-item-1">Game Setup</h4>
+                  <ul>
+                    <li>There are <b> 2 players</b></li>
+                    <li>
+                      There are <b>12 cards labeled 2, 3, 4, 5, .., 12</b>,
+                      representing all possible sums of the roll of two dice
+                    </li>
+                    <li>Each player starts with <b>10 chips</b></li>
+                  </ul>
+                  <h4 id="list-item-2">Placing Chips</h4>
+                  <p>
+                    In the first phase of the game, players take turns
+                    spreading their chips out accross all cards one at a time.
+                    To place a chip on a card, when it is the players turn,
+                    they can
+                    <b>click on a card, and their next chip will be placed
+                      there.</b>
+                    Players take turns placing their chips until all 10 are
+                    placed.
+                  </p>
+                  <h4 id="list-item-3">Rolling the Dice</h4>
+                  <p>
+                    After all of the chips are placed, a roll button will
+                    appear. The player whose turn it is can simply
+                    <b>click on the roll button to roll the dice.</b>
+                  </p>
+                  <h4 id="list-item-4">Removing Chips</h4>
+                  <p>
+                    When the player rolls the dice, they must add up the sum
+                    of the two dice. Once they get the sum, they check the
+                    card labeled with that sum. If they have a chip on that
+                    card, they can <b>click their chip on that card</b>, and
+                    it will be removed from it.
+                  </p>
+                  <h4 id="list-item-4">Winning the Game</h4>
+                  <p>
+                    The player who is able to
+                    <b>remove all of their chips from the cards first wins!</b>
+                    So remember to place your chips on the cards with the dice
+                    sums you think are likely to be rolled most often.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </secion>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              Close
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -90,7 +101,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5">Settings</h1>
+          <h1 class="modal-title fs-5" id="settingsModalLabel">Settings</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -110,13 +121,14 @@
           <hr class="featurette-divider" />
           <div class="dropdown">
             Theme:
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownThemeLabel"
               data-bs-toggle="dropdown" aria-expanded="false">
               Light Mode
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Dark Mode</a></li>
-              <li><a class="dropdown-item" href="#">Solarized</a></li>
+              <li>
+                <a class="dropdown-item" onclick="swapTheme(this)">Dark Mode</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -186,6 +198,13 @@
     </div>
   </nav>
 
+  <!-- window title -->
+  <div class="text-center mt-4">
+    <h1 class="display-5" id="page-header">
+      <b> Sum of Two Dice Game!</b>
+    </h1>
+  </div>
+
   <span class="border-top border-right border-left" id="border" hidden>
     <h1 class="mb-2 p-3 text-center bg-light" id="win-header">
       Player _ Won in _ rolls!
@@ -242,26 +261,25 @@
       </table>
     </div>
     <div class="col text-center">
-      <button type="button" class="btn btn-primary" id="play-again-button">
+      <button type="button" class="btn btn-primary" id="play-again-button" onclick="playAgain();">
         Play Again
       </button>
     </div>
   </span>
 
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/pixi.min.js"></script>
-  <script src="js/cardGame.js"></script>
-
   <!-- add this for a footer -->
   <div class="fixed-bottom">
     <hr class="featurette-divider" />
     <footer class="container">
-      <p class="float-end" data-bs-toggle="modal" data-bs-target="#instructionsModal">
-
+      <p class="float-end" data-bs-toggle="modal" data-bs-target="#instructionsModal" data-bs-theme="dark">
       </p>
       <p>&middot; Salisbury University &middot;</p>
     </footer>
   </div>
+
+  <script src="js/pixi.min.js"></script>
+  <script src="js/cardGame.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
