@@ -24,17 +24,15 @@ document.getElementById("amountOfNeedles").addEventListener("keydown", function 
 });
 
 
-function resizeCanvas() {
+/*function resizeCanvas() {
   canvas.width = document.body.clientWidth * .75;; // Set the canvas width to 75% of the window width
   canvas.height = window.innerHeight * .65; // Set the canvas height to 65% of the window height
   windowWidth = document.body.clientWidth * .75;
   windowHeight = window.innerHeight * .65;
-}
+}*/
 
 // Add an event listener to resize the canvas when the window size changes
-window.addEventListener('resize', resizeCanvas);
-
-
+//window.addEventListener('resize', resizeCanvas);
 
 let line = new PIXI.Graphics();
 let lines = [];
@@ -54,7 +52,6 @@ let lineSpace = windowHeight / amountLines;
 let needleLengthPercent = 0.9;
 let needleLength = lineSpace * needleLengthPercent;
 let yValue = lineSpace; //yValue is space between lines
-console.log(lineSpace);
 
 needleDropSound.volume = 0.5;
 
@@ -88,7 +85,6 @@ for (let i = 0; i < amountLines - 1; i++) {
 }
 
 function changeDarkTheme() {
-  console.log("Changing to Dark Theme");
   document.getElementById("themeType").innerHTML = "Dark Theme";
   //changes top section to dark and text to white
   document.getElementById("topPageSection").style.backgroundColor = "#313b4b";
@@ -102,7 +98,6 @@ function changeDarkTheme() {
 }
 
 function changeLightTheme() {
-  console.log("Changing to Light Theme");
   document.getElementById("themeType").innerHTML = "Light Theme";
 
   //changes top section
@@ -123,7 +118,6 @@ function changeLines(num) {
     alert("Cannot go lower then two lines");
   } else {
     amountLines += num;
-    console.log(amountLines);
     clearNeedles();
     line.destroy(); //destroy lines to build again
     lines = [];
@@ -228,7 +222,6 @@ function needleXY() {
 
       //calculate the angle
       let angle = Math.floor(Math.random() * 360);
-      //console.log(angle);
       angle = toRadians(angle);
 
 
@@ -354,7 +347,6 @@ function colorNeedles(yEnd, yCenter) { // over writes the colors even though the
 function clearNeedles() {
   neg = 0;
   pos = 0;
-  console.log("Next Empty size: " + nextEmpty);
 
   //this code removes them from the stage
   lineArray.forEach(lineInArray => {
