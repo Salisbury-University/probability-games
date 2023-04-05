@@ -257,7 +257,6 @@
 				<button class="btn btn-primary" id="continueButton" onclick="continueGame()" hidden>Continue</button>
 			</h1>
 		</div>
-
 		<!-- resultArea, the last section to be displayed-->
 		<div class="row">
 			<div id="resultArea" hidden>
@@ -276,54 +275,50 @@
 
 			<!-- there are 12 columns to the view of a website, helps organize website-->
 			<div class="col">
-<<<<<<< HEAD
-
-=======
 				<p>Using the fomula below estimate the value of Pi</p>
 				<p>Please estimate PI: <input type="number" id="guessingPiNum"></p>
->>>>>>> 65182c496320bec2065719f1e1c11592dee09333
 			</div>
 			<div class="col">
 				<h3>Buffon's needle formula:
-				<math>
-					<mrow>
-						<mi>&#960;</mi>
-						<mo>=</mo>
-						<mfrac>
-							<mrow>
-								<mn>2</mn>
-								<mi>l*n</mi>
-							</mrow>
-							<mrow>
-								<mi>t*h</mi>
-								<!--<mi>&#960;</mi>-->
-							</mrow>
-						</mfrac>
-					</mrow>
-				</math>
+					<math>
+						<mrow>
+							<mi>&#960;</mi>
+							<mo>=</mo>
+							<mfrac>
+								<mrow>
+									<mn>2</mn>
+									<mi>l*n</mi>
+								</mrow>
+								<mrow>
+									<mi>t*h</mi>
+									<!--<mi>&#960;</mi>-->
+								</mrow>
+							</mfrac>
+						</mrow>
+					</math>
 				</h3>
-				</div>
-			
-				<div class = "col">
-					<h3>l = length of needle</h3>
-					<h3>t = distance between Lines</h3>
-					<h3>h = needles that cross a grid line </h3> 
-					<h3>n = total number of needles dropped</h3>
-				</div>
-				<div class="col" id = estimatePiValues>
-					<h3 id="needLength"></h3>
-					<h3 id="gridSpace"></h3>
-					<h3 class="needCross"></h3>
-					<h3 class="total"></h3>
-				</div>
-			
-				<!--<h3>l = length of needle, t = distance between Lines, h = needles that cross a grid line,  n = total number of needles dropped</h3>
+			</div>
+
+			<div class="col">
+				<h3>l = length of needle</h3>
+				<h3>t = distance between Lines</h3>
+				<h3>h = needles that cross a grid line </h3>
+				<h3>n = total number of needles dropped</h3>
+			</div>
+			<div class="col" id=estimatePiValues>
+				<h3 id="needLength"></h3>
+				<h3 id="gridSpace"></h3>
+				<h3 class="needCross"></h3>
+				<h3 class="total"></h3>
+			</div>
+
+			<!--<h3>l = length of needle, t = distance between Lines, h = needles that cross a grid line,  n = total number of needles dropped</h3>
 					<p>t = distance between Lines</p>
 					<p>h = needles that cross a grid line</p>
 					<p>n = total number of needles dropped</p>-->
-		
+
 			<!-- this area shows needleLength, grid space-->
-			
+
 		</div>
 
 		<div class="col" id="statsLocated1">
