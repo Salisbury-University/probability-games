@@ -3,7 +3,7 @@ const AUDIO_WRONG = new Audio("../sounds/wrong.mp3");
 const AUDIO_CORRECT = new Audio("../sounds/point_2.mp3");
 const Graphics = PIXI.Graphics;
 const Sprite = PIXI.Sprite;
-const possibleWeights = [9 / 10, 3 / 4, 3 / 5];
+const possibleWeights = [90, 75, 60];
 
 class WindowInfo {
 	#windowWidth;
@@ -43,7 +43,6 @@ class App {
 }
 
 class CoinGame {
-
 	#numberFlips = 0;
 	#totals;
 	#window;
@@ -66,6 +65,9 @@ class CoinGame {
 		this.#app.appendApp();
 		this.#reset();
 		this.#buttons();
+	}
+	example() {
+
 	}
 	#reset() {
 		this.#totals = new Array(2).fill(0);
@@ -96,8 +98,8 @@ class CoinGame {
 			this.#guessWeight();
 		});
 		numberFlipsInput.addEventListener('keypress', function (event) {
-			let charCode = event.which ? event.which : event.keyCode;
-			if (charCode < 48 || charCode > 57) {
+			let charCode = event.key;
+			if (charCode < '0' || charCode > '9') {
 				event.preventDefault();
 			}
 		});
@@ -106,11 +108,11 @@ class CoinGame {
 		let isWeighted = Math.random() < 0.5;
 		if (isWeighted) {
 			let weight = possibleWeights[Math.floor(Math.random() * 3)];
-			this.#probabliity = new Array(2).fill(1 - weight);
+			this.#probabliity = new Array(2).fill(100 - weight);
 			this.#probabliity[Math.floor(Math.random() * 2)] = weight;
 		}
 		else {
-			this.#probabliity = new Array(2).fill(1 / 2);
+			this.#probabliity = new Array(2).fill(50);
 		}
 	}
 	#playAudio(audioName) {/*
@@ -124,7 +126,7 @@ class CoinGame {
 	}
 	#flipCoin() {
 		this.#numberFlips++;
-		let randomNum = Math.random();
+		let randomNum = Math.floor(Math.random() * 101);
 		if (randomNum <= this.#probabliity[0]) {//heads
 			return 0;
 		}
@@ -176,13 +178,13 @@ class CoinGame {
 		});
 	}
 	#guess(check) {
-		if (check == 0 && this.#probabliity[0] != .5) {//weighted
+		if (check == 0 && this.#probabliity[0] != 50) {//weighted
 			this.#playAudio(AUDIO_CORRECT);
 			document.getElementById("prompt").innerHTML = "Correct the coin is weighted.";
 			document.getElementById("guessButtons").hidden = true;
 			document.getElementById("guessWeight").hidden = false;
 		}
-		else if (check == 1 && this.#probabliity[0] == .5) {
+		else if (check == 1 && this.#probabliity[0] == 50) {
 			this.#playAudio(AUDIO_CORRECT);
 			document.getElementById("prompt").innerHTML = "Correct the coin is not weighted.";
 			document.getElementById("guessButtons").hidden = true;
@@ -195,13 +197,14 @@ class CoinGame {
 	}
 	#guessWeight() {
 		let guess = document.getElementById("weightSelect").value;
+		console.log(guess);
 		if (isNaN(guess)) {
 			this.#playAudio(AUDIO_WRONG);
 			document.getElementById("prompt").innerHTML = "Please select an option from the dropdown.";
 		}
 		else if (guess == this.#probabliity[0]) {
 			this.#playAudio(AUDIO_CORRECT);
-			document.getElementById("prompt").innerHTML = "Correct the weight is " + (this.#probabliity[0] * 100) + "% Heads and " + (this.#probabliity[1] * 100) + "% Tails";
+			document.getElementById("prompt").innerHTML = "Correct the weight is " + (this.#probabliity[0]) + "% Heads and " + (this.#probabliity[1]) + "% Tails";
 			document.getElementById("guessWeight").hidden = true;
 			this.#reset();
 		}
@@ -213,27 +216,55 @@ class CoinGame {
 	}
 }
 
-const game = new CoinGame();/*
-// Get the welcome scene and the full page elements
-const welcomeScene = document.querySelector('.welcome-scene');
-const tutorial = document.querySelector('.tutorial');
-//const fullPage = document.querySelector('.container text-center');
+class ScreenManagement {
+	#welcomeScene;
+	#tutorialScene;
+	#tutorialOpenButton;
+	#closeTutorialButton;
+	#playButton;
+	#tutorial
 
-// Get the close button from the welcome scene
-const closeButton = document.querySelector('#close-welcome');
-const openTutorial = document.querySelector('#openTutorial');
-const closeTutorial = document.querySelector('#closeTutorial');
+	constructor() {
+		this.#welcomeScene = document.getElementById("welcomeScene");
+		this.#tutorialScene = document.getElementById("tutorialScene");
+		this.#playButton = document.getElementById("playGame");
+		this.#tutorialOpenButton = document.querySelectorAll(".openTutorial");
+		this.#closeTutorialButton = document.getElementById("closeTutorial");
 
-// When the close button is clicked, hide the welcome scene and show the full page
-closeButton.addEventListener('click', function () {
-	welcomeScene.style.display = 'none';
-	//fullPage.style.display = 'block';
-});
-openTutorial.addEventListener('click', function () {
-	tutorial.style.display = 'flex';
-	//fullPage.style.display = 'block';
-});
-closeTutorial.addEventListener('click', function () {
-	welcomeScene.style.display = 'none';
-	//fullPage.style.display = 'block';
-});*/
+		this.#setup();
+	}
+	#setup() {
+		this.#playButton.addEventListener('click', () => {
+			this.#closeWelcome();
+		});
+		this.#closeTutorialButton.addEventListener('click', () => {
+			this.#closeTutorial();
+		});
+		this.#tutorialOpenButton.forEach((button) => {
+			button.addEventListener('click', () => {
+				this.#openTutorial();
+			});
+		});
+
+	}
+	#closeWelcome() {
+		this.#welcomeScene.style.display = 'none';
+	}
+	#openTutorial() {
+		this.#closeWelcome();
+		this.#tutorialScene.style.display = 'flex';
+	}
+	#closeTutorial() {
+		this.#tutorialScene.style.display = 'none';
+	}
+}
+
+
+const game = new CoinGame();
+const screens = new ScreenManagement();
+
+
+/* this could be used to have a single javascript file
+const fileName = window.location.pathname.split('/').pop().replace('.html', '');
+console.log(fileName);
+*/

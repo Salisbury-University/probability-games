@@ -1,4 +1,4 @@
-.welcome-scene {
+#welcomeScene {
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -15,7 +15,7 @@
 	z-index: 50;
 }
 
-.tutorial {
+#tutorialScene {
 	position: fixed;
 	top: 0;
 	left: 0;
