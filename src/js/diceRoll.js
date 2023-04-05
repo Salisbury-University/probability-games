@@ -181,7 +181,8 @@ class DiceGame {
 				this.#reset();
 			}
 			else {
-				document.getElementById("prompt").innerHTML = "Wrong side try again";
+				this.#playAudio(AUDIO_WRONG);
+				document.getElementById("prompt").innerHTML = "Try Again";
 			}
 		}
 	}

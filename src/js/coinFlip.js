@@ -1,4 +1,4 @@
-const AUDIO_ROLL = new Audio("../sounds/dice_roll.mp3");
+const AUDIO_FLIP = new Audio("../sounds/coin_flip.mp3");
 const AUDIO_WRONG = new Audio("../sounds/wrong.mp3");
 const AUDIO_CORRECT = new Audio("../sounds/point_2.mp3");
 const Graphics = PIXI.Graphics;
@@ -43,6 +43,7 @@ class App {
 }
 
 class CoinGame {
+
 	#numberFlips = 0;
 	#totals;
 	#window;
@@ -64,11 +65,42 @@ class CoinGame {
 		this.#app.getApp().stage.addChild(this.#coin);
 		this.#app.appendApp();
 		this.#reset();
+		this.#buttons();
 	}
 	#reset() {
 		this.#totals = new Array(2).fill(0);
 		this.#numberFlips = 0;
 		this.#isWeighted();
+	}
+	#buttons() {
+		let singleFlipButton = document.getElementById('singleFlip');
+		let multiFlipButton = document.getElementById('multiFlip');
+		let weightedButton = document.getElementById('weighted');
+		let notWeightedButton = document.getElementById('notWeighted');
+		let weightSelectButton = document.getElementById('weightSelectButton');
+		let numberFlipsInput = document.getElementById("numberFlips");
+
+		singleFlipButton.addEventListener('click', () => {
+			this.#flip(0);
+		});
+		multiFlipButton.addEventListener('click', () => {
+			this.#flip(1);
+		});
+		weightedButton.addEventListener('click', () => {
+			this.#guess(0);
+		});
+		notWeightedButton.addEventListener('click', () => {
+			this.#guess(1);
+		});
+		weightSelectButton.addEventListener('click', () => {
+			this.#guessWeight();
+		});
+		numberFlipsInput.addEventListener('keypress', function (event) {
+			let charCode = event.which ? event.which : event.keyCode;
+			if (charCode < 48 || charCode > 57) {
+				event.preventDefault();
+			}
+		});
 	}
 	#isWeighted() {
 		let isWeighted = Math.random() < 0.5;
@@ -106,13 +138,13 @@ class CoinGame {
 			this.#totals[this.#flipCoin()]++;
 		}
 	}
-	flip(check) {
+	#flip(check) {
 		document.getElementById("card0").classList.remove("bg-success");
 		document.getElementById("card1").classList.remove("bg-success");
 
 		document.getElementById("singleFlip").disabled = true;
 		document.getElementById("multiFlip").disabled = true;
-		this.#playAudio(AUDIO_ROLL);
+		this.#playAudio(AUDIO_FLIP);
 		let ticks = 0;
 
 		let flipValue = 0;
@@ -135,20 +167,53 @@ class CoinGame {
 				document.getElementById("singleFlip").disabled = false;
 				document.getElementById("multiFlip").disabled = false;
 				ticks++;
+				if (this.#numberFlips >= 10) {
+					document.getElementById("prompt").innerHTML = "Is the Coin Weighted?";
+					document.getElementById("guessButtons").hidden = false;
+				}
 			}
 			ticks++;
 		});
 	}
+	#guess(check) {
+		if (check == 0 && this.#probabliity[0] != .5) {//weighted
+			this.#playAudio(AUDIO_CORRECT);
+			document.getElementById("prompt").innerHTML = "Correct the coin is weighted.";
+			document.getElementById("guessButtons").hidden = true;
+			document.getElementById("guessWeight").hidden = false;
+		}
+		else if (check == 1 && this.#probabliity[0] == .5) {
+			this.#playAudio(AUDIO_CORRECT);
+			document.getElementById("prompt").innerHTML = "Correct the coin is not weighted.";
+			document.getElementById("guessButtons").hidden = true;
+			this.#reset();
+		}
+		else {
+			this.#playAudio(AUDIO_WRONG);
+			document.getElementById("prompt").innerHTML = "Try Again";
+		}
+	}
+	#guessWeight() {
+		let guess = document.getElementById("weightSelect").value;
+		if (isNaN(guess)) {
+			this.#playAudio(AUDIO_WRONG);
+			document.getElementById("prompt").innerHTML = "Please select an option from the dropdown.";
+		}
+		else if (guess == this.#probabliity[0]) {
+			this.#playAudio(AUDIO_CORRECT);
+			document.getElementById("prompt").innerHTML = "Correct the weight is " + (this.#probabliity[0] * 100) + "% Heads and " + (this.#probabliity[1] * 100) + "% Tails";
+			document.getElementById("guessWeight").hidden = true;
+			this.#reset();
+		}
+		else {
+			this.#playAudio(AUDIO_WRONG);
+			document.getElementById("prompt").innerHTML = "Please select an option from the dropdown.";
+		}
+
+	}
 }
 
-const game = new CoinGame();
-
-function flip(check) {
-	game.flip(check);
-}
-function guess(check) {
-	game.guess(check);
-}
+const game = new CoinGame();/*
 // Get the welcome scene and the full page elements
 const welcomeScene = document.querySelector('.welcome-scene');
 const tutorial = document.querySelector('.tutorial');
@@ -171,4 +236,4 @@ openTutorial.addEventListener('click', function () {
 closeTutorial.addEventListener('click', function () {
 	welcomeScene.style.display = 'none';
 	//fullPage.style.display = 'block';
-});
+});*/
