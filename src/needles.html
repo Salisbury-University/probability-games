@@ -14,12 +14,13 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+	<link rel="stylesheet" href="../css/needles.css" type="text/css" />
 
 
 	<title>Buffon's Needles</title>
 </head>
 
-<body style="background-color: #ffd789;">
+<body>
 	<!-- How to Play Modal -->
 	<div class="modal fade modal-lg" id="howToPlay" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
@@ -109,7 +110,9 @@
 							<li><button class="dropdown-item" onclick="changeDarkTheme()">Dark Theme</button></li>
 							<li><button class="dropdown-item" onclick="changeLightTheme()">Light Theme</button></li>
 						</ul>
+
 					</div>
+
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save
@@ -174,7 +177,7 @@
 	</nav>
 
 	<!-- this is the section where user clicks on needle amount to drop-->
-	<div class="container-fluid" id="topPageSection" style="background-color: #FFEDC9;">
+	<div class="container-fluid" id="topPageSection">
 		<div class="row">
 			<div class="col" style="text-align: center;">
 				<h1 id="titleSection">Buffon's Needles </h1>
@@ -229,9 +232,7 @@
 				</div>
 			</div>
 
-			<div class="col-2">
-
-			</div>
+			<div class="col-2"> </div>
 
 			<!-- this section is drop needles and clear screen button-->
 			<div class="col-3" style="text-align: right;margin-right: 12%;padding-bottom: 5px;">
@@ -241,26 +242,30 @@
 			</div>
 		</div>
 	</div>
-
-	<canvas id="my-canvas"></canvas>
-	<script src="js/bootstrap.bundle.min.js"></script>
-	<script src="js/pixi.min.js"></script>
-	<script src="js/needle.js"></script>
+	<div class="container-fluid">
+		<div class="row">
+			<div id="app"></div></canvas>
+		</div>
+	</div>
 
 	<!--This is the stats area-->
 	<div class="container-fluid" id="bottomSection" style="background-color: #FFEDC9;">
-		<div class=" row" style="text-align: center;">
-		<!-- this section shows estimate pi button, continue button and stats header-->
-		<h1 id="statsH1"> Stats <button class="btn btn-primary" id="guessPIButton" onclick="guessPI()" disabled> Estimate PI</button>
-			<button class="btn btn-primary" id="continueButton" onclick="continueGame()" hidden>Continue</button>
-		</h1>
+		<div class="row" style="text-align: center;">
+			<!-- this section shows estimate pi button, continue button and stats header-->
+			<h1 id="statsH1"> Stats <button class="btn btn-primary" id="guessPIButton" onclick="guessPI()" disabled>
+					Estimate PI</button>
+				<button class="btn btn-primary" id="continueButton" onclick="continueGame()" hidden>Continue</button>
+			</h1>
+		</div>
 
 		<!-- resultArea, the last section to be displayed-->
-		<div id="resultArea" hidden>
-			<div class="col">
-				<p class=estimation></p>
-				<p id="userGuessSection"></p>
-				<p id="percentErrorSection"></p>
+		<div class="row">
+			<div id="resultArea" hidden>
+				<div class="col">
+					<p class=estimation></p>
+					<p id="userGuessSection"></p>
+					<p id="percentErrorSection"></p>
+				</div>
 			</div>
 		</div>
 		<!-- guessing PI, second section to appear and lets user guess (estimate) the value of PI based on the data from the game-->
@@ -317,8 +322,6 @@
 			
 		</div>
 
-
-
 		<div class="col" id="statsLocated1">
 			<h3 class="estimation"></h3>
 			<h3 id="realPi"> </h3>
@@ -331,6 +334,11 @@
 		</div>
 	</div>
 	</div>
+	</div>
+	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/pixi.min.js"></script>
+	<script src="js/needle.js"></script>
+
 </body>
 
 </html>

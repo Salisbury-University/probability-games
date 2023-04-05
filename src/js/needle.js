@@ -14,7 +14,7 @@ let app = new PIXI.Application({
 });
 
 // append the application window to the page
-document.body.appendChild(app.view);
+document.getElementById('app').appendChild(app.view);
 
 //var numN = document.getElementById("amountOfNeedles");
 document.getElementById("amountOfNeedles").addEventListener("keydown", function (e) {
@@ -244,10 +244,10 @@ function needleXY() {
       for (let k = 0; k < lines.length; k++) {
         //checks to see if the needle dropped not crosses the grid lines and changes color red
         if ((yEnd <= lines[k] && yCenter <= lines[k]) || (yEnd >= lines[k] && yCenter >= lines[k])) {
-         //F248F2
-         //F331F3
-         //FB00FB
-         //F900E8
+          //F248F2
+          //F331F3
+          //FB00FB
+          //F900E8
 
           lineInArray.lineStyle(1, 0xFB00FB, 1);
         }

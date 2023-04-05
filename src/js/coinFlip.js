@@ -1,363 +1,270 @@
-// variables for sound effect audio
 const AUDIO_FLIP = new Audio("../sounds/coin_flip.mp3");
-AUDIO_FLIP.playbackRate=2.5;
 const AUDIO_WRONG = new Audio("../sounds/wrong.mp3");
 const AUDIO_CORRECT = new Audio("../sounds/point_2.mp3");
+const Graphics = PIXI.Graphics;
+const Sprite = PIXI.Sprite;
+const possibleWeights = [90, 75, 60];
 
-// hide weight guessing options and submit button
-document.getElementById("weightOptions").hidden = true;
-document.getElementById("submitButton").hidden = true;
-
-// make weighted and not weighted buttons unclickable until one flip is made
-document.getElementById("weighted").disabled = true; 
-document.getElementById("notWeighted").disabled = true; 
-
-// determines if coin will be weighted or not
-var isWeighted = Math.floor(Math.random() * 2) + 1;
-
-// counters for both sides
-var headCount = 0;
-var tailCount = 0;
-
-// determines amount of weight for the heavier side 
-const weights = [90, 75, 60];
-var x = Math.floor(Math.random() * 3);
-var weightHeavierSide = weights[x];
-
-// determines if tails or heads is the heavier side (1 for heads and 2 for tails)
-var heavierSide = Math.floor(Math.random() * 2) + 1;
-
-// Function to flip coin
-function flipCoin() {
-	// plays rolling dice audio
-	AUDIO_FLIP.play();
-
-	// makes weighted and not weighted buttons reappear
-	document.getElementById("weighted").hidden = false;
-	document.getElementById("notWeighted").hidden = false;
-
-	// hide weight guessing options and submit button
-	document.getElementById("weightOptions").hidden = true;
-	document.getElementById("submitButton").hidden = true;
-
-	// make weighted and not weighted buttons clickable again
-	document.getElementById("weighted").disabled = false; 
-	document.getElementById("notWeighted").disabled = false; 
-
-	// reset weight display
-	document.getElementById("weightAmount").innerHTML = "";
-
-	// reset guessing weight message 
-	document.getElementById("guessWeight").innerHTML = "";
-
-	// reset counts display
-	document.getElementById("headTotal").innerHTML = 0;
-	document.getElementById("tailTotal").innerHTML = 0;
-
-	// coin is weighted
-	if(isWeighted == 1) {
-		// heavier side is heads
-		if(heavierSide == 1) {
-			let num = Math.floor(Math.random() * 100) + 1;
-			
-			// if weighted coin is heads
-			if (num <= weightHeavierSide) {
-				document.querySelector("h1").innerHTML = "You got Heads!";
-				document.getElementById("coin").setAttribute("src", "../images/coinHead.png");
-				headCount += 1;
-			} 
-			// if weighted coin is tails
-			else {
-				document.querySelector("h1").innerHTML = "You got Tails!";
-				document.getElementById("coin").setAttribute("src", "../images/coinTail.png");
-				tailCount += 1;
-			}
-			
-			document.getElementById("headTotal").innerHTML = headCount;
-			document.getElementById("tailTotal").innerHTML = tailCount;
-		}
-
-		// heavier side is tails
-		else {
-			let num = Math.floor(Math.random() * 100) + 1;
-			// weighted coin is tails
-			if (num <= weightHeavierSide) {
-				document.querySelector("h1").innerHTML = "You got Tails!";
-				document.getElementById("coin").setAttribute("src", "../images/coinTail.png");
-				tailCount += 1;
-			} 
-			// weighted coin is heads
-			else {
-				document.querySelector("h1").innerHTML = "You got Heads!";
-				document.getElementById("coin").setAttribute("src", "../images/coinHead.png");
-				headCount += 1;
-			}
-			document.getElementById("headTotal").innerHTML = headCount;
-			document.getElementById("tailTotal").innerHTML = tailCount;
-		}
+class WindowInfo {
+	#windowWidth;
+	#windowHeight;
+	constructor() {
+		this.#windowWidth = document.querySelector('.container').getBoundingClientRect().width;
+		this.#windowHeight = window.innerHeight;
 	}
-
-	// coin is not weighted
-	else {
-		let num = Math.floor(Math.random() * 100) + 1;
-			
-		// if regular coin is heads
-		if (num <= 50) {
-			document.querySelector("h1").innerHTML = "You got Heads!";
-			document.getElementById("coin").setAttribute("src", "../images/coinHead.png");
-			headCount += 1;
-		} 
-		// if regular coin is tails
-		else {
-			document.querySelector("h1").innerHTML = "You got Tails!";
-			document.getElementById("coin").setAttribute("src", "../images/coinTail.png");
-			tailCount += 1;
-		}
-		document.getElementById("headTotal").innerHTML = headCount;
-		document.getElementById("tailTotal").innerHTML = tailCount;
+	getWindowWidth() {
+		return this.#windowWidth;
+	}
+	getWindowHeight() {
+		return this.#windowHeight;
 	}
 }
 
-// Function to flip coin multiple times
-function flipCoinMultiple() {
-	// plays rolling dice audio
-	AUDIO_FLIP.play();
+class App {
+	#app;
+	#appName;
+	constructor(windowInfo, appName) {
+		this.#app = this.#createApp(windowInfo);
+		this.#appName = appName;
+	}
+	#createApp(windowInfo) {
+		return new PIXI.Application({
+			backgroundAlpha: 0,
+			width: windowInfo.getWindowWidth(),
+			height: windowInfo.getWindowHeight() * .2
+		});
+	}
+	appendApp() {
+		document.getElementById(this.#appName).appendChild(this.#app.view);
+	}
+	getApp() {
+		return this.#app;
+	}
+}
 
-	// makes weighted and not weighted buttons reappear
-	document.getElementById("weighted").hidden = false;
-	document.getElementById("notWeighted").hidden = false;
+class CoinGame {
+	#numberFlips = 0;
+	#totals;
+	#window;
+	#app;
+	#coin;
+	#probabliity;
 
-	// hide weight guessing options and submit button
-	document.getElementById("weightOptions").hidden = true;
-	document.getElementById("submitButton").hidden = true;
+	constructor() {
+		this.#window = new WindowInfo();
+		this.#app = new App(this.#window, "app");
+		this.#app.getApp().loader.baseUrl = "../images/";
+		this.#app.getApp().loader
+			.add("side0", "coinHead.png")
+			.add("side1", "coinTail.png");
+		this.#app.getApp().loader.load();
 
-	// make weighted and not weighted buttons clickable again
-	document.getElementById("weighted").disabled = false; 
-	document.getElementById("notWeighted").disabled = false; 
+		this.#coin = new Sprite(this.#app.getApp().loader.resources["side1"].texture);
+		this.#coin.x = (this.#window.getWindowWidth() / 2) - 65;
+		this.#app.getApp().stage.addChild(this.#coin);
+		this.#app.appendApp();
+		this.#reset();
+		this.#buttons();
+	}
+	example() {
 
-	// reset weight display
-	document.getElementById("weightAmount").innerHTML = "";
+	}
+	#reset() {
+		this.#totals = new Array(2).fill(0);
+		this.#numberFlips = 0;
+		this.#isWeighted();
+	}
+	#buttons() {
+		let singleFlipButton = document.getElementById('singleFlip');
+		let multiFlipButton = document.getElementById('multiFlip');
+		let weightedButton = document.getElementById('weighted');
+		let notWeightedButton = document.getElementById('notWeighted');
+		let weightSelectButton = document.getElementById('weightSelectButton');
+		let numberFlipsInput = document.getElementById("numberFlips");
 
-	// reset guessing weight message 
-	document.getElementById("guessWeight").innerHTML = "";
+		singleFlipButton.addEventListener('click', () => {
+			this.#flip(0);
+		});
+		multiFlipButton.addEventListener('click', () => {
+			this.#flip(1);
+		});
+		weightedButton.addEventListener('click', () => {
+			this.#guess(0);
+		});
+		notWeightedButton.addEventListener('click', () => {
+			this.#guess(1);
+		});
+		weightSelectButton.addEventListener('click', () => {
+			this.#guessWeight();
+		});
+		numberFlipsInput.addEventListener('keypress', function (event) {
+			let charCode = event.key;
+			if (charCode < '0' || charCode > '9') {
+				event.preventDefault();
+			}
+		});
+	}
+	#isWeighted() {
+		let isWeighted = Math.random() < 0.5;
+		if (isWeighted) {
+			let weight = possibleWeights[Math.floor(Math.random() * 3)];
+			this.#probabliity = new Array(2).fill(100 - weight);
+			this.#probabliity[Math.floor(Math.random() * 2)] = weight;
+		}
+		else {
+			this.#probabliity = new Array(2).fill(50);
+		}
+	}
+	#playAudio(audioName) {/*
+        audioName.pause();
+        audioName.currentTime = 0;
+        audioName.play();*/
+	}
+	#updateTable() {
+		document.getElementById("head").innerHTML = this.#totals[0];
+		document.getElementById("tail").innerHTML = this.#totals[1];
+	}
+	#flipCoin() {
+		this.#numberFlips++;
+		let randomNum = Math.floor(Math.random() * 101);
+		if (randomNum <= this.#probabliity[0]) {//heads
+			return 0;
+		}
+		else {//tails
+			return 1;
+		}
+	}
+	#multi() {
+		let numberFlips = document.getElementById("numberFlips").value - 1;
+		for (let i = 0; i < numberFlips; i++) {
+			this.#totals[this.#flipCoin()]++;
+		}
+	}
+	#flip(check) {
+		document.getElementById("card0").classList.remove("bg-success");
+		document.getElementById("card1").classList.remove("bg-success");
 
-	// reset counts display
-	document.getElementById("headTotal").innerHTML = 0;
-	document.getElementById("tailTotal").innerHTML = 0;
+		document.getElementById("singleFlip").disabled = true;
+		document.getElementById("multiFlip").disabled = true;
+		this.#playAudio(AUDIO_FLIP);
+		let ticks = 0;
 
-	// gets amount of flips from user
-	let qty = document.getElementById("quantity").value;
-
-	// for displaying amount of times each side was landed on for each individual set of flips
-	let headAmount = 0;
-	let tailAmount = 0;
-
-	// if coin is weighted
-	if (isWeighted == 1) {								
-		if(heavierSide == 1) {
-			for (let i = 0; i < qty; i++) {
-				let num = Math.floor(Math.random() * 100) + 1;
-			
-				// if weighted coin is heads
-				if (num <= weightHeavierSide) {
-					headCount += 1;
-					headAmount += 1;
+		let flipValue = 0;
+		this.#app.getApp().ticker.add(() => {
+			if (ticks % 5 == 0 && ticks < 50) {
+				flipValue = flipValue === 0 ? 1 : 0;
+				this.#coin.texture = this.#app.getApp().loader.resources[`side${flipValue}`].texture;
+			}
+			else if (ticks == 50) {
+				flipValue = this.#flipCoin();
+				this.#coin.texture = this.#app.getApp().loader.resources[`side${flipValue}`].texture;
+				this.#totals[flipValue]++;
+				if (check == 1) {
+					this.#multi();
 				}
-				// if weighted coin is tails
 				else {
-					tailCount += 1;
-					tailAmount += 1;
+					document.getElementById(`card${flipValue}`).classList.add("bg-success");
+				}
+				this.#updateTable();
+				document.getElementById("singleFlip").disabled = false;
+				document.getElementById("multiFlip").disabled = false;
+				ticks++;
+				if (this.#numberFlips >= 10) {
+					document.getElementById("prompt").innerHTML = "Is the Coin Weighted?";
+					document.getElementById("guessButtons").hidden = false;
 				}
 			}
-			document.getElementById("headTotal").innerHTML = headCount;
-			document.getElementById("tailTotal").innerHTML = tailCount;
-			document.querySelector("h1").innerHTML = "You got Heads " + headAmount + " times, and got Tails " + tailAmount + " times";
+			ticks++;
+		});
+	}
+	#guess(check) {
+		if (check == 0 && this.#probabliity[0] != 50) {//weighted
+			this.#playAudio(AUDIO_CORRECT);
+			document.getElementById("prompt").innerHTML = "Correct the coin is weighted.";
+			document.getElementById("guessButtons").hidden = true;
+			document.getElementById("guessWeight").hidden = false;
 		}
-
+		else if (check == 1 && this.#probabliity[0] == 50) {
+			this.#playAudio(AUDIO_CORRECT);
+			document.getElementById("prompt").innerHTML = "Correct the coin is not weighted.";
+			document.getElementById("guessButtons").hidden = true;
+			this.#reset();
+		}
 		else {
-			for (let i = 0; i < qty; i++) {
-				let num = Math.floor(Math.random() * 100) + 1;
-			
-				// if weighted coin is tails
-				if (num <= weightHeavierSide) {
-					tailCount += 1;
-					tailAmount += 1;
-				} 
-				// if weighted coin is heads
-				else {
-					headCount += 1;
-					headAmount += 1;
-				}
-			}
-			document.getElementById("headTotal").innerHTML = headCount;
-			document.getElementById("tailTotal").innerHTML = tailCount;
-			document.querySelector("h1").innerHTML = "You got Heads " + headAmount + " times, and got Tails " + tailAmount + " times";
+			this.#playAudio(AUDIO_WRONG);
+			document.getElementById("prompt").innerHTML = "Try Again";
 		}
-	} 
-
-	// if coin is not weighted
-	else {
-		for (let i = 0; i < qty; i++) {
-			let num = Math.floor(Math.random() * 100) + 1;
-			
-			// if regular coin is heads
-			if (num <= 50) {
-				headCount += 1;
-				headAmount += 1;
-			} 
-			// if regular coin is tails
-			else {
-				tailCount += 1;
-				tailAmount += 1;
-			}
+	}
+	#guessWeight() {
+		let guess = document.getElementById("weightSelect").value;
+		console.log(guess);
+		if (isNaN(guess)) {
+			this.#playAudio(AUDIO_WRONG);
+			document.getElementById("prompt").innerHTML = "Please select an option from the dropdown.";
 		}
-		document.getElementById("headTotal").innerHTML = headCount;
-		document.getElementById("tailTotal").innerHTML = tailCount;
-		document.querySelector("h1").innerHTML = "You got Heads " + headAmount + " times, and got Tails " + tailAmount + " times";
+		else if (guess == this.#probabliity[0]) {
+			this.#playAudio(AUDIO_CORRECT);
+			document.getElementById("prompt").innerHTML = "Correct the weight is " + (this.#probabliity[0]) + "% Heads and " + (this.#probabliity[1]) + "% Tails";
+			document.getElementById("guessWeight").hidden = true;
+			this.#reset();
+		}
+		else {
+			this.#playAudio(AUDIO_WRONG);
+			document.getElementById("prompt").innerHTML = "Please select an option from the dropdown.";
+		}
+
 	}
 }
 
-function weightedGuess() {
-	// hides weighted and not weighted button when user makes guess
-	document.getElementById("weighted").hidden = true;
-	document.getElementById("notWeighted").hidden = true;
+class ScreenManagement {
+	#welcomeScene;
+	#tutorialScene;
+	#tutorialOpenButton;
+	#closeTutorialButton;
+	#playButton;
+	#tutorial
 
-	if(isWeighted == 1) {
-		// plays correct guess audio
-		AUDIO_CORRECT.play();
+	constructor() {
+		this.#welcomeScene = document.getElementById("welcomeScene");
+		this.#tutorialScene = document.getElementById("tutorialScene");
+		this.#playButton = document.getElementById("playGame");
+		this.#tutorialOpenButton = document.querySelectorAll(".openTutorial");
+		this.#closeTutorialButton = document.getElementById("closeTutorial");
 
-		// make flipping coin buttons unclickable until user guesses weight
-		document.getElementById("flipCoin").disabled = true; 
-		document.getElementById("flipCoinMultiple").disabled = true; 
-
-		// message displays at top of screen
-		document.querySelector("h1").innerHTML = "The coin is in fact weighted";
-
-		// guess weight message displays
-		document.getElementById("guessWeight").innerHTML = "Guess the weight of the coin";
-
-		// reveal guessing weight options and submit button
-		document.getElementById("weightOptions").hidden = false;
-		document.getElementById("submitButton").hidden = false;
+		this.#setup();
 	}
-	else {
-		// plays wrong guess audio
-		AUDIO_WRONG.play();
+	#setup() {
+		this.#playButton.addEventListener('click', () => {
+			this.#closeWelcome();
+		});
+		this.#closeTutorialButton.addEventListener('click', () => {
+			this.#closeTutorial();
+		});
+		this.#tutorialOpenButton.forEach((button) => {
+			button.addEventListener('click', () => {
+				this.#openTutorial();
+			});
+		});
 
-		document.querySelector("h1").innerHTML = "In this case the coin is actually not weighted";
-		document.getElementById("weightAmount").innerHTML = "Weight: 50%/50%";
-
-		// reset weight
-		isWeighted = Math.floor(Math.random() * 2) + 1;
-		x = Math.floor(Math.random() * 3);
-		weightHeavierSide = weights[x];
-		heavierSide = Math.floor(Math.random() * 2) + 1;
 	}
-	
-	// reset counts
-	headCount = 0;
-	tailCount = 0;
+	#closeWelcome() {
+		this.#welcomeScene.style.display = 'none';
+	}
+	#openTutorial() {
+		this.#closeWelcome();
+		this.#tutorialScene.style.display = 'flex';
+	}
+	#closeTutorial() {
+		this.#tutorialScene.style.display = 'none';
+	}
 }
 
-function notWeightedGuess() {
-	// hides weighted and not weighted button when user makes guess
-	document.getElementById("weighted").hidden = true;
-	document.getElementById("notWeighted").hidden = true;
 
-	if(isWeighted == 1) {
-		// plays wrong guess audio
-		AUDIO_WRONG.play();
+const game = new CoinGame();
+const screens = new ScreenManagement();
 
-		// make flipping coin buttons unclickable until user guesses weight
-		document.getElementById("flipCoin").disabled = true; 
-		document.getElementById("flipCoinMultiple").disabled = true; 
 
-		// message displays at top of screen
-		document.querySelector("h1").innerHTML = "In this case the coin is actually weighted";
-
-		// guess weight message displays
-		document.getElementById("guessWeight").innerHTML = "Guess the weight of the coin";
-
-		// reveal guessing weight options and submit button
-		document.getElementById("weightOptions").hidden = false;
-		document.getElementById("submitButton").hidden = false;
-	}
-	else {
-		// plays correct guess audio
-		AUDIO_CORRECT.play();
-
-		document.querySelector("h1").innerHTML = "The coin is in fact not weighted";
-		document.getElementById("weightAmount").innerHTML = "Weight: 50%/50%";
-
-		// reset weight
-		isWeighted = Math.floor(Math.random() * 2) + 1;
-		x = Math.floor(Math.random() * 3);
-		weightHeavierSide = weights[x];
-		heavierSide = Math.floor(Math.random() * 2) + 1;
-	}
-	
-	// resetting counts
-	headCount = 0;
-	tailCount = 0;
-}
-
-function submitWeight() {
-	// hide weight guessing options and submit button and remove guess weight message
-	document.getElementById("weightOptions").hidden = true;
-	document.getElementById("submitButton").hidden = true;
-	document.getElementById("guessWeight").innerHTML = "";
-
-	let selectElement = document.querySelector('#weightOptions');
-    let output = selectElement.options[selectElement.selectedIndex].value;
-
-	// if heavier side is heads
-	if(heavierSide == 1)
-	{
-		if(output == (weightHeavierSide + "/" + (100 - weightHeavierSide)))
-    		document.getElementById("weightAmount").innerHTML = "The weight is in fact " + weightHeavierSide + "%/" + (100 - weightHeavierSide) + "%";
-		else
-			document.getElementById("weightAmount").innerHTML = "In this case the weight is actually " + weightHeavierSide + "%/" + (100 - weightHeavierSide) + "%";
-	}
-	// if heavier side is tails
-	else
-	{
-		if(output == ((100 - weightHeavierSide) + "/" + weightHeavierSide))
-    		document.getElementById("weightAmount").innerHTML = "The weight is in fact " + ((100 - weightHeavierSide) + "%/" + weightHeavierSide + "%");
-		else
-			document.getElementById("weightAmount").innerHTML = "In this case the weight is actually " + ((100 - weightHeavierSide) + "%/" + weightHeavierSide + "%");
-	}
-
-	// make flipping coin buttons clickable again
-	document.getElementById("flipCoin").disabled = false; 
-	document.getElementById("flipCoinMultiple").disabled = false;
-
-	// reset weight
-	isWeighted = Math.floor(Math.random() * 2) + 1;
-	x = Math.floor(Math.random() * 3);
-	weightHeavierSide = weights[x];
-	heavierSide = Math.floor(Math.random() * 2) + 1;
-}
-
-// Get the modal
-var modal = document.getElementById("helpModal");
-// Get the button that opens the modal
-var btn = document.getElementById("helpButton");
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
+/* this could be used to have a single javascript file
+const fileName = window.location.pathname.split('/').pop().replace('.html', '');
+console.log(fileName);
+*/
