@@ -326,10 +326,6 @@ function playAudio() {
   needleDropSound.play();
 }
 
-function closeModal() {
-  $('#settingsModal').modal('hide');
-}
-
 function playAudio() {
   //needleDropSound.pause();
   needleDropSound.currentTime = 1.7;
