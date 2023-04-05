@@ -28,6 +28,10 @@
 	z-index: 15;
 }
 
+#buttonArea {
+	position: relative;
+}
+
 .container text-center {
 	position: relative;
 	z-index: 1;

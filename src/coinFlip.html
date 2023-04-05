@@ -171,8 +171,8 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 offset-md-3 text-center">
-					<h1>Welcome to Coin Flipping Game Tutorial</h1>
-					<p>Click the button below to begin the tutorial</p>
+					<h1 id="tutorialHead">Welcome to Coin Flipping Game Tutorial</h1>
+					<p id="tutorialText">Click the button below to begin the tutorial</p>
 					<button class="btn btn-success" id="tutorialNext">Next</button>
 					<button class="btn btn-danger" id="closeTutorial">Close</button>
 				</div>
@@ -190,13 +190,13 @@
 				<div id="app"></div>
 			</div>
 			<!-- buttons to roll the dice-->
-			<div class="row">
-				<div class="col">
+			<div class="row" id="buttonArea">
+				<div class="col" id="singleFlipArea">
 					<h6>Single Flip:</h6>
-					<button type="radio" class="btn btn-primary" id="singleFlip" style="z-index: 500;">Flip
+					<button type="radio" class="btn btn-primary" id="singleFlip">Flip
 						Coin</button>
 				</div>
-				<div class="col">
+				<div class="col" id="multiFlipArea">
 					<h6>Multiple Flip:</h6>
 					<div class="input-group align-items-center">
 						<input type="text" class="form-control" placeholder="Number of Flips"
@@ -237,6 +237,7 @@
 					<div class="input-group">
 						<select class="form-select" id="weightSelect" aria-label="Choose Weight">
 							<option selected disabled hidden>Choose a weight...</option>
+							<option selected disabled>Heads | Tails</option>
 							<option value="90">90% | 10%</option>
 							<option value="75">75% | 25%</option>
 							<option value="60">60% | 40%</option>
