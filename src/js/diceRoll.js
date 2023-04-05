@@ -71,8 +71,35 @@ class DiceGame {
 		this.#app.getApp().stage.addChild(this.#dice);
 		this.#app.appendApp();
 		this.#reset();
+		this.#setupButtons();
 	}
-	roll(check) {
+	#setupButtons() {
+		let singleRoll = document.getElementById("singleRoll");
+		let multiRoll = document.getElementById("multiRoll");
+		let cards = document.querySelectorAll(".diceCard");
+		let weightedButton = document.getElementById("weightedButton");
+		let notWeightedButton = document.getElementById("notWeightedButton");
+
+		singleRoll.addEventListener('click', () => {
+			this.#roll(0);
+		});
+		multiRoll.addEventListener('click', () => {
+			this.#roll(1);
+		});
+		cards.forEach((card) => {
+			card.addEventListener('click', () => {
+				this.#cardSelect(card.getAttribute("data-value"));
+			})
+		});
+		weightedButton.addEventListener('click', () => {
+			this.#guess(true);
+		});
+		notWeightedButton.addEventListener('click', () => {
+			this.#guess(false);
+		});
+	}
+
+	#roll(check) {
 		for (let i = 1; i <= 6; i++) {
 			document.getElementById(`card${i}`).classList.remove("bg-success");
 		}
@@ -113,7 +140,7 @@ class DiceGame {
 		});
 
 	}
-	guess(check) {
+	#guess(check) {
 		if (this.#weighted == check) {
 			this.#playAudio(AUDIO_CORRECT);
 			document.getElementById("guessButtons").hidden = true;
@@ -172,8 +199,8 @@ class DiceGame {
 			}
 		}
 	}
-
-	cardSelect(side) {
+	#cardSelect(side) {
+		console.log(side);
 		if (this.#clickable) {
 			if (side == this.#weightedSide) {
 				this.#playAudio(AUDIO_CORRECT);
@@ -219,16 +246,6 @@ class DiceGame {
 }
 
 const game = new DiceGame();
-
-function roll(check) {
-	game.roll(check);
-}
-function guess(check) {
-	game.guess(check);
-}
-function cardSelect(side) {
-	game.cardSelect(side);
-}
 
 // Get the welcome scene and the full page elements
 const welcomeScene = document.querySelector('.welcome-scene');
