@@ -84,6 +84,15 @@ for (let i = 0; i < amountLines - 1; i++) {
   yValue = yValue + lineSpace;
 }
 
+function changeTheme() {
+  if (document.getElementById("themeTypeSwitch").checked) {
+    console.log("Checked");
+    changeDarkTheme();
+  } else {
+    console.log("Not Checked");
+    changeLightTheme();
+  }
+}
 function changeDarkTheme() {
   document.getElementById("themeType").innerHTML = "Dark Theme";
   //changes top section to dark and text to white
@@ -312,10 +321,6 @@ function playAudio() {
   needleDropSound.pause();
   needleDropSound.currentTime = 1.6;
   needleDropSound.play();
-}
-
-function closeModal() {
-  $('#settingsModal').modal('hide');
 }
 
 function playAudio() {

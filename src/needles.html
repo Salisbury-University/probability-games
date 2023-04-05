@@ -14,8 +14,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+	<!-- custom css -->
 	<link rel="stylesheet" href="../css/needles.css" type="text/css" />
-
 
 	<title>Buffon's Needles</title>
 </head>
@@ -100,17 +100,20 @@
 						Disable Sound Effects
 					</p>
 					<hr class="featurette-divider" />
-					<div class="dropdown">
-						Theme:
-						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-							data-bs-toggle="dropdown" aria-expanded="false">
-							<span id="themeType">Light Mode</span>
-						</button>
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-							<li><button class="dropdown-item" onclick="changeDarkTheme()">Dark Theme</button></li>
-							<li><button class="dropdown-item" onclick="changeLightTheme()">Light Theme</button></li>
-						</ul>
-
+					<!-- determines light or dark mode-->
+					<div class="row text-align">
+						<div class="col-3">
+							<p>Light Theme</p>
+						</div>
+						<div class="col-2">
+							<label class="switch">
+								<input id="themeTypeSwitch" type="checkbox" onclick="changeTheme()">
+								<span class="slider round"></span>
+							</label>
+						</div>
+						<div class="col-3">
+							<p>Dark Theme</p>
+						</div>
 					</div>
 
 				</div>
