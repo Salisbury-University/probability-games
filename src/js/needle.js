@@ -14,7 +14,7 @@ let app = new PIXI.Application({
 });
 
 // append the application window to the page
-document.body.appendChild(app.view);
+document.getElementById('app').appendChild(app.view);
 
 //var numN = document.getElementById("amountOfNeedles");
 document.getElementById("amountOfNeedles").addEventListener("keydown", function (e) {
@@ -24,17 +24,15 @@ document.getElementById("amountOfNeedles").addEventListener("keydown", function 
 });
 
 
-function resizeCanvas() {
+/*function resizeCanvas() {
   canvas.width = document.body.clientWidth * .75;; // Set the canvas width to 75% of the window width
   canvas.height = window.innerHeight * .65; // Set the canvas height to 65% of the window height
   windowWidth = document.body.clientWidth * .75;
   windowHeight = window.innerHeight * .65;
-}
+}*/
 
 // Add an event listener to resize the canvas when the window size changes
-window.addEventListener('resize', resizeCanvas);
-
-
+//window.addEventListener('resize', resizeCanvas);
 
 let line = new PIXI.Graphics();
 let lines = [];
@@ -54,7 +52,6 @@ let lineSpace = windowHeight / amountLines;
 let needleLengthPercent = 0.9;
 let needleLength = lineSpace * needleLengthPercent;
 let yValue = lineSpace; //yValue is space between lines
-console.log(lineSpace);
 
 needleDropSound.volume = 0.5;
 
@@ -87,6 +84,33 @@ for (let i = 0; i < amountLines - 1; i++) {
   yValue = yValue + lineSpace;
 }
 
+function changeDarkTheme() {
+  document.getElementById("themeType").innerHTML = "Dark Theme";
+  //changes top section to dark and text to white
+  document.getElementById("topPageSection").style.backgroundColor = "#313b4b";
+  document.getElementById("titleSection").style.color = "white";
+
+  document.getElementById("bottomSection").style.backgroundColor = "#313b4b";
+  document.getElementById("bottomSection").style.color = "white";
+  document.body.style.backgroundColor = "#262626";
+
+  //document.getElementById("body").style.backgroundColor = "#262626";
+}
+
+function changeLightTheme() {
+  document.getElementById("themeType").innerHTML = "Light Theme";
+
+  //changes top section
+  document.getElementById("topPageSection").style.backgroundColor = "#FFEDC9";
+  document.getElementById("titleSection").style.color = "black";
+
+  //changes bottom section
+  document.getElementById("bottomSection").style.backgroundColor = "#FFEDC9";
+  document.getElementById("bottomSection").style.color = "black";
+
+  document.body.style.backgroundColor = "#ffd789";
+}
+
 function changeLines(num) {
   if (amountLines == 10 && num == 1) {
     alert("Can not go over ten lines");
@@ -94,12 +118,9 @@ function changeLines(num) {
     alert("Cannot go lower then two lines");
   } else {
     amountLines += num;
-    console.log(amountLines);
-    //document.getElementById("gridAmount").innerHTML = amountLines - 1;
     clearNeedles();
     line.destroy(); //destroy lines to build again
     lines = [];
-    //lines[0] = 0;
     line = new PIXI.Graphics();
 
     lineSpace = windowHeight / amountLines;
@@ -129,8 +150,7 @@ function guessPI() {
   });
 
   //this hides the previous page (the stats for the page)
-  document.getElementById("statsLocated1").setAttribute("hidden", "hidden");
-  document.getElementById("statsLocated2").setAttribute("hidden", "hidden");
+  document.getElementById("stats").hidden = true;
   //document.getElementById("statsLocated3").setAttribute("hidden", "hidden");
   //document.getElementById("formulaValue").setAttribute("hidden", "hidden");
   //disables the button to drop needles
@@ -156,8 +176,7 @@ function guessingPIfunc() {
 //last section displayed (resets back to how website originally looked)
 function continueGame() {
   document.getElementById("resultArea").setAttribute("hidden", "hidden");
-  document.getElementById("statsLocated1").removeAttribute("hidden");
-  document.getElementById("statsLocated2").removeAttribute("hidden");
+  document.getElementById("stats").hidden = false;
   document.getElementById("guessPIButton").removeAttribute("hidden");
   document.getElementById("continueButton").setAttribute("hidden", "hidden");
 
@@ -168,10 +187,6 @@ function continueGame() {
 
 function needleXY() {
   let dropNeedles = document.getElementById("amountOfNeedles").value;
-  console.log("Value of lines.length: " + lines.length);
-  for (let i = 0; i < lines.length; i++) {
-    console.log("Value: " + i + " " + lines[i]);
-  }
   if (dropNeedles > 50000) {
     alert("Please enter 50,000 Needles or less");
   } else if (dropNeedles <= 0) {
@@ -182,8 +197,8 @@ function needleXY() {
     if (dropTypeValue == "Singular") {
       clearNeedles();
     }
-    //gets user input for needles
 
+    //gets user input for needles
     let xCenter, yCenter;
     let x, y;
     let xEnd, yEnd;
@@ -201,14 +216,10 @@ function needleXY() {
       let max = lines[lines.length - 1];
       let min = lines[0]
       yCenter = Math.floor(Math.random() * (max - min)) + min;
-      if (yCenter > lines[lines.length - 1]) {
-        console.log("Y center for needle: " + j + ": " + yCenter);
-      }
       needleDrop++;
 
       //calculate the angle
       let angle = Math.floor(Math.random() * 360);
-      //console.log(angle);
       angle = toRadians(angle);
 
 
@@ -224,12 +235,18 @@ function needleXY() {
       for (let k = 0; k < lines.length; k++) {
         //checks to see if the needle dropped not crosses the grid lines and changes color red
         if ((yEnd <= lines[k] && yCenter <= lines[k]) || (yEnd >= lines[k] && yCenter >= lines[k])) {
-          //lineInArray.tint = 0xFF0000;
-          lineInArray.lineStyle(1, 0xbf40bf, 1);
+          //F248F2
+          //F331F3
+          //FB00FB
+          //F900E8
+
+          lineInArray.lineStyle(1, 0xFB00FB, 1);
         }
         //checks to see if the needle does dropped crosses the grid line and changes color green
         else {
           //lineInArray.tint = 0xAAFF00;
+          //08B908
+          //f50c878
           lineInArray.lineStyle(1, 0xf50c878, 1);
           needleCross++;
           //we stop so the colors don't overwrite the colors 
@@ -270,20 +287,9 @@ function toRadians(angle) {
 }
 
 function dropType(type) {
-  /*
-  var radioButtons = document.getElementsByName('dropType');
-  var selectedValue;
-  for (var i = 0; i < radioButtons.length; i++) {
-    if (radioButtons[i].checked) {
-      var selectedValue = radioButtons[i].value;
-      break;
-    }
-  }*/
-
   dropTypeValue = type;
   clearNeedles();
   closeModal();
-  console.log(dropTypeValue);
 }
 
 function changeNeedleLength(size) {
@@ -302,19 +308,6 @@ function changeNeedleLength(size) {
   clearNeedles();
 }
 
-
-function showDropType() {
-  document.getElementById("dropTypeData").removeAttribute("hidden");
-  document.getElementById("gridData").setAttribute("hidden", "hidden");
-  console.log("Show drop type info");
-}
-
-function showGridInfo() {
-  document.getElementById("gridData").removeAttribute("hidden");
-  document.getElementById("dropTypeData").setAttribute("hidden", "hidden");
-  console.log("Show grid info");
-}
-
 function playAudio() {
   needleDropSound.pause();
   needleDropSound.currentTime = 1.6;
@@ -323,20 +316,6 @@ function playAudio() {
 
 function closeModal() {
   $('#settingsModal').modal('hide');
-}
-
-
-function showDropType() {
-  document.getElementById("dropTypeData").removeAttribute("hidden");
-  document.getElementById("gridData").setAttribute("hidden", "hidden");
-  console.log("Show drop type info");
-}
-
-function showGridInfo() {
-  document.getElementById("gridData").removeAttribute("hidden");
-  document.getElementById("dropTypeData").setAttribute("hidden", "hidden");
-  document.getElementById("gridAmount").innerHTML = amountLines - 1;
-  console.log("Show grid info");
 }
 
 function playAudio() {
@@ -361,11 +340,11 @@ function colorNeedles(yEnd, yCenter) { // over writes the colors even though the
     }
   }
 }
+
 //clears needles from page and removes them from the array
 function clearNeedles() {
   neg = 0;
   pos = 0;
-  console.log("Next Empty size: " + nextEmpty);
 
   //this code removes them from the stage
   lineArray.forEach(lineInArray => {
