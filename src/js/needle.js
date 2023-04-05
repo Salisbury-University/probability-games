@@ -157,6 +157,7 @@ function guessPI() {
       guessingPIfunc();
     }
   });
+  //hello
 
   //this hides the previous page (the stats for the page)
   document.getElementById("stats").hidden = true;
