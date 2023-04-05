@@ -183,6 +183,8 @@ class CoinGame {
 			document.getElementById("prompt").innerHTML = "Correct the coin is weighted.";
 			document.getElementById("guessButtons").hidden = true;
 			document.getElementById("guessWeight").hidden = false;
+			document.getElementById("singleFlip").disabled = true;
+			document.getElementById("multiFlip").disabled = true;
 		}
 		else if (check == 1 && this.#probabliity[0] == 50) {
 			this.#playAudio(AUDIO_CORRECT);
@@ -206,11 +208,14 @@ class CoinGame {
 			this.#playAudio(AUDIO_CORRECT);
 			document.getElementById("prompt").innerHTML = "Correct the weight is " + (this.#probabliity[0]) + "% Heads and " + (this.#probabliity[1]) + "% Tails";
 			document.getElementById("guessWeight").hidden = true;
+			document.getElementById("singleFlip").disabled = false;
+			document.getElementById("multiFlip").disabled = false;
+
 			this.#reset();
 		}
 		else {
 			this.#playAudio(AUDIO_WRONG);
-			document.getElementById("prompt").innerHTML = "Please select an option from the dropdown.";
+			document.getElementById("prompt").innerHTML = "Try Again.";
 		}
 
 	}

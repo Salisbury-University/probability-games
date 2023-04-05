@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
-  <link href="../css/home.css" rel="stylesheet" />
 
   <!-- favicon stuff -->
   <link rel="apple-touch-icon" sizes="180x180" href="../images/apple-touch-icon.png" />
@@ -18,164 +17,9 @@
 </head>
 
 <body>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
-
-  <!-- Settings Modal -->
-  <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="settingsModalLabel">Settings</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>Volume:</p>
-          <p>
-            <input type="range" id="volume-control" value="100" />
-          </p>
-          <hr class="featurette-divider" />
-          <p>
-            <input class="form-check-input m-1" type="checkbox" autocomplete="off" id="randPlacements" />
-            Sound Effects
-          </p>
-          <p>
-            <input class="form-check-input m-1" type="checkbox" autocomplete="off" id="muteBtn" />
-            Music
-          </p>
-          <hr class="featurette-divider" />
-          <div class="dropdown">
-            Theme:
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownThemeLabel"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              Light Mode
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li>
-                <a class="dropdown-item" onclick="swapTheme(this)">Dark Mode</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- header -->
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png"
-          style="max-height: 35px" /></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
-
-        <!-- Advanced/Basic buttons: TRY TABS INSTEAD OF RADIO BUTTONS -->
-        <div class="btn-group mx-2" role="group" aria-label="Basic radio toggle button group">
-          <input type="radio" class="btn-check" name="btnradio" id="basic_btn" autocomplete="off" checked />
-          <label class="btn btn-outline-primary" for="basic_btn">Basic</label>
-
-          <input type="radio" class="btn-check" name="btnradio" id="advanced_btn" autocomplete="off" />
-          <label class="btn btn-outline-primary" for="advanced_btn">Advanced</label>
-        </div>
-
-        <script>
-          document.getElementById("advanced_btn").onclick = function () {
-            window.location.href = "cardSim.html";
-          };
-        </script>
-
-        <!-- settings button -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModal">
-          <img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
-        </button>
-      </div>
-    </div>
-  </nav>
-
-  <!-- window title -->
-  <div class="text-center mt-4">
-    <h1 class="display-5" id="page-header">
-      <b> Sum of Two Dice Game!</b>
-    </h1>
-  </div>
-
-  <span class="border-top border-right border-left" id="border" hidden>
-    <h1 class="mb-2 p-3 text-center bg-light" id="win-header">
-      Player _ Won in _ rolls!
-    </h1>
-    <h3 class="mb-2 p-2 text-center">Player Chip Placements:</h3>
-    <div class="col text-center">
-      <table class="table table-hover table-sm" id="table1">
-        <thead>
-          <tr>
-            <th scope="col">Player #</th>
-            <th scope="col">Card 2</th>
-            <th scope="col">Card 3</th>
-            <th scope="col">Card 4</th>
-            <th scope="col">Card 5</th>
-            <th scope="col">Card 6</th>
-            <th scope="col">Card 7</th>
-            <th scope="col">Card 8</th>
-            <th scope="col">Card 9</th>
-            <th scope="col">Card 10</th>
-            <th scope="col">Card 11</th>
-            <th scope="col">Card 12</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td id="r1c1">-</td>
-            <td id="r1c2">-</td>
-            <td id="r1c3">-</td>
-            <td id="r1c4">-</td>
-            <td id="r1c5">-</td>
-            <td id="r1c6">-</td>
-            <td id="r1c7">-</td>
-            <td id="r1c8">-</td>
-            <td id="r1c9">-</td>
-            <td id="r1c10">-</td>
-            <td id="r1c11">-</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td id="r2c1">-</td>
-            <td id="r2c2">-</td>
-            <td id="r2c3">-</td>
-            <td id="r2c4">-</td>
-            <td id="r2c5">-</td>
-            <td id="r2c6">-</td>
-            <td id="r2c7">-</td>
-            <td id="r2c8">-</td>
-            <td id="r2c9">-</td>
-            <td id="r2c10">-</td>
-            <td id="r2c11">-</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="col text-center">
-      <button type="button" class="btn btn-primary" id="play-again-button" onclick="playAgain();">
-        Play Again
-      </button>
-    </div>
-  </span>
-
-  <script src="js/pixi.min.js"></script>
-  <script src="js/cardGame.js"></script>
 
   <!-- instructions modal -->
-  <div class="modal fade" id="instructionsModal" tabindex="-1" aria-labelledby="instructionsModalLabel"
-    aria-hidden="true">
+  <div class="modal fade" id="howToPlay" tabindex="-1" aria-labelledby="instructionsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
@@ -248,6 +92,50 @@
               Close
             </button>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Settings Modal -->
+  <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="settingsModalLabel">Settings</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Volume:</p>
+          <p>
+            <input type="range" id="volume-control" value="100" />
+          </p>
+          <hr class="featurette-divider" />
+          <p>
+            <input class="form-check-input m-1" type="checkbox" autocomplete="off" id="randPlacements" />
+            Sound Effects
+          </p>
+          <p>
+            <input class="form-check-input m-1" type="checkbox" autocomplete="off" id="muteBtn" />
+            Music
+          </p>
+          <hr class="featurette-divider" />
+          <div class="dropdown">
+            Theme:
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownThemeLabel"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Light Mode
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li>
+                <a class="dropdown-item" onclick="swapTheme(this)">Dark Mode</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
         </div>
       </div>
     </div>

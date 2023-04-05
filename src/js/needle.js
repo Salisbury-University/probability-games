@@ -150,8 +150,7 @@ function guessPI() {
   });
 
   //this hides the previous page (the stats for the page)
-  document.getElementById("statsLocated1").setAttribute("hidden", "hidden");
-  document.getElementById("statsLocated2").setAttribute("hidden", "hidden");
+  document.getElementById("stats").hidden = true;
   //document.getElementById("statsLocated3").setAttribute("hidden", "hidden");
   //document.getElementById("formulaValue").setAttribute("hidden", "hidden");
   //disables the button to drop needles
@@ -177,8 +176,7 @@ function guessingPIfunc() {
 //last section displayed (resets back to how website originally looked)
 function continueGame() {
   document.getElementById("resultArea").setAttribute("hidden", "hidden");
-  document.getElementById("statsLocated1").removeAttribute("hidden");
-  document.getElementById("statsLocated2").removeAttribute("hidden");
+  document.getElementById("stats").hidden = false;
   document.getElementById("guessPIButton").removeAttribute("hidden");
   document.getElementById("continueButton").setAttribute("hidden", "hidden");
 
