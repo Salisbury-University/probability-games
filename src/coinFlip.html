@@ -25,7 +25,11 @@
 						<li>After each flip of the coin, the table will display which side the coin landed on</li>
 						<li>When done flipping the coin, the player must guess if the coin is weighted or not based on
 							the table results</li>
-						<li>After the player makes their guess, the actual weight of the coin will display</li>
+						<li>After the player makes their guess, if the coin is actually not weighted, then the weight will 
+							be displayed</li>
+						<li>If the coin is actually weighted however, the player will be shown a prompt asking them to 
+							guess the weight, with a drop down contain all possible options, and a submit button to submit 
+							the answer</li>
 						<li>To start a new game, start flipping the coin again</li>
 					</ol>
 				</div>
@@ -219,10 +223,9 @@
 			<option value="10/90">10%/90%</option>
 		</select>
 		<button id="submitButton" type="button" class="butn" onClick="submitWeight()">Submit</button>
-		
 	</div>
 
-<script src="js/coinFlip.js" ></script>
+	<script src="js/coinFlip.js" ></script>
 	<script src="js/bootstrap.bundle.min.js"></script>
 </body>
 
