@@ -20,14 +20,18 @@
 				</div>
 				<div class="modal-body">
 					<ol>
-						<li>Player can roll the dice as many times as they'd like, either once at a time, or in sets of
-							multiple rolls</li>
-						<li>After each roll of the dice, the table will display which side the dice landed on</li>
-						<li>When done rolling the dice, the player must guess if the dice is weighted or not based on
-							the
-							table results</li>
-						<li>After the player makes their guess, the actual weight of the dice will display</li>
-						<li>To start a new game, start rolling the dice again</li>
+
+						<li>Player can flip the coin as many times as they'd like, either once at a time, or in sets of
+							multiple flips</li>
+						<li>After each flip of the coin, the table will display which side the coin landed on</li>
+						<li>When done flipping the coin, the player must guess if the coin is weighted or not based on
+							the table results</li>
+						<li>After the player makes their guess, if the coin is actually not weighted, then the weight will 
+							be displayed</li>
+						<li>If the coin is actually weighted however, the player will be shown a prompt asking them to 
+							guess the weight, with a drop down contain all possible options, and a submit button to submit 
+							the answer</li>
+						<li>To start a new game, start flipping the coin again</li>
 					</ol>
 				</div>
 				<div class="modal-footer">
@@ -178,6 +182,7 @@
 				</div>
 			</div>
 		</div>
+
 	</div>
 	<main>
 		<div class="container text-center">
@@ -251,7 +256,6 @@
 			</div>
 		</div>
 	</main>
-
 	<script src="js/bootstrap.bundle.min.js"></script>
 	<script src="js/pixi.min.js"></script>
 	<script src="js/coinFlip.js"></script>

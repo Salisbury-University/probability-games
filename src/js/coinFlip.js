@@ -101,6 +101,7 @@ class CoinGame {
 			let charCode = event.key;
 			if (charCode < '0' || charCode > '9') {
 				event.preventDefault();
+
 			}
 		});
 	}
@@ -132,6 +133,7 @@ class CoinGame {
 		}
 		else {//tails
 			return 1;
+
 		}
 	}
 	#multi() {
@@ -185,6 +187,7 @@ class CoinGame {
 			document.getElementById("guessWeight").hidden = false;
 			document.getElementById("singleFlip").disabled = true;
 			document.getElementById("multiFlip").disabled = true;
+
 		}
 		else if (check == 1 && this.#probabliity[0] == 50) {
 			this.#playAudio(AUDIO_CORRECT);
@@ -217,6 +220,7 @@ class CoinGame {
 			this.#playAudio(AUDIO_WRONG);
 			document.getElementById("prompt").innerHTML = "Try Again.";
 		}
+
 
 	}
 }
@@ -255,6 +259,7 @@ class ScreenManagement {
 				this.#openTutorial();
 			});
 		});
+
 
 	}
 	#closeWelcome() {
