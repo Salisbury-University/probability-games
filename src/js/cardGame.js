@@ -1,14 +1,22 @@
 // ship.js: this file is the javascript implementation of
 // the 12-card dice game
 
-// TO DO BEFORE PRESENTATION
-// 1. finish how to play thing (video + instructions + setup)
-// 2. Add header
-// 2. start on tutorial
-// 3. show dark mode
-// 4. write presentation
-// 5. fix the boxes around the player prompts
-// 6. fix the powerbar/remove it
+/*
+TODO:
+GAME:
+	- welcome page
+	- finish dark mode?
+	- work on site-wide css/color scheme
+
+SIMULATION:
+	- hover or click click on bars to get to distribution
+	- max of 3 different distributions
+	- click on table entry to view/get distribution
+
+MISC
+	- about page
+	- main homescreen images
+ */
 
 // constants for arrays holding values for p1 and p2
 const PLAYER_1 = 0;
