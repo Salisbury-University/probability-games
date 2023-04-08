@@ -30,6 +30,40 @@
   </head>
 
   <body>
+    <!-- Bug Modal -->
+    <div
+      class="modal fade"
+      id="bugModal"
+      tabindex="-1"
+      aria-labelledby="bugModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5">Bug Report</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            Email: mdemchuk1@gulls.salisbury.edu with any bugs found
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Settings Modal -->
     <div
       class="modal fade"
@@ -39,7 +73,7 @@
       aria-hidden="true"
     >
       <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content" id="settingsModalContent">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="settingsModalLabel">Settings</h1>
             <button
@@ -52,7 +86,12 @@
           <div class="modal-body">
             <p>Volume:</p>
             <p>
-              <input type="range" id="volume-control" value="100" />
+              <input
+                type="range"
+                id="volume-control"
+                value="100"
+                autocomplete="off"
+              />
             </p>
             <hr class="featurette-divider" />
             <p>
@@ -115,7 +154,7 @@
       aria-labelledby="instructionsModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-lg">
+      <div class="modal-dialog modal-xl" style="position: relative; top: 20%">
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="instructionsModalLabel">
@@ -215,16 +254,15 @@
                 </div>
               </div>
             </secion>
-
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
           </div>
         </div>
       </div>
@@ -375,80 +413,88 @@
       </nav>
     </header>
 
-    <!-- window title -->
-    <div class="text-center mt-4">
-      <h1 class="display-5" id="page-header">
-        <b> Sum of Two Dice Game!</b>
-      </h1>
+    <div class="container-fluid">
+      <!-- window title -->
+      <div class="text-center mt-4">
+        <h1 class="display-5" id="page-header">
+          <b> Sum of Two Dice Game!</b>
+        </h1>
+      </div>
+
+      <!-- should be hidden -->
+      <span id="border" hidden>
+        <h1 class="mb-2 p-3 text-center display-3" id="win-header">
+          Player _ Won in _ rolls!
+        </h1>
+        <div class="col text-center">
+          <table class="table table-hover table-sm" id="table1">
+            <thead>
+              <tr>
+                <th scope="col" style="font-size: 2em">Player #</th>
+                <th scope="col" style="font-size: 2em">Card 2</th>
+                <th scope="col" style="font-size: 2em">Card 3</th>
+                <th scope="col" style="font-size: 2em">Card 4</th>
+                <th scope="col" style="font-size: 2em">Card 5</th>
+                <th scope="col" style="font-size: 2em">Card 6</th>
+                <th scope="col" style="font-size: 2em">Card 7</th>
+                <th scope="col" style="font-size: 2em">Card 8</th>
+                <th scope="col" style="font-size: 2em">Card 9</th>
+                <th scope="col" style="font-size: 2em">Card 10</th>
+                <th scope="col" style="font-size: 2em">Card 11</th>
+                <th scope="col" style="font-size: 2em">Card 12</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row" style="color: #db3a34; font-size: 2em">1</th>
+                <td id="r1c1" style="color: #db3a34; font-size: 2em">-</td>
+                <td id="r1c2" style="color: #db3a34; font-size: 2em">-</td>
+                <td id="r1c3" style="color: #db3a34; font-size: 2em">-</td>
+                <td id="r1c4" style="color: #db3a34; font-size: 2em">-</td>
+                <td id="r1c5" style="color: #db3a34; font-size: 2em">-</td>
+                <td id="r1c6" style="color: #db3a34; font-size: 2em">-</td>
+                <td id="r1c7" style="color: #db3a34; font-size: 2em">-</td>
+                <td id="r1c8" style="color: #db3a34; font-size: 2em">-</td>
+                <td id="r1c9" style="color: #db3a34; font-size: 2em">-</td>
+                <td id="r1c10" style="color: #db3a34; font-size: 2em">-</td>
+                <td id="r1c11" style="color: #db3a34; font-size: 2em">-</td>
+              </tr>
+              <tr>
+                <th scope="row" style="color: #177e89; font-size: 2em">2</th>
+                <td id="r2c1" style="color: #177e89; font-size: 2em">-</td>
+                <td id="r2c2" style="color: #177e89; font-size: 2em">-</td>
+                <td id="r2c3" style="color: #177e89; font-size: 2em">-</td>
+                <td id="r2c4" style="color: #177e89; font-size: 2em">-</td>
+                <td id="r2c5" style="color: #177e89; font-size: 2em">-</td>
+                <td id="r2c6" style="color: #177e89; font-size: 2em">-</td>
+                <td id="r2c7" style="color: #177e89; font-size: 2em">-</td>
+                <td id="r2c8" style="color: #177e89; font-size: 2em">-</td>
+                <td id="r2c9" style="color: #177e89; font-size: 2em">-</td>
+                <td id="r2c10" style="color: #177e89; font-size: 2em">-</td>
+                <td id="r2c11" style="color: #177e89; font-size: 2em">-</td>
+              </tr>
+            </tbody>
+          </table>
+          <hr class="featurette-divider" />
+          <h1 class="display-5">Dice Roll Totals For Each Sum</h1>
+          <p>
+            <svg width="900" height="400" id="histogram"></svg>
+          </p>
+        </div>
+        <div class="col text-center">
+          <button
+            type="button"
+            class="btn btn-primary"
+            id="play-again-button"
+            onclick="playAgain();"
+          >
+            Play Again
+          </button>
+        </div>
+      </span>
     </div>
 
-    <span class="border-top border-right border-left" id="border" hidden>
-      <h1 class="mb-2 p-3 text-center bg-light" id="win-header">
-        Player _ Won in _ rolls!
-      </h1>
-      <h3 class="mb-2 p-2 text-center">Player Chip Placements:</h3>
-      <div class="col text-center">
-        <table class="table table-hover table-sm" id="table1">
-          <thead>
-            <tr>
-              <th scope="col">Player #</th>
-              <th scope="col">Card 2</th>
-              <th scope="col">Card 3</th>
-              <th scope="col">Card 4</th>
-              <th scope="col">Card 5</th>
-              <th scope="col">Card 6</th>
-              <th scope="col">Card 7</th>
-              <th scope="col">Card 8</th>
-              <th scope="col">Card 9</th>
-              <th scope="col">Card 10</th>
-              <th scope="col">Card 11</th>
-              <th scope="col">Card 12</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1</th>
-              <td id="r1c1">-</td>
-              <td id="r1c2">-</td>
-              <td id="r1c3">-</td>
-              <td id="r1c4">-</td>
-              <td id="r1c5">-</td>
-              <td id="r1c6">-</td>
-              <td id="r1c7">-</td>
-              <td id="r1c8">-</td>
-              <td id="r1c9">-</td>
-              <td id="r1c10">-</td>
-              <td id="r1c11">-</td>
-            </tr>
-            <tr>
-              <th scope="row">2</th>
-              <td id="r2c1">-</td>
-              <td id="r2c2">-</td>
-              <td id="r2c3">-</td>
-              <td id="r2c4">-</td>
-              <td id="r2c5">-</td>
-              <td id="r2c6">-</td>
-              <td id="r2c7">-</td>
-              <td id="r2c8">-</td>
-              <td id="r2c9">-</td>
-              <td id="r2c10">-</td>
-              <td id="r2c11">-</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="col text-center">
-        <button
-          type="button"
-          class="btn btn-primary"
-          id="play-again-button"
-          onclick="playAgain();"
-        >
-          Play Again
-        </button>
-      </div>
-    </span>
-
+    <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/pixi.min.js"></script>
     <script src="js/cardGame.js"></script>
