@@ -3,19 +3,14 @@
 
 /*
 TODO:
-GAME:
-	- welcome page
-	- finish dark mode?
-	- work on site-wide css/color scheme
-
 SIMULATION:
-	- hover or click click on bars to get to distribution
-	- max of 3 different distributions
-	- click on table entry to view/get distribution
+	[] hover or click click on bars to get to distribution
+	[] max of 3 different distributions
+	[] click on table entry to view/get distribution
 
 MISC
-	- about page
-	- main homescreen images
+	[] about page
+	[] main homescreen images
  */
 
 // constants for arrays holding values for p1 and p2
@@ -1025,10 +1020,16 @@ function swapTheme(dropdown) {
     document.getElementById("dropdownThemeLabel").innerHTML = "Light Mode";
     dropdown.innerHTML = "Dark Mode";
 
+    document.getElementById("settingsModalContent").classList.remove("bg-dark");
+    document
+      .getElementById("settingsModalContent")
+      .classList.remove("text-white");
+
     // update html elemnets to work in dark mode
     document.getElementById("page-header").classList.remove("text-white");
     document.getElementById("win-header").classList.remove("bg-dark");
     document.getElementById("win-header").classList.add("bg-light");
+
     // change to Dark Mode
   } else if (theme == "darkmode") {
     document.body.style.backgroundColor = "#666666";
