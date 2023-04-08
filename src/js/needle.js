@@ -94,7 +94,7 @@ function changeTheme() {
   }
 }
 function changeDarkTheme() {
-  document.getElementById("themeType").innerHTML = "Dark Theme";
+  //document.getElementById("themeType").innerHTML = "Dark Theme";
   //changes top section to dark and text to white
   document.getElementById("topPageSection").style.backgroundColor = "#313b4b";
   document.getElementById("titleSection").style.color = "white";
@@ -107,7 +107,7 @@ function changeDarkTheme() {
 }
 
 function changeLightTheme() {
-  document.getElementById("themeType").innerHTML = "Light Theme";
+  //document.getElementById("themeType").innerHTML = "Light Theme";
 
   //changes top section
   document.getElementById("topPageSection").style.backgroundColor = "#FFEDC9";
