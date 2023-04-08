@@ -94,25 +94,6 @@
               />
             </p>
             <hr class="featurette-divider" />
-            <p>
-              <input
-                class="form-check-input m-1"
-                type="checkbox"
-                autocomplete="off"
-                id="randPlacements"
-              />
-              Sound Effects
-            </p>
-            <p>
-              <input
-                class="form-check-input m-1"
-                type="checkbox"
-                autocomplete="off"
-                id="muteBtn"
-              />
-              Music
-            </p>
-            <hr class="featurette-divider" />
             <div class="dropdown">
               Theme:
               <button
@@ -154,7 +135,7 @@
       aria-labelledby="instructionsModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-xl" style="position: relative; top: 20%">
+      <div class="modal-dialog modal-xl" style="position: relative; top: 10%">
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="instructionsModalLabel">
@@ -167,93 +148,109 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body" style="height: 30em; overflow-y: auto">
-            <secion>
-              <div class="container m-2 p-2">
-                <div class="row">
-                  <div id="list-example" class="list-group col-3">
-                    <a
-                      class="list-group-item list-group-item-action"
-                      href="#list-item-1"
-                      >Game Setup</a
-                    >
-                    <a
-                      class="list-group-item list-group-item-action"
-                      href="#list-item-2"
-                      >Placing Chips</a
-                    >
-                    <a
-                      class="list-group-item list-group-item-action"
-                      href="#list-item-3"
-                      >Rolling the Dice</a
-                    >
-                    <a
-                      class="list-group-item list-group-item-action"
-                      href="#list-item-4"
-                      >Removing Chips</a
-                    >
-                    <a
-                      class="list-group-item list-group-item-action"
-                      href="#list-item-4"
-                      >Winning the Game</a
-                    >
-                  </div>
-                  <div
-                    data-bs-spy="scroll"
-                    data-bs-target="#list-example"
-                    data-bs-offset="0"
-                    class="scrollspy-example col"
-                    tabindex="0"
+          <div class="modal-body">
+            <div class="container-fluid m-2 p-2">
+              <div class="row">
+                <div id="list-instructions" class="list-group col-3">
+                  <a
+                    class="list-group-item list-group-item-action"
+                    href="#list-item-1"
+                    >Game Setup</a
                   >
-                    <h4 id="list-item-1">Game Setup</h4>
-                    <ul>
-                      <li>There are <b> 2 players</b></li>
-                      <li>
-                        There are <b>12 cards labeled 2, 3, 4, 5, .., 12</b>,
-                        representing all possible sums of the roll of two dice
-                      </li>
-                      <li>Each player starts with <b>10 chips</b></li>
-                    </ul>
-                    <h4 id="list-item-2">Placing Chips</h4>
-                    <p>
-                      In the first phase of the game, players take turns
-                      spreading their chips out accross all cards one at a time.
-                      To place a chip on a card, when it is the players turn,
-                      they can
-                      <b
-                        >click on a card, and their next chip will be placed
-                        there.</b
-                      >
-                      Players take turns placing their chips until all 10 are
-                      placed.
-                    </p>
-                    <h4 id="list-item-3">Rolling the Dice</h4>
-                    <p>
-                      After all of the chips are placed, a roll button will
-                      appear. The player whose turn it is can simply
-                      <b>click on the roll button to roll the dice.</b>
-                    </p>
-                    <h4 id="list-item-4">Removing Chips</h4>
-                    <p>
-                      When the player rolls the dice, they must add up the sum
-                      of the two dice. Once they get the sum, they check the
-                      card labeled with that sum. If they have a chip on that
-                      card, they can <b>click their chip on that card</b>, and
-                      it will be removed from it.
-                    </p>
-                    <h4 id="list-item-4">Winning the Game</h4>
-                    <p>
-                      The player who is able to
-                      <b
-                        >remove all of their chips from the cards first wins!</b
-                      >
-                      So remember to place your chips on the cards with the dice
-                      sums you think are likely to be rolled most often.
-                    </p>
+                  <a
+                    class="list-group-item list-group-item-action"
+                    href="#list-item-2"
+                    >Placing Chips</a
+                  >
+                  <a
+                    class="list-group-item list-group-item-action"
+                    href="#list-item-3"
+                    >Rolling the Dice</a
+                  >
+                  <a
+                    class="list-group-item list-group-item-action"
+                    href="#list-item-4"
+                    >Removing Chips</a
+                  >
+                  <a
+                    class="list-group-item list-group-item-action"
+                    href="#list-item-4"
+                    >Winning the Game</a
+                  >
+                </div>
+                <div
+                  data-bs-spy="scroll"
+                  data-bs-target="#list-instructions"
+                  data-bs-offset="0"
+                  tabindex="0"
+                  class="col"
+                  style="height: 40em; overflow-y: scroll"
+                >
+                  <h4 id="list-item-1">Game Setup</h4>
+                  <ul>
+                    <li>There are <b> 2 players</b></li>
+                    <li>
+                      There are <b>12 cards labeled 2, 3, 4, 5, .., 12</b>,
+                      representing all possible sums of the roll of two dice
+                    </li>
+                    <li>Each player starts with <b>10 chips</b></li>
+                  </ul>
+                  <h4 id="list-item-2">Placing Chips</h4>
+                  <p>
+                    In the first phase of the game, players take turns spreading
+                    their chips out accross all cards one at a time. To place a
+                    chip on a card, when it is the players turn, they can
+                    <b
+                      >click on a card, and their next chip will be placed
+                      there.</b
+                    >
+                    Players take turns placing their chips until all 10 are
+                    placed.
+                  </p>
+
+                  <div class="text-center">
+                    <img
+                      src="../images/clickToPlace.gif"
+                      style="max-height: 350px"
+                    />
+                  </div>
+                  <h4 id="list-item-3">Rolling the Dice</h4>
+                  <p>
+                    After all of the chips are placed, a roll button will
+                    appear. The player whose turn it is can simply
+                    <b>click on the roll button to roll the dice.</b>
+                  </p>
+                  <h4 id="list-item-4">Removing Chips</h4>
+                  <p>
+                    When the player rolls the dice, they must add up the sum of
+                    the two dice. Once they get the sum, they check the card
+                    labeled with that sum. If they have a chip on that card,
+                    they can <b>click their chip on that card</b>, and it will
+                    be removed from it.
+                  </p>
+                  <div class="text-center">
+                    <img
+                      src="../images/clickToRemove.gif"
+                      style="max-height: 350px"
+                    />
+                  </div>
+                  <h4 id="list-item-4">Winning the Game</h4>
+                  <p>
+                    The player who is able to
+                    <b>remove all of their chips from the cards first wins!</b>
+                    So remember to place your chips on the cards with the dice
+                    sums you think are likely to be rolled most often.
+                  </p>
+
+                  <div class="text-center">
+                    <img
+                      src="../images/winGame.gif"
+                      style="max-height: 350px"
+                    />
                   </div>
                 </div>
               </div>
-            </secion>
+            </div>
           </div>
           <div class="modal-footer">
             <button
