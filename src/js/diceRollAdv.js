@@ -149,6 +149,7 @@ class DiceGame {
         if (this.#weighted == check) {
             this.#playAudio(AUDIO_CORRECT);
             document.getElementById("guessButtons").hidden = true;
+            document.getElementById("guessWeight").hidden = false;
             if (this.#weighted) {
                 document.getElementById("prompt").innerHTML = "Which side is weighted? Click the side you think it is.";
                 this.#clickable = true
@@ -162,7 +163,7 @@ class DiceGame {
             this.#playAudio(AUDIO_WRONG);
             document.getElementById("prompt").innerHTML = "Try Again";
         }
-        document.getElementById("guessWeight").hidden = false;
+        
     }
     #rollDice() {
         this.#numberRolls++;
@@ -210,7 +211,7 @@ class DiceGame {
         if (this.#clickable) {
             if (side == this.#weightedSide) {
                 this.#playAudio(AUDIO_CORRECT);
-                document.getElementById("prompt").innerHTML = "Correct the " + side + " side is the weighted.";
+                document.getElementById("prompt").innerHTML = "Correct the " + side + " side is the weighted side.";
                 this.#reset();
             }
             else {
