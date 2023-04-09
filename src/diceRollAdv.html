@@ -258,9 +258,23 @@
                 <h1 id="prompt"></h1>
                 <div class="col" id="guessButtons" hidden>
                     <button type="radio" class="btn btn-primary" id="weightedButton">Weighted</button>
-                    <button type="radio" class="btn btn-primary" id="notWeightedButton">Not
-                        Weighted</button>
+                    <button type="radio" class="btn btn-primary" id="notWeightedButton">Not Weighted</button>
                 </div>
+                <div class="col-auto mx-auto" id="guessWeight" hidden>
+					<div class="input-group">
+						<select class="form-select" id="weightSelect" aria-label="Choose Weight">
+							<option selected disabled hidden>Choose a weight...</option>
+							<option selected disabled>Heads | Tails</option>
+							<option value="1.5">1/4</option>
+							<option value="2">1/3</option>
+							<option value="2.5">5/12</option>
+							<option value="3">1/2</option>
+							<option value="3.5">7/12</option>
+							<option value="4">2/3</option>
+						</select>
+						<button class="btn btn-primary" type="button" id="weightSelectButton">Submit</button>
+					</div>
+				</div>
             </div>
         </div>
     </main>
