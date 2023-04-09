@@ -73,8 +73,9 @@ class DiceGame {
         this.#app.appendApp();
         this.#reset();
         this.#setupButtons();
+        console.log("Weights Start");
         for (let i = 0; i < this.#probabilities.length; i++) {
-            console.log(this.#probabilities[i]);
+            console.log("Side " + i + ": " + this.#probabilities[i]);
         }
     }
     #setupButtons() {
@@ -216,7 +217,6 @@ class DiceGame {
                 this.#playAudio(AUDIO_CORRECT);
                 document.getElementById("prompt").innerHTML = "Correct the " + side + " side is the weighted side. By how much is it weighted?";
                 document.getElementById("guessWeight").hidden = false;
-                this.#reset();
             }
             else {
                 this.#playAudio(AUDIO_WRONG);
@@ -235,8 +235,7 @@ class DiceGame {
 
         if (isWeighted) {
             // Randomly choose the index of the weights
-            let weightedIndex = Math.floor(Math.random() * 6);
-            let newWeight = 20 * weights[weightedIndex];
+            let newWeight = 20 * weights[Math.floor(Math.random() * 6)];
 
             // weight of other faces
             let otherWeight = (120 - newWeight) / 5;
@@ -246,8 +245,8 @@ class DiceGame {
 
             // Set the probabilities to favor the weighted face
             this.#probabilities = new Array(6).fill(otherWeight);
-            this.#probabilities[weightedIndex] = newWeight;
-            this.#weightedSide = weightedIndex + 1;
+            this.#probabilities[diceIndex] = newWeight;
+            this.#weightedSide = diceIndex + 1;
             this.#weighted = true;
         } else {
             this.#weighted = false;
@@ -264,6 +263,10 @@ class DiceGame {
     #guessWeight() {
         let guess = document.getElementById("weightSelect").value;
         console.log("Guess: " + guess * 20);
+        console.log("Weights");
+        for (let i = 0; i < this.#probabilities.length; i++) {
+            console.log("Side " + i + ": " + this.#probabilities[i]);
+        }
         console.log("True: " + this.#probabilities[this.#weightedSide - 1]);
         if (isNaN(guess)) {
             this.#playAudio(AUDIO_WRONG);
