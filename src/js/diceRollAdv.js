@@ -264,7 +264,7 @@ class DiceGame {
 			this.#playAudio(AUDIO_WRONG);
 			document.getElementById("prompt").innerHTML = "Please select an option from the dropdown.";
 		}
-		else if (guess == this.#probabliity[0]) {
+		else if (guess == this.#probabilities[0]) {
 			this.#playAudio(AUDIO_CORRECT);
 			document.getElementById("prompt").innerHTML = "Correct the " + weightedSide + " side is weighted " + newWeight + " times more than the others";
 			document.getElementById("guessWeight").hidden = true;
