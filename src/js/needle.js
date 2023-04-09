@@ -324,12 +324,6 @@ function playAudio() {
   needleDropSound.play();
 }
 
-function playAudio() {
-  //needleDropSound.pause();
-  needleDropSound.currentTime = 1.7;
-  needleDropSound.play();
-}
-
 
 
 function colorNeedles(yEnd, yCenter) { // over writes the colors even though the for loop it's copied from doesn't
