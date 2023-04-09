@@ -3,6 +3,7 @@ const AUDIO_WRONG = new Audio("../sounds/wrong.mp3");
 const AUDIO_CORRECT = new Audio("../sounds/point_2.mp3");
 const Graphics = PIXI.Graphics;
 const Sprite = PIXI.Sprite;
+const weights = [1.5, 2, 2.5, 3, 3.5, 4];
 
 class WindowInfo {
     #windowWidth;
@@ -79,6 +80,7 @@ class DiceGame {
         let cards = document.querySelectorAll(".diceCard");
         let weightedButton = document.getElementById("weightedButton");
         let notWeightedButton = document.getElementById("notWeightedButton");
+        let weightSelectButton = document.getElementById('weightSelectButton');
 
         singleRoll.addEventListener('click', () => {
             this.#roll(0);
@@ -97,6 +99,9 @@ class DiceGame {
         notWeightedButton.addEventListener('click', () => {
             this.#guess(false);
         });
+        weightSelectButton.addEventListener('click', () => {
+			this.#guessWeight();
+		});
     }
 
     #roll(check) {
@@ -144,6 +149,7 @@ class DiceGame {
         if (this.#weighted == check) {
             this.#playAudio(AUDIO_CORRECT);
             document.getElementById("guessButtons").hidden = true;
+            document.getElementById("guessWeight").hidden = false;
             if (this.#weighted) {
                 document.getElementById("prompt").innerHTML = "Which side is weighted? Click the side you think it is.";
                 this.#clickable = true
@@ -157,6 +163,7 @@ class DiceGame {
             this.#playAudio(AUDIO_WRONG);
             document.getElementById("prompt").innerHTML = "Try Again";
         }
+        
     }
     #rollDice() {
         this.#numberRolls++;
@@ -204,7 +211,7 @@ class DiceGame {
         if (this.#clickable) {
             if (side == this.#weightedSide) {
                 this.#playAudio(AUDIO_CORRECT);
-                document.getElementById("prompt").innerHTML = "Correct the " + side + " side is the weighted.";
+                document.getElementById("prompt").innerHTML = "Correct the " + side + " side is the weighted side.";
                 this.#reset();
             }
             else {
@@ -223,18 +230,25 @@ class DiceGame {
         let isWeighted = Math.random() < 0.5;
 
         if (isWeighted) {
-            // Randomly choose the index of the weighted face
+            // Randomly choose the index of the weights
             let weightedIndex = Math.floor(Math.random() * 6);
+            let newWeight = 20*weights[weightedIndex];
+
+            // weight of other faces
+            let otherWeight = (120-newWeight)/5;
+
+            // Randomly choose the index of the weighted face
+            let diceIndex = Math.floor(Math.random() * 6);
 
             // Set the probabilities to favor the weighted face
-            this.#probabilities = new Array(6).fill(2 / 15);
-            this.#probabilities[weightedIndex] = 1 / 3;
+            this.#probabilities = new Array(6).fill(otherWeight);
+            this.#probabilities[weightedIndex] = newWeight;
             this.#weightedSide = weightedIndex + 1;
             this.#weighted = true;
         } else {
             this.#weighted = false;
             // If the dice is not weighted, return equal probabilities for all faces
-            this.#probabilities = new Array(6).fill(1 / 6);
+            this.#probabilities = new Array(6).fill(20);
         }
     }
     #reset() {
@@ -243,6 +257,29 @@ class DiceGame {
         this.#changeCursor();
         this.#isWeighted();
     }
+    #guessWeight() {
+		let guess = document.getElementById("weightSelect").value;
+		console.log(guess);
+		if (isNaN(guess)) {
+			this.#playAudio(AUDIO_WRONG);
+			document.getElementById("prompt").innerHTML = "Please select an option from the dropdown.";
+		}
+		else if (guess == this.#probabliity[0]) {
+			this.#playAudio(AUDIO_CORRECT);
+			document.getElementById("prompt").innerHTML = "Correct the " + weightedSide + " side is weighted " + newWeight + " times more than the others";
+			document.getElementById("guessWeight").hidden = true;
+			document.getElementById("singleFlip").disabled = false;
+			document.getElementById("multiFlip").disabled = false;
+
+			this.#reset();
+		}
+		else {
+			this.#playAudio(AUDIO_WRONG);
+			document.getElementById("prompt").innerHTML = "Try Again.";
+		}
+
+
+	}
 }
 
 const game = new DiceGame();
