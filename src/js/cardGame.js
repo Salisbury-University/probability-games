@@ -4,8 +4,8 @@
 /*
 
 MISC
-	[] about page
-	[] main homescreen images
+  [] about page
+  [] main homescreen images
  */
 
 // constants for arrays holding values for p1 and p2
