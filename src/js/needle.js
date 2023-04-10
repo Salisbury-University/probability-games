@@ -284,9 +284,9 @@ function needleXY() {
     document.getElementById("realPi").innerHTML = "Real value of PI : " + Math.round(Math.PI * 10000) / 10000;
     document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10) / 10 + " Units"; // units is pixels
     document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10) / 10 + " Units";
-    document.getElementsByClassName("needCross")[0].innerHTML = "Needles that Cross a Line: " + needleCross;
+    document.getElementsByClassName("needCross")[0].innerHTML = "Needles that Cross a Line(Green): " + needleCross;
     document.getElementsByClassName("needCross")[1].innerHTML = "Needles that Cross a Line: " + needleCross;
-    document.getElementById("needleDontCross").innerHTML = "Needles that Don't Cross a Line: " + (needleDrop - needleCross);
+    document.getElementById("needleDontCross").innerHTML = "Needles that Don't Cross a Line(Purple): " + (needleDrop - needleCross);
     document.getElementsByClassName("total")[0].innerHTML = "Total Needles Dropped: " + needleDrop;
     document.getElementsByClassName("total")[1].innerHTML = "Total Needles Dropped: " + needleDrop;
     document.getElementById("percentError").innerHTML = "Percent Error for PI: " + Math.round(error * 10000) / 10000 + "%";
@@ -365,22 +365,62 @@ function clearNeedles() {
 
 //this is for the tutorial section
 const opentutorialButton = document.getElementById("openTutorial");
+const dropNeedlesSectionTutorial = document.getElementById("dropNeedleTutorial");
 
 //overlay for tutorial
 const overlay = document.querySelector('#overlay');
 
+dropNeedlesSectionTutorial.addEventListener("click", function () {
+  tutorialDisplayOptionalSection();
+})
+
+
+function endTutorial() {
+  let divClassToModify = document.getElementById("optionalTutorialArea");
+  divClassToModify.setAttribute("hidden", "hidden");
+  let divClassToHighlight = document.querySelectorAll("#optionalSettingsArea");
+  divClassToHighlight.forEach(function (div) {
+    div.style.backgroundColor = "transparent";
+  });
+
+  overlay.style.display = 'none';
+}
+
+function tutorialDisplayOptionalSection() {
+  let divClassToModify = document.getElementById("chooseAmountNeedle");
+  divClassToModify.setAttribute("hidden", "hidden");
+  let divClassToHighlight = document.querySelectorAll("#tutorialAmountNeedle");
+  divClassToHighlight.forEach(function (div) {
+    div.style.backgroundColor = "transparent";
+  });
+
+  divClassToModify = document.getElementById("optionalTutorialArea");
+  divClassToModify.removeAttribute("hidden");
+
+  divClassToModify.style.top = "10vh";
+  divClassToModify.style.left = "70vh";
+
+
+  divClassToHighlight = document.querySelectorAll("#optionalSettingsArea");
+  divClassToHighlight.forEach(function (div) {
+    div.style.backgroundColor = "white";
+  });
+
+
+}
 
 opentutorialButton.addEventListener('click', function () {
   overlay.style.display = 'block';
   tutorialDisplayNeedleAmount();
 });
 
+//first part of the tutorial
 function tutorialDisplayNeedleAmount() {
   let divClassToModify = document.getElementById("chooseAmountNeedle");
   let divClassToHighlight = document.querySelectorAll("#tutorialAmountNeedle");
 
   divClassToHighlight.forEach(function (div) {
-    div.style.backgroundColor = "black";
+    div.style.backgroundColor = "white";
   });
 
   divClassToModify.style.top = "10vh";
