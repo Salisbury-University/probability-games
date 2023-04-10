@@ -172,7 +172,7 @@ class DiceGame {
     }
     #rollDice() {
         this.#numberRolls++;
-        // Generate a random number between 0 and 1
+        // Generate a random number between 0 and 120
         let randomNum = Math.floor(Math.random() * 121);
 
         // Initialize a cumulative probability variable
