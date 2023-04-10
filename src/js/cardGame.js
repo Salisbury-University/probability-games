@@ -1,14 +1,12 @@
 // ship.js: this file is the javascript implementation of
 // the 12-card dice game
 
-// TO DO BEFORE PRESENTATION
-// 1. finish how to play thing (video + instructions + setup)
-// 2. Add header
-// 2. start on tutorial
-// 3. show dark mode
-// 4. write presentation
-// 5. fix the boxes around the player prompts
-// 6. fix the powerbar/remove it
+/*
+
+MISC
+	[] about page
+	[] main homescreen images
+ */
 
 // constants for arrays holding values for p1 and p2
 const PLAYER_1 = 0;
@@ -60,16 +58,6 @@ var cardStyle = new PIXI.TextStyle({
   dropShadowDistance: 5,
   fill: white,
   fontFamily: "Comic Sans MS",
-  fontSize: windowWidth * 0.02,
-  fontWeight: "bolder",
-  lineJoin: "round",
-  strokeThickness: 1,
-});
-
-// winning text's style
-var winStyle = new PIXI.TextStyle({
-  fill: red,
-  fontFamily: "Helvetica",
   fontSize: windowWidth * 0.02,
   fontWeight: "bolder",
   lineJoin: "round",
@@ -173,10 +161,11 @@ function main() {
 
 // function to update the prompt message throughout the game
 function updatePrompt(newMessage, turn) {
-  if (turn == PLAYER_1)
-    // color prompt for each player
+  if (turn == PLAYER_1) {
     promptStyle.fill = red;
-  else if (turn == PLAYER_2) promptStyle.fill = teal;
+  } else if (turn == PLAYER_2) {
+    promptStyle.fill = teal;
+  }
 
   prompt.text = newMessage;
   prompt.x = (windowWidth - prompt.width) / 2;
@@ -210,6 +199,7 @@ let cardChips1 = []; // amount of chips on any given card
 let cardChips2 = [];
 var chipStack1 = new Array(11); // all indeces of the chips on a card from top to bottom
 var chipStack2 = new Array(11);
+var data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 let chipsPlaced1 = new Array(11); // where all the chips were initially placed, doesn't change after chips are removed
 let chipsPlaced2 = new Array(11);
 
@@ -226,12 +216,14 @@ const cardHeight = windowHeight * 0.23;
 const cardWidth = windowWidth * 0.07;
 const cornerRadius = 6;
 
+//global, can go in creategame or not
+var chips1 = []; // hold's player 1's chips
+var chips2 = []; // holds player 2's chips
+var cards = []; // all the card objects
+
 // function creates the dice, roll button, and power bar
 function createGame() {
   // gameplay objects create struct for gameplay objects?
-  let chips1 = []; // hold's player 1's chips
-  let chips2 = []; // holds player 2's chips
-  let cards = []; // all the card objects
 
   // text objects create struct of text objects?
   let playerText = []; // array holding each players "remaining chips"
@@ -355,9 +347,6 @@ function createPrompt() {
   app.stage.addChild(promptBackdrop);
   app.stage.addChild(prompt);
 }
-
-tutorialOverlay = new Graphics();
-tutorialOverlay.drawRect();
 
 //global vars
 // - scoreboard
@@ -834,6 +823,8 @@ function roll(playerText, playerScoreText, scoreboard) {
     }
     // dice is finished rolling
     else if (ticks == 50) {
+      data[roll1 + roll2 - 2]++;
+      updateChart();
       let totalRolled = roll1 + roll2;
 
       // player 1's turn
@@ -901,16 +892,11 @@ function roll(playerText, playerScoreText, scoreboard) {
       // also, the fstring literals aren't working right
       if (scoreboard[PLAYER_1] == 0) {
         winStr = `Player 1 won in ${numRolls[PLAYER_1]} rolls!`;
-        winStyle.fill = red;
+        document.getElementById("win-header").style.color = "#db3a34";
       } else if (scoreboard[PLAYER_2] == 0) {
         winStr = `Player 2 won in ${numRolls[PLAYER_2]} rolls!`;
-        winStyle.fill = teal;
+        document.getElementById("win-header").style.color = "#177e89";
       }
-
-      winText = new Text(winStr, winStyle);
-      winText.x =
-        windowWidth * 0.5 - (winStr.length * (winStyle.fontSize * 0.46)) / 2;
-      winText.y = windowHeight * 0.34;
 
       // so this if condition will not be entered again
       scoreboard[PLAYER_1] = -1;
@@ -921,7 +907,6 @@ function roll(playerText, playerScoreText, scoreboard) {
         app.stage.removeChild(app.stage.children[i]);
       }
 
-      // app.stage.addChild(winText);
       document.getElementById("win-header").innerHTML = winStr;
 
       // get rid of all the gameplay objects
@@ -1019,6 +1004,7 @@ function chipClick(
   }
 }
 
+// maybe use pixi tint?
 function swapTheme(dropdown) {
   theme = dropdown.innerHTML.replace(/\s/g, "").toLowerCase();
 
@@ -1029,10 +1015,16 @@ function swapTheme(dropdown) {
     document.getElementById("dropdownThemeLabel").innerHTML = "Light Mode";
     dropdown.innerHTML = "Dark Mode";
 
+    document.getElementById("settingsModalContent").classList.remove("bg-dark");
+    document
+      .getElementById("settingsModalContent")
+      .classList.remove("text-white");
+
     // update html elemnets to work in dark mode
     document.getElementById("page-header").classList.remove("text-white");
     document.getElementById("win-header").classList.remove("bg-dark");
     document.getElementById("win-header").classList.add("bg-light");
+
     // change to Dark Mode
   } else if (theme == "darkmode") {
     document.body.style.backgroundColor = "#666666";
@@ -1041,8 +1033,83 @@ function swapTheme(dropdown) {
     dropdown.innerHTML = "Light Mode";
 
     // update html elemnets to work in dark mode
+    document.getElementById("settingsModalContent").classList.add("bg-dark");
+    document.getElementById("settingsModalContent").classList.add("text-white");
+
     document.getElementById("page-header").classList.add("text-white");
     document.getElementById("win-header").classList.remove("bg-light");
     document.getElementById("win-header").classList.add("bg-dark");
+
+    //update PIXIjs colors
+    for (let i = 0; i < 10; i++) {
+      cards[i].lineStyle(2, 0xffffff, 4);
+      cards[i].tint = 0xffffff;
+      chips1[i].lineStyle(1, 0xffffff, 1); // ellipse border
+      chips2[i].lineStyle(1, 0xffffff, 1); // ellipse border
+    }
+
+    cards[10].lineStyle(2, 0xffffff, 4);
   }
 }
+
+function updateChart() {
+  // set the dimensions of the chart
+  const margin = { top: 20, right: 20, bottom: 30, left: 40 };
+  const width = 900 - margin.left - margin.right;
+  const height = 400 - margin.top - margin.bottom;
+
+  // select the SVG element
+  const svg = d3.select("svg");
+
+  // remove any existing chart elements
+  svg.selectAll("*").remove();
+
+  // create the chart container
+  const chart = svg
+    .append("g")
+    .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+  // create the X and Y scales
+  const x = d3
+    .scaleBand()
+    .domain(data.map((d, i) => i + 2))
+    .range([0, width])
+    .padding(0.1);
+
+  let ymax = d3.max(data);
+
+  const y = d3
+    .scaleLinear()
+    .domain([0, ymax > 0 ? ymax : 1])
+    .range([height, 0]);
+
+  // create the X and Y axes
+  const xAxis = d3.axisBottom(x);
+  const yAxis = d3.axisLeft(y);
+
+  // add the X and Y axes to the chart
+  chart.append("g").attr("transform", `translate(0, ${height})`).call(xAxis);
+  chart.append("g").call(yAxis);
+
+  // create the bars
+  chart
+    .selectAll(".bar")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("class", "bar")
+    .attr("x", (d, i) => x(i + 2))
+    .attr("y", (d) => y(d))
+    .attr("width", x.bandwidth())
+    .attr("height", (d) => height - y(d));
+
+  chart
+    .append("text")
+    .attr("class", "y label")
+    .attr("text-anchor", "end")
+    .attr("y", -40)
+    .attr("dy", ".70em")
+    .attr("transform", "rotate(-90)")
+    .text("Number of Hits");
+}
+updateChart();

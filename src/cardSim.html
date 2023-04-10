@@ -150,30 +150,6 @@
             ></button>
           </div>
           <div class="modal-body">
-            <p>Volume:</p>
-            <p>
-              <input type="range" id="volume-control" value="100" />
-            </p>
-            <hr class="featurette-divider" />
-            <p>
-              <input
-                class="form-check-input m-1"
-                type="checkbox"
-                autocomplete="off"
-                id="randPlacements"
-              />
-              Sound Effects
-            </p>
-            <p>
-              <input
-                class="form-check-input m-1"
-                type="checkbox"
-                autocomplete="off"
-                id="muteBtn"
-              />
-              Music
-            </p>
-            <hr class="featurette-divider" />
             <div class="dropdown">
               Theme:
               <button
@@ -266,7 +242,12 @@
             role="toolbar"
             aria-label="Toolbar with button groups"
           >
-            <div class="btn-group me-2" role="group" aria-label="First group">
+            <div
+              class="btn-group me-2"
+              role="group"
+              aria-label="First group"
+              hidden
+            >
               <button
                 type="radio"
                 class="btn btn-primary"
@@ -499,6 +480,9 @@
           <div class="text-center">
             <p>
               <svg width="500" height="300" id="histogram"></svg>
+            </p>
+            <p id="hoverDistribution" hidden>
+              [0, 0 0, 0, 0, 0, 0, 0, 0, 0, 0]
             </p>
             <button
               type="button"

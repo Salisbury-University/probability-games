@@ -84,8 +84,18 @@ for (let i = 0; i < amountLines - 1; i++) {
   yValue = yValue + lineSpace;
 }
 
+function changeTheme() {
+  if (document.getElementById("themeTypeSwitch").checked) {
+    console.log("Checked");
+    changeDarkTheme();
+  } else {
+    console.log("Not Checked");
+    changeLightTheme();
+  }
+}
 function changeDarkTheme() {
-  document.getElementById("themeType").innerHTML = "Dark Theme";
+  console.log("Changing to Dark Theme");
+  //document.getElementById("themeType").innerHTML = "Dark Theme";
   //changes top section to dark and text to white
   document.getElementById("topPageSection").style.backgroundColor = "#313b4b";
   document.getElementById("titleSection").style.color = "white";
@@ -98,7 +108,8 @@ function changeDarkTheme() {
 }
 
 function changeLightTheme() {
-  document.getElementById("themeType").innerHTML = "Light Theme";
+  console.log("Changing to Light Theme");
+  //document.getElementById("themeType").innerHTML = "Light Theme";
 
   //changes top section
   document.getElementById("topPageSection").style.backgroundColor = "#FFEDC9";
@@ -312,10 +323,6 @@ function playAudio() {
   needleDropSound.pause();
   needleDropSound.currentTime = 1.6;
   needleDropSound.play();
-}
-
-function closeModal() {
-  $('#settingsModal').modal('hide');
 }
 
 function playAudio() {
