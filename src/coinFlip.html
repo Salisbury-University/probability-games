@@ -26,10 +26,12 @@
 						<li>After each flip of the coin, the table will display which side the coin landed on</li>
 						<li>When done flipping the coin, the player must guess if the coin is weighted or not based on
 							the table results</li>
-						<li>After the player makes their guess, if the coin is actually not weighted, then the weight will 
+						<li>After the player makes their guess, if the coin is actually not weighted, then the weight
+							will
 							be displayed</li>
-						<li>If the coin is actually weighted however, the player will be shown a prompt asking them to 
-							guess the weight, with a drop down contain all possible options, and a submit button to submit 
+						<li>If the coin is actually weighted however, the player will be shown a prompt asking them to
+							guess the weight, with a drop down contain all possible options, and a submit button to
+							submit
 							the answer</li>
 						<li>To start a new game, start flipping the coin again</li>
 					</ol>
@@ -82,16 +84,19 @@
 						Music
 					</p>
 					<hr class="featurette-divider" />
-					<div class="dropdown">
-						Theme:
-						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-							data-bs-toggle="dropdown" aria-expanded="false">
-							Light Mode
-						</button>
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-							<li><a class="dropdown-item" href="#">Dark Mode</a></li>
-							<li><a class="dropdown-item" href="#">Solarized</a></li>
-						</ul>
+					<div class="row text-align">
+						<div class="col-3">
+							<p>Light Theme</p>
+						</div>
+						<div class="col-2">
+							<label class="switch">
+								<input id="themeTypeSwitch" type="checkbox" onclick="changeTheme()">
+								<span class="slider round"></span>
+							</label>
+						</div>
+						<div class="col-3">
+							<p>Dark Theme</p>
+						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
