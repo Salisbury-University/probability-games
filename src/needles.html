@@ -21,6 +21,14 @@
 </head>
 
 <body style="background-color: #ffd789;">
+
+	<!-- acts as darkening for tutorial -->
+	<div id="overlay">
+			<div id="chooseAmountNeedle" class="highlight">
+				<p>This text deals with choosing amount of needles to drop</p>
+			</div>
+	</div>
+
 	<!-- How to Play Modal -->
 	<div class="modal fade modal-lg" id="howToPlay" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
@@ -57,6 +65,8 @@
 					</ol>
 				</div>
 				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+						id="openTutorial">Tutorial</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -203,8 +213,8 @@
 						Lines</button>
 				</div>
 			</div>
-
-			<div class="col-2 offset-4" style="text-align: right;margin-right: 12%;">
+			
+			<div id="tutorialAmountNeedle" class="col-2 offset-4" style="text-align: right;margin-right: 12%;">
 				<input class="form-control" type="number" id="amountOfNeedles" placeholder="# Needles to Drop" min="0">
 			</div>
 		</div>
@@ -238,13 +248,15 @@
 			<div class="col-2"> </div>
 
 			<!-- this section is drop needles and clear screen button-->
-			<div class="col-3" style="text-align: right;margin-right: 12%;padding-bottom: 5px;">
+			<div id="tutorialAmountNeedle"class="col-3" style="text-align: right;margin-right: 12%;padding-bottom: 5px;">
 				<button class="btn btn-primary" id="dropNeedleButton" type="submit" onclick="needleXY()">Drop Needles
 				</button>
 				<button class="btn btn-primary" onclick="clearNeedles()">Clear Screen</button>
 			</div>
 		</div>
 	</div>
+
+	<!-- canvas -->
 	<div class="container-fluid">
 		<div class="row">
 			<div id="app"></div></canvas>

@@ -84,6 +84,8 @@ for (let i = 0; i < amountLines - 1; i++) {
   yValue = yValue + lineSpace;
 }
 
+
+
 function changeTheme() {
   if (document.getElementById("themeTypeSwitch").checked) {
     console.log("Checked");
@@ -93,6 +95,7 @@ function changeTheme() {
     changeLightTheme();
   }
 }
+
 function changeDarkTheme() {
   //document.getElementById("themeType").innerHTML = "Dark Theme";
   //changes top section to dark and text to white
@@ -174,7 +177,7 @@ function guessingPIfunc() {
   //shows result area
   document.getElementById("resultArea").removeAttribute("hidden");
   document.getElementById("userGuessSection").innerHTML = "You guessed: " + document.getElementById("guessingPiNum").value;
-  document.getElementById("percentErrorSection").innerHTML = "Percent Error: " + Math.abs((document.getElementById("guessingPiNum").value - pi) / pi) * 100  + "%";
+  document.getElementById("percentErrorSection").innerHTML = "Percent Error: " + Math.abs((document.getElementById("guessingPiNum").value - pi) / pi) * 100 + "%";
   document.getElementById("guessingPI").setAttribute("hidden", "hidden");
 
   //shows the guess pi button (which brings us back to first page)
@@ -358,4 +361,28 @@ function clearNeedles() {
   lineArray.splice(0, lineArray.length);
   needleCross = 0;
   needleDrop = 0;
+}
+
+//this is for the tutorial section
+const opentutorialButton = document.getElementById("openTutorial");
+
+//overlay for tutorial
+const overlay = document.querySelector('#overlay');
+
+
+opentutorialButton.addEventListener('click', function () {
+  overlay.style.display = 'block';
+  tutorialDisplayNeedleAmount();
+});
+
+function tutorialDisplayNeedleAmount(){
+  let divClassToModify = document.getElementById("chooseAmountNeedle");
+  let divClassToHighlight = document.querySelectorAll("#tutorialAmountNeedle");
+
+  divClassToHighlight.forEach(function(div){
+    div.style.backgroundColor = "black";
+  });
+
+  divClassToModify.style.top = "10vh";
+  divClassToModify.style.left = "70vh";
 }
