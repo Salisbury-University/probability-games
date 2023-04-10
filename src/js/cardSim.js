@@ -1,7 +1,10 @@
-// TODO
-// add maximum game number
-// graphs
-// make the table sortable
+/*
+TODO:
+SIMULATION:
+	[] hover or click click on bars to get to distribution
+	[] max of 3 different distributions
+	[] click on table entry to view/get distribution
+*/
 
 const MINRUNS = 1;
 const MAXRUNS = 1000000;
@@ -125,7 +128,8 @@ simConf.set("totalChipsPlaced", 0);
 simConf.set("reqChips", 10);
 simConf.set("numRuns", 100);
 
-const distributions = new Map();
+const distributions = new Map(); // array which holds the saved distributions
+let chartedDistributions = []; // array which holds the distributions in the chart
 var distCounter = 0;
 
 const stats = new Map();
@@ -191,7 +195,6 @@ function addChips(ele) {
   // if the total is still in range, add chips
   if (simConf.get("totalChipsPlaced") + numChips <= 10) {
     simConf.get("chipsPlaced")[cardNo] = currChips + numChips;
-    console.log(simConf.get("chipsPlaced")[cardNo]);
 
     // update the totals
     tot = simConf.get("totalChipsPlaced");
@@ -266,7 +269,17 @@ function simulate() {
   document.getElementById("middle_heading").innerHTML = "Results";
   // delete the sim object
   delete sim;
+
+  // update chart
   updateChart();
+  let temp = [];
+
+  //update array linked to each bar in the chart
+  for (let i = 0; i < 11; i++) {
+    temp[i] = simConf.get("chipsPlaced")[i];
+  }
+
+  chartedDistributions.unshift(temp);
 
   // re-enable all the html elments
   button.disabled = false;
@@ -292,6 +305,7 @@ function switchDistribution(ele) {
   loadDistribution(newDist);
 }
 
+// load a distribution from the distributions map
 function loadDistribution(html) {
   let distNo = Number(html.split(" ")[1]);
 
@@ -312,6 +326,7 @@ function loadDistribution(html) {
   }
 }
 
+// save a distribution to the distributions map
 function saveDistribution() {
   let dropdown = document.getElementById("distDropdown");
   let distName = dropdown.innerHTML.replace(/\s/g, "");
@@ -355,6 +370,7 @@ function saveDistribution() {
   // add a message 'distribution saved as preset #'
 }
 
+// randomly place chips on the cards
 function randomPlacement() {
   // clear chips
   for (let i = 2; i < 13; i++) {
@@ -395,6 +411,7 @@ function randomPlacement() {
   updateSimulateButton();
 }
 
+// add simulation data to log table
 function updateLogs(min, max, avg, tot) {
   lastIdx = gameLog.length - 1;
   gameLog[lastIdx] = new Array(4);
@@ -427,6 +444,7 @@ function updateLogs(min, max, avg, tot) {
   newRow.innerHTML = newRowContent;
 }
 
+// clear table
 function clearTable() {
   let table = document
     .getElementById("rollDataTable")
@@ -436,10 +454,14 @@ function clearTable() {
 
 data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
+// clear chart and underlying storage
 function clearChart() {
   data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   updateChart();
+
+  // clear array
+  chartedDistributions = [];
 }
 
 function updateChart() {
@@ -495,16 +517,59 @@ function updateChart() {
     .attr("x", (d, i) => x(i + 1))
     .attr("y", (d) => y(d))
     .attr("width", x.bandwidth())
-    .attr("height", (d) => height - y(d));
+    .attr("height", (d) => height - y(d))
+    .attr("fill", "#6495ED")
+    .on("mouseover", function () {
+      d3.select(this).transition().duration("50").attr("opacity", ".85");
+      let xIdx = Math.floor(d3.select(this).attr("x") / 43.5);
+      let div = document.getElementById("hoverDistribution");
 
-  // chart
-  //   .append("text")
-  //   .attr("class", "x label")
-  //   .attr("text-anchor", "end")
-  //   .attr("x", width)
-  //   .attr("y", height + 20)
-  //   .text("Most Recent to Least Recent Simulations");
+      // fill div with highlighted distribution
+      div.hidden = false;
 
+      let str = "[";
+
+      for (let i = 0; i < 11; i++) {
+        str += `${chartedDistributions[xIdx][i]} `;
+      }
+
+      str += "]";
+
+      div.innerHTML = str;
+    })
+    .on("click", function () {
+      // clicking on a bar fills out the cards with that distribution
+      let xIdx = Math.floor(d3.select(this).attr("x") / 43.5);
+
+      // don't load a new [undefined] distribution
+      if (chartedDistributions.length > 0) {
+        for (let i = 0; i < 11; i++) {
+          // set the inner HTML for each card, then call the addChips function
+          document.getElementById(`card${i + 2}label`).innerHTML =
+            chartedDistributions[xIdx][i];
+
+          // actually update the internal counter
+          simConf.get("chipsPlaced")[i] = chartedDistributions[xIdx][i];
+        }
+        simConf.set("totalChipsPlaced", 10);
+        updateRemainingChips(0);
+        updateSimulateButton();
+      }
+    })
+    .on("mouseout", function () {
+      d3.select(this).transition().duration("50").attr("opacity", "1");
+      let div = document.getElementById("hoverDistribution");
+
+      // replace array with blank thingy
+      let str = "[";
+      for (let i = 0; i < 11; i++) {
+        str += "- ";
+      }
+      str += "]";
+      div.innerHTML = str;
+    });
+
+  // create the label
   chart
     .append("text")
     .attr("class", "y label")

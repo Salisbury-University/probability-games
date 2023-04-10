@@ -2,11 +2,6 @@
 // the 12-card dice game
 
 /*
-TODO:
-SIMULATION:
-	[] hover or click click on bars to get to distribution
-	[] max of 3 different distributions
-	[] click on table entry to view/get distribution
 
 MISC
 	[] about page
