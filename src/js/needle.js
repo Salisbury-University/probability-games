@@ -425,6 +425,7 @@ function tutorialDisplayNeedleAmount() {
     div.style.backgroundColor = "white";
   });
 
+  divClassToModify.hidden = false;
   divClassToModify.style.top = "10vh";
   divClassToModify.style.left = "70vh";
 }
