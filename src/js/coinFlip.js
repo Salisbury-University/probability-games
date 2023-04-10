@@ -101,6 +101,7 @@ class CoinGame {
 			let charCode = event.key;
 			if (charCode < '0' || charCode > '9') {
 				event.preventDefault();
+
 			}
 		});
 	}
@@ -132,6 +133,7 @@ class CoinGame {
 		}
 		else {//tails
 			return 1;
+
 		}
 	}
 	#multi() {
@@ -185,6 +187,7 @@ class CoinGame {
 			document.getElementById("guessWeight").hidden = false;
 			document.getElementById("singleFlip").disabled = true;
 			document.getElementById("multiFlip").disabled = true;
+
 		}
 		else if (check == 1 && this.#probabliity[0] == 50) {
 			this.#playAudio(AUDIO_CORRECT);
@@ -218,6 +221,7 @@ class CoinGame {
 			document.getElementById("prompt").innerHTML = "Try Again.";
 		}
 
+
 	}
 }
 
@@ -226,8 +230,9 @@ class ScreenManagement {
 	#tutorialScene;
 	#tutorialOpenButton;
 	#closeTutorialButton;
+	#nextTutorialButton;
 	#playButton;
-	#tutorial
+	#tutorialStage = 0;
 
 	constructor() {
 		this.#welcomeScene = document.getElementById("welcomeScene");
@@ -235,6 +240,7 @@ class ScreenManagement {
 		this.#playButton = document.getElementById("playGame");
 		this.#tutorialOpenButton = document.querySelectorAll(".openTutorial");
 		this.#closeTutorialButton = document.getElementById("closeTutorial");
+		this.#nextTutorialButton = document.getElementById("tutorialNext");
 
 		this.#setup();
 	}
@@ -245,11 +251,15 @@ class ScreenManagement {
 		this.#closeTutorialButton.addEventListener('click', () => {
 			this.#closeTutorial();
 		});
+		this.#nextTutorialButton.addEventListener('click', () => {
+			this.#nextTutorial();
+		});
 		this.#tutorialOpenButton.forEach((button) => {
 			button.addEventListener('click', () => {
 				this.#openTutorial();
 			});
 		});
+
 
 	}
 	#closeWelcome() {
@@ -261,6 +271,29 @@ class ScreenManagement {
 	}
 	#closeTutorial() {
 		this.#tutorialScene.style.display = 'none';
+		this.#tutorialStage = 0;
+	}
+	#nextTutorial() {
+		let tutorialHead = document.getElementById("tutorialHead");
+		let tutorialText = document.getElementById("tutorialText");
+		switch (this.#tutorialStage) {
+			case 0:
+				document.getElementById("singleFlipArea").style.zIndex = 20;
+				tutorialHead.innerHTML = "Flip the Coin a Single Time";
+				tutorialText.innerHTML = "Using this button you can flip the coin a single time."
+				break;
+			case 1:
+				document.getElementById("singleFlipArea").style.zIndex = 0;
+				document.getElementById("multiFlipArea").style.zIndex = 20;
+				tutorialHead.innerHTML = "Flip the Coin a Mulitple Times";
+				tutorialText.innerHTML = "Using the text you can input how many times you would like to flip the coin. Then press the flip button next to it to do so.";
+				break;
+			case 2:
+				//lets try it out
+				break;
+
+		}
+		this.#tutorialStage++;
 	}
 }
 

@@ -30,7 +30,7 @@
     height: 300px;
     background-color: white;
     border: 2px solid blue;
-  }
+}
 
 
 .slider {
@@ -76,6 +76,7 @@ input:checked+.slider:before {
     border-radius: 38px;
 }
 
-#topPageSection {
-    background-color: #ffedc9;
+.slider.round:before {
+    border-radius: 50%;
+    >>>>>>>>>Temporary merge branch 2
 }

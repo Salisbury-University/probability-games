@@ -20,14 +20,18 @@
 				</div>
 				<div class="modal-body">
 					<ol>
-						<li>Player can roll the dice as many times as they'd like, either once at a time, or in sets of
-							multiple rolls</li>
-						<li>After each roll of the dice, the table will display which side the dice landed on</li>
-						<li>When done rolling the dice, the player must guess if the dice is weighted or not based on
-							the
-							table results</li>
-						<li>After the player makes their guess, the actual weight of the dice will display</li>
-						<li>To start a new game, start rolling the dice again</li>
+
+						<li>Player can flip the coin as many times as they'd like, either once at a time, or in sets of
+							multiple flips</li>
+						<li>After each flip of the coin, the table will display which side the coin landed on</li>
+						<li>When done flipping the coin, the player must guess if the coin is weighted or not based on
+							the table results</li>
+						<li>After the player makes their guess, if the coin is actually not weighted, then the weight will 
+							be displayed</li>
+						<li>If the coin is actually weighted however, the player will be shown a prompt asking them to 
+							guess the weight, with a drop down contain all possible options, and a submit button to submit 
+							the answer</li>
+						<li>To start a new game, start flipping the coin again</li>
 					</ol>
 				</div>
 				<div class="modal-footer">
@@ -171,13 +175,14 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 offset-md-3 text-center">
-					<h1>Welcome to Coin Flipping Game Tutorial</h1>
-					<p>Click the button below to begin the tutorial</p>
+					<h1 id="tutorialHead">Welcome to Coin Flipping Game Tutorial</h1>
+					<p id="tutorialText">Click the button below to begin the tutorial</p>
 					<button class="btn btn-success" id="tutorialNext">Next</button>
 					<button class="btn btn-danger" id="closeTutorial">Close</button>
 				</div>
 			</div>
 		</div>
+
 	</div>
 	<main>
 		<div class="container text-center">
@@ -190,13 +195,13 @@
 				<div id="app"></div>
 			</div>
 			<!-- buttons to roll the dice-->
-			<div class="row">
-				<div class="col">
+			<div class="row" id="buttonArea">
+				<div class="col" id="singleFlipArea">
 					<h6>Single Flip:</h6>
-					<button type="radio" class="btn btn-primary" id="singleFlip" style="z-index: 500;">Flip
+					<button type="radio" class="btn btn-primary" id="singleFlip">Flip
 						Coin</button>
 				</div>
-				<div class="col">
+				<div class="col" id="multiFlipArea">
 					<h6>Multiple Flip:</h6>
 					<div class="input-group align-items-center">
 						<input type="text" class="form-control" placeholder="Number of Flips"
@@ -237,6 +242,7 @@
 					<div class="input-group">
 						<select class="form-select" id="weightSelect" aria-label="Choose Weight">
 							<option selected disabled hidden>Choose a weight...</option>
+							<option selected disabled>Heads | Tails</option>
 							<option value="90">90% | 10%</option>
 							<option value="75">75% | 25%</option>
 							<option value="60">60% | 40%</option>
@@ -250,7 +256,6 @@
 			</div>
 		</div>
 	</main>
-
 	<script src="js/bootstrap.bundle.min.js"></script>
 	<script src="js/pixi.min.js"></script>
 	<script src="js/coinFlip.js"></script>
