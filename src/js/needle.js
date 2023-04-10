@@ -284,12 +284,12 @@ function needleXY() {
     document.getElementById("realPi").innerHTML = "Real value of PI : " + Math.round(Math.PI * 10000) / 10000;
     document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10) / 10 + " Units"; // units is pixels
     document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10) / 10 + " Units";
-    document.getElementsByClassName("needCross")[0].innerHTML = "Needles that Cross a Line(Green): " + needleCross;
-    document.getElementsByClassName("needCross")[1].innerHTML = "Needles that Cross a Line: " + needleCross;
-    document.getElementById("needleDontCross").innerHTML = "Needles that Don't Cross a Line(Purple): " + (needleDrop - needleCross);
-    document.getElementsByClassName("total")[0].innerHTML = "Total Needles Dropped: " + needleDrop;
-    document.getElementsByClassName("total")[1].innerHTML = "Total Needles Dropped: " + needleDrop;
-    document.getElementById("percentError").innerHTML = "Percent Error for PI: " + Math.round(error * 10000) / 10000 + "%";
+    document.getElementsByClassName("needCross")[0].innerHTML = "# of Needles that Cross a Line(Green): " + needleCross;
+    document.getElementsByClassName("needCross")[1].innerHTML = "# of Needles that Cross a Line: " + needleCross;
+    document.getElementById("needleDontCross").innerHTML = "# of Needles that Don't Cross a Line(Purple): " + (needleDrop - needleCross);
+    document.getElementsByClassName("total")[0].innerHTML = "Total # of Needles Dropped: " + needleDrop;
+    document.getElementsByClassName("total")[1].innerHTML = "Total # of Needles Dropped: " + needleDrop;
+    document.getElementById("percentError").innerHTML = "Percent Error for PI estimaton: " + Math.round(error * 10000) / 10000 + "%";
 
   }
 }
