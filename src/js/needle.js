@@ -365,22 +365,62 @@ function clearNeedles() {
 
 //this is for the tutorial section
 const opentutorialButton = document.getElementById("openTutorial");
+const dropNeedlesSectionTutorial = document.getElementById("dropNeedleTutorial");
 
 //overlay for tutorial
 const overlay = document.querySelector('#overlay');
 
+dropNeedlesSectionTutorial.addEventListener("click", function () {
+  tutorialDisplayOptionalSection();
+})
+
+
+function endTutorial() {
+  let divClassToModify = document.getElementById("optionalTutorialArea");
+  divClassToModify.setAttribute("hidden", "hidden");
+  let divClassToHighlight = document.querySelectorAll("#optionalSettingsArea");
+  divClassToHighlight.forEach(function (div) {
+    div.style.backgroundColor = "transparent";
+  });
+
+  overlay.style.display = 'none';
+}
+
+function tutorialDisplayOptionalSection() {
+  let divClassToModify = document.getElementById("chooseAmountNeedle");
+  divClassToModify.setAttribute("hidden", "hidden");
+  let divClassToHighlight = document.querySelectorAll("#tutorialAmountNeedle");
+  divClassToHighlight.forEach(function (div) {
+    div.style.backgroundColor = "transparent";
+  });
+
+  divClassToModify = document.getElementById("optionalTutorialArea");
+  divClassToModify.removeAttribute("hidden");
+
+  divClassToModify.style.top = "10vh";
+  divClassToModify.style.left = "70vh";
+
+
+  divClassToHighlight = document.querySelectorAll("#optionalSettingsArea");
+  divClassToHighlight.forEach(function (div) {
+    div.style.backgroundColor = "white";
+  });
+
+
+}
 
 opentutorialButton.addEventListener('click', function () {
   overlay.style.display = 'block';
   tutorialDisplayNeedleAmount();
 });
 
-function tutorialDisplayNeedleAmount(){
+//first part of the tutorial
+function tutorialDisplayNeedleAmount() {
   let divClassToModify = document.getElementById("chooseAmountNeedle");
   let divClassToHighlight = document.querySelectorAll("#tutorialAmountNeedle");
 
-  divClassToHighlight.forEach(function(div){
-    div.style.backgroundColor = "black";
+  divClassToHighlight.forEach(function (div) {
+    div.style.backgroundColor = "white";
   });
 
   divClassToModify.style.top = "10vh";
