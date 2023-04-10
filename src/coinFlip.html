@@ -2,11 +2,11 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Coin Flip</title>
 	<link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
-	<link rel="stylesheet" href="../css/coinFlip.css" type="text/css">
+	<link rel="stylesheet" href="../css/coinFlip.css" type="text/css" />
 </head>
 
 <body>
@@ -15,23 +15,27 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h1 class="modal-title fs-5">How to Play: Coin Flip</h1>
+					<h1 class="modal-title fs-5">How to Play: Dice Roll</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<ol>
+
 						<li>Player can flip the coin as many times as they'd like, either once at a time, or in sets of
 							multiple flips</li>
 						<li>After each flip of the coin, the table will display which side the coin landed on</li>
 						<li>When done flipping the coin, the player must guess if the coin is weighted or not based on
 							the table results</li>
-						<li>After the player makes their guess, the actual weight of the coin will display</li>
+						<li>After the player makes their guess, if the coin is actually not weighted, then the weight will 
+							be displayed</li>
+						<li>If the coin is actually weighted however, the player will be shown a prompt asking them to 
+							guess the weight, with a drop down contain all possible options, and a submit button to submit 
+							the answer</li>
 						<li>To start a new game, start flipping the coin again</li>
 					</ol>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-						id="openTutorial">Tutorial</button>
+					<button type="button" class="btn btn-primary openTutorial" data-bs-dismiss="modal">Tutorial</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -155,75 +159,107 @@
 			</div>
 		</nav>
 	</header>
-
-	<div class="container">
-		<h1>Flip The Coin!</h1>
-		<div class="coin">
-			<img class="img" id="coin" src="../images/coinHead.png">
+	<div id="welcomeScene">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 offset-md-3 text-center">
+					<h1>Welcome to the Coin Flipping Game!</h1>
+					<p>Click the button below to start fliping the coin:</p>
+					<button class="btn btn-success btn-lg" id="playGame">Play</button>
+					<button class="btn btn-primary btn-lg openTutorial">Tutorial</button>
+				</div>
+			</div>
 		</div>
 	</div>
+	<div id="tutorialScene">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 offset-md-3 text-center">
+					<h1 id="tutorialHead">Welcome to Coin Flipping Game Tutorial</h1>
+					<p id="tutorialText">Click the button below to begin the tutorial</p>
+					<button class="btn btn-success" id="tutorialNext">Next</button>
+					<button class="btn btn-danger" id="closeTutorial">Close</button>
+				</div>
+			</div>
+		</div>
 
-	<div class="container bottom">
-		<button id="flipCoin" type="button" class="butn" onClick="flipCoin()">Flip Coin</button>
 	</div>
-
-	<div class="container bottom">
-		<label for="quantity" class="lab">How Many Times To Flip?</label>
-		<input type="number" id="quantity" min="1" value=1 />
-		<button id="flipCoinMultiple" type="button" class="butn" onClick="flipCoinMultiple()">Flip Coin Multiple
-			Times</button>
-	</div>
-
-	<div class="container bottom">
-		<table class="table">
-			<thead class="thead-dark">
-				<tr>
-					<th scope="col">
-						<h1>Heads</h1>
-					</th>
-					<th scope="col">
-						<h1>Tails</h1>
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>
-						<h1>
-							<div id="headTotal">0</div>
-						</h1>
-					</td>
-					<td>
-						<h1>
-							<div id="tailTotal">0</div>
-						</h1>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-
-		<button id="weighted" type="button" class="butn" onClick="weightedGuess()">Weighted</button>
-		<button id="notWeighted" type="button" class="butn" onClick="notWeightedGuess()">Not Weighted</button>
-	</div>
-
-	<div class="container bottom"> 
-		<h1><div id="weightAmount"> </div></h1>
-		<h3><div id="guessWeight"> </div></h3>
-
-		<select name="weights" id="weightOptions">
-			<option value="90/10">90%/10%</option>
-			<option value="75/25">75%/25%</option>
-			<option value="60/40">60%/40%</option>
-			<option value="40/60">40%/60%</option>
-			<option value="25/75">25%/75%</option>
-			<option value="10/90">10%/90%</option>
-		</select>
-		<button id="submitButton" type="button" class="butn" onClick="submitWeight()">Submit</button>
-		
-	</div>
-
-<script src="js/coinFlip.js" ></script>
+	<main>
+		<div class="container text-center">
+			<!--Title of the game-->
+			<div class="row">
+				<h1>Coin Flip Game</h1>
+			</div>
+			<!-- PixiJS Application-->
+			<div class="row">
+				<div id="app"></div>
+			</div>
+			<!-- buttons to roll the dice-->
+			<div class="row" id="buttonArea">
+				<div class="col" id="singleFlipArea">
+					<h6>Single Flip:</h6>
+					<button type="radio" class="btn btn-primary" id="singleFlip">Flip
+						Coin</button>
+				</div>
+				<div class="col" id="multiFlipArea">
+					<h6>Multiple Flip:</h6>
+					<div class="input-group align-items-center">
+						<input type="text" class="form-control" placeholder="Number of Flips"
+							aria-label="Recipient's username" aria-describedby="multiFlip" id="numberFlips">
+						<button class="btn btn-primary" type="button" id="multiFlip">Flip
+							Coin</button>
+					</div>
+				</div>
+			</div>
+			<br>
+			<!--table to store all of the roll totals-->
+			<div class="row">
+				<hr class="featurette-divider" />
+				<div class="row m-3">
+					<div class="col m-2 p-2 border rounded bg-secondary text-white" id="card0">
+						<div class="text-center">
+							<img src="../images/coinHead.png" height="150">
+							<hr class="featurette-divider" />
+							<h1 id="head">0</h1>
+						</div>
+					</div>
+					<div class="col m-2 p-2 border rounded bg-secondary text-white" id="card1">
+						<div class="text-center">
+							<img src="../images/coinTail.png" height="150">
+							<hr class="featurette-divider" />
+							<h1 id="tail">0</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row" id="guessSection">
+				<h1 id="prompt">Press Flip Coin to Play</h1>
+				<div class="col" id="guessButtons" hidden>
+					<button type="radio" class="btn btn-primary" id="weighted">Weighted</button>
+					<button type="radio" class="btn btn-primary" id="notWeighted">Not Weighted</button>
+				</div>
+				<div class="col-auto mx-auto" id="guessWeight" hidden>
+					<div class="input-group">
+						<select class="form-select" id="weightSelect" aria-label="Choose Weight">
+							<option selected disabled hidden>Choose a weight...</option>
+							<option selected disabled>Heads | Tails</option>
+							<option value="90">90% | 10%</option>
+							<option value="75">75% | 25%</option>
+							<option value="60">60% | 40%</option>
+							<option value="40">40% | 60%</option>
+							<option value="25">25% | 75%</option>
+							<option value="10">10% | 90%</option>
+						</select>
+						<button class="btn btn-primary" type="button" id="weightSelectButton">Submit</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
 	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/pixi.min.js"></script>
+	<script src="js/coinFlip.js"></script>
+
 </body>
 
 </html>

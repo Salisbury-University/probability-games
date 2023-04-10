@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Dice Roll</title>
 	<link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
-	<link rel="stylesheet" href="../css/diceRollAdv.css" type="text/css" />
+	<link rel="stylesheet" href="../css/diceRoll.css" type="text/css" />
 </head>
 
 <body>
@@ -24,8 +24,7 @@
 							multiple rolls</li>
 						<li>After each roll of the dice, the table will display which side the dice landed on</li>
 						<li>When done rolling the dice, the player must guess if the dice is weighted or not based on
-							the
-							table results</li>
+							the table results</li>
 						<li>After the player makes their guess, the actual weight of the dice will display</li>
 						<li>To start a new game, start rolling the dice again</li>
 					</ol>
@@ -192,15 +191,15 @@
 			<div class="row">
 				<div class="col">
 					<h6>Single Roll:</h6>
-					<button type="radio" class="btn btn-primary" id="singleRoll" onclick="roll(0)"
-						style="z-index: 500;">Roll Dice</button>
+					<button type="radio" class="btn btn-primary" id="singleRoll" style="z-index: 500;">Roll
+						Dice</button>
 				</div>
 				<div class="col">
 					<h6>Multiple Rolls:</h6>
 					<div class="input-group align-items-center">
 						<input type="text" class="form-control" placeholder="Number of Rolls"
 							aria-label="Recipient's username" aria-describedby="multiRoll" id="numberRolls">
-						<button class="btn btn-primary" type="button" id="multiRoll" onclick="roll(1)">Roll
+						<button class="btn btn-primary" type="button" id="multiRoll">Roll
 							Dice</button>
 					</div>
 				</div>
@@ -210,42 +209,42 @@
 			<div class="row">
 				<hr class="featurette-divider" />
 				<div class="row m-3">
-					<div class="col m-2 p-2 border rounded bg-secondary text-white" id="card1" onclick="cardSelect(1)">
+					<div class="col m-2 p-2 border rounded bg-secondary text-white diceCard" id="card1" data-value="1">
 						<div class="text-center">
 							<img src="../images/dice1.png">
 							<hr class="featurette-divider" />
 							<h1 id="face1">0</h1>
 						</div>
 					</div>
-					<div class="col m-2 p-2 border rounded bg-secondary text-white" id="card2" onclick="cardSelect(2)">
+					<div class="col m-2 p-2 border rounded bg-secondary text-white diceCard" id="card2" data-value="2">
 						<div class="text-center">
 							<img src="../images/dice2.png">
 							<hr class="featurette-divider" />
 							<h1 id="face2">0</h1>
 						</div>
 					</div>
-					<div class="col m-2 p-2 border rounded bg-secondary text-white" id="card3" onclick="cardSelect(3)">
+					<div class="col m-2 p-2 border rounded bg-secondary text-white diceCard" id="card3" data-value="3">
 						<div class="text-center">
 							<img src="../images/dice3.png">
 							<hr class="featurette-divider" />
 							<h1 id="face3">0</h1>
 						</div>
 					</div>
-					<div class="col m-2 p-2 border rounded bg-secondary text-white" id="card4" onclick="cardSelect(4)">
+					<div class="col m-2 p-2 border rounded bg-secondary text-white diceCard" id="card4" data-value="4">
 						<div class="text-center">
 							<img src="../images/dice4.png">
 							<hr class="featurette-divider" />
 							<h1 id="face4">0</h1>
 						</div>
 					</div>
-					<div class="col m-2 p-2 border rounded bg-secondary text-white" id="card5" onclick="cardSelect(5)">
+					<div class="col m-2 p-2 border rounded bg-secondary text-white diceCard" id="card5" data-value="5">
 						<div class="text-center">
 							<img src="../images/dice5.png">
 							<hr class="featurette-divider" />
 							<h1 id="face5">0</h1>
 						</div>
 					</div>
-					<div class="col m-2 p-2 border rounded bg-secondary text-white" id="card6" onclick="cardSelect(6)">
+					<div class="col m-2 p-2 border rounded bg-secondary text-white diceCard" id="card6" data-value="6">
 						<div class="text-center">
 							<img src="../images/dice6.png">
 							<hr class="featurette-divider" />
@@ -257,8 +256,9 @@
 			<div class="row" id="guessSection">
 				<h1 id="prompt"></h1>
 				<div class="col" id="guessButtons" hidden>
-					<button type="radio" class="btn btn-primary" onclick="guess(true)">Weighted</button>
-					<button type="radio" class="btn btn-primary" onclick="guess(false)">Not Weighted</button>
+					<button type="radio" class="btn btn-primary" id="weightedButton">Weighted</button>
+					<button type="radio" class="btn btn-primary" id="notWeightedButton">Not
+						Weighted</button>
 				</div>
 			</div>
 		</div>
@@ -266,7 +266,7 @@
 
 	<script src="js/bootstrap.bundle.min.js"></script>
 	<script src="js/pixi.min.js"></script>
-	<script src="js/diceRollAdv.js"></script>
+	<script src="js/diceRoll.js"></script>
 
 </body>
 

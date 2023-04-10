@@ -21,6 +21,14 @@
 </head>
 
 <body style="background-color: #ffd789;">
+
+	<!-- acts as darkening for tutorial -->
+	<div id="overlay">
+		<div id="chooseAmountNeedle" class="highlight">
+			<p>This text deals with choosing amount of needles to drop</p>
+		</div>
+	</div>
+
 	<!-- How to Play Modal -->
 	<div class="modal fade modal-lg" id="howToPlay" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
@@ -57,6 +65,8 @@
 					</ol>
 				</div>
 				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+						id="openTutorial">Tutorial</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -115,6 +125,7 @@
 							<p>Dark Theme</p>
 						</div>
 					</div>
+
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save
@@ -179,14 +190,88 @@
 	</nav>
 
 	<!-- this is the section where user clicks on needle amount to drop-->
-	<div class="container-fluid" id="topPageSection" style="background-color: #FFEDC9;">
+	<div class="container-fluid" id="topPageSection" style="margin-bottom: 10px;">
 		<div class="row">
 			<div class="col" style="text-align: center;">
 				<h1 id="titleSection">Buffon's Needles </h1>
 			</div>
 		</div>
+
+		<!-- this is the reworked area above the canvas-->
+		<div class="row" style="margin-bottom: 10px;">
+			<!-- left side of the canvas-->
+			<div class="col-4" style="text-align: left;margin-left: 12%;margin-bottom: 10px;">
+				<!-- top row (the needle length)-->
+				<div class="row" style="margin-bottom: 5px;">
+					<div class="col">
+						<button class="btn btn-info dropdown-toggle" type="button" id="dropDownDropType"
+							data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Needle Length
+						</button>
+						<div class="dropdown-menu" aria-labelledby="dropDownDropType">
+							<h5 id="displayNeedleLength">Current Needle Length:<br> 90% of distance between lines </h5>
+							<button class="btn btn-primary" onclick="changeNeedleLength(.1);event.stopPropagation()">
+								Increase
+								by 10%
+								Lines</button> <br>
+							<button class="btn btn-primary" onclick="changeNeedleLength(-0.1);event.stopPropagation()">
+								Decrease
+								by 10%
+								Lines</button>
+						</div>
+					</div>
+				</div>
+				<!-- bottom row (drop type and number of grid lines)-->
+				<div class="row">
+					<div class="col">
+						<!-- drop type-->
+						<button class="btn btn-info dropdown-toggle" type="button" id="dropDownDropType"
+							data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Drop Type
+						</button>
+						<div class="dropdown-menu" aria-labelledby="dropDownDropType">
+							<button class="btn btn-primary" onclick="dropType('Cumulative')">Cumulative</button> <br>
+							<button class="btn btn-primary" onclick="dropType('Singular')">Singular</button>
+						</div>
+
+						<!-- grid amount-->
+						<button class="btn btn-info dropdown-toggle" type="button" id="dropDownGridLines"
+							data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Number Grid Lines
+						</button>
+						<div class="dropdown-menu" aria-labelledby="dropDownGridLines">
+							<button class="btn btn-primary" onclick="changeLines(1);event.stopPropagation()">+1</button>
+							<button class="btn btn-primary"
+								onclick="changeLines(-1);event.stopPropagation()">-1</button>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- this is right side of the canvas-->
+			<div id="tutorialAmountNeedle" class="col-4 offset-1" style="text-align: right;margin-right: 12%;">
+				<!-- top row (number of needles to drop)-->
+				<div class="row" style="margin-bottom: 5px;">
+					<div class="col-6 offset-6">
+						<input class="form-control" type="number" id="amountOfNeedles" placeholder="# Needles to Drop"
+							min="0">
+					</div>
+				</div>
+				<!-- bottom row (drop needles and clear screen)-->
+				<div class="row">
+					<div class="col">
+						<button class="btn btn-primary" id="dropNeedleButton" type="submit" onclick="needleXY()">Drop
+							Needles
+						</button>
+						<button class="btn btn-primary" onclick="clearNeedles()">Clear Screen</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 
 		<div class="row">
-			<!-- contains preset percentile of needle length-->
+			<!-- contains preset percentile of needle length
 			<div class="col-3" style="text-align: left;margin-left: 12%;">
 				<button class="btn btn-info dropdown-toggle" type="button" id="dropDownDropType"
 					data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -194,25 +279,28 @@
 				</button>
 				<div class="dropdown-menu" aria-labelledby="dropDownDropType">
 					<h5 id="displayNeedleLength">Current Needle Length:<br> 90% of distance between lines </h5>
-					<button class="btn btn-primary" onclick="changeNeedleLength(.1);event.stopPropagation()"> Increase
+					<button class="btn btn-primary" onclick="changeNeedleLength(.1);event.stopPropagation()">
+						Increase
 						by 10%
 						Lines</button> <br>
-					<button class="btn btn-primary" onclick="changeNeedleLength(-0.1);event.stopPropagation()"> Decrease
+					<button class="btn btn-primary" onclick="changeNeedleLength(-0.1);event.stopPropagation()">
+						Decrease
 						by 10%
 						Lines</button>
 				</div>
 			</div>
 
-			<div class="col-2 offset-4" style="text-align: right;margin-right: 12%;">
+			<div id="tutorialAmountNeedle" class="col-2 offset-4" style="text-align: right;margin-right: 12%;">
 				<input class="form-control" type="number" id="amountOfNeedles" placeholder="# Needles to Drop" min="0">
 			</div>
 		</div>
+	-->
 
-		<!-- this is section wehre user clicks to change needle length-->
+		<!-- this is section wehre user clicks to change needle length
 		<div class="row" style="padding-top: 5px;">
-			<!-- this section would have dorp type and grid amount-->
+			<!-- this section would have dorp type and grid amount-
 			<div class="col-4" style="margin-left:12%;">
-				<!-- drop type-->
+				<!-- drop type--
 				<button class="btn btn-info dropdown-toggle" type="button" id="dropDownDropType"
 					data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Drop Type
@@ -222,7 +310,7 @@
 					<button class="btn btn-primary" onclick="dropType('Singular')">Singular</button>
 				</div>
 
-				<!-- grid amount-->
+				<!-- grid amount--
 				<button class="btn btn-info dropdown-toggle" type="button" id="dropDownGridLines"
 					data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Number Grid Lines
@@ -234,58 +322,67 @@
 				</div>
 			</div>
 
-			<div class="col-2">
+			<div class="col-2"> </div>
 
-			</div>
-
-			<!-- this section is drop needles and clear screen button-->
-			<div class="col-3" style="text-align: right;margin-right: 12%;padding-bottom: 5px;">
-				<button class="btn btn-primary" id="dropNeedleButton" type="submit" onclick="needleXY()">Drop Needles
+			<!-- this section is drop needles and clear screen button--
+			<div id="tutorialAmountNeedle" class="col-3"
+				style="text-align: right;margin-right: 12%;padding-bottom: 5px;">
+				<button class="btn btn-primary" id="dropNeedleButton" type="submit" onclick="needleXY()">Drop
+					Needles
 				</button>
 				<button class="btn btn-primary" onclick="clearNeedles()">Clear Screen</button>
 			</div>
 		</div>
+			-->
 	</div>
 
-	<canvas id="my-canvas"></canvas>
-	<script src="js/bootstrap.bundle.min.js"></script>
-	<script src="js/pixi.min.js"></script>
-	<script src="js/needle.js"></script>
+	<!-- canvas -->
+	<div class="container-fluid">
+		<div class="row">
+			<div id="app"></div></canvas>
+		</div>
+	</div>
 
 	<!--This is the stats area-->
 	<div class="container-fluid" id="bottomSection" style="background-color: #FFEDC9;">
-		<div class=" row" style="text-align: center;">
+		<div class="row" style="text-align: center;">
 			<!-- this section shows estimate pi button, continue button and stats header-->
 			<h1 id="statsH1"> Stats <button class="btn btn-primary" id="guessPIButton" onclick="guessPI()" disabled>
 					Estimate PI</button>
 				<button class="btn btn-primary" id="continueButton" onclick="continueGame()" hidden>Continue</button>
 			</h1>
-
-			<!-- resultArea, the last section to be displayed-->
-			<div id="resultArea" hidden>
-				<div class="col">
-					<p class=estimation></p>
-					<p id="userGuessSection"></p>
-					<p id="percentErrorSection"></p>
-				</div>
+		</div>
+		<div class="row text-center" id="stats">
+			<div class="col">
+				<h3 class="estimation"></h3>
+				<h3 id="realPi"> </h3>
+				<h3 id="percentError"></h3>
 			</div>
-			<!-- guessing PI, second section to appear and lets user guess (estimate) the value of PI based on the data from the game-->
-			<div id="guessingPI" hidden>
-				<!-- rows in bootstrap are used to group items together
+			<div class="col">
+				<h3 class="total"></h3>
+				<h3 class="needCross"></h3>
+				<h3 id="needleDontCross"></h3>
+			</div>
+		</div>
+
+		<!-- guessing PI, second section to appear and lets user guess (estimate) the value of PI based on the data from the game-->
+		<div class="row text-center" id="guessingPI" hidden>
+			<!-- rows in bootstrap are used to group items together
 				review bootstrap grid view, and mess around with site	
 			-->
 
-				<!-- there are 12 columns to the view of a website, helps organize website-->
-				<div class="col">
-					<p>Using the fomula below estimate the value of Pi</p>
-					<p>Please estimate PI: <input type="number" id="guessingPiNum"></p>
-					<p>l = length of needle</p>
-					<p>t = distance between Lines</p>
-					<p>h = needles that cross a grid line</p>
-					<p>n = total number of needles dropped</p>
-				</div>
-				<div class="col">
-					<p>Buffon's needle formula:</p>
+			<!-- there are 12 columns to the view of a website, helps organize website-->
+			<div class="col">
+				<h3>l = length of needle</h3>
+				<h3>t = distance between Lines</h3>
+				<h3>h = needles that cross a grid line </h3>
+				<h3>n = total number of needles dropped</h3>
+			</div>
+
+			<div class="col">
+				<p>Using the fomula below estimate the value of Pi</p>
+				<p>Please estimate PI: <input type="number" id="guessingPiNum"></p>
+				<h3>Buffon's needle formula:
 					<math>
 						<mrow>
 							<mi>&#960;</mi>
@@ -302,38 +399,32 @@
 							</mfrac>
 						</mrow>
 					</math>
-				</div>
-
-				<!-- this area shows needleLength, grid space-->
-
-				<div class="col">
-					<p id="needLength"></p>
-					<p id="gridSpace"></p>
-				</div>
-				<div class="col">
-					<p class="needCross"></p>
-					<p class="total"></p>
-				</div>
-				<!--<div class="col" id="formulaValue">
-					<h3 id="needLength"></h3>
-					<h3 id="gridSpace"> </h3>
-				</div>-->
+				</h3>
 			</div>
 
-
-
-			<div class="col" id="statsLocated1">
-				<h3 class="estimation"></h3>
-				<h3 id="realPi"> </h3>
-				<h3 id="percentError"></h3>
-			</div>
-			<div class="col" id="statsLocated2">
-				<h3 class="total"></h3>
+			<div class="col" id=estimatePiValues>
+				<h3 id="needLength"></h3>
+				<h3 id="gridSpace"></h3>
 				<h3 class="needCross"></h3>
-				<h3 id="needleDontCross"></h3>
+				<h3 class="total"></h3>
 			</div>
 		</div>
+
+		<!-- resultArea, the last section to be displayed-->
+		<div class="row text-center" id="resultArea" hidden>
+			<div class="col">
+				<p class="estimation"></p>
+				<p id="userGuessSection"></p>
+				<p id="percentErrorSection"></p>
+			</div>
+		</div>
+
 	</div>
+
+	<script src="js/bootstrap.bundle.min.js"></script>
+	<script src="js/pixi.min.js"></script>
+	<script src="js/needle.js"></script>
+
 </body>
 
 </html>
