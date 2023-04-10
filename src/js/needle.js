@@ -130,7 +130,7 @@ function changeLines(num) {
     alert("Cannot go lower then two lines");
   } else {
     amountLines += num;
-    document.getElementById("displayNumberGridLines").innerHTML = "Number Grid Lines<br> " + amountLines;
+    document.getElementById("displayNumberGridLines").innerHTML = "Number Grid Lines<br> " + (amountLines-1);
     clearNeedles();
     line.destroy(); //destroy lines to build again
     lines = [];
@@ -304,7 +304,6 @@ function dropType(type) {
   dropTypeValue = type;
   document.getElementById("displayDropType").innerHTML = "Current Drop Type: <br>" + dropTypeValue;
   clearNeedles();
-  closeModal();
 }
 
 function changeNeedleLength(size) {
@@ -425,6 +424,7 @@ function tutorialDisplayNeedleAmount() {
     div.style.backgroundColor = "white";
   });
 
+  divClassToModify.hidden = false;
   divClassToModify.style.top = "10vh";
   divClassToModify.style.left = "70vh";
 }
