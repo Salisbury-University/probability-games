@@ -84,6 +84,8 @@ for (let i = 0; i < amountLines - 1; i++) {
   yValue = yValue + lineSpace;
 }
 
+
+
 function changeTheme() {
   if (document.getElementById("themeTypeSwitch").checked) {
     console.log("Checked");
@@ -93,8 +95,8 @@ function changeTheme() {
     changeLightTheme();
   }
 }
+
 function changeDarkTheme() {
-  console.log("Changing to Dark Theme");
   //document.getElementById("themeType").innerHTML = "Dark Theme";
   //changes top section to dark and text to white
   document.getElementById("topPageSection").style.backgroundColor = "#313b4b";
@@ -108,7 +110,6 @@ function changeDarkTheme() {
 }
 
 function changeLightTheme() {
-  console.log("Changing to Light Theme");
   //document.getElementById("themeType").innerHTML = "Light Theme";
 
   //changes top section
@@ -159,6 +160,7 @@ function guessPI() {
       guessingPIfunc();
     }
   });
+  //hello
 
   //this hides the previous page (the stats for the page)
   document.getElementById("stats").hidden = true;
@@ -325,12 +327,6 @@ function playAudio() {
   needleDropSound.play();
 }
 
-function playAudio() {
-  //needleDropSound.pause();
-  needleDropSound.currentTime = 1.7;
-  needleDropSound.play();
-}
-
 
 
 function colorNeedles(yEnd, yCenter) { // over writes the colors even though the for loop it's copied from doesn't
@@ -365,4 +361,28 @@ function clearNeedles() {
   lineArray.splice(0, lineArray.length);
   needleCross = 0;
   needleDrop = 0;
+}
+
+//this is for the tutorial section
+const opentutorialButton = document.getElementById("openTutorial");
+
+//overlay for tutorial
+const overlay = document.querySelector('#overlay');
+
+
+opentutorialButton.addEventListener('click', function () {
+  overlay.style.display = 'block';
+  tutorialDisplayNeedleAmount();
+});
+
+function tutorialDisplayNeedleAmount() {
+  let divClassToModify = document.getElementById("chooseAmountNeedle");
+  let divClassToHighlight = document.querySelectorAll("#tutorialAmountNeedle");
+
+  divClassToHighlight.forEach(function (div) {
+    div.style.backgroundColor = "black";
+  });
+
+  divClassToModify.style.top = "10vh";
+  divClassToModify.style.left = "70vh";
 }
