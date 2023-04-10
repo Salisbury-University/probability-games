@@ -86,6 +86,31 @@
 There is a gird of parallel horizontal lines that needles of a certain length are dropped in random spaces with a random angle. 
 The length of the needles, the grid space, the number of needles that cross a line and the total number of needles drop can be used to estimate Pi.
 The lengths we use is pixels but on the game we put units because the kids might not know what a pixel is and it's not that important that they do. 
+How to Play: Buffon's Needles
+Required
+
+   - Enter How Many Needles To Drop
+   - Press Enter or Click "Drop Needles" To Drop Needles
+   - After You Dropped Enough Needles Click "Estimate Pi"
+   - Follow The Provided Formula To Estimate Your Value of PI
+   - See How Accurate You Were and Play Again!
+
+Optional Settings
+
+    Needle Length:
+
+    Needle Length is a percentage of the distance between grid lines.
+    Automatically the Needle Length is 90% the distance between grid lines.
+    Drop Type:
+
+    Drop Type Refers to what happens to the screen after you Click "Drop Needles".
+    Singular Means each time you click "Drop Needles" The Previous Drop is Cleared
+    Cumulative Means each time you click "Drop Needles" The Previous Drop is Added To
+    Number of Gird Lines
+
+    This allows you to change the amount of grid lines that appear on the screen, there can be between 2-9 grid lines.
+
+
 ### Backlog
  - [ ]  Drop down menus for needle length and grid lines 
  - [ ]  Can drop needle with enter in the estimate Pi screen (bug)

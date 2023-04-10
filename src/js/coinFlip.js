@@ -4,6 +4,7 @@ const AUDIO_CORRECT = new Audio("../sounds/point_2.mp3");
 const Graphics = PIXI.Graphics;
 const Sprite = PIXI.Sprite;
 const possibleWeights = [90, 75, 60];
+const imageNames = ["penny", "nickel", "dime", "quarter"];
 
 class WindowInfo {
 	#windowWidth;
@@ -49,6 +50,7 @@ class CoinGame {
 	#app;
 	#coin;
 	#probabliity;
+	#currentHead;
 
 	constructor() {
 		this.#window = new WindowInfo();
@@ -56,7 +58,13 @@ class CoinGame {
 		this.#app.getApp().loader.baseUrl = "../images/";
 		this.#app.getApp().loader
 			.add("side0", "coinHead.png")
-			.add("side1", "coinTail.png");
+			.add("side1", "coinTail.png")
+			/*.add("pennyHead", "pennyHead.png")
+			.add("pennyTail", "pennyTail.png")
+			.add("nickelHead", "nickelHead.png")
+			.add("nickelTail", "nickelTail.png")
+			.add("dimeHead", "dimeHead.png")
+			.add("dimeTail", "dimeTail.png")*/;
 		this.#app.getApp().loader.load();
 
 		this.#coin = new Sprite(this.#app.getApp().loader.resources["side1"].texture);
@@ -66,9 +74,7 @@ class CoinGame {
 		this.#reset();
 		this.#buttons();
 	}
-	example() {
 
-	}
 	#reset() {
 		this.#totals = new Array(2).fill(0);
 		this.#numberFlips = 0;
@@ -104,6 +110,9 @@ class CoinGame {
 
 			}
 		});
+	}
+	#changeCoin() {
+
 	}
 	#isWeighted() {
 		let isWeighted = Math.random() < 0.5;
@@ -300,6 +309,15 @@ class ScreenManagement {
 
 const game = new CoinGame();
 const screens = new ScreenManagement();
+
+function changeTheme() {
+	if (document.getElementById("themeTypeSwitch").checked) {
+		document.body.style.backgroundColor = "#262626";
+	} else {
+		document.body.style.backgroundColor = "#ffffff";
+	}
+}
+
 
 
 /* this could be used to have a single javascript file
