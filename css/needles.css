@@ -5,6 +5,13 @@
     height: 34px;
 }
 
+canvas {
+    margin-top: 5px;
+    border: 4px solid black;
+    margin-left: 12%;
+}
+
+
 .switch input {
     opacity: 0;
     width: 0;
