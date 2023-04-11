@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/card.css" type="text/css" />
 
     <!-- favicon stuff -->
     <link
@@ -41,7 +42,7 @@
       aria-hidden="true"
     >
       <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+        <div class="modal-content" id="settingsModalContent">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="instructionsModalLabel">
               How to Play
@@ -150,23 +151,26 @@
             ></button>
           </div>
           <div class="modal-body">
-            <div class="dropdown">
-              Theme:
-              <button
-                class="btn btn-secondary dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Light Mode
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="#">Dark Mode</a></li>
-                <li><a class="dropdown-item" href="#">Solarized</a></li>
-              </ul>
+            <div class="row text-align">
+              <div class="col-3">
+                <p>Light Theme</p>
+              </div>
+              <div class="col-2">
+                <label class="switch">
+                  <input
+                    id="themeTypeSwitch"
+                    type="checkbox"
+                    onclick="changeTheme()"
+                  />
+                  <span class="slider round"></span>
+                </label>
+              </div>
+              <div class="col-3">
+                <p>Dark Theme</p>
+              </div>
             </div>
           </div>
+
           <div class="modal-footer">
             <button
               type="button"
