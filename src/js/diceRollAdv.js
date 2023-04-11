@@ -73,10 +73,6 @@ class DiceGame {
         this.#app.appendApp();
         this.#reset();
         this.#setupButtons();
-        console.log("Weights Start");
-        for (let i = 0; i < this.#probabilities.length; i++) {
-            console.log("Side " + i + ": " + this.#probabilities[i]);
-        }
     }
     #setupButtons() {
         let singleRoll = document.getElementById("singleRoll");
@@ -262,12 +258,6 @@ class DiceGame {
     }
     #guessWeight() {
         let guess = document.getElementById("weightSelect").value;
-        console.log("Guess: " + guess * 20);
-        console.log("Weights");
-        for (let i = 0; i < this.#probabilities.length; i++) {
-            console.log("Side " + i + ": " + this.#probabilities[i]);
-        }
-        console.log("True: " + this.#probabilities[this.#weightedSide - 1]);
         if (isNaN(guess)) {
             this.#playAudio(AUDIO_WRONG);
             document.getElementById("prompt").innerHTML = "Please select an option from the dropdown.";

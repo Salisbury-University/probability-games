@@ -916,6 +916,7 @@ function roll(playerText, playerScoreText, scoreboard) {
         document.getElementById(`r2c${j + 1}`).innerHTML = chipsPlaced2[j];
       }
 
+      document.body.removeChild(app.view);
       document.getElementById("border").hidden = false;
     }
   });
