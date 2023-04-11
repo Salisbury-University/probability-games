@@ -4,8 +4,8 @@
 /*
 
 MISC
-  [] about page
-  [] main homescreen images
+	[] about page
+	[] main homescreen images
  */
 
 // constants for arrays holding values for p1 and p2
@@ -1006,15 +1006,11 @@ function chipClick(
 }
 
 // maybe use pixi tint?
-function swapTheme(dropdown) {
-  theme = dropdown.innerHTML.replace(/\s/g, "").toLowerCase();
-
+function changeTheme() {
   // change to Light Mode
-  if (theme == "lightmode") {
+  if (!document.getElementById("themeTypeSwitch").checked) {
     document.body.style.backgroundColor = "#ffffff";
     charcoal = 0xd3d3d3;
-    document.getElementById("dropdownThemeLabel").innerHTML = "Light Mode";
-    dropdown.innerHTML = "Dark Mode";
 
     document.getElementById("settingsModalContent").classList.remove("bg-dark");
     document
@@ -1027,11 +1023,9 @@ function swapTheme(dropdown) {
     document.getElementById("win-header").classList.add("bg-light");
 
     // change to Dark Mode
-  } else if (theme == "darkmode") {
+  } else if (document.getElementById("themeTypeSwitch").checked) {
     document.body.style.backgroundColor = "#666666";
     charcoal = 0xffffff;
-    document.getElementById("dropdownThemeLabel").innerHTML = "Dark Mode";
-    dropdown.innerHTML = "Light Mode";
 
     // update html elemnets to work in dark mode
     document.getElementById("settingsModalContent").classList.add("bg-dark");
