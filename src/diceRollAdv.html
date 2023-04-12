@@ -21,7 +21,6 @@
                 <div class="modal-body">
                     <ol>
                         <li>Player can roll the dice as many times as they'd like, either once at a time, or in sets of
-
                             multiple rolls</li>
                         <li>After each roll of the dice, the table will display which side the dice landed on</li>
                         <li>When done rolling the dice, the player must guess if the dice is weighted or not based on
@@ -274,14 +273,13 @@
                 <div class="col-auto mx-auto" id="guessWeight" hidden>
                     <div class="input-group">
                         <select class="form-select" id="weightSelect" aria-label="Choose Weight">
-                            <option selected disabled hidden>Choose a weight...</option>
-                            <option selected disabled>Weight Multiple | Fraction</option>
-                            <option value="1.5">1.5 | 1/4</option>
-                            <option value="2">2 | 1/3</option>
-                            <option value="2.5">2.5 | 5/12</option>
-                            <option value="3">3 | 1/2</option>
-                            <option value="3.5">3.5 | 7/12</option>
-                            <option value="4">4 | 2/3</option>
+                            <option selected disabled>Choose a probability...</option>
+                            <option value="1.5">1/4</option>
+                            <option value="2">1/3</option>
+                            <option value="2.5">5/12</option>
+                            <option value="3">1/2</option>
+                            <option value="3.5">7/12</option>
+                            <option value="4">2/3</option>
                         </select>
                         <button class="btn btn-primary" type="button" id="weightSelectButton">Submit</button>
                     </div>

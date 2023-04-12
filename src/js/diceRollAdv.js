@@ -211,7 +211,7 @@ class DiceGame {
         if (this.#clickable) {
             if (side == this.#weightedSide) {
                 this.#playAudio(AUDIO_CORRECT);
-                document.getElementById("prompt").innerHTML = "Correct the " + side + " side is the weighted side. By how much is it weighted?";
+                document.getElementById("prompt").innerHTML = "Correct the " + side + " side is the weighted side. What is the probablity that this side is obtained?";
                 document.getElementById("guessWeight").hidden = false;
             }
             else {
@@ -258,13 +258,27 @@ class DiceGame {
     }
     #guessWeight() {
         let guess = document.getElementById("weightSelect").value;
+        let guessFraction = "";
+        if(guess == 1.5)
+            guessFraction = "1/4";
+        else if(guess == 2)
+            guessFraction = "1/3";
+        else if(guess == 2.5)
+            guessFraction = "5/12";
+        else if(guess == 3)
+            guessFraction = "1/2";
+        else if(guess == 3.5)
+            guessFraction = "7/12";
+        else
+            guessFraction = "2/3";
+        
         if (isNaN(guess)) {
             this.#playAudio(AUDIO_WRONG);
             document.getElementById("prompt").innerHTML = "Please select an option from the dropdown.";
         }
         else if ((guess * 20) == this.#probabilities[this.#weightedSide - 1]) {
             this.#playAudio(AUDIO_CORRECT);
-            document.getElementById("prompt").innerHTML = "Correct the " + this.#weightedSide + " side is weighted " + guess + " times more than the others";
+            document.getElementById("prompt").innerHTML = "Correct the " + this.#weightedSide + " side has a probability of being obtained " + guessFraction + " of the time";
             document.getElementById("guessWeight").hidden = true;
             document.getElementById("singleRoll").disabled = false;
             document.getElementById("multiRoll").disabled = false;
