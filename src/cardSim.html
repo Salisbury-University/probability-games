@@ -5,8 +5,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="../css/card.css" type="text/css" />
+  <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../css/card.css" type="text/css" />
 
   <!-- favicon stuff -->
   <link rel="apple-touch-icon" sizes="180x180" href="../images/apple-touch-icon.png" />
@@ -19,214 +19,150 @@
   <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 
-  <body>
-    <!-- How to Play Modal -->
-    <div
-      class="modal fade"
-      id="howToPlay"
-      tabindex="-1"
-      aria-labelledby="instructionsModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content" id="settingsModalContent">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="instructionsModalLabel">
-              How to Play
-            </h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <ol>
-              <li>
-                Player's each take turns adding their chips to the numbered
-                cards, until there are no chips remaining in their piles
-              </li>
-              <li>Player 1 rolls the two dice and adds the sum of the dice.</li>
-              <dl>
-                If Player 1 has a chip on the card equal to the sum of the dice
-                remove the chip and get a point.
-              </dl>
-              <dl>Otherwise, move onto player 2's roll</dl>
-              <li>Player 2 rolls the two dice and adds the sum of the dice.</li>
-              <dl>
-                Now, if Player 2 has a chip on the card equal to the sum of the
-                dice remove the chip and get a point.
-              </dl>
-              <dl>Otherwise, it becomes player 1's turn to roll again</dl>
-              <li>
-                Continue rolling the dice and removing chips, until one player
-                removes all of their chips
-              </li>
-              <li>
-                First player to remove all of their chips from their cards wins!
-              </li>
-              <li>
-                Try to place your chips where you think the dice will roll more
-                often than not!
-              </li>
-            </ol>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-          </div>
+<body>
+  <!-- How to Play Modal -->
+  <div class="modal fade" id="howToPlay" tabindex="-1" aria-labelledby="instructionsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" id="settingsModalContent">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="instructionsModalLabel">
+            How to Play
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ol>
+            <li>
+              Player's each take turns adding their chips to the numbered
+              cards, until there are no chips remaining in their piles
+            </li>
+            <li>Player 1 rolls the two dice and adds the sum of the dice.</li>
+            <dl>
+              If Player 1 has a chip on the card equal to the sum of the dice
+              remove the chip and get a point.
+            </dl>
+            <dl>Otherwise, move onto player 2's roll</dl>
+            <li>Player 2 rolls the two dice and adds the sum of the dice.</li>
+            <dl>
+              Now, if Player 2 has a chip on the card equal to the sum of the
+              dice remove the chip and get a point.
+            </dl>
+            <dl>Otherwise, it becomes player 1's turn to roll again</dl>
+            <li>
+              Continue rolling the dice and removing chips, until one player
+              removes all of their chips
+            </li>
+            <li>
+              First player to remove all of their chips from their cards wins!
+            </li>
+            <li>
+              Try to place your chips where you think the dice will roll more
+              often than not!
+            </li>
+          </ol>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
         </div>
       </div>
     </div>
-    <!-- Bug Modal -->
-    <div
-      class="modal fade"
-      id="bugModal"
-      tabindex="-1"
-      aria-labelledby="bugModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5">Bug Report</h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            Email: mdemchuk1@gulls.salisbury.edu with any bugs found
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-          </div>
+  </div>
+  <!-- Bug Modal -->
+  <div class="modal fade" id="bugModal" tabindex="-1" aria-labelledby="bugModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Bug Report</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Email: mdemchuk1@gulls.salisbury.edu with any bugs found
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
         </div>
       </div>
     </div>
-    <!-- Settings Modal -->
-    <div
-      class="modal fade"
-      id="settingsModal"
-      tabindex="-1"
-      aria-labelledby="settingsModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5">Settings</h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="row text-align">
-              <div class="col-3">
-                <p>Light Theme</p>
-              </div>
-              <div class="col-2">
-                <label class="switch">
-                  <input
-                    id="themeTypeSwitch"
-                    type="checkbox"
-                    onclick="changeTheme()"
-                  />
-                  <span class="slider round"></span>
-                </label>
-              </div>
-              <div class="col-3">
-                <p>Dark Theme</p>
-              </div>
+  </div>
+  <!-- Settings Modal -->
+  <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Settings</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row text-align">
+            <div class="col-3">
+              <p>Light Theme</p>
+            </div>
+            <div class="col-2">
+              <label class="switch">
+                <input id="themeTypeSwitch" type="checkbox" onclick="changeTheme()" />
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div class="col-3">
+              <p>Dark Theme</p>
             </div>
           </div>
+        </div>
 
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
         </div>
       </div>
     </div>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="home.html" style="color: white"
-          ><img src="../images/logo.png" alt="logo" style="max-height: 35px"
-        /></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse">
-          <ul class="navbar-nav me-auto mb-2 mb-md-0">
-            <li class="nav-item">
-              <a class="nav-link" href="about.html">About</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Games
-              </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <a class="dropdown-item" href="diceRoll.html">Dice Roll</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="coinFlip.html">Coin Flip</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="GoatGame.html"
-                    >Monty Hall Problem</a
-                  >
-                </li>
-                <li>
-                  <a class="dropdown-item" href="needles.html"
-                    >Buffons Needles</a
-                  >
-                </li>
-                <li>
-                  <a class="dropdown-item" href="card.html">12 Card Game</a>
-                </li>
-                <li>
-                  <a class="dropdown-item" href="dice27.html">Game of 27</a>
-                </li>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a
-                class="nav-link"
-                href="https://github.com/Salisbury-University/probability-games.git"
-                >GitHub</a
-              >
-            </li>
-          </ul>
+  </div>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png" alt="logo"
+          style="max-height: 35px" /></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Games
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" href="diceRoll.html">Dice Roll</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="coinFlip.html">Coin Flip</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="GoatGame.html">Monty Hall Problem</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="needles.html">Buffons Needles</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="card.html">12 Card Game</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="dice27.html">Game of 27</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/Salisbury-University/probability-games.git">GitHub</a>
+          </li>
+        </ul>
 
         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
           <div class="btn-group me-2" role="group" aria-label="First group" hidden>
