@@ -100,7 +100,6 @@ class CoinSimulation {
             .range([height, 0]);
 
         // Define the bars for the histogram
-        // Define the bars for the histogram
         var bars = svg.selectAll("rect")
             .data(histogramData)
             .enter()
