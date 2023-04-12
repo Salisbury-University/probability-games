@@ -157,9 +157,45 @@
     </header>
 
     <main>
-        <div class="container">
+        <div id="container" class="container-fluid text-center">
+            <div class="row">
+                <h1>Game of 27 Simulator</h1>
+            </div>
 
+            <div class="row">
+                <div class="col-sm-5 mx-auto">
+                    <input type="text" class="form-control userInput" id="numberFlips" placeholder="Number of Flips">
+                    <input type="text" class="form-control userInput" id="numberGames" placeholder="Number of Games">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5 mx-auto">
+                    <button type="button" class="btn btn-success" id="simulate">Submit</button>
+                    <button type="button" class="btn btn-danger" id="reset">Reset</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <svg id="chart" width="960" height="500"></svg>
+                </div>
+            </div>
+            <div class="row">
+                <h1>Results</h1>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h2>Total Rolls: <div id="totalRolls">0</div>
+                </div>
+                <div class="col">
+                    <h2>Number of Hits on <div id="quantity"></div>
+                </div>
+                <div class="col">
+                    <h2>Number of Games: <div id="totalGames">0</div>
+                    </h2>
+                </div>
+            </div>
         </div>
+
     </main>
 
     <script src="js/coinFlipAdv.js"></script>
