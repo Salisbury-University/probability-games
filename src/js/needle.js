@@ -88,10 +88,8 @@ for (let i = 0; i < amountLines - 1; i++) {
 
 function changeTheme() {
   if (document.getElementById("themeTypeSwitch").checked) {
-    console.log("Checked");
     changeDarkTheme();
   } else {
-    console.log("Not Checked");
     changeLightTheme();
   }
 }
@@ -178,7 +176,7 @@ function guessingPIfunc() {
   //shows result area
   document.getElementById("resultArea").removeAttribute("hidden");
   document.getElementById("userGuessSection").innerHTML = "You guessed: " + document.getElementById("guessingPiNum").value;
-  document.getElementById("percentErrorSection").innerHTML = "Percent Error: " + Math.abs((document.getElementById("guessingPiNum").value - pi) / pi) * 100 + "%";
+  document.getElementById("percentErrorSection").innerHTML = "You were this far off: " + (Math.round((Math.abs((document.getElementById("guessingPiNum").value - pi) / pi) * 100)*100)/100) + "%";
   document.getElementById("guessingPI").setAttribute("hidden", "hidden");
 
   //shows the guess pi button (which brings us back to first page)
