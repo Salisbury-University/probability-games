@@ -74,8 +74,13 @@ document.getElementById("disableSound").addEventListener("click", function () {
 });
 
 //creates the grid lines of the webpage
-for (let i = 0; i < amountLines+1; i++) {
-  line.lineStyle(1, 0x0096FF, 1);
+for (let i = 0; i < amountLines + 1; i++) {
+  if (i == 0 || i == amountLines) {
+    line.lineStyle(3, 0x0096FF);
+  }
+  else {
+    line.lineStyle(1, 0x0096FF, 1);
+  }
   line.moveTo(0, yValue);
   line.lineTo(windowWidth, yValue);
   line.closePath();
@@ -125,7 +130,7 @@ function changeLines(num) {
     alert("Cannot go lower then two lines");
   } else {
     amountLines += num;
-    document.getElementById("displayNumberGridLines").innerHTML = "Number Grid Lines<br> " + (amountLines+1);
+    document.getElementById("displayNumberGridLines").innerHTML = "Number Grid Lines<br> " + (amountLines + 1);
     clearNeedles();
     line.destroy(); //destroy lines to build again
     lines = [];
@@ -137,7 +142,11 @@ function changeLines(num) {
 
     //creates the grid lines of the webpage
     for (let i = 0; i < amountLines + 1; i++) {
-      line.lineStyle(1, 0x0096FF, 1);
+      if (i == 0 || i == amountLines) {
+        line.lineStyle(3, 0x0096FF, 1);
+      } else {
+        line.lineStyle(1, 0x0096FF, 1);
+      }
       line.moveTo(0, yValue);
       line.lineTo(windowWidth, yValue);
       line.closePath();
@@ -173,7 +182,7 @@ function guessingPIfunc() {
   //shows result area
   document.getElementById("resultArea").removeAttribute("hidden");
   document.getElementById("userGuessSection").innerHTML = "You guessed: " + document.getElementById("guessingPiNum").value;
-  document.getElementById("percentErrorSection").innerHTML = "You were this far off: " + (Math.round((Math.abs((document.getElementById("guessingPiNum").value - pi) / pi) * 100)*100)/100) + "%";
+  document.getElementById("percentErrorSection").innerHTML = "You were this far off: " + (Math.round((Math.abs((document.getElementById("guessingPiNum").value - pi) / pi) * 100) * 100) / 100) + "%";
   document.getElementById("guessingPI").setAttribute("hidden", "hidden");
 
   //shows the guess pi button (which brings us back to first page)
@@ -357,72 +366,4 @@ function clearNeedles() {
   lineArray.splice(0, lineArray.length);
   needleCross = 0;
   needleDrop = 0;
-}
-
-//this is for the tutorial section
-const opentutorialButton = document.getElementById("openTutorial");
-const dropNeedlesSectionTutorial = document.getElementById("dropNeedleTutorial");
-
-//overlay for tutorial
-const overlay = document.querySelector('#overlay');
-
-dropNeedlesSectionTutorial.addEventListener("click", function () {
-  tutorialDisplayOptionalSection();
-})
-
-
-function endTutorial() {
-  let divClassToModify = document.getElementById("optionalTutorialArea");
-  divClassToModify.setAttribute("hidden", "hidden");
-  let divClassToHighlight = document.querySelectorAll("#optionalSettingsArea");
-  divClassToHighlight.forEach(function (div) {
-    div.style.backgroundColor = "transparent";
-  });
-
-  overlay.style.display = 'none';
-}
-
-
-//second part of tutorial
-function tutorialDisplayOptionalSection() {
-  let divClassToModify = document.getElementById("chooseAmountNeedle");
-  divClassToModify.setAttribute("hidden", "hidden");
-  let divClassToHighlight = document.querySelectorAll("#tutorialAmountNeedle");
-  divClassToHighlight.forEach(function (div) {
-    div.style.backgroundColor = "transparent";
-  });
-
-  divClassToModify = document.getElementById("optionalTutorialArea");
-  divClassToModify.removeAttribute("hidden");
-
-  divClassToModify.style.top = "10vh";
-  divClassToModify.style.left = "70vh";
-
-
-  divClassToHighlight = document.querySelectorAll("#optionalSettingsArea");
-  divClassToHighlight.forEach(function (div) {
-    div.style.backgroundColor = "white";
-  });
-
-
-}
-
-opentutorialButton.addEventListener('click', function () {
-  overlay.style.display = 'block';
-  tutorialDisplayNeedleAmount();
-});
-
-//first part of the tutorial
-function tutorialDisplayNeedleAmount() {
-  let divClassToModify = document.getElementById("chooseAmountNeedle");
-  let divClassToHighlight = document.querySelectorAll("#tutorialAmountNeedle");
-
-  divClassToHighlight.forEach(function (div) {
-    div.style.backgroundColor = "white";
-    div.style.zIndex = 100;
-  });
-
-  divClassToModify.hidden = false;
-  divClassToModify.style.top = "10vh";
-  divClassToModify.style.left = "70vh";
 }

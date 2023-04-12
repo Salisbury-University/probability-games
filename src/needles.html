@@ -14,32 +14,6 @@
 
 <body style="background-color: #ffd789;">
 
-	<!-- acts as darkening for tutorial -->
-	<div id="overlay">
-		<div id="chooseAmountNeedle" class="highlight">
-			<p>The highlighted part deals with with choosing the amount of needles to drop and clearing the screen. <br>
-				In the top part, you can choose between 1-50,000 Needles, and then drop them onto the pag by clicking
-				the "Drop Needles"
-				button. <br> To clear the screen from the dropped needles, click the "Clear Screen" button.</p>
-
-			<button type="button" class="btn btn-primary" id="dropNeedleTutorial">Tutorial</button>
-		</div>
-		<div id="optionalTutorialArea" class="highlight" hidden>
-			<p>
-				The highlighted part here deals with optional settings in the game.<br>
-				Needle Length: Allows you to change the needle length by 10%. The needle length is a percentage
-				of the distance between grid lines.<br>
-				Drop Type: This changes what happens when you click "Drop Needles". Having Needles Dropped as Singular
-				will clear
-				the screen each time you drop. Whereas Cumulative will not clear the screen. <br>
-				Number of Grid Lines: This allows you to change the Number of Grid Lines, from 2-10.
-			</p>
-			<button class="btn btn-primary" onclick="endTutorial()">
-				End Tutorial
-			</button>
-		</div>
-	</div>
-
 	<!-- How to Play Modal -->
 	<div class="modal fade modal-lg" id="howToPlay" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
@@ -76,8 +50,6 @@
 					</ol>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-						id="openTutorial">Tutorial</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 				</div>
 			</div>
