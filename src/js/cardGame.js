@@ -4,8 +4,8 @@
 /*
 
 MISC
-  [] about page
-  [] main homescreen images
+	[] about page
+	[] main homescreen images
  */
 
 // constants for arrays holding values for p1 and p2
@@ -97,17 +97,7 @@ document.body.appendChild(app.view);
 
 // gameplay objects
 // RST
-let dice1,
-  dice2,
-  rollButton,
-  powerBar,
-  powerBarIndicator,
-  promptBackdrop,
-  prompt;
-
-// flag to move powerBarIndicator
-// RST
-var powerBarMove = false;
+let dice1, dice2, rollButton, promptBackdrop, prompt;
 
 // initialize turn
 // RST
@@ -247,9 +237,6 @@ function createGame() {
 
   // create the roll button
   createRollButton(playerText, playerScoreText, scoreboard);
-
-  // create power bar
-  createPowerBar();
 
   // add the objects to the screen
   app.stage.addChild(dice1);
@@ -532,43 +519,6 @@ function createRollButton(playerText, playerScoreText, scoreboard) {
 // global variables
 // - powerBar
 // - powerBarIndicator;
-function createPowerBar() {
-  // draw the powerbar for dice power as a gradient
-  const quality = 256;
-  const canvas = document.createElement("canvas");
-  canvas.width = quality;
-  canvas.height = 1;
-  const ctx = canvas.getContext("2d");
-  const grd = ctx.createLinearGradient(0, 0, quality, 0);
-  grd.addColorStop(0, "white");
-  grd.addColorStop(0.05, "red");
-  grd.addColorStop(0.5, "yellow");
-  grd.addColorStop(0.95, "green");
-  grd.addColorStop(1, "white");
-
-  ctx.fillStyle = grd;
-  ctx.fillRect(0, 0, quality, 1);
-
-  const gradTexture = PIXI.Texture.from(canvas);
-  powerBar = new Sprite(gradTexture);
-  powerBar.position.set(dice1.x, dice1.y + dice1.height * 1.03);
-  powerBar.width = dice1.width * 2;
-  powerBar.height = dice1.height / 4;
-
-  // draw power bar indicator
-  powerBarIndicator = new Graphics();
-  powerBarIndicator.beginFill(red);
-  powerBarIndicator.drawRoundedRect(
-    0,
-    0,
-    powerBar.width / 20,
-    dice1.height / 3,
-    4
-  );
-  powerBarIndicator.x = dice1.x;
-  powerBarIndicator.y = dice1.y + dice1.height * 0.99;
-  powerBarIndicator.endFill();
-}
 
 // global variables
 function switchTurns(turn, playerText, playerScoreText) {
@@ -754,24 +704,6 @@ function cardClick(
     app.stage.addChild(playerScoreText[PLAYER_2]);
 
     app.stage.addChild(rollButton);
-    app.stage.addChild(powerBar);
-    app.stage.addChild(powerBarIndicator);
-    powerBarMove = true;
-
-    // move the power bar indicator up and down the power bar
-    let elapsed = 0.0;
-    app.ticker.add((delta) => {
-      // move the powerBar if the move is set to true
-      if (powerBarMove == true) {
-        elapsed += delta;
-        powerBarIndicator.x =
-          Math.cos(elapsed / 20) * (powerBar.width / 2) +
-          (powerBar.width / 2 + powerBar.x * 0.99);
-      } else if (elapsed > 0) {
-        // fix this part, if resetting, the powerBarIndicator should go back to the original x value, while still being able ot freeze
-        elapsed -= delta;
-      }
-    });
   }
 }
 
@@ -795,8 +727,6 @@ function roll(playerText, playerScoreText, scoreboard) {
   audio_roll.pause();
   audio_roll.currentTime = 0;
   audio_roll.play();
-
-  powerBarMove = false;
 
   // making the dice interactive
   dice1.interactive = true;
@@ -848,8 +778,6 @@ function roll(playerText, playerScoreText, scoreboard) {
           rollButton.interactive = true;
 
           // reset power bar, and continue to move it
-          powerBarIndicator.x = dice1.x;
-          powerBarMove = true;
         }
       } else {
         // a card is rolled with chips on it
@@ -870,8 +798,6 @@ function roll(playerText, playerScoreText, scoreboard) {
           rollButton.interactive = true;
 
           // reset power bar, and continue to move it
-          powerBarIndicator.x = dice1.x;
-          powerBarMove = true;
         }
       }
 
@@ -916,6 +842,7 @@ function roll(playerText, playerScoreText, scoreboard) {
         document.getElementById(`r2c${j + 1}`).innerHTML = chipsPlaced2[j];
       }
 
+      document.body.removeChild(app.view);
       document.getElementById("border").hidden = false;
     }
   });
@@ -958,8 +885,6 @@ function chipClick(
         clickableCard = -1;
 
         //reset powerbar indicator
-        powerBarIndicator.x = dice1.x;
-        powerBarMove = true;
       } else {
         audio_misclick.pause();
         audio_misclick.time = 0;
@@ -989,8 +914,6 @@ function chipClick(
         clickableCard = -1;
 
         //reset powerbar indicator
-        powerBarIndicator.x = dice1.x;
-        powerBarMove = true;
       } else {
         audio_misclick.pause();
         audio_misclick.time = 0;
@@ -1005,15 +928,11 @@ function chipClick(
 }
 
 // maybe use pixi tint?
-function swapTheme(dropdown) {
-  theme = dropdown.innerHTML.replace(/\s/g, "").toLowerCase();
-
+function changeTheme() {
   // change to Light Mode
-  if (theme == "lightmode") {
+  if (!document.getElementById("themeTypeSwitch").checked) {
     document.body.style.backgroundColor = "#ffffff";
     charcoal = 0xd3d3d3;
-    document.getElementById("dropdownThemeLabel").innerHTML = "Light Mode";
-    dropdown.innerHTML = "Dark Mode";
 
     document.getElementById("settingsModalContent").classList.remove("bg-dark");
     document
@@ -1026,11 +945,9 @@ function swapTheme(dropdown) {
     document.getElementById("win-header").classList.add("bg-light");
 
     // change to Dark Mode
-  } else if (theme == "darkmode") {
+  } else if (document.getElementById("themeTypeSwitch").checked) {
     document.body.style.backgroundColor = "#666666";
     charcoal = 0xffffff;
-    document.getElementById("dropdownThemeLabel").innerHTML = "Dark Mode";
-    dropdown.innerHTML = "Light Mode";
 
     // update html elemnets to work in dark mode
     document.getElementById("settingsModalContent").classList.add("bg-dark");

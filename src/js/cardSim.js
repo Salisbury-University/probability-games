@@ -579,3 +579,23 @@ function updateChart() {
     .attr("transform", "rotate(-90)")
     .text("Average Rolls per Game");
 }
+
+function changeTheme() {
+  if (!document.getElementById("themeTypeSwitch").checked) {
+    document.body.style.backgroundColor = "#ffffff";
+
+    document.getElementById("settingsModalContent").classList.remove("bg-dark");
+    document
+      .getElementById("settingsModalContent")
+      .classList.remove("text-white");
+
+    // change to Dark Mode
+  } else if (document.getElementById("themeTypeSwitch").checked) {
+    document.body.style.backgroundColor = "#666666";
+    charcoal = 0xffffff;
+
+    // update html elemnets to work in dark mode
+    document.getElementById("settingsModalContent").classList.add("bg-dark");
+    document.getElementById("settingsModalContent").classList.add("text-white");
+  }
+}
