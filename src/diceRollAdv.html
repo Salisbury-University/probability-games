@@ -15,7 +15,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5">How to Play: Game of 27</h1>
+                    <h1 class="modal-title fs-5">How to Play: Weighted Dice Roll</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -79,18 +79,21 @@
                         Music
                     </p>
                     <hr class="featurette-divider" />
-                    <div class="dropdown">
-                        Theme:
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Light Mode
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="#">Dark Mode</a></li>
-                            <li><a class="dropdown-item" href="#">Solarized</a></li>
-                        </ul>
-                    </div>
-                </div>
+					<div class="row text-align">
+						<div class="col-3">
+							<p>Light Theme</p>
+						</div>
+						<div class="col-2">
+							<label class="switch">
+								<input id="themeTypeSwitch" type="checkbox" onclick="changeTheme()">
+								<span class="slider round"></span>
+							</label>
+						</div>
+						<div class="col-3">
+							<p>Dark Theme</p>
+						</div>
+					</div>
+				</div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Close
