@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../css/card.css" type="text/css" />
 
   <!-- favicon stuff -->
   <link rel="apple-touch-icon" sizes="180x180" href="../images/apple-touch-icon.png" />
@@ -22,7 +23,7 @@
   <!-- How to Play Modal -->
   <div class="modal fade" id="howToPlay" tabindex="-1" aria-labelledby="instructionsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-      <div class="modal-content">
+      <div class="modal-content" id="settingsModalContent">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="instructionsModalLabel">
             How to Play
@@ -96,18 +97,22 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <div class="dropdown">
-            Theme:
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              Light Mode
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Dark Mode</a></li>
-              <li><a class="dropdown-item" href="#">Solarized</a></li>
-            </ul>
+          <div class="row text-align">
+            <div class="col-3">
+              <p>Light Theme</p>
+            </div>
+            <div class="col-2">
+              <label class="switch">
+                <input id="themeTypeSwitch" type="checkbox" onclick="changeTheme()" />
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div class="col-3">
+              <p>Dark Theme</p>
+            </div>
           </div>
         </div>
+
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Close
@@ -147,7 +152,7 @@
                 <a class="dropdown-item" href="needles.html">Buffons Needles</a>
               </li>
               <li>
-                <a class="dropdown-item" href="card.html">Sum of Two Dice</a>
+                <a class="dropdown-item" href="card.html">12 Card Game</a>
               </li>
               <li>
                 <a class="dropdown-item" href="dice27.html">Game of 27</a>

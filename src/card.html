@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+  <link rel="stylesheet" href="../css/card.css" type="text/css" />
 
   <!-- favicon stuff -->
   <link rel="apple-touch-icon" sizes="180x180" href="../images/apple-touch-icon.png" />
@@ -50,17 +51,19 @@
             <input type="range" id="volume-control" value="100" autocomplete="off" />
           </p>
           <hr class="featurette-divider" />
-          <div class="dropdown">
-            Theme:
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownThemeLabel"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              Light Mode
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li>
-                <a class="dropdown-item" onclick="swapTheme(this)">Dark Mode</a>
-              </li>
-            </ul>
+          <div class="row text-align">
+            <div class="col-3">
+              <p>Light Theme</p>
+            </div>
+            <div class="col-2">
+              <label class="switch">
+                <input id="themeTypeSwitch" type="checkbox" onclick="changeTheme()" />
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div class="col-3">
+              <p>Dark Theme</p>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
@@ -192,7 +195,7 @@
                   <a class="dropdown-item" href="needles.html">Buffons Needles</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="card.html">Sum of Two Dice</a>
+                  <a class="dropdown-item" href="card.html">12 Card Game</a>
                 </li>
                 <li>
                   <a class="dropdown-item" href="dice27.html">Game of 27</a>
