@@ -95,7 +95,6 @@ function changeTheme() {
 }
 
 function changeDarkTheme() {
-  //document.getElementById("themeType").innerHTML = "Dark Theme";
   //changes top section to dark and text to white
   document.getElementById("topPageSection").style.backgroundColor = "#313b4b";
   document.getElementById("titleSection").style.color = "white";
@@ -108,8 +107,6 @@ function changeDarkTheme() {
 }
 
 function changeLightTheme() {
-  //document.getElementById("themeType").innerHTML = "Light Theme";
-
   //changes top section
   document.getElementById("topPageSection").style.backgroundColor = "#FFEDC9";
   document.getElementById("titleSection").style.color = "black";
@@ -385,6 +382,8 @@ function endTutorial() {
   overlay.style.display = 'none';
 }
 
+
+//second part of tutorial
 function tutorialDisplayOptionalSection() {
   let divClassToModify = document.getElementById("chooseAmountNeedle");
   divClassToModify.setAttribute("hidden", "hidden");
@@ -420,6 +419,7 @@ function tutorialDisplayNeedleAmount() {
 
   divClassToHighlight.forEach(function (div) {
     div.style.backgroundColor = "white";
+    div.style.zIndex = 100;
   });
 
   divClassToModify.hidden = false;
