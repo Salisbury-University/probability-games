@@ -166,56 +166,50 @@
         </nav>
     </header>
 
-
-
-    <div
-        style="background-color: teal;padding-bottom: 5px; border-bottom: 6px solid black;border-top: 6px solid black;">
-
-        <h1 class="centerText">Monty Hall Problem</h1>
-
-        <h5 class="centerText" style="font-size: 12pt; text-decoration: underline; " onclick="testModal()">
-            Click Here To Learn More About Monty Hall Problem And How To Play the Game!</h5>
-    </div>
-
-    <div style="background-color: aquamarine;border-bottom: 1px solid black;">
-        <div class="row" style="width: 80%;margin-left: 15%;padding-bottom: 20px; padding-top: 20px;">
-
-            <div class="col-lg-4 col-md-4 col-xs-4 thumb">
-
-                <img class="img-responsive" onclick="stepOne(0)" src="../images/ClosedDoor1.png" width="300px"
-                    height="300px" alt="Door 1" id="door0">
-
-            </div>
-            <div class="col-lg-4 col-md-4 col-xs-4 thumb">
-
-                <img class="img-responsive" onclick="stepOne(1)" src="../images/ClosedDoor2.png" width="300px"
-                    height="300px" alt="Door 2" id="door1">
-
-            </div>
-            <div class="col-lg-4 col-md-4 col-xs-4 thumb">
-
-                <img class="img-responsive" onclick="stepOne(2)" src="../images/ClosedDoor3.png" width="300px"
-                    height="300px" alt="Door 3" id="door2">
-
+    <!-- the title of the game-->
+    <div class="container-fluid">
+        <div class="row"
+            style="background-color: teal;padding-bottom: 5px; border-bottom: 6px solid black;border-top: 6px solid black;">
+            <div class="col text-center">
+                <h1 class="centerText">Monty Hall Problem</h1>
             </div>
         </div>
+    </div>
+    <!-- the images of the door-->
+    <div class="container-fluid">
+        <div style="background-color: aquamarine;border-bottom: 1px solid black;">
+            <div class="row" style="width: 80%;margin-left: 15%;padding-bottom: 20px; padding-top: 20px;">
 
+                <div class="col-4 thumb">
+                    <img class="img-responsive" onclick="stepOne(0)" src="../images/ClosedDoor1.png" width="300px"
+                        height="300px" alt="Door 1" id="door0">
+                </div>
+                <div class="col-4 thumb">
+                    <img class="img-responsive" onclick="stepOne(1)" src="../images/ClosedDoor2.png" width="300px"
+                        height="300px" alt="Door 2" id="door1">
+                </div>
+                <div class="col-4 thumb">
+                    <img class="img-responsive" onclick="stepOne(2)" src="../images/ClosedDoor3.png" width="300px"
+                        height="300px" alt="Door 3" id="door2">
+                </div>
+            </div>
+
+        </div>
     </div>
 
     <div class="stageSection">
-
         <div class="row" style="text-align: center;;width: 100%;" id="statShow&Hide" hidden="hidden">
-            <div class="col-md-4">
+            <div class="col-4">
                 <h3 id="gamesPlayed" title="Hello, this is the tooltip">Total Games Played: 0 </h3>
                 <h3 id="gamesWon">Total Games Won: 0</h3>
                 <h3 id="gamesLost">Total Games Lost: 0</h3>
             </div>
-            <div class="col-md-4">
+            <div class="col-4">
                 <h3 id="switchDoorsGames">Total games where switched door: 0</h3>
                 <h3 id="switchDoorsWon"> Switched doors and won: 0</h3>
                 <h3 id="switchDoorsLose">Switched doors and lost: 0</h3>
             </div>
-            <div class="col-md-4">
+            <div class="col-4">
                 <h3 id="keptDoorsGames">Total Games where kept door: 0 </h3>
                 <h3 id="keptDoorsWon"> Kept door and won: 0</h3>
                 <h3 id="keptDoorsLose">Kept door and lost: 0 </h3>
@@ -224,7 +218,7 @@
         <div class="centerText" id="stageSectionID">
             <h2 id="titleSentence">Welcome to Monty Hall's Problem!</h2>
             <p class="firstSentence" id="firstSentenceID">There are <b>three</b> doors in front of you. There are
-                <b>two</b> vegetables, and <b>one</b> dessert. 
+                <b>two</b> vegetables, and <b>one</b> dessert.
                 <br>
                 Select A Door!
             </p>
@@ -232,15 +226,8 @@
                 id="playAgainButton">Play Again</button>
             <button type="button" class="btn btn-primary" onclick="intermediateStep()" hidden="hidden"
                 id="continueButton">Continue</button>
-
         </div>
     </div>
-
-
-
-
-    <!-- These are all modals-->
-    <!-- Modal for user to click on -->
 
     <div class="statsSection">
         <!--<h1 class="centerText"> Statistics For Game </h1>-->
