@@ -52,7 +52,7 @@ function playAgain() {
 
     document.getElementById("titleSentence").innerHTML = "Welcome to Monty Hall's Problem!"
     document.getElementById("firstSentenceID").innerHTML = "There are <b>three</b> doors in front of you. There are <b>two</b> vegetables, and <b>one</b> dessert <br> Select A Door!";
-    document.getElementById("continueButton").setAttribute("hidden", "hidden");
+   // document.getElementById("continueButton").setAttribute("hidden", "hidden");
 
     document.getElementById("amountTimesToSwitch").setAttribute("hidden", "hidden");
     document.getElementById("amountTimesToRun").setAttribute("hidden", "hidden");
@@ -310,10 +310,10 @@ function updateStats(x, isKept) {
 } //end of update stats
 
 function prepreSimulate() {
-    document.getElementById("simulateInfo").innerHTML = "Enter how many times would you like to simulate the game in the first textbox below.";
-    document.getElementById("simulateInfo2").innerHTML = "Enter in the second textbox below how many times you would like to switch doors. You can only switch as many times as you play the game.";
+    // document.getElementById("simulateInfo").innerHTML = "Enter how many times would you like to simulate the game in the first textbox below.";
+    // document.getElementById("simulateInfo2").innerHTML = "Enter in the second textbox below how many times you would like to switch doors. You can only switch as many times as you play the game.";
 
-
+    document.getElementById("simulationInputArea").hidden = false;
     //hide the stats buttons
     showStats();
     document.getElementById("showStatsButton").hidden = true;
@@ -361,8 +361,8 @@ function changeToHistory() {
 
 function endSimulation() {
 
+    document.getElementById("simulationInputArea").hidden = true;
     document.getElementById("hideStatsButton").hidden = false;
-    document.getElementById("overlay").style.display = "none";
     document.getElementById("amountTimesToSwitch").setAttribute("hidden", "hidden");
     document.getElementById("amountTimesToRun").setAttribute("hidden", "hidden");
     document.getElementById("simulateRunButton").removeAttribute("hidden");
@@ -378,7 +378,7 @@ function simulateGame() {
 
     var timesSwitched = document.getElementById("amountTimesToSwitch").value;
 
-    document.getElementById("simulateInfo").innerHTML = "Enter how many times would you like to simulate the game in the first textbox below.";
+    // document.getElementById("simulateInfo").innerHTML = "Enter how many times would you like to simulate the game in the first textbox below.";
 
     switchDoor = isKept;
     for (var i = 0; i < timesPlayed; i++) {
@@ -475,3 +475,61 @@ function printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, swit
     else
         document.getElementById("keptDoorsLose").innerHTML = "Kept doors and lost: " + keptDoorLost + " (0%)";
 }//end print stats
+
+//change theme areas
+function changeTheme() {
+    if (document.getElementById("themeTypeSwitch").checked) {
+        changeDarkTheme();
+        console.log("called dark");
+    } else {
+        changeLightTheme();
+        console.log("called light");
+    }
+}
+
+function changeDarkTheme() {
+    //changes top section to dark and text to white
+    // document.getElementById("topPageSection").style.backgroundColor = "#313b4b";
+    let div = document.querySelectorAll("#sectionAforTheme");
+    div.forEach(d => {
+        d.style.backgroundColor = "#313b4b";
+        d.style.color = "white";
+    });
+    //document.getElementById("titleSection").style.color = "white";
+
+    let div2 = document.querySelectorAll("#sectionBforTheme");
+    div2.forEach(d => {
+        d.style.backgroundColor = "#262626";
+        d.style.color = "white";
+    });
+    //document.getElementById("bottomSection").style.backgroundColor = "#313b4b";
+    //document.getElementById("bottomSection").style.color = "white";
+    //document.body.style.backgroundColor = "#262626";
+
+    document.body.style.backgroundColor = "#262626";
+}
+
+function changeLightTheme() {
+    //changes top section
+    //  document.getElementById("topPageSection").style.backgroundColor = "#FFEDC9";
+    //document.getElementById("titleSection").style.color = "black";
+
+    let div = document.querySelectorAll("#sectionAforTheme");
+    div.forEach(d => {
+        d.style.backgroundColor = "#FFEDC9";
+        d.style.color = "black";
+    });
+
+
+    let div2 = document.querySelectorAll("#sectionBforTheme");
+    div2.forEach(d => {
+        d.style.backgroundColor = "#ffd789";
+        d.style.color = "black";
+    });
+
+    //changes bottom section
+    // document.getElementById("bottomSection").style.backgroundColor = "#FFEDC9";
+    //document.getElementById("bottomSection").style.color = "black";
+
+    document.body.style.backgroundColor = "#ffd789";
+}

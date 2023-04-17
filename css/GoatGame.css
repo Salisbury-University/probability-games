@@ -16,22 +16,12 @@ input[type=number] {
   z-index: 50;
 }
 
-
-html {
-  margin: 0px;
-  padding: 0px;
+html{
   height: 100%;
-  width: 100%;
 }
 
-body {
-  overflow: scroll;
-  /* Show scrollbars */
-  margin: 0px;
-  padding: 0px;
+body{
   height: 100%;
-  width: 100%;
-  background-color: grey;
 }
 
 .border {
@@ -65,8 +55,6 @@ body {
 }
 
 .stageSection {
-  border-top: 4pt solid black;
-  background-color: aqua;
   padding-bottom: 10px;
 
 }
