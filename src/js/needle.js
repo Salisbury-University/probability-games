@@ -47,11 +47,11 @@ var needleDropSound = new Audio('../sounds/needleDrop.mp3');
 
 let lineInArray = new PIXI.Graphics(); //created a new line variable to test out working code
 let lineArray = [];//an array of the lineInArray pixi graphics object
-let amountLines = 7;
+let amountLines = 7;//number is visible lines is amountLines + 1
 let lineSpace = windowHeight / amountLines;
 let needleLengthPercent = 0.9;
 let needleLength = lineSpace * needleLengthPercent;
-let yValue = lineSpace; //yValue is space between lines
+let yValue = 0; //yValue is space between lines
 
 needleDropSound.volume = 0.5;
 
@@ -74,7 +74,7 @@ document.getElementById("disableSound").addEventListener("click", function () {
 });
 
 //creates the grid lines of the webpage
-for (let i = 0; i < amountLines - 1; i++) {
+for (let i = 0; i < amountLines+1; i++) {
   line.lineStyle(1, 0x0096FF, 1);
   line.moveTo(0, yValue);
   line.lineTo(windowWidth, yValue);
@@ -88,10 +88,8 @@ for (let i = 0; i < amountLines - 1; i++) {
 
 function changeTheme() {
   if (document.getElementById("themeTypeSwitch").checked) {
-    console.log("Checked");
     changeDarkTheme();
   } else {
-    console.log("Not Checked");
     changeLightTheme();
   }
 }
@@ -121,13 +119,13 @@ function changeLightTheme() {
 }
 
 function changeLines(num) {
-  if (amountLines == 10 && num == 1) {
+  if (amountLines == 9 && num == 1) {
     alert("Can not go over ten lines");
-  } else if (amountLines == 3 && num == -1) {
+  } else if (amountLines == 1 && num == -1) {
     alert("Cannot go lower then two lines");
   } else {
     amountLines += num;
-    document.getElementById("displayNumberGridLines").innerHTML = "Number Grid Lines<br> " + (amountLines-1);
+    document.getElementById("displayNumberGridLines").innerHTML = "Number Grid Lines<br> " + (amountLines+1);
     clearNeedles();
     line.destroy(); //destroy lines to build again
     lines = [];
@@ -135,10 +133,10 @@ function changeLines(num) {
 
     lineSpace = windowHeight / amountLines;
     needleLength = lineSpace * 0.9;
-    yValue = lineSpace; //yValue is space between lines
+    yValue = 0; //yValue is space between lines - starts at 0
 
     //creates the grid lines of the webpage
-    for (let i = 0; i < amountLines - 1; i++) {
+    for (let i = 0; i < amountLines + 1; i++) {
       line.lineStyle(1, 0x0096FF, 1);
       line.moveTo(0, yValue);
       line.lineTo(windowWidth, yValue);
@@ -175,7 +173,7 @@ function guessingPIfunc() {
   //shows result area
   document.getElementById("resultArea").removeAttribute("hidden");
   document.getElementById("userGuessSection").innerHTML = "You guessed: " + document.getElementById("guessingPiNum").value;
-  document.getElementById("percentErrorSection").innerHTML = "Percent Error: " + Math.abs((document.getElementById("guessingPiNum").value - pi) / pi) * 100 + "%";
+  document.getElementById("percentErrorSection").innerHTML = "You were this far off: " + (Math.round((Math.abs((document.getElementById("guessingPiNum").value - pi) / pi) * 100)*100)/100) + "%";
   document.getElementById("guessingPI").setAttribute("hidden", "hidden");
 
   //shows the guess pi button (which brings us back to first page)
