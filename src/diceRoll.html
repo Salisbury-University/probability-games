@@ -80,7 +80,7 @@
 						</div>
 						<div class="col-2">
 							<label class="switch">
-								<input id="themeTypeSwitch" type="checkbox" onclick="changeTheme()">
+								<input id="themeTypeSwitch" type="checkbox">
 								<span class="slider round"></span>
 							</label>
 						</div>
@@ -166,7 +166,7 @@
 		<div class="container text-center">
 			<!--Title of the game-->
 			<div class="row">
-				<h1 id="title">Dice Roll Game</h1>
+				<h1 class="text" id="title">Dice Roll Game</h1>
 			</div>
 			<!-- PixiJS Application-->
 			<div class="row">
@@ -175,12 +175,12 @@
 			<!-- buttons to roll the dice-->
 			<div class="row">
 				<div class="col">
-					<h6 id="single">Single Roll:</h6>
+					<h6 class="text" id="single">Single Roll:</h6>
 					<button type="radio" class="btn btn-primary" id="singleRoll" style="z-index: 500;">Roll
 						Dice</button>
 				</div>
 				<div class="col">
-					<h6 id="multi">Multiple Rolls:</h6>
+					<h6 class="text" id="multi">Multiple Rolls:</h6>
 					<div class="input-group align-items-center">
 						<input type="text" class="form-control" placeholder="Number of Rolls"
 							aria-label="Recipient's username" aria-describedby="multiRoll" id="numberRolls">
@@ -239,7 +239,7 @@
 				</div>
 			</div>
 			<div class="row" id="guessSection">
-				<h1 id="prompt"></h1>
+				<h1 class="text" id="prompt"></h1>
 				<div class="col" id="guessButtons" hidden>
 					<button type="radio" class="btn btn-primary" id="weightedButton">Weighted</button>
 					<button type="radio" class="btn btn-primary" id="notWeightedButton">Not
