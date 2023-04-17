@@ -510,9 +510,6 @@ function changeDarkTheme() {
 }
 
 function changeLightTheme() {
-    //changes top section
-    //  document.getElementById("topPageSection").style.backgroundColor = "#FFEDC9";
-    //document.getElementById("titleSection").style.color = "black";
 
     let div = document.querySelectorAll("#sectionAforTheme");
     div.forEach(d => {
@@ -527,9 +524,35 @@ function changeLightTheme() {
         d.style.color = "black";
     });
 
-    //changes bottom section
-    // document.getElementById("bottomSection").style.backgroundColor = "#FFEDC9";
-    //document.getElementById("bottomSection").style.color = "black";
-
     document.body.style.backgroundColor = "#ffd789";
 }
+
+
+//sound
+wrongSound.volume = 0.5;
+correctSound.volume = 0.5;
+doorOpenSound.volume = 0.5;
+
+window.onload = function () {
+  let volume = document.getElementById("volume-control");
+  volume.addEventListener("input", function (e) {
+    wrongSound.volume = e.currentTarget.value / 100;
+    correctSound.volume = e.currentTarget.value / 100;
+    doorOpenSound.volume = e.currentTarget.value / 100;
+  });
+};
+
+
+document.getElementById("disableSound").addEventListener("click", function () {
+  if (this.checked) {
+    wrongSound.muted = true;
+    correctSound.muted = true;
+    doorOpenSound.muted = true;
+    // Do something when checkbox is checked
+  } else {
+    wrongSound.muted = false;
+    correctSound.muted = true;
+    doorOpenSound.muted = true;
+    // Do something when checkbox is unchecked
+  }
+});
