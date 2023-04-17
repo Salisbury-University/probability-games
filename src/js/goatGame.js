@@ -30,6 +30,28 @@ function testModal() {
     $('#infoModal').modal('show');
 }
 
+function resetStats() {
+    gamesPlayed = 0;
+    gamesWon = 0;
+    gamesLost = 0;
+    keptDoorWon = 0;
+    switchDoors = 0;
+    switchDoorGames = 0;
+    keptDoorsGames = 0;
+    keptDoorLost = 0;
+    switchDoorLost = 0;
+
+    document.getElementById("door0").src = doorImg1;
+    document.getElementById("door1").src = doorImg2;
+    document.getElementById("door2").src = doorImg3;
+
+    document.getElementById("amountTimesToRun").value = "";
+    document.getElementById("amountTimesToSwitch").value = "";
+    
+    printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
+
+}
+
 function playAgain() {
     Doors[0] = 0;
     Doors[1] = 0;
@@ -52,7 +74,7 @@ function playAgain() {
 
     document.getElementById("titleSentence").innerHTML = "Welcome to Monty Hall's Problem!"
     document.getElementById("firstSentenceID").innerHTML = "There are <b>three</b> doors in front of you. There are <b>two</b> vegetables, and <b>one</b> dessert <br> Select A Door!";
-   // document.getElementById("continueButton").setAttribute("hidden", "hidden");
+    // document.getElementById("continueButton").setAttribute("hidden", "hidden");
 
     document.getElementById("amountTimesToSwitch").setAttribute("hidden", "hidden");
     document.getElementById("amountTimesToRun").setAttribute("hidden", "hidden");
@@ -410,28 +432,7 @@ function simulateGame() {
 }//end of simulate game
 
 
-function resetStats() {
-    gamesPlayed = 0;
-    gamesWon = 0;
-    gamesLost = 0;
-    keptDoorWon = 0;
-    switchDoors = 0;
-    switchDoorGames = 0;
-    keptDoorsGames = 0;
-    keptDoorLost = 0;
-    switchDoorLost = 0;
 
-    document.getElementById("door0").src = doorImg1;
-    document.getElementById("door1").src = doorImg2;
-    document.getElementById("door2").src = doorImg3;
-
-    document.getElementById("amountTimesToRun").value = "";
-    document.getElementById("amountTimesToSwitch").value = "";
-
-    playAgain();
-    printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
-
-}
 
 function printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost) {
 
@@ -534,25 +535,25 @@ correctSound.volume = 0.5;
 doorOpenSound.volume = 0.5;
 
 window.onload = function () {
-  let volume = document.getElementById("volume-control");
-  volume.addEventListener("input", function (e) {
-    wrongSound.volume = e.currentTarget.value / 100;
-    correctSound.volume = e.currentTarget.value / 100;
-    doorOpenSound.volume = e.currentTarget.value / 100;
-  });
+    let volume = document.getElementById("volume-control");
+    volume.addEventListener("input", function (e) {
+        wrongSound.volume = e.currentTarget.value / 100;
+        correctSound.volume = e.currentTarget.value / 100;
+        doorOpenSound.volume = e.currentTarget.value / 100;
+    });
 };
 
 
 document.getElementById("disableSound").addEventListener("click", function () {
-  if (this.checked) {
-    wrongSound.muted = true;
-    correctSound.muted = true;
-    doorOpenSound.muted = true;
-    // Do something when checkbox is checked
-  } else {
-    wrongSound.muted = false;
-    correctSound.muted = true;
-    doorOpenSound.muted = true;
-    // Do something when checkbox is unchecked
-  }
+    if (this.checked) {
+        wrongSound.muted = true;
+        correctSound.muted = true;
+        doorOpenSound.muted = true;
+        // Do something when checkbox is checked
+    } else {
+        wrongSound.muted = false;
+        correctSound.muted = true;
+        doorOpenSound.muted = true;
+        // Do something when checkbox is unchecked
+    }
 });
