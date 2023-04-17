@@ -80,7 +80,7 @@ function showStats() {
     document.getElementById("statShow&Hide").removeAttribute("hidden");
     document.getElementById("showStatsButton").setAttribute("hidden", "hidden");
     document.getElementById("hideStatsButton").removeAttribute("hidden");
-    document.getElementById("overlay").display = "block";
+    document.getElementById("overlay").style.display = "block";
 }
 
 function hideStats() {
@@ -88,7 +88,7 @@ function hideStats() {
     document.getElementById("statShow&Hide").setAttribute("hidden", "hidden");
     document.getElementById("hideStatsButton").setAttribute("hidden", "hidden");
     document.getElementById("showStatsButton").removeAttribute("hidden");
-    document.getElementById("overlay").display = "none";
+    document.getElementById("overlay").style.display = "none";
 }
 
 
