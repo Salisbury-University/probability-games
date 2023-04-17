@@ -259,88 +259,38 @@ class CoinGame {
 }
 
 class ScreenManagement {
-	#welcomeScene;
-	#tutorialScene;
-	#tutorialOpenButton;
-	#closeTutorialButton;
-	#nextTutorialButton;
-	#playButton;
-	#tutorialStage = 0;
+	#color;
+	#text;
 
 	constructor() {
-		this.#welcomeScene = document.getElementById("welcomeScene");
-		this.#tutorialScene = document.getElementById("tutorialScene");
-		this.#playButton = document.getElementById("playGame");
-		this.#tutorialOpenButton = document.querySelectorAll(".openTutorial");
-		this.#closeTutorialButton = document.getElementById("closeTutorial");
-		this.#nextTutorialButton = document.getElementById("tutorialNext");
-
+		this.#color = document.getElementById("themeTypeSwitch");
+		this.#text = document.querySelectorAll(".text");
 		this.#setup();
 	}
 	#setup() {
-		this.#playButton.addEventListener('click', () => {
-			this.#closeWelcome();
+		this.#color.addEventListener('click', () => {
+			this.#changeColor();
 		});
-		this.#closeTutorialButton.addEventListener('click', () => {
-			this.#closeTutorial();
-		});
-		this.#nextTutorialButton.addEventListener('click', () => {
-			this.#nextTutorial();
-		});
-		this.#tutorialOpenButton.forEach((button) => {
-			button.addEventListener('click', () => {
-				this.#openTutorial();
-			});
-		});
-
-
 	}
-	#closeWelcome() {
-		this.#welcomeScene.style.display = 'none';
-	}
-	#openTutorial() {
-		this.#closeWelcome();
-		this.#tutorialScene.style.display = 'flex';
-	}
-	#closeTutorial() {
-		this.#tutorialScene.style.display = 'none';
-		this.#tutorialStage = 0;
-	}
-	#nextTutorial() {
-		let tutorialHead = document.getElementById("tutorialHead");
-		let tutorialText = document.getElementById("tutorialText");
-		switch (this.#tutorialStage) {
-			case 0:
-				document.getElementById("singleFlipArea").style.zIndex = 20;
-				tutorialHead.innerHTML = "Flip the Coin a Single Time";
-				tutorialText.innerHTML = "Using this button you can flip the coin a single time."
-				break;
-			case 1:
-				document.getElementById("singleFlipArea").style.zIndex = 0;
-				document.getElementById("multiFlipArea").style.zIndex = 20;
-				tutorialHead.innerHTML = "Flip the Coin a Mulitple Times";
-				tutorialText.innerHTML = "Using the text you can input how many times you would like to flip the coin. Then press the flip button next to it to do so.";
-				break;
-			case 2:
-				//lets try it out
-				break;
-
+	#changeColor() {
+		if (this.#color.checked) {//dark mode
+			document.body.style.backgroundColor = "#262626";
+			for (let i = 0; i < this.#text.length; i++) {
+				this.#text[i].style.color = 'white';
+			}
+		} else {//light mode
+			document.body.style.backgroundColor = "#ffffff";
+			for (let i = 0; i < this.#text.length; i++) {
+				this.#text[i].style.color = 'black';
+			}
 		}
-		this.#tutorialStage++;
 	}
 }
+
 
 
 const game = new CoinGame();
 const screens = new ScreenManagement();
-
-function changeTheme() {
-	if (document.getElementById("themeTypeSwitch").checked) {
-		document.body.style.backgroundColor = "#262626";
-	} else {
-		document.body.style.backgroundColor = "#ffffff";
-	}
-}
 
 
 
