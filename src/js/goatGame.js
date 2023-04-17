@@ -58,9 +58,9 @@ function playAgain() {
     document.getElementById("amountTimesToRun").setAttribute("hidden", "hidden");
     document.getElementById("continueSimulation").setAttribute("hidden", "hidden");
     //reveal new input and continue
-    document.getElementById("simulateRunButton").removeAttribute("hidden");
-    document.getElementById("endSimButton").setAttribute("hidden", "hidden");
-    document.getElementById("simulateRunButton").setAttribute("onclick", "prepreSimulate()");///wtrhjie
+    //document.getElementById("simulateRunButton").removeAttribute("hidden");
+    //document.getElementById("endSimButton").setAttribute("hidden", "hidden");
+    //document.getElementById("simulateRunButton").setAttribute("onclick", "prepreSimulate()");///wtrhjie
     // document.getElementById("amountTimesToRun").removeAttribute("hidden");
 
     document.getElementById("door0").setAttribute("onclick", "stepOne(0)");
@@ -68,8 +68,8 @@ function playAgain() {
     document.getElementById("door2").setAttribute("onclick", "stepOne(2)");
 
     // document.getElementById("stageSectionID").setAttribute("class", "stageSection");
-    document.getElementById("simulateInfo").innerHTML = "Click Simulate Runs to simulate the game!";
-    document.getElementById("simulateInfo2").innerHTML = "";
+    //document.getElementById("simulateInfo").innerHTML = "Click Simulate Runs to simulate the game!";
+    //document.getElementById("simulateInfo2").innerHTML = "";
 
     document.getElementById("playAgainButton").setAttribute("hidden", "hidden");
 
@@ -80,7 +80,7 @@ function showStats() {
     document.getElementById("statShow&Hide").removeAttribute("hidden");
     document.getElementById("showStatsButton").setAttribute("hidden", "hidden");
     document.getElementById("hideStatsButton").removeAttribute("hidden");
-    document.querySelector("overlay").style.display = "block";
+    document.getElementById("overlay").display = "block";
 }
 
 function hideStats() {
@@ -88,6 +88,7 @@ function hideStats() {
     document.getElementById("statShow&Hide").setAttribute("hidden", "hidden");
     document.getElementById("hideStatsButton").setAttribute("hidden", "hidden");
     document.getElementById("showStatsButton").removeAttribute("hidden");
+    document.getElementById("overlay").display = "none";
 }
 
 
@@ -312,24 +313,19 @@ function prepreSimulate() {
     document.getElementById("simulateInfo").innerHTML = "Enter how many times would you like to simulate the game in the first textbox below.";
     document.getElementById("simulateInfo2").innerHTML = "Enter in the second textbox below how many times you would like to switch doors. You can only switch as many times as you play the game.";
 
-    document.getElementById("simulateRunButton").setAttribute("onclick", "prepreSimulate()");
-    //document.getElementById("simulateRunButton").innerHTML ="Run simulation";
+
+    //hide the stats buttons
+    showStats();
+    document.getElementById("showStatsButton").hidden = true;
+    document.getElementById("hideStatsButton").hidden = true;
+
+    //removes buttons to allow simulation be played
     document.getElementById("amountTimesToRun").removeAttribute("hidden");
     document.getElementById("amountTimesToSwitch").removeAttribute("hidden");
     document.getElementById("simulateRunButton").setAttribute("hidden", "hidden");
     document.getElementById("continueSimulation").removeAttribute("hidden");
     document.getElementById("endSimButton").removeAttribute("hidden");
 }
-
-//sets up simulate section -- rename
-function preSimulate() {
-
-    //hide old input and simulate runs
-    document.getElementById("simulateRunButton").setAttribute("hidden", "hidden");
-    //reveal new input and continue
-    document.getElementById("continueSimulation").removeAttribute("hidden");
-}
-
 
 
 //these functions good -- rework simulateGame later
@@ -364,6 +360,9 @@ function changeToHistory() {
 }
 
 function endSimulation() {
+
+    document.getElementById("hideStatsButton").hidden = false;
+    document.getElementById("overlay").style.display = "none";
     document.getElementById("amountTimesToSwitch").setAttribute("hidden", "hidden");
     document.getElementById("amountTimesToRun").setAttribute("hidden", "hidden");
     document.getElementById("simulateRunButton").removeAttribute("hidden");
