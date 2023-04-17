@@ -15,7 +15,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h1 class="modal-title fs-5">How to Play: Game of 27</h1>
+					<h1 class="modal-title fs-5">How to Play: Weighted Dice Roll</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
@@ -25,7 +25,14 @@
 						<li>After each roll of the dice, the table will display which side the dice landed on</li>
 						<li>When done rolling the dice, the player must guess if the dice is weighted or not based on
 							the table results</li>
-						<li>After the player makes their guess, the actual weight of the dice will display</li>
+						<li>If the dice is not weighted, the game will be over, and the player can start rolling the
+							dice
+							in a new game</li>
+						<li>If the dice is weighted, the game will ask the user to guess which side of the dice
+							is the weighted side, and the player will need to click on the side they think is weighted
+						</li>
+						<li>Once the correct side is selected, the player can start rolling the dice again in a new game
+						</li>
 						<li>To start a new game, start rolling the dice again</li>
 					</ol>
 				</div>
@@ -136,7 +143,7 @@
 							<label class="btn btn-outline-primary" for="basic_btn">Basic</label>
 							<input type="radio" class="btn-check" name="btnradio" id="advanced_btn" autocomplete="off"
 								onclick="window.location.href = 'diceRollAdv.html'" />
-							<label class="btn btn-outline-primary" for="advanced_btn">Simulation</label>
+							<label class="btn btn-outline-primary" for="advanced_btn">Advanced</label>
 						</div>
 						<div class="btn-group me-2" role="group" aria-label="Third group">
 							<button type="radio" class="btn btn-primary" data-bs-toggle="modal"
@@ -155,12 +162,11 @@
 			</div>
 		</nav>
 	</header>
-
 	<main>
 		<div class="container text-center">
 			<!--Title of the game-->
 			<div class="row">
-				<h1>Dice Roll Game</h1>
+				<h1 id="title">Dice Roll Game</h1>
 			</div>
 			<!-- PixiJS Application-->
 			<div class="row">
@@ -169,12 +175,12 @@
 			<!-- buttons to roll the dice-->
 			<div class="row">
 				<div class="col">
-					<h6>Single Roll:</h6>
+					<h6 id="single">Single Roll:</h6>
 					<button type="radio" class="btn btn-primary" id="singleRoll" style="z-index: 500;">Roll
 						Dice</button>
 				</div>
 				<div class="col">
-					<h6>Multiple Rolls:</h6>
+					<h6 id="multi">Multiple Rolls:</h6>
 					<div class="input-group align-items-center">
 						<input type="text" class="form-control" placeholder="Number of Rolls"
 							aria-label="Recipient's username" aria-describedby="multiRoll" id="numberRolls">

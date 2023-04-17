@@ -291,10 +291,3 @@ class ScreenManagement {
 
 const game = new CoinGame();
 const screens = new ScreenManagement();
-
-
-
-/* this could be used to have a single javascript file
-const fileName = window.location.pathname.split('/').pop().replace('.html', '');
-console.log(fileName);
-*/
