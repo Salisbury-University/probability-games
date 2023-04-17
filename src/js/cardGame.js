@@ -844,6 +844,7 @@ function roll(playerText, playerScoreText, scoreboard) {
 
       document.body.removeChild(app.view);
       document.getElementById("border").hidden = false;
+      document.getElementById("resetButton").hidden = true;
     }
   });
 }
