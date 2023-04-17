@@ -80,7 +80,7 @@ function showStats() {
     document.getElementById("statShow&Hide").removeAttribute("hidden");
     document.getElementById("showStatsButton").setAttribute("hidden", "hidden");
     document.getElementById("hideStatsButton").removeAttribute("hidden");
-    document.getElementById("overlay").style.display = "block";
+    document.querySelector("overlay").style.display = "block";
 }
 
 function hideStats() {
