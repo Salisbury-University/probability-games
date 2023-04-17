@@ -87,7 +87,7 @@ class CoinGame {
 		let notWeightedButton = document.getElementById('notWeighted');
 		let weightSelectButton = document.getElementById('weightSelectButton');
 		let numberFlipsInput = document.getElementById("numberFlips");
-		let coinDropdown = document.querySelector('#coin-dropdown');
+		let coinDropdown = document.getElementById('coin-dropdown');
 		let coinLinks = document.querySelectorAll('.dropdown-item');
 
 		singleFlipButton.addEventListener('click', () => {
