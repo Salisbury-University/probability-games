@@ -155,6 +155,38 @@
                             <p>Dark Theme</p>
                         </div>
                     </div>
+                    <hr class="featurette-divider" />
+                    <div class="row text-align">
+                        <div class="col-6">
+                            <div class="dropdown">
+                                <h5>Prize Selector (Current Prize)</h5>
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="prizeSelectorDropDown"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Ice Cream
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="prizeSelectorDropDown">
+                                    <li><button class="dropdown-item" onclick="changePrize('iceCream')">Ice
+                                            Cream</button></li>
+                                    <li><button class="dropdown-item" onclick="changePrize('Toy')">Legos</button></li>
+                                    <li><button class="dropdown-item" onclick="changePrize('Money')">Money</button></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="dropdown">
+                                <h5>Trash Selector (Current Trash)</h5>
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="trashSelectorDropDown"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Vegetables
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="trashSelectorDropDown">
+                                    <li><button class="dropdown-item" onclick="changeTrash('vegetable')">Vegetables</button></li>
+                                    <li><button class="dropdown-item" onclick="changeTrash('Trash')">Trash</button></li>
+                                    <li><button class="dropdown-item" onclick="changeTrash('Chores')">Chores</button></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

@@ -1,5 +1,5 @@
-const carImg = "../images/iceCream.png";
-const goatImg = "../images/aspargus.png";
+let carImg = "../images/iceCream.png";
+let goatImg = "../images/aspargus.png";
 const doorImg1 = "../images/ClosedDoor1.png";
 const doorImg2 = "../images/ClosedDoor2.png";
 const doorImg3 = "../images/ClosedDoor3.png";
@@ -25,9 +25,41 @@ var revealGoat = 0;
 var doorOpenSound = new Audio('../sounds/dooropening.mp3');
 var correctSound = new Audio('../sounds/yay.mp3');
 var wrongSound = new Audio('../sounds/boo.mp3');
+let prizeName = "Desert";
+let trashName = "vegetables";
 
-function testModal() {
-    $('#infoModal').modal('show');
+function changePrize(img) {
+    if (img == "iceCream") {
+        carImg = "../images/iceCream.png"
+        document.getElementById("prizeSelectorDropDown").innerHTML = "Ice Cream!";
+        prizeName = "Desert";
+    } else if (img == "Toy") {
+        carImg = "../images/toy.jpg"
+        document.getElementById("prizeSelectorDropDown").innerHTML = "Legos!";
+        prizeName = "Toy";
+    } else if (img == "Money") {
+        carImg = "../images/nickelHead.png"
+        document.getElementById("prizeSelectorDropDown").innerHTML = "Money!";
+        prizeName = "Coin";
+    }
+    playAgain();
+}
+
+function changeTrash(img) {
+    if (img == "vegetable") {
+        goatImg = "../images/aspargus.png"
+        document.getElementById("trashSelectorDropDown").innerHTML = "Vegetables";
+        trashName = "Vegetables";
+    } else if (img == "Trash") {
+        goatImg = "../images/trashBag.jpg"
+        document.getElementById("trashSelectorDropDown").innerHTML = "Trash";
+        trashName = "Trash Bags";
+    } else if (img == "Chores") {
+        goatImg = "../images/chores.jpg"
+        document.getElementById("trashSelectorDropDown").innerHTML = "Chores";
+        trashName = "Chores";
+    }
+    playAgain();
 }
 
 function resetStats() {
@@ -47,7 +79,7 @@ function resetStats() {
 
     document.getElementById("amountTimesToRun").value = "";
     document.getElementById("amountTimesToSwitch").value = "";
-    
+
     printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
 
 }
@@ -73,7 +105,7 @@ function playAgain() {
     document.getElementById("door2").style.boxShadow = "none";
 
     document.getElementById("titleSentence").innerHTML = "Welcome to Monty Hall's Problem!"
-    document.getElementById("firstSentenceID").innerHTML = "There are <b>three</b> doors in front of you. There are <b>two</b> vegetables, and <b>one</b> dessert <br> Select A Door!";
+    document.getElementById("firstSentenceID").innerHTML = "There are <b>three</b> doors in front of you. There are <b>two</b> " + trashName + ", and <b> one</b> " + prizeName + " <br> Select A Door!";
     // document.getElementById("continueButton").setAttribute("hidden", "hidden");
 
     document.getElementById("amountTimesToSwitch").setAttribute("hidden", "hidden");
@@ -141,7 +173,7 @@ function stepOne(doorChose) {
     document.getElementById("door" + doorChose).style.boxShadow = "0 0 100px greenyellow";
 
     //please click door when goat is located
-    document.getElementById("titleSentence").innerHTML = " You chose Door " + (globalDoorChose + 1) + " <br>One vegetable is located at Door " + (revealGoat + 1) + "!"
+    document.getElementById("titleSentence").innerHTML = " You chose Door " + (globalDoorChose + 1) + " <br>One " + trashName + " is located at Door " + (revealGoat + 1) + "!"
     document.getElementById("firstSentenceID").innerHTML = "Can you click on Door " + (revealGoat + 1) + "?";
     document.getElementById(goatDoor).removeAttribute("onclick");
     document.getElementById(OGdoorChoice).removeAttribute("onclick");
@@ -170,7 +202,7 @@ function afterStepOne(revealGoat) {
             document.getElementById("door2").style.borderRadius = "99%";
 
         document.getElementById("titleSentence").innerHTML = "Great Job! <br> Now Make a Choice!"
-        document.getElementById("firstSentenceID").innerHTML = "There is now one vegetable and one dessert left! <br> If you want to keep the Door you chose, then click on <b>Door "
+        document.getElementById("firstSentenceID").innerHTML = "There is now one " + trashName + " and one " + prizeName + " left! <br> If you want to keep the Door you chose, then click on <b>Door "
             + (globalDoorChose + 1) + ". </b><br> Otherwise click on <b>Door " + (doorChoice + 1) + " </b>to switch doors!";
         //document.getElementById("continueButton").removeAttribute("hidden");
 
