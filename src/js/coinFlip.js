@@ -4,7 +4,7 @@ const AUDIO_CORRECT = new Audio("../sounds/point_2.mp3");
 const Graphics = PIXI.Graphics;
 const Sprite = PIXI.Sprite;
 const possibleWeights = [90, 75, 60];
-const imageNames = ["penny", "nickel", "dime", "quarter"];
+const imageNames = ["coin", "penny", "nickel", "dime"];
 
 class WindowInfo {
 	#windowWidth;
@@ -50,24 +50,24 @@ class CoinGame {
 	#app;
 	#coin;
 	#probabliity;
-	#currentHead;
+	#currentCoin = "coin";
 
 	constructor() {
 		this.#window = new WindowInfo();
 		this.#app = new App(this.#window, "app");
 		this.#app.getApp().loader.baseUrl = "../images/";
 		this.#app.getApp().loader
-			.add("side0", "coinHead.png")
-			.add("side1", "coinTail.png")
-			/*.add("pennyHead", "pennyHead.png")
-			.add("pennyTail", "pennyTail.png")
-			.add("nickelHead", "nickelHead.png")
-			.add("nickelTail", "nickelTail.png")
-			.add("dimeHead", "dimeHead.png")
-			.add("dimeTail", "dimeTail.png")*/;
+			.add("coin0", "coinHead.png")
+			.add("coin1", "coinTail.png")
+			.add("penny0", "pennyHead.png")
+			.add("penny1", "pennyTail.png")
+			.add("nickel0", "nickelHead.png")
+			.add("nickel1", "nickelTail.png")
+			.add("dime0", "dimeHead.png")
+			.add("dime1", "dimeTail.png");
 		this.#app.getApp().loader.load();
 
-		this.#coin = new Sprite(this.#app.getApp().loader.resources["side1"].texture);
+		this.#coin = new Sprite(this.#app.getApp().loader.resources["coin0"].texture);
 		this.#coin.x = (this.#window.getWindowWidth() / 2) - 65;
 		this.#app.getApp().stage.addChild(this.#coin);
 		this.#app.appendApp();
@@ -87,6 +87,8 @@ class CoinGame {
 		let notWeightedButton = document.getElementById('notWeighted');
 		let weightSelectButton = document.getElementById('weightSelectButton');
 		let numberFlipsInput = document.getElementById("numberFlips");
+		let coinDropdown = document.getElementById('coin-dropdown');
+		let coinLinks = document.querySelectorAll('.dropdown-item');
 
 		singleFlipButton.addEventListener('click', () => {
 			this.#flip(0);
@@ -110,9 +112,31 @@ class CoinGame {
 
 			}
 		});
-	}
-	#changeCoin() {
+		coinLinks.forEach(link => {
+			link.addEventListener('click', () => {
+				//grabs the data-coin from dropdown
+				let selectedCoin = link.dataset.coin;
+				//grabs the textContent of the dropdown title
+				let tempText = coinDropdown.textContent;
 
+				//update button text
+				coinDropdown.textContent = selectedCoin;
+				//hide and show new option
+				document.getElementById(selectedCoin).hidden = true;
+				document.getElementById(tempText).hidden = false;
+
+				//close the dopdown menu
+				this.#changeCoin(selectedCoin);
+				coinDropdown.click();
+			});
+		});
+	}
+	#changeCoin(name) {
+		name = name.toLowerCase();
+		this.#currentCoin = name;
+		this.#coin.texture = this.#app.getApp().loader.resources[`${this.#currentCoin}0`].texture;
+		document.getElementById("headCard").src = `../images/${name}Head.png`;
+		document.getElementById("tailCard").src = `../images/${name}Tail.png`;
 	}
 	#isWeighted() {
 		let isWeighted = Math.random() < 0.5;
@@ -164,11 +188,11 @@ class CoinGame {
 		this.#app.getApp().ticker.add(() => {
 			if (ticks % 5 == 0 && ticks < 50) {
 				flipValue = flipValue === 0 ? 1 : 0;
-				this.#coin.texture = this.#app.getApp().loader.resources[`side${flipValue}`].texture;
+				this.#coin.texture = this.#app.getApp().loader.resources[`${this.#currentCoin}${flipValue}`].texture;
 			}
 			else if (ticks == 50) {
 				flipValue = this.#flipCoin();
-				this.#coin.texture = this.#app.getApp().loader.resources[`side${flipValue}`].texture;
+				this.#coin.texture = this.#app.getApp().loader.resources[`${this.#currentCoin}${flipValue}`].texture;
 				this.#totals[flipValue]++;
 				if (check == 1) {
 					this.#multi();
@@ -235,110 +259,34 @@ class CoinGame {
 }
 
 class ScreenManagement {
-	#welcomeScene;
-	#tutorialScene;
-	#tutorialOpenButton;
-	#closeTutorialButton;
-	#nextTutorialButton;
-	#playButton;
-	#tutorialStage = 0;
+	#color;
+	#text;
 
 	constructor() {
-		this.#welcomeScene = document.getElementById("welcomeScene");
-		this.#tutorialScene = document.getElementById("tutorialScene");
-		this.#playButton = document.getElementById("playGame");
-		this.#tutorialOpenButton = document.querySelectorAll(".openTutorial");
-		this.#closeTutorialButton = document.getElementById("closeTutorial");
-		this.#nextTutorialButton = document.getElementById("tutorialNext");
-
+		this.#color = document.getElementById("themeTypeSwitch");
+		this.#text = document.querySelectorAll(".text");
 		this.#setup();
 	}
 	#setup() {
-		this.#playButton.addEventListener('click', () => {
-			this.#closeWelcome();
+		this.#color.addEventListener('click', () => {
+			this.#changeColor();
 		});
-		this.#closeTutorialButton.addEventListener('click', () => {
-			this.#closeTutorial();
-		});
-		this.#nextTutorialButton.addEventListener('click', () => {
-			this.#nextTutorial();
-		});
-		this.#tutorialOpenButton.forEach((button) => {
-			button.addEventListener('click', () => {
-				this.#openTutorial();
-			});
-		});
-
-
 	}
-	#closeWelcome() {
-		this.#welcomeScene.style.display = 'none';
-	}
-	#openTutorial() {
-		this.#closeWelcome();
-		this.#tutorialScene.style.display = 'flex';
-	}
-	#closeTutorial() {
-		this.#tutorialScene.style.display = 'none';
-		this.#tutorialStage = 0;
-	}
-	#nextTutorial() {
-		let tutorialHead = document.getElementById("tutorialHead");
-		let tutorialText = document.getElementById("tutorialText");
-		switch (this.#tutorialStage) {
-			case 0:
-				document.getElementById("singleFlipArea").style.zIndex = 20;
-				tutorialHead.innerHTML = "Flip the Coin a Single Time";
-				tutorialText.innerHTML = "Using this button you can flip the coin a single time."
-				break;
-			case 1:
-				document.getElementById("singleFlipArea").style.zIndex = 0;
-				document.getElementById("multiFlipArea").style.zIndex = 20;
-				tutorialHead.innerHTML = "Flip the Coin a Mulitple Times";
-				tutorialText.innerHTML = "Using the text you can input how many times you would like to flip the coin. Then press the flip button next to it to do so.";
-				break;
-			case 2:
-				//lets try it out
-				break;
-
+	#changeColor() {
+		if (this.#color.checked) {//dark mode
+			document.body.style.backgroundColor = "#262626";
+			for (let i = 0; i < this.#text.length; i++) {
+				this.#text[i].style.color = 'white';
+			}
+		} else {//light mode
+			document.body.style.backgroundColor = "#ffffff";
+			for (let i = 0; i < this.#text.length; i++) {
+				this.#text[i].style.color = 'black';
+			}
 		}
-		this.#tutorialStage++;
 	}
 }
 
 
 const game = new CoinGame();
 const screens = new ScreenManagement();
-
-function changeTheme() {
-    if (document.getElementById("themeTypeSwitch").checked) {
-      console.log("Checked");
-      changeDarkTheme();
-    } else {
-      console.log("Not Checked");
-      changeLightTheme();
-    }
-  }
-  
-  function changeDarkTheme() {
-    document.body.style.backgroundColor = "#313b4b";
-    document.getElementById("title").style.color = "white";
-    document.getElementById("single").style.color = "white";
-    document.getElementById("multi").style.color = "white";
-    document.getElementById("prompt").style.color = "white";
-  }
-  
-  function changeLightTheme() {  
-    document.body.style.backgroundColor = "#ffd789";
-    document.getElementById("title").style.color = "black";
-    document.getElementById("single").style.color = "black";
-    document.getElementById("multi").style.color = "black";
-    document.getElementById("prompt").style.color = "black";
-  }
-
-
-
-/* this could be used to have a single javascript file
-const fileName = window.location.pathname.split('/').pop().replace('.html', '');
-console.log(fileName);
-*/

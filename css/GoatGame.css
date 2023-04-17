@@ -16,22 +16,12 @@ input[type=number] {
   z-index: 50;
 }
 
-
-html {
-  margin: 0px;
-  padding: 0px;
+html{
   height: 100%;
-  width: 100%;
 }
 
-body {
-  overflow: scroll;
-  /* Show scrollbars */
-  margin: 0px;
-  padding: 0px;
+body{
   height: 100%;
-  width: 100%;
-  background-color: grey;
 }
 
 .border {
@@ -49,15 +39,19 @@ body {
   padding-bottom: 8px;
 }
 
-.biggerText {
-  font-size: 24pt;
+#overlay {
+  position: fixed;
+  top: 10%;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.0);
+  z-index: 100;
 }
 
-.stageSection {
-  border-top: 4pt solid black;
-  background-color: aqua;
-  padding-bottom: 10px;
-
+.biggerText {
+  font-size: 24pt;
 }
 
 .firstSentence {

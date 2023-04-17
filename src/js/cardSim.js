@@ -245,7 +245,6 @@ function simulate() {
 
   // create a simulation object
   // alter "results section to say Simulating... with a loading thingy"
-  document.getElementById("middle_heading").innerHTML = "Simulating...";
   sim = new SumOfDiceSimulation(simConf);
   updateLogs(
     sim.getMinRolls(),
@@ -266,19 +265,20 @@ function simulate() {
     "Min Rolls: " + sim.getMinRolls();
   document.getElementById("total_label").innerHTML =
     "Total Rolls: " + sim.getTotalRolls();
-  document.getElementById("middle_heading").innerHTML = "Results";
+
   // delete the sim object
   delete sim;
 
   // update chart
   updateChart();
-  let temp = [];
 
   //update array linked to each bar in the chart
+  let temp = [];
   for (let i = 0; i < 11; i++) {
     temp[i] = simConf.get("chipsPlaced")[i];
   }
 
+  // track distributions in the chart
   chartedDistributions.unshift(temp);
 
   // re-enable all the html elments
@@ -297,20 +297,18 @@ function switchDistribution(ele) {
   if (Number(newDist.split(" ")[1]) == 0) {
     document.getElementById("saveButton").innerHTML = "Save Distribution";
   } else {
-    document.getElementById(
-      "saveButton"
-    ).innerHTML = `Overwrite Distribution ${Number(newDist.split(" ")[1])}`;
+    document.getElementById("saveButton").innerHTML = `Overwrite Distribution`;
   }
 
   loadDistribution(newDist);
 }
 
-// load a distribution from the distributions map
+// load a distribution from the distributions map, add it so that delete button updates
 function loadDistribution(html) {
   let distNo = Number(html.split(" ")[1]);
 
   // don't load a new [undefined] distribution
-  if (distNo != 0) {
+  if (!isNaN(distNo)) {
     let dist = distributions.get(`Distribution${distNo}`);
 
     for (let i = 0; i < 11; i++) {
@@ -323,6 +321,10 @@ function loadDistribution(html) {
     simConf.set("totalChipsPlaced", 10);
     updateRemainingChips(0);
     updateSimulateButton();
+    document.getElementById("delButton").disabled = false;
+  } else {
+    document.getElementById("delButton").disabled = true;
+    document.getElementById("saveButton").innerHTML = "Save New Distribution";
   }
 }
 
@@ -332,7 +334,7 @@ function saveDistribution() {
   let distName = dropdown.innerHTML.replace(/\s/g, "");
 
   // if creating a new distribution
-  if (distName == "NewDistribution") {
+  if (distName == "DistributionSelection") {
     // save preset
     distName = `Distribution${distCounter + 1}`;
 
@@ -348,7 +350,9 @@ function saveDistribution() {
 
     // create new Distribution HTML with the stuff
     newDistribution = document.createElement("li");
-    newDistribution.innerHTML = `<p class="dropdown-item" onclick="switchDistribution(this);">Distribution ${
+    newDistribution.innerHTML = `<p class="dropdown-item" id="d${
+      distCounter + 1
+    }" onclick="switchDistribution(this);">Distribution ${
       distCounter + 1
     }</p> `;
 
@@ -368,6 +372,25 @@ function saveDistribution() {
   }
 
   // add a message 'distribution saved as preset #'
+}
+
+// delete one of the saved distributions
+function deleteDistribution() {
+  // get current distribution
+  distNo = Number(
+    document.getElementById("distDropdown").innerHTML.split(" ")[1]
+  );
+
+  // remove it from array, and decrement counter
+  if (distNo != 0) {
+    document.getElementById(`d${distNo}`).remove();
+    // update dropdown innerHTML
+    document.getElementById("distDropdown").innerHTML =
+      "Distribution Selection";
+  }
+  document.getElementById("delButton").disabled = true;
+  document.getElementById("saveButton").innerHTML = "Save New Distribution";
+  // disable delete button
 }
 
 // randomly place chips on the cards

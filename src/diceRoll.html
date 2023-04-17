@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="../css/diceRoll.css" type="text/css" />
 </head>
 
-<body style="background-color: #ffd789;">
+<body>
 	<!-- How to Play Modal -->
 	<div class="modal fade" id="howToPlay" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog">
@@ -25,18 +25,18 @@
 						<li>After each roll of the dice, the table will display which side the dice landed on</li>
 						<li>When done rolling the dice, the player must guess if the dice is weighted or not based on
 							the table results</li>
-						<li>If the dice is not weighted, the game will be over, and the player can start rolling the dice 
+						<li>If the dice is not weighted, the game will be over, and the player can start rolling the
+							dice
 							in a new game</li>
 						<li>If the dice is weighted, the game will ask the user to guess which side of the dice
 							is the weighted side, and the player will need to click on the side they think is weighted
-						</li>	
-						<li>Once the correct side is selected, the player can start rolling the dice again in a new game</li>
+						</li>
+						<li>Once the correct side is selected, the player can start rolling the dice again in a new game
+						</li>
 						<li>To start a new game, start rolling the dice again</li>
 					</ol>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-						id="openTutorial">Tutorial</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -74,22 +74,13 @@
 						<input type="range" id="volume-control" value="100" />
 					</p>
 					<hr class="featurette-divider" />
-					<p>
-						<input class="form-check-input m-1" type="checkbox" autocomplete="off" id="randPlacements" />
-						Sound Effects
-					</p>
-					<p>
-						<input class="form-check-input m-1" type="checkbox" autocomplete="off" id="muteBtn" />
-						Music
-					</p>
-					<hr class="featurette-divider" />
 					<div class="row text-align">
 						<div class="col-3">
 							<p>Light Theme</p>
 						</div>
 						<div class="col-2">
 							<label class="switch">
-								<input id="themeTypeSwitch" type="checkbox" onclick="changeTheme()">
+								<input id="themeTypeSwitch" type="checkbox">
 								<span class="slider round"></span>
 							</label>
 						</div>
@@ -130,7 +121,7 @@
 								<li><a class="dropdown-item" href="coinFlip.html">Coin Flip</a></li>
 								<li><a class="dropdown-item" href="GoatGame.html">Monty Hall Problem</a></li>
 								<li><a class="dropdown-item" href="needles.html">Buffons Needles</a></li>
-								<li><a class="dropdown-item" href="card.html">12 Card Game</a></li>
+								<li><a class="dropdown-item" href="card.html">Sum of Two Dice</a></li>
 								<li><a class="dropdown-item" href="dice27.html">Game of 27</a></li>
 							</ul>
 						</li>
@@ -171,33 +162,11 @@
 			</div>
 		</nav>
 	</header>
-	<div class="welcome-scene" id="start" style="background-color: #ffd789;">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 offset-md-3 text-center">
-					<h1 id="startMsg1">Welcome to the Dice Rolling Game!</h1>
-					<p id="startMsg2">Click the button below to start rolling the dice:</p>
-					<button class="btn btn-success" id="close-welcome">Play</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="tutorial">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 offset-md-3 text-center">
-					<h1>Welcome to Dice Rolling Game Tutorial</h1>
-					<p>Click the button below to begin</p>
-					<button class="btn btn-success" id="closeTutorial">Play</button>
-				</div>
-			</div>
-		</div>
-	</div>
 	<main>
 		<div class="container text-center">
 			<!--Title of the game-->
 			<div class="row">
-				<h1 id="title">Dice Roll Game</h1>
+				<h1 class="text" id="title">Dice Roll Game</h1>
 			</div>
 			<!-- PixiJS Application-->
 			<div class="row">
@@ -206,12 +175,12 @@
 			<!-- buttons to roll the dice-->
 			<div class="row">
 				<div class="col">
-					<h6 id="single">Single Roll:</h6>
+					<h6 class="text" id="single">Single Roll:</h6>
 					<button type="radio" class="btn btn-primary" id="singleRoll" style="z-index: 500;">Roll
 						Dice</button>
 				</div>
 				<div class="col">
-					<h6 id="multi">Multiple Rolls:</h6>
+					<h6 class="text" id="multi">Multiple Rolls:</h6>
 					<div class="input-group align-items-center">
 						<input type="text" class="form-control" placeholder="Number of Rolls"
 							aria-label="Recipient's username" aria-describedby="multiRoll" id="numberRolls">
@@ -270,7 +239,7 @@
 				</div>
 			</div>
 			<div class="row" id="guessSection">
-				<h1 id="prompt"></h1>
+				<h1 class="text" id="prompt"></h1>
 				<div class="col" id="guessButtons" hidden>
 					<button type="radio" class="btn btn-primary" id="weightedButton">Weighted</button>
 					<button type="radio" class="btn btn-primary" id="notWeightedButton">Not

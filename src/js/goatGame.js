@@ -30,6 +30,28 @@ function testModal() {
     $('#infoModal').modal('show');
 }
 
+function resetStats() {
+    gamesPlayed = 0;
+    gamesWon = 0;
+    gamesLost = 0;
+    keptDoorWon = 0;
+    switchDoors = 0;
+    switchDoorGames = 0;
+    keptDoorsGames = 0;
+    keptDoorLost = 0;
+    switchDoorLost = 0;
+
+    document.getElementById("door0").src = doorImg1;
+    document.getElementById("door1").src = doorImg2;
+    document.getElementById("door2").src = doorImg3;
+
+    document.getElementById("amountTimesToRun").value = "";
+    document.getElementById("amountTimesToSwitch").value = "";
+    
+    printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
+
+}
+
 function playAgain() {
     Doors[0] = 0;
     Doors[1] = 0;
@@ -52,15 +74,15 @@ function playAgain() {
 
     document.getElementById("titleSentence").innerHTML = "Welcome to Monty Hall's Problem!"
     document.getElementById("firstSentenceID").innerHTML = "There are <b>three</b> doors in front of you. There are <b>two</b> vegetables, and <b>one</b> dessert <br> Select A Door!";
-    document.getElementById("continueButton").setAttribute("hidden", "hidden");
+    // document.getElementById("continueButton").setAttribute("hidden", "hidden");
 
     document.getElementById("amountTimesToSwitch").setAttribute("hidden", "hidden");
     document.getElementById("amountTimesToRun").setAttribute("hidden", "hidden");
     document.getElementById("continueSimulation").setAttribute("hidden", "hidden");
     //reveal new input and continue
-    document.getElementById("simulateRunButton").removeAttribute("hidden");
-    document.getElementById("endSimButton").setAttribute("hidden","hidden");
-    document.getElementById("simulateRunButton").setAttribute("onclick","prepreSimulate()");///wtrhjie
+    //document.getElementById("simulateRunButton").removeAttribute("hidden");
+    //document.getElementById("endSimButton").setAttribute("hidden", "hidden");
+    //document.getElementById("simulateRunButton").setAttribute("onclick", "prepreSimulate()");///wtrhjie
     // document.getElementById("amountTimesToRun").removeAttribute("hidden");
 
     document.getElementById("door0").setAttribute("onclick", "stepOne(0)");
@@ -68,8 +90,8 @@ function playAgain() {
     document.getElementById("door2").setAttribute("onclick", "stepOne(2)");
 
     // document.getElementById("stageSectionID").setAttribute("class", "stageSection");
-    document.getElementById("simulateInfo").innerHTML = "Click Simulate Runs to simulate the game!";
-    document.getElementById("simulateInfo2").innerHTML = "";
+    //document.getElementById("simulateInfo").innerHTML = "Click Simulate Runs to simulate the game!";
+    //document.getElementById("simulateInfo2").innerHTML = "";
 
     document.getElementById("playAgainButton").setAttribute("hidden", "hidden");
 
@@ -80,6 +102,7 @@ function showStats() {
     document.getElementById("statShow&Hide").removeAttribute("hidden");
     document.getElementById("showStatsButton").setAttribute("hidden", "hidden");
     document.getElementById("hideStatsButton").removeAttribute("hidden");
+    document.getElementById("overlay").style.display = "block";
 }
 
 function hideStats() {
@@ -87,6 +110,7 @@ function hideStats() {
     document.getElementById("statShow&Hide").setAttribute("hidden", "hidden");
     document.getElementById("hideStatsButton").setAttribute("hidden", "hidden");
     document.getElementById("showStatsButton").removeAttribute("hidden");
+    document.getElementById("overlay").style.display = "none";
 }
 
 
@@ -117,7 +141,7 @@ function stepOne(doorChose) {
     document.getElementById("door" + doorChose).style.boxShadow = "0 0 100px greenyellow";
 
     //please click door when goat is located
-    document.getElementById("titleSentence").innerHTML = "One vegetable is located at Door " + (revealGoat + 1) + "!"
+    document.getElementById("titleSentence").innerHTML = " You chose Door " + (globalDoorChose + 1) + " <br>One vegetable is located at Door " + (revealGoat + 1) + "!"
     document.getElementById("firstSentenceID").innerHTML = "Can you click on Door " + (revealGoat + 1) + "?";
     document.getElementById(goatDoor).removeAttribute("onclick");
     document.getElementById(OGdoorChoice).removeAttribute("onclick");
@@ -145,36 +169,25 @@ function afterStepOne(revealGoat) {
         else
             document.getElementById("door2").style.borderRadius = "99%";
 
-        document.getElementById("titleSentence").innerHTML = "Great Job!"
-        document.getElementById("firstSentenceID").innerHTML = "There is now one vegetable and one dessert left!";
-        document.getElementById("continueButton").removeAttribute("hidden");
+        document.getElementById("titleSentence").innerHTML = "Great Job! <br> Now Make a Choice!"
+        document.getElementById("firstSentenceID").innerHTML = "There is now one vegetable and one dessert left! <br> If you want to keep the Door you chose, then click on <b>Door "
+            + (globalDoorChose + 1) + ". </b><br> Otherwise click on <b>Door " + (doorChoice + 1) + " </b>to switch doors!";
+        //document.getElementById("continueButton").removeAttribute("hidden");
+
+        //remove onclick for other two doors
+        let totalDoor = 5;
+        totalDoor -= revealGoat + 1;
+        totalDoor -= globalDoorChose + 1;
+
+        var otherDoor = "door" + totalDoor;
+        var userDoor = "door" + globalDoorChose;
+
+        document.getElementById(otherDoor).removeAttribute("onclick");
+        document.getElementById(userDoor).removeAttribute("onclick");
+
+        document.getElementById(otherDoor).setAttribute("onclick", "determineKeep(0)");
+        document.getElementById(userDoor).setAttribute("onclick", "determineKeep(1)");
     }, 250);
-
-
-}
-
-function intermediateStep() {
-
-    //tell user to either click same door to keep or other door to switch
-    document.getElementById("titleSentence").innerHTML = "Make a choice!"
-
-    document.getElementById("continueButton").setAttribute("hidden", "hidden");
-    document.getElementById("firstSentenceID").innerHTML = "If you want to keep the Door you choose, then click on <b>Door "
-        + (globalDoorChose + 1) + ". </b><br> Otherwise click on <b>Door " + (doorChoice + 1) + " </b>to switch doors!";
-
-    //remove onclick for other two doors
-    let totalDoor = 5;
-    totalDoor -= revealGoat + 1;
-    totalDoor -= globalDoorChose + 1;
-
-    var otherDoor = "door" + totalDoor;
-    var userDoor = "door" + globalDoorChose;
-
-    document.getElementById(otherDoor).removeAttribute("onclick");
-    document.getElementById(userDoor).removeAttribute("onclick");
-
-    document.getElementById(otherDoor).setAttribute("onclick", "determineKeep(0)");
-    document.getElementById(userDoor).setAttribute("onclick", "determineKeep(1)");
 }
 
 function secondIntermediate() {
@@ -319,33 +332,22 @@ function updateStats(x, isKept) {
 } //end of update stats
 
 function prepreSimulate() {
-    document.getElementById("simulateInfo").innerHTML = "Enter how many times would you like to simulate the game in the first textbox below.";
-    document.getElementById("simulateInfo2").innerHTML = "Enter in the second textbox below how many times you would like to switch doors. You can only switch as many times as you play the game.";
-    
-    document.getElementById("simulateRunButton").setAttribute("onclick", "prepreSimulate()");
-    //document.getElementById("simulateRunButton").innerHTML ="Run simulation";
+    // document.getElementById("simulateInfo").innerHTML = "Enter how many times would you like to simulate the game in the first textbox below.";
+    // document.getElementById("simulateInfo2").innerHTML = "Enter in the second textbox below how many times you would like to switch doors. You can only switch as many times as you play the game.";
+
+    document.getElementById("simulationInputArea").hidden = false;
+    //hide the stats buttons
+    showStats();
+    document.getElementById("showStatsButton").hidden = true;
+    document.getElementById("hideStatsButton").hidden = true;
+
+    //removes buttons to allow simulation be played
     document.getElementById("amountTimesToRun").removeAttribute("hidden");
     document.getElementById("amountTimesToSwitch").removeAttribute("hidden");
     document.getElementById("simulateRunButton").setAttribute("hidden", "hidden");
     document.getElementById("continueSimulation").removeAttribute("hidden");
     document.getElementById("endSimButton").removeAttribute("hidden");
 }
-
-//sets up simulate section -- rename
-function preSimulate() {
-
-    //hide old input and simulate runs
-    document.getElementById("simulateRunButton").setAttribute("hidden", "hidden");
-    //document.getElementById("amountTimesToRun").setAttribute("hidden", "hidden");
-    //reveal new input and continue
-    //document.getElementById("amountTimesToSwitch").removeAttribute("hidden");
-    document.getElementById("continueSimulation").removeAttribute("hidden");
-  //  document.getElementById("simulateInfo").innerHTML = "Enter in the textbox below how many times you would like to switch doors. " +
-    //    "Enter up to " + document.getElementById("amountTimesToRun").value;
-
-    // document.getElementById("stageSectionID").setAttribute("hidden", "hidden");
-}
-
 
 
 //these functions good -- rework simulateGame later
@@ -379,12 +381,15 @@ function changeToHistory() {
     document.getElementById("buttonHowToPlay").removeAttribute("hidden");
 }
 
-function endSimulation(){
+function endSimulation() {
+
+    document.getElementById("simulationInputArea").hidden = true;
+    document.getElementById("hideStatsButton").hidden = false;
     document.getElementById("amountTimesToSwitch").setAttribute("hidden", "hidden");
     document.getElementById("amountTimesToRun").setAttribute("hidden", "hidden");
     document.getElementById("simulateRunButton").removeAttribute("hidden");
-    document.getElementById("endSimButton").setAttribute("hidden","hidden");
-    document.getElementById("continueSimulation").setAttribute("hidden","hidden");
+    document.getElementById("endSimButton").setAttribute("hidden", "hidden");
+    document.getElementById("continueSimulation").setAttribute("hidden", "hidden");
 }
 
 function simulateGame() {
@@ -395,13 +400,7 @@ function simulateGame() {
 
     var timesSwitched = document.getElementById("amountTimesToSwitch").value;
 
-    document.getElementById("simulateInfo").innerHTML = "Enter how many times would you like to simulate the game in the first textbox below.";
-
-    //document.getElementById("amountTimesToSwitch").setAttribute("hidden", "hidden");
-    //document.getElementById("continueSimulation").setAttribute("hidden", "hidden");
-    //reveal new input and continue
-    //document.getElementById("simulateRunButton").removeAttribute("hidden");
-   // document.getElementById("amountTimesToRun").removeAttribute("hidden");
+    // document.getElementById("simulateInfo").innerHTML = "Enter how many times would you like to simulate the game in the first textbox below.";
 
     switchDoor = isKept;
     for (var i = 0; i < timesPlayed; i++) {
@@ -433,28 +432,7 @@ function simulateGame() {
 }//end of simulate game
 
 
-function resetStats() {
-    gamesPlayed = 0;
-    gamesWon = 0;
-    gamesLost = 0;
-    keptDoorWon = 0;
-    switchDoors = 0;
-    switchDoorGames = 0;
-    keptDoorsGames = 0;
-    keptDoorLost = 0;
-    switchDoorLost = 0;
 
-    document.getElementById("door0").src = doorImg1;
-    document.getElementById("door1").src = doorImg2;
-    document.getElementById("door2").src = doorImg3;
-
-    document.getElementById("amountTimesToRun").value = "";
-    document.getElementById("amountTimesToSwitch").value = "";
-
-    playAgain();
-    printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
-
-}
 
 function printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost) {
 
@@ -498,3 +476,84 @@ function printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, swit
     else
         document.getElementById("keptDoorsLose").innerHTML = "Kept doors and lost: " + keptDoorLost + " (0%)";
 }//end print stats
+
+//change theme areas
+function changeTheme() {
+    if (document.getElementById("themeTypeSwitch").checked) {
+        changeDarkTheme();
+        console.log("called dark");
+    } else {
+        changeLightTheme();
+        console.log("called light");
+    }
+}
+
+function changeDarkTheme() {
+    //changes top section to dark and text to white
+    // document.getElementById("topPageSection").style.backgroundColor = "#313b4b";
+    let div = document.querySelectorAll("#sectionAforTheme");
+    div.forEach(d => {
+        d.style.backgroundColor = "#313b4b";
+        d.style.color = "white";
+    });
+    //document.getElementById("titleSection").style.color = "white";
+
+    let div2 = document.querySelectorAll("#sectionBforTheme");
+    div2.forEach(d => {
+        d.style.backgroundColor = "#262626";
+        d.style.color = "white";
+    });
+    //document.getElementById("bottomSection").style.backgroundColor = "#313b4b";
+    //document.getElementById("bottomSection").style.color = "white";
+    //document.body.style.backgroundColor = "#262626";
+
+    document.body.style.backgroundColor = "#262626";
+}
+
+function changeLightTheme() {
+
+    let div = document.querySelectorAll("#sectionAforTheme");
+    div.forEach(d => {
+        d.style.backgroundColor = "#FFEDC9";
+        d.style.color = "black";
+    });
+
+
+    let div2 = document.querySelectorAll("#sectionBforTheme");
+    div2.forEach(d => {
+        d.style.backgroundColor = "#ffd789";
+        d.style.color = "black";
+    });
+
+    document.body.style.backgroundColor = "#ffd789";
+}
+
+
+//sound
+wrongSound.volume = 0.5;
+correctSound.volume = 0.5;
+doorOpenSound.volume = 0.5;
+
+window.onload = function () {
+    let volume = document.getElementById("volume-control");
+    volume.addEventListener("input", function (e) {
+        wrongSound.volume = e.currentTarget.value / 100;
+        correctSound.volume = e.currentTarget.value / 100;
+        doorOpenSound.volume = e.currentTarget.value / 100;
+    });
+};
+
+
+document.getElementById("disableSound").addEventListener("click", function () {
+    if (this.checked) {
+        wrongSound.muted = true;
+        correctSound.muted = true;
+        doorOpenSound.muted = true;
+        // Do something when checkbox is checked
+    } else {
+        wrongSound.muted = false;
+        correctSound.muted = true;
+        doorOpenSound.muted = true;
+        // Do something when checkbox is unchecked
+    }
+});

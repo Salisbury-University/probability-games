@@ -9,36 +9,112 @@
 	<link rel="stylesheet" href="../css/coinFlip.css" type="text/css" />
 </head>
 
-<body style="background-color: #ffd789;">
+<body>
 	<!-- How to Play Modal -->
 	<div class="modal fade" id="howToPlay" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-xl" style="position: relative; top: 10%">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h1 class="modal-title fs-5">How to Play: Dice Roll</h1>
+					<h1 class="modal-title fs-5" id="instructionsModalLabel">
+						How to Play
+					</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<ol>
+					<div class="container-fluid m-2 p-2">
+						<div class="row">
+							<div id="list-instructions" class="list-group col-3">
+								<a class="list-group-item list-group-item-action" href="#list-item-1">Game Setup</a>
+								<a class="list-group-item list-group-item-action" href="#list-item-2">Single Flip</a>
+								<a class="list-group-item list-group-item-action" href="#list-item-3">Multiple Flips</a>
+								<a class="list-group-item list-group-item-action" href="#list-item-4">Guess Weight</a>
+								<a class="list-group-item list-group-item-action" href="#list-item-4">Change Coin</a>
+							</div>
+							<div data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0"
+								tabindex="0" class="col" style="height: 40em; overflow-y: scroll">
+								<h4 id="list-item-1">Welcome to the Coin Flip Game!</h4>
+								<ul>
+									<p>Welcome to the coin flip simulation game! This game is designed to
+										not only provide hours of fun and entertainment, but also to teach players an
+										important lesson about the weight of coins and how it can affect the outcome of
+										a flip.</p>
+									<p>In this game, players can flip a virtual coin an large number of times and
+										can guess whether the coin is weighted or not. If the coin is indeed weighted,
+										players can also make a guess about the degree of the weight.</p>
 
-						<li>Player can flip the coin as many times as they'd like, either once at a time, or in sets of
-							multiple flips</li>
-						<li>After each flip of the coin, the table will display which side the coin landed on</li>
-						<li>When done flipping the coin, the player must guess if the coin is weighted or not based on
-							the table results</li>
-						<li>After the player makes their guess, if the coin is actually not weighted, then the weight
-							will
-							be displayed</li>
-						<li>If the coin is actually weighted however, the player will be shown a prompt asking them to
-							guess the weight, with a drop down contain all possible options, and a submit button to
-							submit the answer</li>
-						<li>Once the player select the correct option, they can start flipping the coin again in a new game</li>
-						<li>To start a new game, start flipping the coin again</li>
-					</ol>
+									<p>This game is perfect for anyone who wants to understand the concept
+										of coin
+										weight and how it can influence the outcome of a coin flip. So what are you
+										waiting for? Lets start flipping!</p>
+								</ul>
+								<hr class="featurette-divider" />
+								<h4 id="list-item-2">Single Flip</h4>
+								<ul>
+									<p>
+										Our game's "Single Flip" button enables players to quickly and easily flip a
+										coin
+										and see the result. This feature provides an opportunity for players to test
+										their
+										luck and try to guess the outcome of the flip. Whether you're new to the game or
+										an
+										experienced player, the "Single Flip" button is a convenient and fun way to
+										play.
+									</p>
+								</ul>
+								<div class="text-center">
+									<img src="../gifs/singleFlip.gif" style="max-height: 350px" />
+								</div>
+								<hr class="featurette-divider" />
+								<h4 id="list-item-3">Multiple Flips</h4>
+								<ul>
+									<p>
+										Our game features a "Multiple Flip" button that allows players to flip the coin
+										multiple times with a single click. This feature enables players to experiment
+										with
+										different numbers of flips and observe how it affects the outcome of the game.
+										The
+										"Multiple Flip" button is an excellent way to test your luck and improve your
+										understanding of how the game works. Whether you're a newcomer or a seasoned
+										player,
+										the "Multiple Flip" button is a fun and convenient feature that makes our coin
+										flip
+										simulation game enjoyable to play.
+									</p>
+								</ul>
+								<div class="text-center">
+									<img src="../gifs/multiFlip.gif" style="max-height: 350px" />
+								</div>
+								<hr class="featurette-divider" />
+								<h4 id="list-item-4">Removing Chips</h4>
+								<uL>
+									<p>
+										When the player rolls the dice, they must add up the sum of
+										the two dice. Once they get the sum, they check the card
+										labeled with that sum. If they have a chip on that card,
+										they can <b>click their chip on that card</b>, and it will
+										be removed from it.
+									</p>
+								</uL>
+								<div class="text-center">
+									<img src="../gifs/guessWeight.gif" style="max-height: 350px" />
+								</div>
+								<hr class="featurette-divider" />
+								<h4 id="list-item-4">Change Coin (Optional)</h4>
+								<ul>
+									<p>Player can change image of the coin by selecting the center dropdown menu and
+										choosing from the list of possible images.</p>
+								</ul>
+								<div class="text-center">
+									<img src="../gifs/changeCoin.gif" style="max-height: 350px" />
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary openTutorial" data-bs-dismiss="modal">Tutorial</button>
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+						Close
+					</button>
 				</div>
 			</div>
 		</div>
@@ -74,15 +150,7 @@
 					<p>
 						<input type="range" id="volume-control" value="100" />
 					</p>
-					<hr class="featurette-divider" />
-					<p>
-						<input class="form-check-input m-1" type="checkbox" autocomplete="off" id="randPlacements" />
-						Sound Effects
-					</p>
-					<p>
-						<input class="form-check-input m-1" type="checkbox" autocomplete="off" id="muteBtn" />
-						Music
-					</p>
+
 					<hr class="featurette-divider" />
 					<div class="row text-align">
 						<div class="col-3">
@@ -90,7 +158,7 @@
 						</div>
 						<div class="col-2">
 							<label class="switch">
-								<input id="themeTypeSwitch" type="checkbox" onclick="changeTheme()">
+								<input id="themeTypeSwitch" type="checkbox">
 								<span class="slider round"></span>
 							</label>
 						</div>
@@ -131,7 +199,7 @@
 								<li><a class="dropdown-item" href="coinFlip.html">Coin Flip</a></li>
 								<li><a class="dropdown-item" href="GoatGame.html">Monty Hall Problem</a></li>
 								<li><a class="dropdown-item" href="needles.html">Buffons Needles</a></li>
-								<li><a class="dropdown-item" href="card.html">12 Card Game</a></li>
+								<li><a class="dropdown-item" href="card.html">Sum of Two Dice</a></li>
 								<li><a class="dropdown-item" href="dice27.html">Game of 27</a></li>
 							</ul>
 						</li>
@@ -146,6 +214,14 @@
 							<button type="radio" class="btn btn-primary" data-bs-toggle="modal"
 								data-bs-target="#howToPlay">How to
 								Play</button>
+						</div>
+						<div class="btn-group me-2" role="group" aria-label="Second group">
+							<input type="radio" class="btn-check" name="btnradio" id="basic_btn" autocomplete="off"
+								checked />
+							<label class="btn btn-outline-primary" for="basic_btn">Basic</label>
+							<input type="radio" class="btn-check" name="btnradio" id="advanced_btn" autocomplete="off"
+								onclick="window.location.href = 'coinFlipAdv.html'" />
+							<label class="btn btn-outline-primary" for="advanced_btn">Simulation</label>
 						</div>
 						<div class="btn-group me-2" role="group" aria-label="Third group">
 							<button type="radio" class="btn btn-primary" data-bs-toggle="modal"
@@ -164,36 +240,12 @@
 			</div>
 		</nav>
 	</header>
-	<div id="welcomeScene">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 offset-md-3 text-center">
-					<h1>Welcome to the Coin Flipping Game!</h1>
-					<p>Click the button below to start fliping the coin:</p>
-					<button class="btn btn-success btn-lg" id="playGame">Play</button>
-					<button class="btn btn-primary btn-lg openTutorial">Tutorial</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="tutorialScene">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6 offset-md-3 text-center">
-					<h1 id="tutorialHead">Welcome to Coin Flipping Game Tutorial</h1>
-					<p id="tutorialText">Click the button below to begin the tutorial</p>
-					<button class="btn btn-success" id="tutorialNext">Next</button>
-					<button class="btn btn-danger" id="closeTutorial">Close</button>
-				</div>
-			</div>
-		</div>
 
-	</div>
 	<main>
 		<div class="container text-center">
 			<!--Title of the game-->
 			<div class="row">
-				<h1 id="title">Coin Flip Game</h1>
+				<h1 class="text">Coin Flip Game</h1>
 			</div>
 			<!-- PixiJS Application-->
 			<div class="row">
@@ -202,11 +254,26 @@
 			<!-- buttons to roll the dice-->
 			<div class="row" id="buttonArea">
 				<div class="col" id="singleFlipArea">
-					<h6 id="single">Single Flip:</h6>
-					<button type="radio" class="btn btn-primary" id="singleFlip">Flip Coin</button>
+					<h6 class="text">Single Flip:</h6>
+					<button type="radio" class="btn btn-primary" id="singleFlip">Flip
+						Coin</button>
+				</div>
+				<div class="col">
+					<div class="dropdown">
+						<h6 class="text">Coin Type:</h6>
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="coin-dropdown"
+							data-bs-toggle="dropdown" aria-expanded="false">Coin</button>
+						<ul class="dropdown-menu" aria-labelledby="coin-dropdown">
+							<li id="Penny"><a class="dropdown-item" href="#" data-coin="Penny">Penny</a></li>
+							<li id="Nickel"><a class="dropdown-item" href="#" data-coin="Nickel">Nickel</a></li>
+							<li id="Dime"><a class="dropdown-item" href="#" data-coin="Dime">Dime</a></li>
+							<li id="Coin" hidden><a class="dropdown-item" href="#" data-coin="Coin">Coin</a>
+							</li>
+						</ul>
+					</div>
 				</div>
 				<div class="col" id="multiFlipArea">
-					<h6 id="multi">Multiple Flip:</h6>
+					<h6 class="text">Multiple Flip:</h6>
 					<div class="input-group align-items-center">
 						<input type="text" class="form-control" placeholder="Number of Flips"
 							aria-label="Recipient's username" aria-describedby="multiFlip" id="numberFlips">
@@ -221,14 +288,14 @@
 				<div class="row m-3">
 					<div class="col m-2 p-2 border rounded bg-secondary text-white" id="card0">
 						<div class="text-center">
-							<img src="../images/coinHead.png" height="150">
+							<img src="../images/coinHead.png" id="headCard" height="150">
 							<hr class="featurette-divider" />
 							<h1 id="head">0</h1>
 						</div>
 					</div>
 					<div class="col m-2 p-2 border rounded bg-secondary text-white" id="card1">
 						<div class="text-center">
-							<img src="../images/coinTail.png" height="150">
+							<img src="../images/coinTail.png" id="tailCard" height="150">
 							<hr class="featurette-divider" />
 							<h1 id="tail">0</h1>
 						</div>
@@ -236,7 +303,7 @@
 				</div>
 			</div>
 			<div class="row" id="guessSection">
-				<h1 id="prompt">Press Flip Coin to Play</h1>
+				<h1 id="prompt" class="text">Press Flip Coin to Play</h1>
 				<div class="col" id="guessButtons" hidden>
 					<button type="radio" class="btn btn-primary" id="weighted">Weighted</button>
 					<button type="radio" class="btn btn-primary" id="notWeighted">Not Weighted</button>
@@ -259,6 +326,7 @@
 			</div>
 		</div>
 	</main>
+
 	<script src="js/bootstrap.bundle.min.js"></script>
 	<script src="js/pixi.min.js"></script>
 	<script src="js/coinFlip.js"></script>

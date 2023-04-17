@@ -127,6 +127,47 @@
       </div>
     </div>
 
+    <!-- reset game modal -->
+    <div
+      class="modal fade"
+      id="resetConfirmation"
+      tabindex="-1"
+      aria-labelledby="resetConfirmationLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5">Reset Game?</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p>
+              Are you sure you want to reset the game? All progress will be
+              lost.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" onclick="playAgain();">
+              Yes, Reset Game
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+            >
+              No, return to game
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- instructions modal -->
     <div
       class="modal fade"
@@ -341,6 +382,16 @@
               <div class="btn-group me-2" role="group" aria-label="First group">
                 <button
                   type="radio"
+                  class="btn btn-danger"
+                  data-bs-toggle="modal"
+                  data-bs-target="#resetConfirmation"
+                >
+                  Reset Game
+                </button>
+              </div>
+              <div class="btn-group me-2" role="group" aria-label="First group">
+                <button
+                  type="radio"
                   class="btn btn-primary"
                   data-bs-toggle="modal"
                   data-bs-target="#howToPlay"
@@ -478,13 +529,9 @@
             <svg width="900" height="400" id="histogram"></svg>
           </p>
         </div>
+
         <div class="col text-center">
-          <button
-            type="button"
-            class="btn btn-primary"
-            id="play-again-button"
-            onclick="playAgain();"
-          >
+          <button type="button" class="btn btn-primary" onclick="playAgain();">
             Play Again
           </button>
         </div>
