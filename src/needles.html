@@ -231,17 +231,12 @@
 						</div>
 
 						<!-- grid amount-->
-						<button class="btn btn-info dropdown-toggle" type="button" id="dropDownGridLines"
-							data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Number Grid Lines
-						</button>
-						<div class="dropdown-menu" aria-labelledby="dropDownGridLines">
-							<h5 id="displayNumberGridLines">Number Grid Lines:<br> 8</h5>
-							<button class="btn btn-primary" onclick="changeLines(1);event.stopPropagation()">+1</button>
-							<button class="btn btn-primary"
-								onclick="changeLines(-1);event.stopPropagation()">-1</button>
-
-						</div>
+						<h5>Change Number of Grid Lines</h5>
+						<button class="btn btn-primary" onclick="changeLines(1);event.stopPropagation()">+1</button>
+						<button class="btn btn-primary"
+						onclick="changeLines(-1);event.stopPropagation()">-1</button>
+						<h5 id="displayNumberGridLines">Current # of Grid Lines: 8
+						
 					</div>
 				</div>
 			</div>
