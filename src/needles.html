@@ -14,32 +14,6 @@
 
 <body style="background-color: #ffd789;">
 
-	<!-- acts as darkening for tutorial -->
-	<div id="overlay">
-		<div id="chooseAmountNeedle" class="highlight">
-			<p>The highlighted part deals with with choosing the amount of needles to drop and clearing the screen. <br>
-				In the top part, you can choose between 1-50,000 Needles, and then drop them onto the pag by clicking
-				the "Drop Needles"
-				button. <br> To clear the screen from the dropped needles, click the "Clear Screen" button.</p>
-
-			<button type="button" class="btn btn-primary" id="dropNeedleTutorial">Tutorial</button>
-		</div>
-		<div id="optionalTutorialArea" class="highlight" hidden>
-			<p>
-				The highlighted part here deals with optional settings in the game.<br>
-				Needle Length: Allows you to change the needle length by 10%. The needle length is a percentage
-				of the distance between grid lines.<br>
-				Drop Type: This changes what happens when you click "Drop Needles". Having Needles Dropped as Singular
-				will clear
-				the screen each time you drop. Whereas Cumulative will not clear the screen. <br>
-				Number of Grid Lines: This allows you to change the Number of Grid Lines, from 2-10.
-			</p>
-			<button class="btn btn-primary" onclick="endTutorial()">
-				End Tutorial
-			</button>
-		</div>
-	</div>
-
 	<!-- How to Play Modal -->
 	<div class="modal fade modal-lg" id="howToPlay" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
@@ -76,8 +50,6 @@
 					</ol>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-bs-dismiss="modal"
-						id="openTutorial">Tutorial</button>
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 				</div>
 			</div>
@@ -202,12 +174,6 @@
 
 	<!-- this is the section where user clicks on needle amount to drop-->
 	<div class="container-fluid" id="topPageSection" style="background-color: #FFEDC9;">
-		<div class="row">
-			<div class="col" style="text-align: center;">
-				<h1 id="titleSection">Buffon's Needles </h1>
-			</div>
-		</div>
-
 		<!-- this is the reworked area above the canvas-->
 		<div class="row" style="margin-bottom: 10px;">
 			<!-- left side of the canvas-->
@@ -221,49 +187,69 @@
 							Needle Length
 						</button>
 						<div class="dropdown-menu" aria-labelledby="dropDownDropType">
-							<h5 id="displayNeedleLength">Current Needle Length:<br> 90% of distance between lines </h5>
-							<button class="btn btn-primary" onclick="changeNeedleLength(.1);event.stopPropagation()">
-								Increase
-								by 10%
-								Lines</button> <br>
-							<button class="btn btn-primary" onclick="changeNeedleLength(-0.1);event.stopPropagation()">
-								Decrease
-								by 10%
-								Lines</button>
+							<h5 id="displayNeedleLength">Current Needle Length:<br> 90% of L </h5>
+							<button class="btn btn-primary" onclick="changeNeedleLength(0.1);event.stopPropagation()">
+								10% of L</button> <br>
+							<button class="btn btn-primary" onclick="changeNeedleLength(0.2);event.stopPropagation()">
+								20% of L</button><br>
+							<button class="btn btn-primary" onclick="changeNeedleLength(0.3);event.stopPropagation()">
+								30% of L</button><br>
+							<button class="btn btn-primary" onclick="changeNeedleLength(0.4);event.stopPropagation()">
+								40% of L</button><br>
+							<button class="btn btn-primary" onclick="changeNeedleLength(0.5);event.stopPropagation()">
+								50% of L</button><br>
+							<button class="btn btn-primary" onclick="changeNeedleLength(0.6);event.stopPropagation()">
+								60% of L</button><br>
+							<button class="btn btn-primary" onclick="changeNeedleLength(0.7);event.stopPropagation()">
+								70% of L</button><br>
+							<button class="btn btn-primary" onclick="changeNeedleLength(0.8);event.stopPropagation()">
+								80% of L</button><br>
+							<button class="btn btn-primary" onclick="changeNeedleLength(0.9);event.stopPropagation()">
+								90% of L</button><br>
+							<button class="btn btn-primary" onclick="changeNeedleLength(1.0);event.stopPropagation()">
+								100% of L</button><br>
+								
 						</div>
 					</div>
 				</div>
 				<!-- bottom row (drop type and number of grid lines)-->
 				<div class="row">
 					<div class="col">
-						<!-- drop type-->
-						<button class="btn btn-info dropdown-toggle" type="button" id="dropDownDropType"
-							data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Drop Type
-						</button>
-						<div class="dropdown-menu" aria-labelledby="dropDownDropType">
-							<h5 id="displayDropType">Current Drop Type:<br>Cumulative </h5>
-							<button class="btn btn-primary" onclick="dropType('Cumulative')">Cumulative</button> <br>
-							<button class="btn btn-primary" onclick="dropType('Singular')">Singular</button>
+						<div class="row text-align">
+							<div class="col-3">
+								<p>Singular</p>
+							</div>
+							<div class="col-2">
+								<label class="switch">
+									<input id="dropTypeToggle" type="checkbox" onclick="dropType()">
+									<span class="slider round"></span>
+								</label>
+							</div>
+							<div class="col-3">
+								<p>Cumulative</p>
+							</div>
 						</div>
 
 						<!-- grid amount-->
-						<button class="btn btn-info dropdown-toggle" type="button" id="dropDownGridLines"
-							data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Number Grid Lines
-						</button>
-						<div class="dropdown-menu" aria-labelledby="dropDownGridLines">
-							<h5 id="displayNumberGridLines">Number Grid Lines:<br> 6</h5>
-							<button class="btn btn-primary" onclick="changeLines(1);event.stopPropagation()">+1</button>
-							<button class="btn btn-primary"
-								onclick="changeLines(-1);event.stopPropagation()">-1</button>
-
-						</div>
+						<h5>Change Number of Grid Lines</h5>
+						<button class="btn btn-primary" onclick="changeLines(1);event.stopPropagation()">+1</button>
+						<button class="btn btn-primary"
+						onclick="changeLines(-1);event.stopPropagation()">-1</button>
+						<h5 id="displayNumberGridLines">Current # of Grid Lines: 8
+						
+					</div>
+				</div>
+			</div>
+			<!-- middle part of canvas-->
+			<div id="middleTitleArea" class="col-2">
+				<div class="row">
+					<div class="col">
+						<h1 id="titleSection">Buffon's Needles </h1>
 					</div>
 				</div>
 			</div>
 			<!-- this is right side of the canvas-->
-			<div id="tutorialAmountNeedle" class="col-3 offset-2"
+			<div id="tutorialAmountNeedle" class="col-3"
 				style="text-align: right;margin-right: 12%;padding-bottom: 10px;padding-top: 10px;">
 				<!-- top row (number of needles to drop)-->
 				<div class="row" style="margin-bottom: 5px;">
@@ -278,7 +264,7 @@
 						<button class="btn btn-primary" id="dropNeedleButton" type="submit" onclick="needleXY()">Drop
 							Needles
 						</button>
-						<button class="btn btn-primary" onclick="clearNeedles()">Clear Screen</button>
+						<button class="btn btn-primary" onclick="clearNeedles()">Clear Screen and Stats</button>
 					</div>
 				</div>
 			</div>
@@ -363,10 +349,15 @@
 		<!-- resultArea, the last section to be displayed-->
 		<div class="row text-center" id="resultArea" hidden>
 			<div class="col">
-				<p class="estimation"></p>
-				<p id="userGuessSection"></p>
-				<p id="percentErrorSection"></p>
+				<h3 class="estimation"></h3>
 			</div>
+			<div class="col">
+				<h3 id="userGuessSection"></h3>
+			</div>
+			<div class="col">
+				<h3 id="percentErrorSection"></h3>
+			</div>
+
 		</div>
 
 	</div>
