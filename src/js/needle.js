@@ -41,7 +41,7 @@ let nextEmpty = 0;
 let needleCross = 0;
 let needleDrop = 0;
 let needleColor = 0xffffff;
-let dropTypeValue = "Cumulative";
+let dropTypeValue = "Singular";
 var needleDropSound = new Audio('../sounds/needleDrop.mp3');
 
 
@@ -102,7 +102,7 @@ function changeTheme() {
 function changeDarkTheme() {
   //changes top section to dark and text to white
   document.getElementById("topPageSection").style.backgroundColor = "#313b4b";
-  document.getElementById("titleSection").style.color = "white";
+  document.getElementById("topPageSection").style.color = "white";
 
   document.getElementById("bottomSection").style.backgroundColor = "#313b4b";
   document.getElementById("bottomSection").style.color = "white";
@@ -114,7 +114,7 @@ function changeDarkTheme() {
 function changeLightTheme() {
   //changes top section
   document.getElementById("topPageSection").style.backgroundColor = "#FFEDC9";
-  document.getElementById("titleSection").style.color = "black";
+  document.getElementById("topPageSection").style.color = "black";
 
   //changes bottom section
   document.getElementById("bottomSection").style.backgroundColor = "#FFEDC9";
