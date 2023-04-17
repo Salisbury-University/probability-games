@@ -1,6 +1,6 @@
 // create window height variable
 let windowWidth = document.body.clientWidth * .75;
-let windowHeight = window.innerHeight * .65;
+let windowHeight = window.innerHeight * .53;
 let pi = 0;
 let canvas = document.getElementById('my-canvas');
 const halfPi = Math.PI / 2
