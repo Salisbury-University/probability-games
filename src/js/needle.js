@@ -304,23 +304,19 @@ function toRadians(angle) {
   return angle * (Math.PI / 180.0);
 }
 
-function dropType(type) {
-  dropTypeValue = type;
-  document.getElementById("displayDropType").innerHTML = "Current Drop Type: <br>" + dropTypeValue;
-  clearNeedles();
+function dropType() {
+  if (document.getElementById("dropTypeToggle").checked) {
+    dropTypeValue = "Cumulative";
+  } else {
+    dropTypeValue = "Singular";
+    clearNeedles();
+  }
 }
 
 function changeNeedleLength(size) {
 
-  needleLengthPercent += size;
+  needleLengthPercent = size;
 
-  if (needleLengthPercent * 100 > 100) {
-    needleLengthPercent = 1;
-    alert("The Needle Cannot Be Longer The The Distance Between Lines!");
-  } else if (needleLengthPercent * 100 < 10) {
-    needleLengthPercent = .1;
-    alert("The Needle Length Cannot Be Zero!");
-  }
   needleLength = lineSpace * (needleLengthPercent);
   document.getElementById("displayNeedleLength").innerHTML = "Current Needle Length:<br> " + Math.round(needleLengthPercent * 100) + "% of distance between lines";
   clearNeedles();

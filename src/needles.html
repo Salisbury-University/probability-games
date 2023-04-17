@@ -187,30 +187,47 @@
 							Needle Length
 						</button>
 						<div class="dropdown-menu" aria-labelledby="dropDownDropType">
-							<h5 id="displayNeedleLength">Current Needle Length:<br> 90% of distance between lines </h5>
-							<button class="btn btn-primary" onclick="changeNeedleLength(.1);event.stopPropagation()">
-								Increase
-								by 10%
-								Lines</button> <br>
-							<button class="btn btn-primary" onclick="changeNeedleLength(-0.1);event.stopPropagation()">
-								Decrease
-								by 10%
-								Lines</button>
+							<h5 id="displayNeedleLength">Current Needle Length:<br> 90% of L </h5>
+							<button class="btn btn-primary" onclick="changeNeedleLength(0.1);event.stopPropagation()">
+								10% of L</button> <br>
+							<button class="btn btn-primary" onclick="changeNeedleLength(0.2);event.stopPropagation()">
+								20% of L</button><br>
+							<button class="btn btn-primary" onclick="changeNeedleLength(0.3);event.stopPropagation()">
+								30% of L</button><br>
+							<button class="btn btn-primary" onclick="changeNeedleLength(0.4);event.stopPropagation()">
+								40% of L</button><br>
+							<button class="btn btn-primary" onclick="changeNeedleLength(0.5);event.stopPropagation()">
+								50% of L</button><br>
+							<button class="btn btn-primary" onclick="changeNeedleLength(0.6);event.stopPropagation()">
+								60% of L</button><br>
+							<button class="btn btn-primary" onclick="changeNeedleLength(0.7);event.stopPropagation()">
+								70% of L</button><br>
+							<button class="btn btn-primary" onclick="changeNeedleLength(0.8);event.stopPropagation()">
+								80% of L</button><br>
+							<button class="btn btn-primary" onclick="changeNeedleLength(0.9);event.stopPropagation()">
+								90% of L</button><br>
+							<button class="btn btn-primary" onclick="changeNeedleLength(1.0);event.stopPropagation()">
+								100% of L</button><br>
+								
 						</div>
 					</div>
 				</div>
 				<!-- bottom row (drop type and number of grid lines)-->
 				<div class="row">
 					<div class="col">
-						<!-- drop type-->
-						<button class="btn btn-info dropdown-toggle" type="button" id="dropDownDropType"
-							data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Drop Type
-						</button>
-						<div class="dropdown-menu" aria-labelledby="dropDownDropType">
-							<h5 id="displayDropType">Current Drop Type:<br>Cumulative </h5>
-							<button class="btn btn-primary" onclick="dropType('Cumulative')">Cumulative</button> <br>
-							<button class="btn btn-primary" onclick="dropType('Singular')">Singular</button>
+						<div class="row text-align">
+							<div class="col-3">
+								<p>Singular</p>
+							</div>
+							<div class="col-2">
+								<label class="switch">
+									<input id="dropTypeToggle" type="checkbox" onclick="dropType()">
+									<span class="slider round"></span>
+								</label>
+							</div>
+							<div class="col-3">
+								<p>Cumulative</p>
+							</div>
 						</div>
 
 						<!-- grid amount-->
@@ -252,7 +269,7 @@
 						<button class="btn btn-primary" id="dropNeedleButton" type="submit" onclick="needleXY()">Drop
 							Needles
 						</button>
-						<button class="btn btn-primary" onclick="clearNeedles()">Clear Screen</button>
+						<button class="btn btn-primary" onclick="clearNeedles()">Clear Screen and Stats</button>
 					</div>
 				</div>
 			</div>
