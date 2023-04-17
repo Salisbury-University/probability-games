@@ -1,9 +1,9 @@
 let carImg = "../images/iceCream.png";
 let goatImg = "../images/aspargus.png";
-const doorImg1 = "../images/ClosedDoor1.png";
-const doorImg2 = "../images/ClosedDoor2.png";
-const doorImg3 = "../images/ClosedDoor3.png";
-
+let doorImg1 = "../images/ClosedDoor1.png";
+let doorImg2 = "../images/ClosedDoor2.png";
+let doorImg3 = "../images/ClosedDoor3.png";
+let doorImgPaths = ["../images/ClosedDoor1.png", "../images/ClosedDoor2.png", "../images/ClosedDoor3.png"];
 
 var Doors = [0, 0, 0];
 var carLocation = Math.floor(Math.random() * 3);
@@ -29,105 +29,74 @@ let prizeName = "Desert";
 let trashName = "vegetables";
 
 function changePrize(img) {
-    if (img == "iceCream") {
-        carImg = "../images/iceCream.png"
-        document.getElementById("prizeSelectorDropDown").innerHTML = "Ice Cream!";
-        prizeName = "Desert";
-    } else if (img == "Toy") {
-        carImg = "../images/toy.jpg"
-        document.getElementById("prizeSelectorDropDown").innerHTML = "Legos!";
-        prizeName = "Toy";
-    } else if (img == "Money") {
-        carImg = "../images/nickelHead.png"
-        document.getElementById("prizeSelectorDropDown").innerHTML = "Money!";
-        prizeName = "Coin";
-    }
+    //define objects and map img location,name to value being searched
+    const prizes = {
+        iceCream: ["../images/iceCream.png", "Ice Cream"],
+        Toy: ["../images/toy.jpg", "Legos"],
+        Money: ["../images/nickelHead.png", "Money"]
+    };
+    //asign carImg to first in array, and name to second
+    [carImg, prizeName] = prizes[img];
+    document.getElementById("prizeSelectorDropDown").innerHTML = prizeName;
     playAgain();
 }
 
 function changeTrash(img) {
-    if (img == "vegetable") {
-        goatImg = "../images/aspargus.png"
-        document.getElementById("trashSelectorDropDown").innerHTML = "Vegetables";
-        trashName = "Vegetables";
-    } else if (img == "Trash") {
-        goatImg = "../images/trashBag.jpg"
-        document.getElementById("trashSelectorDropDown").innerHTML = "Trash";
-        trashName = "Trash Bags";
-    } else if (img == "Chores") {
-        goatImg = "../images/chores.jpg"
-        document.getElementById("trashSelectorDropDown").innerHTML = "Chores";
-        trashName = "Chores";
-    }
+    //define objects and map img location,name to value being searched
+    const trashes = {
+        vegetable: ["../images/aspargus.png", "Vegetables"],
+        Trash: ["../images/trashBag.jpg", "Trash"],
+        Chores: ["../images/chores.jpg", "Chores"]
+    };
+    //asign goatImg to first in array, and name to second
+    [goatImg, trashName] = trashes[img];
+    document.getElementById("trashSelectorDropDown").innerHTML = trashName;
     playAgain();
 }
 
-function resetStats() {
-    gamesPlayed = 0;
-    gamesWon = 0;
-    gamesLost = 0;
-    keptDoorWon = 0;
-    switchDoors = 0;
-    switchDoorGames = 0;
-    keptDoorsGames = 0;
-    keptDoorLost = 0;
-    switchDoorLost = 0;
 
-    document.getElementById("door0").src = doorImg1;
-    document.getElementById("door1").src = doorImg2;
-    document.getElementById("door2").src = doorImg3;
+function resetStats() {
+    const initialStats = {
+        gamesPlayed: 0,
+        gamesWon: 0,
+        gamesLost: 0,
+        keptDoorWon: 0,
+        switchDoors: 0,
+        switchDoorGames: 0,
+        keptDoorsGames: 0,
+        keptDoorLost: 0,
+        switchDoorLost: 0
+    };
+
+    for (let key in initialStats) {
+        window[key] = initialStats[key];
+    }
 
     document.getElementById("amountTimesToRun").value = "";
     document.getElementById("amountTimesToSwitch").value = "";
-
+    playAgain();
     printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
-
 }
 
 function playAgain() {
-    Doors[0] = 0;
-    Doors[1] = 0;
-    Doors[2] = 0;
+    Doors = [0, 0, 0];
 
-    document.getElementById("door0").style.borderRadius = "0%";
-    document.getElementById("door1").style.borderRadius = "0%";
-    document.getElementById("door2").style.borderRadius = "0%";
+    for (let i = 0; i < 3; i++) {
+        document.getElementById(`door${i}`).style.borderRadius = "0%";
+        //let d = `doorImg${i+1}`;
+        document.getElementById(`door${i}`).src = doorImgPaths[i];
+        // console.log(`doorImg${i+1}`);
+        document.getElementById(`door${i}`).style.boxShadow = "none";
+        document.getElementById(`door${i}`).setAttribute("onclick", `stepOne(${i})`);
+    }
 
     carLocation = Math.floor(Math.random() * 3);
     Doors[carLocation] = 1;
 
-    document.getElementById("door0").src = doorImg1;
-    document.getElementById("door1").src = doorImg2;
-    document.getElementById("door2").src = doorImg3;
-
-    document.getElementById("door0").style.boxShadow = "none";
-    document.getElementById("door1").style.boxShadow = "none";
-    document.getElementById("door2").style.boxShadow = "none";
-
-    document.getElementById("titleSentence").innerHTML = "Welcome to Monty Hall's Problem!"
-    document.getElementById("firstSentenceID").innerHTML = "There are <b>three</b> doors in front of you. There are <b>two</b> " + trashName + ", and <b> one</b> " + prizeName + " <br> Select A Door!";
-    // document.getElementById("continueButton").setAttribute("hidden", "hidden");
-
-    document.getElementById("amountTimesToSwitch").setAttribute("hidden", "hidden");
-    document.getElementById("amountTimesToRun").setAttribute("hidden", "hidden");
-    document.getElementById("continueSimulation").setAttribute("hidden", "hidden");
-    //reveal new input and continue
-    //document.getElementById("simulateRunButton").removeAttribute("hidden");
-    //document.getElementById("endSimButton").setAttribute("hidden", "hidden");
-    //document.getElementById("simulateRunButton").setAttribute("onclick", "prepreSimulate()");///wtrhjie
-    // document.getElementById("amountTimesToRun").removeAttribute("hidden");
-
-    document.getElementById("door0").setAttribute("onclick", "stepOne(0)");
-    document.getElementById("door1").setAttribute("onclick", "stepOne(1)");
-    document.getElementById("door2").setAttribute("onclick", "stepOne(2)");
-
-    // document.getElementById("stageSectionID").setAttribute("class", "stageSection");
-    //document.getElementById("simulateInfo").innerHTML = "Click Simulate Runs to simulate the game!";
-    //document.getElementById("simulateInfo2").innerHTML = "";
-
+    document.getElementById("titleSentence").innerHTML = "Welcome to Monty Hall's Problem!";
+    document.getElementById("firstSentenceID").innerHTML = `There are <b>three</b> doors in front of you. There are <b>two</b> ${trashName}, and <b> one</b> ${prizeName} <br> Select A Door!`;
     document.getElementById("playAgainButton").setAttribute("hidden", "hidden");
-
-} //end of play again
+}
 
 function showStats() {
     document.getElementById("stageSectionID").setAttribute("hidden", "hidden");
@@ -339,27 +308,35 @@ function determineKeepSimulation(number) {
 //do better comments
 function updateStats(x, isKept) {
     gamesPlayed++;
+    //adds 1 if x == carLocation otherwise add 0
+    gamesWon += (x == carLocation) ? 1 : 0;
+    gamesLost += (x != carLocation) ? 1 : 0;
+    switchDoors += (x == carLocation && isKept) ? 1 : 0;
+    keptDoorWon += (x == carLocation && !isKept) ? 1 : 0;
+    switchDoorLost += (x != carLocation && isKept) ? 1 : 0;
+    keptDoorLost += (x != carLocation && !isKept) ? 1 : 0;
+
     if (isKept)
         switchDoorGames++;
     else
         keptDoorsGames++;
-
-    if (x == carLocation) {
-        gamesWon++;
-
-        if (isKept)
-            switchDoors++;
-        else
-            keptDoorWon++;
-    } else {
-
-        if (isKept)
-            switchDoorLost++;
-        else
-            keptDoorLost++;
-
-        gamesLost++;
-    }
+    /*
+        if (x == carLocation) {
+            gamesWon++;
+    
+            if (isKept)
+                switchDoors++;
+            else
+                keptDoorWon++;
+        } else {
+    
+            if (isKept)
+                switchDoorLost++;
+            else
+                keptDoorLost++;
+    
+            gamesLost++;
+        }*/
 
 } //end of update stats
 
