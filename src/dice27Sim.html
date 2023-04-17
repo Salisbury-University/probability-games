@@ -5,7 +5,6 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
-
   <link rel="stylesheet" href="../css/dice27.css" type="text/css">
 
   <title>Game of 27</title>
@@ -13,15 +12,76 @@
 </head>
 
 <body>
-  <!--Bug Modal-->
-  <div class="modal fade" id="bugModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+  <!-- How to Play Modal -->
+  <div class="modal fade" id="howToPlay" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">How to Play: Game of 27</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <ol>
+            <li>Player rolls dice.</li>
+            <li>Player asked what is the max number of piles that can be made based on dice roll.</li>
+            <li>Player asked how many chips remain after creating piles.</li>
+            <li>If the remainder is greater than 0 the player gets those chips as points.</li>
+            <li>Swap to the other player.</li>
+            <li>Repeat steps 1 - 5 until the total number of chips is 0 then the player with the most chips wins.</li>
+          </ol>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Bug Modal -->
+  <div class="modal fade" id="bugModal" tabindex="-1" aria-labelledby="bugModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="settingsModalLabel">Bug Report</h1>
+          <h1 class="modal-title fs-5">Bug Report</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">Email: mdemchuk1@gulls.salisbury.edu with any bugs found
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Settings Modal -->
+  <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Settings</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Volume:</p>
+          <p>
+            <input type="range" id="volume-control" value="100" />
+          </p>
+          <hr class="featurette-divider" />
+          <div class="row text-align">
+            <div class="col-3">
+              <p>Light Theme</p>
+            </div>
+            <div class="col-2">
+              <label class="switch">
+                <input id="themeTypeSwitch" type="checkbox">
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div class="col-3">
+              <p>Dark Theme</p>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -92,7 +152,7 @@
   <main>
     <div id="container" class="container-fluid text-center">
       <div class="row">
-        <h1>Game of 27 Simulator</h1>
+        <h1 class="text">Game of 27 Simulator</h1>
       </div>
 
       <div class="row">
@@ -109,30 +169,30 @@
       </div>
       <div class="row">
         <div class="col">
-          <svg id="chart" width="960" height="500"></svg>
+          <svg class="text" id="chart" width="960" height="500"></svg>
         </div>
       </div>
       <div class="row">
-        <h1>Results</h1>
+        <h1 class="text">Results</h1>
       </div>
       <div class="row">
         <div class="col">
-          <h2>Total Rolls: <div id="totalRolls">0</div>
+          <h2 class="text">Total Rolls: <div id="totalRolls">0</div>
         </div>
         <div class="col">
-          <h2>Number of Hits on <div id="quantity"></div>
+          <h2 class="text">Number of Hits on <div id="quantity"></div>
         </div>
         <div class="col">
-          <h2>Number of Games: <div id="totalGames">0</div>
+          <h2 class="text">Number of Games: <div id="totalGames">0</div>
           </h2>
         </div>
       </div>
     </div>
   </main>
 
+  <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/d3.min.js"></script>
   <script src="js/dice27Sim.js"></script>
-  <script src="js/bootstrap.bundle.min.js"></script>
 
 </body>
 

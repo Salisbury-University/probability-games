@@ -130,7 +130,7 @@ function changeLines(num) {
     alert("Cannot go lower then two lines");
   } else {
     amountLines += num;
-    document.getElementById("displayNumberGridLines").innerHTML = "Number Grid Lines<br> " + (amountLines + 1);
+    document.getElementById("displayNumberGridLines").innerHTML = (amountLines + 1);
     clearNeedles();
     line.destroy(); //destroy lines to build again
     lines = [];
@@ -304,21 +304,11 @@ function toRadians(angle) {
   return angle * (Math.PI / 180.0);
 }
 
-function dropType() {
-  if (document.getElementById("dropTypeToggle").checked) {
-    dropTypeValue = "Cumulative";
-  } else {
-    dropTypeValue = "Singular";
-    clearNeedles();
-  }
-}
-
 function changeNeedleLength(size) {
 
   needleLengthPercent = size;
 
   needleLength = lineSpace * (needleLengthPercent);
-  document.getElementById("displayNeedleLength").innerHTML = "Current Needle Length:<br> " + Math.round(needleLengthPercent * 100) + "% of distance between lines";
   clearNeedles();
 }
 
@@ -363,3 +353,31 @@ function clearNeedles() {
   needleCross = 0;
   needleDrop = 0;
 }
+
+document.querySelectorAll(".dropdown-percent").forEach(link => {
+  link.addEventListener('click', () => {
+    let selected = link.dataset.percent;
+    let dropdown = document.getElementById('percentDropdown');
+    let tempText = dropdown.textContent.replace('%', '');
+
+    dropdown.textContent = selected + '%';
+    document.getElementById(selected).hidden = true;
+    document.getElementById(tempText).hidden = false;
+    selected = selected / 100;
+    changeNeedleLength(selected);
+  })
+});
+
+document.getElementById("singular").addEventListener('click', () => {
+  if (dropTypeValue == "Cumulative") {
+    dropTypeValue = "Singular";
+    clearNeedles();
+  }
+});
+
+document.getElementById("cumulative").addEventListener('click', () => {
+  if (dropTypeValue == "Singular") {
+    dropTypeValue = "Cumulative";
+    clearNeedles();
+  }
+});

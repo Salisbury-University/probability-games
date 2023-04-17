@@ -494,7 +494,38 @@ class Dice27 {
         audioName.play();
     }
 }
+
+class ScreenManagement {
+    #color;
+    #text;
+
+    constructor() {
+        this.#color = document.getElementById("themeTypeSwitch");
+        this.#text = document.querySelectorAll(".text");
+        this.#setup();
+    }
+    #setup() {
+        this.#color.addEventListener('click', () => {
+            this.#changeColor();
+        });
+    }
+    #changeColor() {
+        if (this.#color.checked) {//dark mode
+            document.body.style.backgroundColor = "#262626";
+            for (let i = 0; i < this.#text.length; i++) {
+                this.#text[i].style.color = 'white';
+            }
+        } else {//light mode
+            document.body.style.backgroundColor = "#ffffff";
+            for (let i = 0; i < this.#text.length; i++) {
+                this.#text[i].style.color = 'black';
+            }
+        }
+    }
+}
+
 const game = new Dice27();
+const screen = new ScreenManagement();
 
 function roll() {
     game.roll();

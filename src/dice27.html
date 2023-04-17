@@ -68,25 +68,19 @@
             <input type="range" id="volume-control" value="100" />
           </p>
           <hr class="featurette-divider" />
-          <p>
-            <input class="form-check-input m-1" type="checkbox" autocomplete="off" id="randPlacements" />
-            Sound Effects
-          </p>
-          <p>
-            <input class="form-check-input m-1" type="checkbox" autocomplete="off" id="muteBtn" />
-            Music
-          </p>
-          <hr class="featurette-divider" />
-          <div class="dropdown">
-            Theme:
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              Light Mode
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Dark Mode</a></li>
-              <li><a class="dropdown-item" href="#">Solarized</a></li>
-            </ul>
+          <div class="row text-align">
+            <div class="col-3">
+              <p>Light Theme</p>
+            </div>
+            <div class="col-2">
+              <label class="switch">
+                <input id="themeTypeSwitch" type="checkbox">
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div class="col-3">
+              <p>Dark Theme</p>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
@@ -162,10 +156,10 @@
         <div id="app"></div>
       </div>
       <div class="row">
-        <div id="overalScore"></div>
+        <div class="text" id="overalScore"></div>
       </div>
       <div class="row">
-        <h2 id="mainPrompt">Press Play Game to Play!</h2>
+        <h2 class="text" id="mainPrompt">Press Play Game to Play!</h2>
       </div>
 
       <div class="row">
