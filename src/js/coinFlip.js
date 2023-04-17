@@ -311,12 +311,30 @@ const game = new CoinGame();
 const screens = new ScreenManagement();
 
 function changeTheme() {
-	if (document.getElementById("themeTypeSwitch").checked) {
-		document.body.style.backgroundColor = "#262626";
-	} else {
-		document.body.style.backgroundColor = "#ffffff";
-	}
-}
+    if (document.getElementById("themeTypeSwitch").checked) {
+      console.log("Checked");
+      changeDarkTheme();
+    } else {
+      console.log("Not Checked");
+      changeLightTheme();
+    }
+  }
+  
+  function changeDarkTheme() {
+    document.body.style.backgroundColor = "#313b4b";
+    document.getElementById("title").style.color = "white";
+    document.getElementById("single").style.color = "white";
+    document.getElementById("multi").style.color = "white";
+    document.getElementById("prompt").style.color = "white";
+  }
+  
+  function changeLightTheme() {  
+    document.body.style.backgroundColor = "#ffd789";
+    document.getElementById("title").style.color = "black";
+    document.getElementById("single").style.color = "black";
+    document.getElementById("multi").style.color = "black";
+    document.getElementById("prompt").style.color = "black";
+  }
 
 
 
