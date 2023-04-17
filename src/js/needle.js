@@ -41,7 +41,7 @@ let nextEmpty = 0;
 let needleCross = 0;
 let needleDrop = 0;
 let needleColor = 0xffffff;
-let dropTypeValue = "Cumulative";
+let dropTypeValue = "Singular";
 var needleDropSound = new Audio('../sounds/needleDrop.mp3');
 
 
