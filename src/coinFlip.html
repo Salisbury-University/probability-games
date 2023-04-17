@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="../css/coinFlip.css" type="text/css" />
 </head>
 
-<body>
+<body style="background-color: #ffd789;">
 	<!-- How to Play Modal -->
 	<div class="modal fade" id="howToPlay" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog">
@@ -31,8 +31,8 @@
 							be displayed</li>
 						<li>If the coin is actually weighted however, the player will be shown a prompt asking them to
 							guess the weight, with a drop down contain all possible options, and a submit button to
-							submit
-							the answer</li>
+							submit the answer</li>
+						<li>Once the player select the correct option, they can start flipping the coin again in a new game</li>
 						<li>To start a new game, start flipping the coin again</li>
 					</ol>
 				</div>
@@ -193,7 +193,7 @@
 		<div class="container text-center">
 			<!--Title of the game-->
 			<div class="row">
-				<h1>Coin Flip Game</h1>
+				<h1 id="title">Coin Flip Game</h1>
 			</div>
 			<!-- PixiJS Application-->
 			<div class="row">
@@ -202,17 +202,15 @@
 			<!-- buttons to roll the dice-->
 			<div class="row" id="buttonArea">
 				<div class="col" id="singleFlipArea">
-					<h6>Single Flip:</h6>
-					<button type="radio" class="btn btn-primary" id="singleFlip">Flip
-						Coin</button>
+					<h6 id="single">Single Flip:</h6>
+					<button type="radio" class="btn btn-primary" id="singleFlip">Flip Coin</button>
 				</div>
 				<div class="col" id="multiFlipArea">
-					<h6>Multiple Flip:</h6>
+					<h6 id="multi">Multiple Flip:</h6>
 					<div class="input-group align-items-center">
 						<input type="text" class="form-control" placeholder="Number of Flips"
 							aria-label="Recipient's username" aria-describedby="multiFlip" id="numberFlips">
-						<button class="btn btn-primary" type="button" id="multiFlip">Flip
-							Coin</button>
+						<button class="btn btn-primary" type="button" id="multiFlip">Flip Coin</button>
 					</div>
 				</div>
 			</div>
