@@ -288,6 +288,5 @@ class ScreenManagement {
 }
 
 
-
 const game = new CoinGame();
 const screens = new ScreenManagement();
