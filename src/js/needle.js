@@ -159,6 +159,7 @@ function changeLines(num) {
 
 //first function to be called while user guessing PI
 function guessPI() {
+  document.getElementById("topPageSection").hidden = true;
 
   document.getElementById("guessingPiNum").addEventListener("keydown", function (e) {
     if (e.code === "Enter") {  //checks whether the pressed key is "Enter" (if enter is pressed then calls next function)
@@ -193,6 +194,7 @@ function guessingPIfunc() {
 
 //last section displayed (resets back to how website originally looked)
 function continueGame() {
+  document.getElementById("topPageSection").hidden = false;
   document.getElementById("resultArea").setAttribute("hidden", "hidden");
   document.getElementById("stats").hidden = false;
   document.getElementById("guessPIButton").removeAttribute("hidden");
