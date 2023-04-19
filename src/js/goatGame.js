@@ -386,9 +386,9 @@ function simulateGame() {
 
     var timesSwitched = document.getElementById("amountTimesToSwitch").value;
 
-    if (timesPlayed < timesSwitched) {
-        alert("You cannot enter more times to switch then the total games played!");
-    } else {
+   // if (timesPlayed < timesSwitched) {
+      //  alert("You cannot enter more times to switch then the total games played!");
+    //} else {
         switchDoor = isKept;
         for (var i = 0; i < timesPlayed; i++) {
             //playAgain();
@@ -416,7 +416,7 @@ function simulateGame() {
         }//end of for loop
 
         printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
-    }
+  //  }
 }//end of simulate game
 
 
