@@ -314,8 +314,8 @@ function changeTheme() {
   }
   
   function changeLightTheme() {  
-    document.body.style.backgroundColor = "#ffd789";
-	document.getElementById("start").style.backgroundColor = "#ffd789";
+    document.body.style.backgroundColor = "white";
+	document.getElementById("start").style.backgroundColor = "white";
     document.getElementById("title").style.color = "black";
     document.getElementById("single").style.color = "black";
     document.getElementById("multi").style.color = "black";
