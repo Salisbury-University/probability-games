@@ -114,8 +114,6 @@ function hideStats() {
     document.getElementById("overlay").style.display = "none";
 }
 
-
-
 function stepOne(doorChose) {
     revealGoat = doorChose;
     globalDoorChose = doorChose;
@@ -124,7 +122,6 @@ function stepOne(doorChose) {
     while (revealGoat == doorChose || revealGoat == carLocation) {
         revealGoat = Math.floor(Math.random() * 3);
     }
-
 
     let remainderDoor = 5;
     remainderDoor = remainderDoor - (doorChose + 1);
@@ -151,7 +148,7 @@ function stepOne(doorChose) {
 }
 
 function afterStepOne(revealGoat) {
-    doorOpenSound.loop = false;
+    //doorOpenSound.loop = false;
     doorOpenSound.play();
     var go = "door" + revealGoat;
     var userDoor = "door" + globalDoorChose;
@@ -173,7 +170,6 @@ function afterStepOne(revealGoat) {
         document.getElementById("titleSentence").innerHTML = "Great Job! <br> Now Make a Choice!"
         document.getElementById("firstSentenceID").innerHTML = "There is now one " + trashName + " and one " + prizeName + " left! <br> If you want to keep the Door you chose, then click on <b>Door "
             + (globalDoorChose + 1) + ". </b><br> Otherwise click on <b>Door " + (doorChoice + 1) + " </b>to switch doors!";
-        //document.getElementById("continueButton").removeAttribute("hidden");
 
         //remove onclick for other two doors
         let totalDoor = 5;
@@ -182,9 +178,6 @@ function afterStepOne(revealGoat) {
 
         var otherDoor = "door" + totalDoor;
         var userDoor = "door" + globalDoorChose;
-
-        document.getElementById(otherDoor).removeAttribute("onclick");
-        document.getElementById(userDoor).removeAttribute("onclick");
 
         document.getElementById(otherDoor).setAttribute("onclick", "determineKeep(0)");
         document.getElementById(userDoor).setAttribute("onclick", "determineKeep(1)");
@@ -196,6 +189,7 @@ function secondIntermediate() {
     setTimeout(finalFunction, 800);
 }
 
+//downsize here
 function midStepTwo(imgType, userDoorChoice) {
     if (imgType == 1) {
         correctSound.loop = false;
@@ -282,6 +276,10 @@ function finalFunction() {
     else
         document.getElementById("door2").src = carImg;
 
+    for (let i = 0; i < 3; i++){
+        document.getElementById(`door${i}`).style.borderRadius = "99%";
+    }
+    
 
     doorOpenSound.loop = false;
     doorOpenSound.play();
@@ -320,30 +318,9 @@ function updateStats(x, isKept) {
         switchDoorGames++;
     else
         keptDoorsGames++;
-    /*
-        if (x == carLocation) {
-            gamesWon++;
-    
-            if (isKept)
-                switchDoors++;
-            else
-                keptDoorWon++;
-        } else {
-    
-            if (isKept)
-                switchDoorLost++;
-            else
-                keptDoorLost++;
-    
-            gamesLost++;
-        }*/
-
 } //end of update stats
 
 function prepreSimulate() {
-    // document.getElementById("simulateInfo").innerHTML = "Enter how many times would you like to simulate the game in the first textbox below.";
-    // document.getElementById("simulateInfo2").innerHTML = "Enter in the second textbox below how many times you would like to switch doors. You can only switch as many times as you play the game.";
-
     document.getElementById("simulationInputArea").hidden = false;
     //hide the stats buttons
     showStats();
@@ -409,35 +386,37 @@ function simulateGame() {
 
     var timesSwitched = document.getElementById("amountTimesToSwitch").value;
 
-    // document.getElementById("simulateInfo").innerHTML = "Enter how many times would you like to simulate the game in the first textbox below.";
+    if (timesPlayed < timesSwitched) {
+        alert("You cannot enter more times to switch then the total games played!");
+    } else {
+        switchDoor = isKept;
+        for (var i = 0; i < timesPlayed; i++) {
+            //playAgain();
+            carLocation = Math.floor(Math.random() * 3);
+            var userChoice = Math.floor(Math.random() * 3);
+            var revealGoat = carLocation;
 
-    switchDoor = isKept;
-    for (var i = 0; i < timesPlayed; i++) {
-        //playAgain();
-        carLocation = Math.floor(Math.random() * 3);
-        var userChoice = Math.floor(Math.random() * 3);
-        var revealGoat = carLocation;
+            while (revealGoat == carLocation || revealGoat == userChoice) {
+                revealGoat = Math.floor(Math.random() * 3);
+            }
 
-        while (revealGoat == carLocation || revealGoat == userChoice) {
-            revealGoat = Math.floor(Math.random() * 3);
-        }
+            if (i < timesSwitched) {
 
-        if (i < timesSwitched) {
+                // if (switchDoor == 1) {
+                var remainderDoor = 5;
+                remainderDoor = remainderDoor - (userChoice + 1);
+                remainderDoor = remainderDoor - (revealGoat + 1);
+                userChoice = remainderDoor;
+                // }
+                updateStats(userChoice, true);
+            } else {
+                updateStats(userChoice, false);
+            }
 
-            // if (switchDoor == 1) {
-            var remainderDoor = 5;
-            remainderDoor = remainderDoor - (userChoice + 1);
-            remainderDoor = remainderDoor - (revealGoat + 1);
-            userChoice = remainderDoor;
-            // }
-            updateStats(userChoice, true);
-        } else {
-            updateStats(userChoice, false);
-        }
+        }//end of for loop
 
-    }//end of for loop
-
-    printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
+        printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
+    }
 }//end of simulate game
 
 
