@@ -74,8 +74,13 @@ document.getElementById("disableSound").addEventListener("click", function () {
 });
 
 //creates the grid lines of the webpage
-for (let i = 0; i < amountLines+1; i++) {
-  line.lineStyle(1, 0x0096FF, 1);
+for (let i = 0; i < amountLines + 1; i++) {
+  if (i == 0 || i == amountLines) {
+    line.lineStyle(3, 0x0096FF);
+  }
+  else {
+    line.lineStyle(1, 0x0096FF, 1);
+  }
   line.moveTo(0, yValue);
   line.lineTo(windowWidth, yValue);
   line.closePath();
@@ -125,7 +130,7 @@ function changeLines(num) {
     alert("Cannot go lower then two lines");
   } else {
     amountLines += num;
-    document.getElementById("displayNumberGridLines").innerHTML = "Number Grid Lines<br> " + (amountLines+1);
+    document.getElementById("displayNumberGridLines").innerHTML = (amountLines + 1);
     clearNeedles();
     line.destroy(); //destroy lines to build again
     lines = [];
@@ -137,7 +142,11 @@ function changeLines(num) {
 
     //creates the grid lines of the webpage
     for (let i = 0; i < amountLines + 1; i++) {
-      line.lineStyle(1, 0x0096FF, 1);
+      if (i == 0 || i == amountLines) {
+        line.lineStyle(3, 0x0096FF, 1);
+      } else {
+        line.lineStyle(1, 0x0096FF, 1);
+      }
       line.moveTo(0, yValue);
       line.lineTo(windowWidth, yValue);
       line.closePath();
@@ -173,7 +182,7 @@ function guessingPIfunc() {
   //shows result area
   document.getElementById("resultArea").removeAttribute("hidden");
   document.getElementById("userGuessSection").innerHTML = "You guessed: " + document.getElementById("guessingPiNum").value;
-  document.getElementById("percentErrorSection").innerHTML = "You were this far off: " + (Math.round((Math.abs((document.getElementById("guessingPiNum").value - pi) / pi) * 100)*100)/100) + "%";
+  document.getElementById("percentErrorSection").innerHTML = "You were this far off: " + (Math.round((Math.abs((document.getElementById("guessingPiNum").value - pi) / pi) * 100) * 100) / 100) + "%";
   document.getElementById("guessingPI").setAttribute("hidden", "hidden");
 
   //shows the guess pi button (which brings us back to first page)
@@ -295,25 +304,11 @@ function toRadians(angle) {
   return angle * (Math.PI / 180.0);
 }
 
-function dropType(type) {
-  dropTypeValue = type;
-  document.getElementById("displayDropType").innerHTML = "Current Drop Type: <br>" + dropTypeValue;
-  clearNeedles();
-}
-
 function changeNeedleLength(size) {
 
-  needleLengthPercent += size;
+  needleLengthPercent = size;
 
-  if (needleLengthPercent * 100 > 100) {
-    needleLengthPercent = 1;
-    alert("The Needle Cannot Be Longer The The Distance Between Lines!");
-  } else if (needleLengthPercent * 100 < 10) {
-    needleLengthPercent = .1;
-    alert("The Needle Length Cannot Be Zero!");
-  }
   needleLength = lineSpace * (needleLengthPercent);
-  document.getElementById("displayNeedleLength").innerHTML = "Current Needle Length:<br> " + Math.round(needleLengthPercent * 100) + "% of distance between lines";
   clearNeedles();
 }
 
@@ -359,70 +354,30 @@ function clearNeedles() {
   needleDrop = 0;
 }
 
-//this is for the tutorial section
-const opentutorialButton = document.getElementById("openTutorial");
-const dropNeedlesSectionTutorial = document.getElementById("dropNeedleTutorial");
+document.querySelectorAll(".dropdown-percent").forEach(link => {
+  link.addEventListener('click', () => {
+    let selected = link.dataset.percent;
+    let dropdown = document.getElementById('percentDropdown');
+    let tempText = dropdown.textContent.replace('%', '');
 
-//overlay for tutorial
-const overlay = document.querySelector('#overlay');
-
-dropNeedlesSectionTutorial.addEventListener("click", function () {
-  tutorialDisplayOptionalSection();
-})
-
-
-function endTutorial() {
-  let divClassToModify = document.getElementById("optionalTutorialArea");
-  divClassToModify.setAttribute("hidden", "hidden");
-  let divClassToHighlight = document.querySelectorAll("#optionalSettingsArea");
-  divClassToHighlight.forEach(function (div) {
-    div.style.backgroundColor = "transparent";
-  });
-
-  overlay.style.display = 'none';
-}
-
-
-//second part of tutorial
-function tutorialDisplayOptionalSection() {
-  let divClassToModify = document.getElementById("chooseAmountNeedle");
-  divClassToModify.setAttribute("hidden", "hidden");
-  let divClassToHighlight = document.querySelectorAll("#tutorialAmountNeedle");
-  divClassToHighlight.forEach(function (div) {
-    div.style.backgroundColor = "transparent";
-  });
-
-  divClassToModify = document.getElementById("optionalTutorialArea");
-  divClassToModify.removeAttribute("hidden");
-
-  divClassToModify.style.top = "10vh";
-  divClassToModify.style.left = "70vh";
-
-
-  divClassToHighlight = document.querySelectorAll("#optionalSettingsArea");
-  divClassToHighlight.forEach(function (div) {
-    div.style.backgroundColor = "white";
-  });
-
-
-}
-
-opentutorialButton.addEventListener('click', function () {
-  overlay.style.display = 'block';
-  tutorialDisplayNeedleAmount();
+    dropdown.textContent = selected + '%';
+    document.getElementById(selected).hidden = true;
+    document.getElementById(tempText).hidden = false;
+    selected = selected / 100;
+    changeNeedleLength(selected);
+  })
 });
 
-//first part of the tutorial
-function tutorialDisplayNeedleAmount() {
-  let divClassToModify = document.getElementById("chooseAmountNeedle");
-  let divClassToHighlight = document.querySelectorAll("#tutorialAmountNeedle");
+document.getElementById("singular").addEventListener('click', () => {
+  if (dropTypeValue == "Cumulative") {
+    dropTypeValue = "Singular";
+    clearNeedles();
+  }
+});
 
-  divClassToHighlight.forEach(function (div) {
-    div.style.backgroundColor = "white";
-    div.style.zIndex = 100;
-  });
-
-  divClassToModify.hidden = false;
-  divClassToModify.style.top = "10vh";
-  divClassToModify.style.left = "70vh";
-}
+document.getElementById("cumulative").addEventListener('click', () => {
+  if (dropTypeValue == "Singular") {
+    dropTypeValue = "Cumulative";
+    clearNeedles();
+  }
+});

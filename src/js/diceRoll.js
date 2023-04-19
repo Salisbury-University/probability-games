@@ -245,28 +245,35 @@ class DiceGame {
 	}
 }
 
+class ScreenManagement {
+	#color;
+	#text;
+
+	constructor() {
+		this.#color = document.getElementById("themeTypeSwitch");
+		this.#text = document.querySelectorAll(".text");
+		this.#setup();
+	}
+	#setup() {
+		this.#color.addEventListener('click', () => {
+			this.#changeColor();
+		});
+	}
+	#changeColor() {
+		if (this.#color.checked) {//dark mode
+			document.body.style.backgroundColor = "#262626";
+			for (let i = 0; i < this.#text.length; i++) {
+				this.#text[i].style.color = 'white';
+			}
+		} else {//light mode
+			document.body.style.backgroundColor = "#ffffff";
+			for (let i = 0; i < this.#text.length; i++) {
+				this.#text[i].style.color = 'black';
+			}
+		}
+	}
+}
+
+
 const game = new DiceGame();
-
-// Get the welcome scene and the full page elements
-const welcomeScene = document.querySelector('.welcome-scene');
-const tutorial = document.querySelector('.tutorial');
-//const fullPage = document.querySelector('.container text-center');
-
-// Get the close button from the welcome scene
-const closeButton = document.querySelector('#close-welcome');
-const openTutorial = document.querySelector('#openTutorial');
-const closeTutorial = document.querySelector('#closeTutorial');
-
-// When the close button is clicked, hide the welcome scene and show the full page
-closeButton.addEventListener('click', function () {
-	welcomeScene.style.display = 'none';
-	//fullPage.style.display = 'block';
-});
-openTutorial.addEventListener('click', function () {
-	tutorial.style.display = 'flex';
-	//fullPage.style.display = 'block';
-});
-closeTutorial.addEventListener('click', function () {
-	welcomeScene.style.display = 'none';
-	//fullPage.style.display = 'block';
-});
+const screens = new ScreenManagement();
