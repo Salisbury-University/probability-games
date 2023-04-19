@@ -62,3 +62,31 @@ body {
     margin-top: 7rem;
   }
 }
+
+.carousel-container {
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+
+.carousel-container::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  display: inline-block;
+  vertical-align: top;
+  width: 150px;
+  height: 300px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  background-size: cover;
+  margin-right: 20px;
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  z-index: 1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
