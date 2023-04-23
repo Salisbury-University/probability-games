@@ -87,15 +87,10 @@ function playAgain() {
         document.getElementById(`door${i}`).src = doorImgPaths[i];
         // console.log(`doorImg${i+1}`);
         document.getElementById(`door${i}`).style.boxShadow = "none";
-        document.getElementById(`door${i}`).setAttribute("onclick", `stepOne(${i})`);
     }
 
     carLocation = Math.floor(Math.random() * 3);
     Doors[carLocation] = 1;
-
-    document.getElementById("titleSentence").innerHTML = "Welcome to Monty Hall's Problem!";
-    document.getElementById("firstSentenceID").innerHTML = `There are <b>three</b> doors in front of you. There are <b>two</b> ${trashName}, and <b> one</b> ${prizeName} <br> Select A Door!`;
-    document.getElementById("playAgainButton").setAttribute("hidden", "hidden");
 }
 
 function finalFunction() {
@@ -184,7 +179,6 @@ function changeToHistory() {
 
 function simulateGame() {
     var switchDoor;
-    //showStats();
 
     var timesPlayed = parseInt(document.getElementById("amountTimesToRun").value);
 
@@ -195,7 +189,6 @@ function simulateGame() {
     } else {
         switchDoor = isKept;
         for (var i = 0; i < timesPlayed; i++) {
-            //playAgain();
             carLocation = Math.floor(Math.random() * 3);
             var userChoice = Math.floor(Math.random() * 3);
             var revealGoat = carLocation;
@@ -205,24 +198,52 @@ function simulateGame() {
             }
 
             if (i < timesSwitched) {
-
-                // if (switchDoor == 1) {
                 var remainderDoor = 5;
                 remainderDoor = remainderDoor - (userChoice + 1);
                 remainderDoor = remainderDoor - (revealGoat + 1);
                 userChoice = remainderDoor;
-                // }
                 updateStats(userChoice, true);
             } else {
                 updateStats(userChoice, false);
             }
-
         }//end of for loop
-
         printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
+        runVisualGame();
     }
 }//end of simulate game
 
+function runVisualGame(iteration = 0) {
+    if (iteration == 3)
+        return;
+
+    let nonWinningDoor = Math.floor(Math.random() * 3);
+
+    while (Doors[nonWinningDoor] == 1) {
+        nonWinningDoor = Math.floor(Math.random() * 3);
+    }
+
+    setTimeout(function () {
+        document.getElementById(`door${nonWinningDoor}`).src = goatImg;
+    }, 150);
+
+    //take quarter break all doors results
+    setTimeout(function () {
+        for (let j = 0; j < 3; j++) {
+            if (Doors[j] == 1)
+                document.getElementById(`door${j}`).src = carImg;
+            else
+                document.getElementById(`door${j}`).src = goatImg;
+        }
+    }, 300);
+
+    //take half break to reset doors
+    setTimeout(function () {
+        if (iteration != 2) {
+            playAgain();
+        }
+        runVisualGame(iteration + 1);
+    }, 500);
+}
 
 
 
