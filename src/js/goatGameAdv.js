@@ -72,6 +72,8 @@ function resetStats() {
         window[key] = initialStats[key];
     }
 
+    document.getElementById("amountTimesToRun").value = "";
+    document.getElementById("amountTimesToSwitch").value = "";
     playAgain();
     printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
 }
@@ -96,168 +98,6 @@ function playAgain() {
     document.getElementById("playAgainButton").setAttribute("hidden", "hidden");
 }
 
-function showStats() {
-    document.getElementById("stageSectionID").setAttribute("hidden", "hidden");
-    document.getElementById("statShow&Hide").removeAttribute("hidden");
-    document.getElementById("showStatsButton").setAttribute("hidden", "hidden");
-    document.getElementById("hideStatsButton").removeAttribute("hidden");
-    document.getElementById("overlay").style.display = "block";
-}
-
-function hideStats() {
-    document.getElementById("stageSectionID").removeAttribute("hidden");
-    document.getElementById("statShow&Hide").setAttribute("hidden", "hidden");
-    document.getElementById("hideStatsButton").setAttribute("hidden", "hidden");
-    document.getElementById("showStatsButton").removeAttribute("hidden");
-    document.getElementById("overlay").style.display = "none";
-}
-
-function stepOne(doorChose) {
-    revealGoat = doorChose;
-    globalDoorChose = doorChose;
-
-    //displays the other goat location
-    while (revealGoat == doorChose || revealGoat == carLocation) {
-        revealGoat = Math.floor(Math.random() * 3);
-    }
-
-    let remainderDoor = 5;
-    remainderDoor = remainderDoor - (doorChose + 1);
-    remainderDoor = remainderDoor - (revealGoat + 1);
-    doorChoice = remainderDoor;
-
-    //remove ability to choose doors from imgs
-    var goatDoor = "door" + revealGoat;
-    var switchDoorLoc = "door" + doorChoice;
-    var OGdoorChoice = "door" + doorChose;
-
-    //document.getElementById(goatDoor).removeAttribute("onclick");
-    document.getElementById(switchDoorLoc).removeAttribute("onclick");
-
-    document.getElementById("door" + doorChose).style.boxShadow = "0 0 100px greenyellow";
-
-    //please click door when goat is located
-    document.getElementById("titleSentence").innerHTML = " You chose Door " + (globalDoorChose + 1) + " <br>One " + trashName + " is located at Door " + (revealGoat + 1) + "!"
-    document.getElementById("firstSentenceID").innerHTML = "Can you click on Door " + (revealGoat + 1) + "?";
-    document.getElementById(goatDoor).removeAttribute("onclick");
-    document.getElementById(OGdoorChoice).removeAttribute("onclick");
-    document.getElementById(goatDoor).setAttribute("onclick", "afterStepOne(" + revealGoat + ")");
-
-}
-
-function afterStepOne(revealGoat) {
-    //doorOpenSound.loop = false;
-    doorOpenSound.play();
-    var go = "door" + revealGoat;
-    var userDoor = "door" + globalDoorChose;
-
-    document.getElementById(go).removeAttribute("onclick");
-    document.getElementById(userDoor).removeAttribute("onclick");
-
-    setTimeout(function () {
-
-        document.getElementById(go).src = goatImg;
-
-        if (revealGoat == 0)
-            document.getElementById("door0").style.borderRadius = "99%";
-        else if (revealGoat == 1)
-            document.getElementById("door1").style.borderRadius = "99%";
-        else
-            document.getElementById("door2").style.borderRadius = "99%";
-
-        document.getElementById("titleSentence").innerHTML = "Great Job! <br> Now Make a Choice!"
-        document.getElementById("firstSentenceID").innerHTML = "There is now one " + trashName + " and one " + prizeName + " left! <br> If you want to keep the Door you chose, then click on <b>Door "
-            + (globalDoorChose + 1) + ". </b><br> Otherwise click on <b>Door " + (doorChoice + 1) + " </b>to switch doors!";
-
-        //remove onclick for other two doors
-        let totalDoor = 5;
-        totalDoor -= revealGoat + 1;
-        totalDoor -= globalDoorChose + 1;
-
-        var otherDoor = "door" + totalDoor;
-        var userDoor = "door" + globalDoorChose;
-
-        document.getElementById(otherDoor).setAttribute("onclick", "determineKeep(0)");
-        document.getElementById(userDoor).setAttribute("onclick", "determineKeep(1)");
-    }, 250);
-}
-
-function secondIntermediate() {
-    document.getElementById("titleSentence").innerHTML = "";
-    setTimeout(finalFunction, 800);
-}
-
-//downsize here
-function midStepTwo(imgType, userDoorChoice) {
-    if (imgType == 1) {
-        correctSound.loop = false;
-        correctSound.play();
-
-        document.getElementById(userDoorChoice).src = carImg;
-        if (userDoorChoice == "door0")
-            document.getElementById("door0").style.borderRadius = "99%";
-        else if (userDoorChoice == "door1")
-            document.getElementById("door1").style.borderRadius = "99%";
-        else
-            document.getElementById("door2").style.borderRadius = "99%";
-
-
-    } else {
-        wrongSound.loop = false;
-        wrongSound.play();
-
-        document.getElementById(userDoorChoice).src = goatImg;
-
-        if (userDoorChoice == "door0")
-            document.getElementById("door0").style.borderRadius = "99%";
-        else if (userDoorChoice == "door1")
-            document.getElementById("door1").style.borderRadius = "99%";
-        else
-            document.getElementById("door2").style.borderRadius = "99%";
-    }
-}
-
-function stepTwo(keptDoor) {
-    var doorChoice = globalDoorChose;
-    if (keptDoor) {
-        var remainderDoor = 5;
-        remainderDoor = remainderDoor - (globalDoorChose + 1);
-        remainderDoor = remainderDoor - (revealGoat + 1);
-        doorChoice = remainderDoor;
-    }
-
-    var userDoorChoice = "door" + doorChoice;
-    if (doorChoice == carLocation) {
-        setTimeout(midStepTwo, 700, 1, userDoorChoice);
-    } else {
-        setTimeout(midStepTwo, 700, 2, userDoorChoice);
-    }
-    ///wait
-
-    document.getElementById("door0").style.boxShadow = "none";
-    document.getElementById("door1").style.boxShadow = "none";
-    document.getElementById("door2").style.boxShadow = "none";
-    document.getElementById(userDoorChoice).style.boxShadow = "0 0 100px greenyellow";
-
-
-    updateStats(doorChoice, keptDoor);
-    printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
-
-
-    if (doorChoice == carLocation) {
-        document.getElementById("firstSentenceID").innerHTML = "You Win!";
-    } else {
-        document.getElementById("firstSentenceID").innerHTML = "You Lose!";
-    }
-
-    //remove IMG clickness
-    document.getElementById("door0").removeAttribute("onclick");
-    document.getElementById("door1").removeAttribute("onclick");
-    document.getElementById("door2").removeAttribute("onclick");
-
-    setTimeout(secondIntermediate, 700);
-}
-
 function finalFunction() {
     if (Doors[0] == 0)
         document.getElementById("door0").src = goatImg;
@@ -274,23 +114,22 @@ function finalFunction() {
     else
         document.getElementById("door2").src = carImg;
 
-    for (let i = 0; i < 3; i++){
+    for (let i = 0; i < 3; i++) {
         document.getElementById(`door${i}`).style.borderRadius = "99%";
     }
-    
+
 
     doorOpenSound.loop = false;
     doorOpenSound.play();
     document.getElementById("playAgainButton").removeAttribute("hidden");
 }
 
-function determineKeep(number) {
+function determineKeepSimulation(number) {
     if (number == 0)
         isKept = true;
     else
         isKept = false;
-
-    stepTwo(isKept);
+    simulateGame();
 }
 
 //do better comments
@@ -343,6 +182,46 @@ function changeToHistory() {
     document.getElementById("buttonHowToPlay").removeAttribute("hidden");
 }
 
+function simulateGame() {
+    var switchDoor;
+    //showStats();
+
+    var timesPlayed = parseInt(document.getElementById("amountTimesToRun").value);
+
+    var timesSwitched = parseInt(document.getElementById("amountTimesToSwitch").value);
+
+    if (timesPlayed < timesSwitched) {
+        alert("You cannot enter more times to switch then the total games played!");
+    } else {
+        switchDoor = isKept;
+        for (var i = 0; i < timesPlayed; i++) {
+            //playAgain();
+            carLocation = Math.floor(Math.random() * 3);
+            var userChoice = Math.floor(Math.random() * 3);
+            var revealGoat = carLocation;
+
+            while (revealGoat == carLocation || revealGoat == userChoice) {
+                revealGoat = Math.floor(Math.random() * 3);
+            }
+
+            if (i < timesSwitched) {
+
+                // if (switchDoor == 1) {
+                var remainderDoor = 5;
+                remainderDoor = remainderDoor - (userChoice + 1);
+                remainderDoor = remainderDoor - (revealGoat + 1);
+                userChoice = remainderDoor;
+                // }
+                updateStats(userChoice, true);
+            } else {
+                updateStats(userChoice, false);
+            }
+
+        }//end of for loop
+
+        printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
+    }
+}//end of simulate game
 
 
 
@@ -403,22 +282,17 @@ function changeTheme() {
 
 function changeDarkTheme() {
     //changes top section to dark and text to white
-    // document.getElementById("topPageSection").style.backgroundColor = "#313b4b";
     let div = document.querySelectorAll("#sectionAforTheme");
     div.forEach(d => {
         d.style.backgroundColor = "#313b4b";
         d.style.color = "white";
     });
-    //document.getElementById("titleSection").style.color = "white";
 
     let div2 = document.querySelectorAll("#sectionBforTheme");
     div2.forEach(d => {
         d.style.backgroundColor = "#262626";
         d.style.color = "white";
     });
-    //document.getElementById("bottomSection").style.backgroundColor = "#313b4b";
-    //document.getElementById("bottomSection").style.color = "white";
-    //document.body.style.backgroundColor = "#262626";
 
     document.body.style.backgroundColor = "#262626";
 }
