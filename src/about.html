@@ -8,49 +8,11 @@
 
     <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
     <link rel="stylesheet" href="../css/about.css" type="text/css" />
-    <link rel="stylesheet" href="../css/settings.css" type="text/css" />
+    <link rel="stylesheet" href="../css/siteWide.css" type="text/css" />
 
 </head>
 
 <body>
-    <!-- Settings Modal -->
-    <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5">Settings</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Volume:</p>
-                    <p>
-                        <input type="range" id="volume-control" value="100" />
-                    </p>
-
-                    <hr class="featurette-divider" />
-                    <div class="row text-align">
-                        <div class="col-3">
-                            <p>Light Theme</p>
-                        </div>
-                        <div class="col-2">
-                            <label class="switch">
-                                <input id="themeTypeSwitch" type="checkbox">
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                        <div class="col-3">
-                            <p>Dark Theme</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Nav Bar-->
     <header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar" style="z-index: 25;">
@@ -174,10 +136,50 @@
         </div><!-- /.container -->
     </main>
 
-    <footer class="container">
-        <p class="float-end"><a href="#">Back to top</a></p>
-        <p> &middot; Salisbury University &middot; </p>
+    <!-- FOOTER -->
+    <footer class="container-fluid text-center">
+        <hr class="featurette-divider">
+        <p> &middot; Salisbury University &middot; | <a href="#">Back to top</a></p>
     </footer>
+
+    <!-- Settings Modal -->
+    <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Settings</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Volume:</p>
+                    <p>
+                        <input type="range" id="volume-control" value="100" />
+                    </p>
+
+                    <hr class="featurette-divider" />
+                    <div class="row text-align">
+                        <div class="col-3">
+                            <p>Light Theme</p>
+                        </div>
+                        <div class="col-2">
+                            <label class="switch">
+                                <input id="themeTypeSwitch" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <div class="col-3">
+                            <p>Dark Theme</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="js/bootstrap.bundle.min.js"></script>
 </body>
