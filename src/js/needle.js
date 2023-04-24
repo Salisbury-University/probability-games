@@ -1,9 +1,10 @@
 // create window height variable
 let windowWidth = document.body.clientWidth * .75;
-let windowHeight = window.innerHeight * .65;
+let windowHeight = window.innerHeight * .53;
 let pi = 0;
 let canvas = document.getElementById('my-canvas');
-const halfPi = Math.PI / 2
+const halfPi = Math.PI / 2;
+
 
 //create Application Window
 let app = new PIXI.Application({
@@ -12,6 +13,16 @@ let app = new PIXI.Application({
   width: windowWidth,
   height: windowHeight
 });
+const style = new PIXI.TextStyle({
+  fontFamily: 'Arial',
+  fontSize: 36,
+  fontWeight: 'bold',
+  fill: ['#ffffff'], // gradient
+});
+let basicText = new PIXI.Text('L', style);
+basicText.x = 1000;
+basicText.y = 20;
+app.stage.addChild(basicText);
 
 // append the application window to the page
 document.getElementById('app').appendChild(app.view);
@@ -41,7 +52,7 @@ let nextEmpty = 0;
 let needleCross = 0;
 let needleDrop = 0;
 let needleColor = 0xffffff;
-let dropTypeValue = "Cumulative";
+let dropTypeValue = "Singular";
 var needleDropSound = new Audio('../sounds/needleDrop.mp3');
 
 
@@ -102,7 +113,7 @@ function changeTheme() {
 function changeDarkTheme() {
   //changes top section to dark and text to white
   document.getElementById("topPageSection").style.backgroundColor = "#313b4b";
-  document.getElementById("titleSection").style.color = "white";
+  document.getElementById("topPageSection").style.color = "white";
 
   document.getElementById("bottomSection").style.backgroundColor = "#313b4b";
   document.getElementById("bottomSection").style.color = "white";
@@ -114,7 +125,7 @@ function changeDarkTheme() {
 function changeLightTheme() {
   //changes top section
   document.getElementById("topPageSection").style.backgroundColor = "#FFEDC9";
-  document.getElementById("titleSection").style.color = "black";
+  document.getElementById("topPageSection").style.color = "black";
 
   //changes bottom section
   document.getElementById("bottomSection").style.backgroundColor = "#FFEDC9";
@@ -153,12 +164,14 @@ function changeLines(num) {
       app.stage.addChild(line);
       lines[i] = yValue;
       yValue = yValue + lineSpace;
+      
     }
   }
 }
 
 //first function to be called while user guessing PI
 function guessPI() {
+  document.getElementById("topPageSection").hidden = true;
 
   document.getElementById("guessingPiNum").addEventListener("keydown", function (e) {
     if (e.code === "Enter") {  //checks whether the pressed key is "Enter" (if enter is pressed then calls next function)
@@ -193,6 +206,7 @@ function guessingPIfunc() {
 
 //last section displayed (resets back to how website originally looked)
 function continueGame() {
+  document.getElementById("topPageSection").hidden = false;
   document.getElementById("resultArea").setAttribute("hidden", "hidden");
   document.getElementById("stats").hidden = false;
   document.getElementById("guessPIButton").removeAttribute("hidden");
@@ -204,6 +218,7 @@ function continueGame() {
 }
 
 function needleXY() {
+  app.stage.removeChild(basicText);
   let dropNeedles = document.getElementById("amountOfNeedles").value;
   if (dropNeedles > 50000) {
     alert("Please enter 50,000 Needles or less");

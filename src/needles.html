@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
 	<!-- custom css -->
 	<link rel="stylesheet" href="../css/needles.css" type="text/css" />
+	<link rel="stylesheet" href="../css/settings.css" type="text/css" />
 
 	<title>Buffon's Needles</title>
 </head>
@@ -51,24 +52,6 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Bug Modal -->
-	<div class="modal fade" id="bugModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="settingsModalLabel">Bug Report</h1>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">Email: mdemchuk1@gulls.salisbury.edu with any bugs found
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-						Close
-					</button>
 				</div>
 			</div>
 		</div>
@@ -157,17 +140,14 @@
 							Play</button>
 					</div>
 					<div class="btn-group me-2" role="group" aria-label="Third group">
-						<button type="radio" class="btn btn-primary" data-bs-toggle="modal"
-							data-bs-target="#bugModal">Report
-							Bug</button>
-					</div>
-					<div class="btn-group" role="group" aria-label="Fourth group">
+						<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+							data-bs-target="#settingsModal">
+							<img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
+						</button>
 					</div>
 				</div>
 				<!-- settings button -->
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModal">
-					<img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
-				</button>
+
 			</div>
 		</div>
 	</nav>
@@ -177,7 +157,7 @@
 		<!--Top Section of the Page-->
 		<div class="row text-center">
 			<!--Left Section-->
-			<div id="optionalSettingsArea" class="col-4"
+			<div id="optionalSettingsArea" class="col-3"
 				style="text-align: left;margin-left: 12%;margin-bottom: 10px;margin-top: 10px;">
 				<div class="row">
 					<div class="btn-toolbar" role="toolbar" aria-label="Needle Length Group">
@@ -214,15 +194,15 @@
 				</div>
 				<div class="row">
 					<div class="btn-toolbar" role="toolbar" aria-label="Drop Type Group">
-						<div class="btn-group me-2" role="group" aria-label="First group">
+						<!--<div class="btn-group me-2" role="group" aria-label="First group">
 							<h5>Drop Type:</h5>
-						</div>
+						</div>-->
 						<div class="btn-group me-2" role="group" aria-label="Second group">
 							<input type="radio" class="btn-check" name="btnradio" id="singular" autocomplete="off"
 								checked>
-							<label class="btn btn-outline-primary btn-sm" for="singular">Singular</label>
+							<label class="btn btn-outline-primary btn-sm" for="singular">Clear Everytime</label>
 							<input type="radio" class="btn-check" name="btnradio" id="cumulative" autocomplete="off">
-							<label class="btn btn-outline-primary btn-sm" for="cumulative">Cumulative</label>
+							<label class="btn btn-outline-primary btn-sm" for="cumulative">Don't clear Screen</label>
 						</div>
 					</div>
 				</div>
@@ -241,8 +221,8 @@
 				</div>
 			</div>
 			<!--Middle Section-->
-			<div id="middleTitleArea" class="col">
-				<h1 id="titleSection">Buffon's Needles </h1>
+			<div id="middleTitleArea" class="col-3">
+				<h1>Buffon's Needles </h1>
 			</div>
 			<!--Right Section-->
 			<div id="tutorialAmountNeedle" class="col-3"
