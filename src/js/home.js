@@ -18,4 +18,8 @@ playButtons.forEach(play => {
     play.addEventListener('click', () => {
         window.location.href = play.dataset.game + ".html";
     });
-})
+});
+
+window.onload = function () {
+    document.getElementById("footer").innerHTML = '<object type="text/html" data="footer.html"></object>';
+}
