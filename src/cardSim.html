@@ -61,27 +61,17 @@
                   <a
                     class="list-group-item list-group-item-action"
                     href="#list-item-1"
-                    >Game Setup</a
+                    >Choosing a Distribution</a
                   >
                   <a
                     class="list-group-item list-group-item-action"
                     href="#list-item-2"
-                    >Placing Chips</a
+                    >Simulation Options</a
                   >
                   <a
                     class="list-group-item list-group-item-action"
                     href="#list-item-3"
-                    >Rolling the Dice</a
-                  >
-                  <a
-                    class="list-group-item list-group-item-action"
-                    href="#list-item-4"
-                    >Removing Chips</a
-                  >
-                  <a
-                    class="list-group-item list-group-item-action"
-                    href="#list-item-4"
-                    >Winning the Game</a
+                    >Simulation Statistics</a
                   >
                 </div>
                 <div
@@ -90,28 +80,20 @@
                   data-bs-offset="0"
                   tabindex="0"
                   class="col"
-                  style="height: 40em; overflow-y: scroll"
+                  style="height: 34em; overflow-y: scroll"
                 >
-                  <h4 id="list-item-1">Game Setup</h4>
-                  <ul>
-                    <li>There are <b> 2 players</b></li>
-                    <li>
-                      There are <b>12 cards labeled 2, 3, 4, 5, .., 12</b>,
-                      representing all possible sums of the roll of two dice
-                    </li>
-                    <li>Each player starts with <b>10 chips</b></li>
-                  </ul>
-                  <h4 id="list-item-2">Placing Chips</h4>
+                  <h4 id="list-item-1">Choosing a Distribution</h4>
+                  <p>There are <b>3 options</b> for choosing a distribution</p>
+                  <ol>
+                    <li>Manually distribute chips</li>
+                    <li>Randomly distributing chips</li>
+                    <li>Loading a saved distribution</li>
+                  </ol>
+                  <h4 id="list-item-2">Simulation Options</h4>
                   <p>
-                    In the first phase of the game, players take turns spreading
-                    their chips out accross all cards one at a time. To place a
-                    chip on a card, when it is the players turn, they can
-                    <b
-                      >click on a card, and their next chip will be placed
-                      there.</b
-                    >
-                    Players take turns placing their chips until all 10 are
-                    placed.
+                    <b>Number of Games</b> - Choose the number of games that are
+                    run during one simulation. Stats will be tracked and
+                    recorded over the specified number of games.
                   </p>
 
                   <div class="text-center">
@@ -120,39 +102,17 @@
                       style="max-height: 350px"
                     />
                   </div>
-                  <h4 id="list-item-3">Rolling the Dice</h4>
+                  <h4 id="list-item-3">Simulation Statistics</h4>
                   <p>
-                    After all of the chips are placed, a roll button will
-                    appear. The player whose turn it is can simply
-                    <b>click on the roll button to roll the dice.</b>
-                  </p>
-                  <h4 id="list-item-4">Removing Chips</h4>
-                  <p>
-                    When the player rolls the dice, they must add up the sum of
-                    the two dice. Once they get the sum, they check the card
-                    labeled with that sum. If they have a chip on that card,
-                    they can <b>click their chip on that card</b>, and it will
-                    be removed from it.
+                    There are <b>2 areas</b> to see statistics from recent
+                    simulations.
+                    <ol>
+                      <li>Recent Games Table</li>
+                      <li>Recent Games Bar Graph</li>
+                    </ol>
                   </p>
                   <div class="text-center">
-                    <img
-                      src="../gifs/clickToRemove.gif"
-                      style="max-height: 350px"
-                    />
-                  </div>
-                  <h4 id="list-item-4">Winning the Game</h4>
-                  <p>
-                    The player who is able to
-                    <b>remove all of their chips from the cards first wins!</b>
-                    So remember to place your chips on the cards with the dice
-                    sums you think are likely to be rolled most often.
-                  </p>
-
-                  <div class="text-center">
-                    <img
-                      src="../gifs/winGame.gif"
-                      style="max-height: 350px"
-                    />
+                    <img src="../gifs/winGame.gif" style="max-height: 350px" />
                   </div>
                 </div>
               </div>
@@ -223,7 +183,7 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">
+          <div class="modal-body" id="settingsModalContent">
             <div class="row text-align">
               <div class="col-3">
                 <p>Light Theme</p>
@@ -298,9 +258,6 @@
                   >
                 </li>
                 <li>
-                  <a class="dropdown-item" href="card.html">12 Card Game</a>
-                </li>
-                <li>
                   <a class="dropdown-item" href="dice27.html">Game of 27</a>
                 </li>
               </ul>
@@ -353,19 +310,7 @@
                 >Simulation</label
               >
             </div>
-            <div class="btn-group me-2" role="group" aria-label="Third group">
-              <button
-                type="radio"
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#bugModal"
-              >
-                Report Bug
-              </button>
-            </div>
-            <div class="btn-group" role="group" aria-label="Fourth group"></div>
-          </div>
-          <!-- settings button -->
+            <div class="btn-group" role="group" aria-label="Fourth group">
           <button
             type="button"
             class="btn btn-primary"
@@ -377,6 +322,9 @@
               style="max-height: 22px; vertical-align: middle"
             />
           </button>
+            </div>
+          </div>
+          <!-- settings button -->
         </div>
       </div>
     </nav>
@@ -408,7 +356,7 @@
                 autocomplete="off"
                 data-bs-toggle="tooltip"
                 data-bs-placement="top"
-                title="Tooltip on top"
+                title="Randomly distribute 10 chips accross 11 cards"
               >
                 Randomly Place Chips
               </button>
@@ -440,6 +388,9 @@
                   id="distDropdown"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  title="Select a distribution to load/overwrite/delete"
                 >
                   Distribution Selection
                 </button>
@@ -456,6 +407,9 @@
                   onclick="saveDistribution();"
                   id="saveButton"
                   autocomplete="off"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  title="Save currently displayed distribution of chips accross the cards"
                   disabled
                 >
                   Save New Distribution
@@ -465,6 +419,9 @@
                   id="delButton"
                   autocomplete="off"
                   onclick="deleteDistribution();"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  title="Delete currently selected distribution on the dropdown"
                   disabled
                 >
                   Delete Distribution
@@ -487,74 +444,36 @@
         </div>
 
         <!-- MIDDLE COLUMN -->
-        <div class="col mx-2 p-2 border rounded" style="min-width: 20%">
+        <div
+          class="col mx-2 p-2 border rounded"
+          style="min-width: 22%; overflow-y: scroll; height: 27em"
+        >
           <div class="text-center">
-            <h5 class="p-2">Recent Game Results</h5>
+            <h5 id="tableTitle">Recent Simulations Roll Data</h5>
           </div>
-          <div class="text-center" style="font-weight: bold" hidden>
-            <ul class="list-group">
-              <li class="list-group-item">
-                <p id="min_label">Min Rolls:</p>
-                <p id="max_label">Max Rolls:</p>
-              </li>
-              <li class="list-group-item">
-                <p id="mean_label">Mean Rolls:</p>
-                <p id="total_label">Total Rolls:</p>
-              </li>
-            </ul>
-          </div>
-          <div class="accordion accordian-flush" id="accordianTable">
-            <div class="accordion-item">
-              <h1 class="accordion-header" id="headingOne">
-                <button
-                  class="accordion-button"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#collapseOne"
-                  aria-expanded="false"
-                  aria-controls="collapseOne"
-                >
-                  <h5>Game Log</h5>
-                </button>
-              </h1>
-              <div
-                id="collapseOne"
-                class="accordion-collapse collapse"
-                aria-labelledby="headingOne"
-                data-bs-parent="#accordianTable"
-              >
-                <div
-                  class="accordion-body"
-                  style="max-height: 23em; overflow-y: scroll"
-                >
-                  <h5 id="tableTitle">Multiple Games Roll Data</h5>
-                  <table class="table" id="rollDataTable">
-                    <thead>
-                      <tr>
-                        <th scope="col">Min</th>
-                        <th scope="col">Max</th>
-                        <th scope="col">Mean</th>
-                        <th scope="col">Total</th>
-                        <th scope="col">Games Played</th>
-                        <th scope="col">Chip Distribution</th>
-                      </tr>
-                    </thead>
-                    <tbody></tbody>
-                  </table>
-                  <!-- create a button -->
-                  <div class="text-center">
-                    <button
-                      class="btn btn-outline-secondary"
-                      id="clearBtn"
-                      onclick="clearTable();"
-                      autocomplete="off"
-                    >
-                      Clear Table
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <table class="table" id="rollDataTable">
+            <thead>
+              <tr>
+                <th scope="col">Min</th>
+                <th scope="col">Max</th>
+                <th scope="col">Mean</th>
+                <th scope="col">Total</th>
+                <th scope="col">Games Played</th>
+                <th scope="col">Chip Distribution</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <!-- create a button -->
+          <div class="text-center">
+            <button
+              class="btn btn-outline-secondary"
+              id="clearBtn"
+              onclick="clearTable();"
+              autocomplete="off"
+            >
+              Clear Table
+            </button>
           </div>
         </div>
 
@@ -567,9 +486,6 @@
             <p>
               <svg width="500" height="300" id="histogram"></svg>
             </p>
-            <p id="hoverDistribution" hidden>
-              [0, 0 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            </p>
             <button
               type="button"
               class="btn btn-outline-secondary m-2"
@@ -578,6 +494,8 @@
             >
               Clear chart
             </button>
+            <p id="hoverLabel" hidden>Bar Distribution:</p>
+            <p id="hoverDistribution" hidden>[ - - - - - - - - - - - ]</p>
           </div>
         </div>
       </div>
@@ -596,11 +514,23 @@
             <h1 id="card2label">0</h1>
           </div>
           <div class="text-center bg-white m-2 rounded">
-            <button class="btn btn-danger m-2" onclick="removeChips(this);">
-              -1
-            </button>
-            <button class="btn btn-primary m-2" onclick="addChips(this);">
+            <button
+              class="btn btn-primary m-2"
+              onclick="addChips(this);"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Add a chip to card 2"
+            >
               +1
+            </button>
+            <button
+              class="btn btn-danger m-2"
+              onclick="removeChips(this);"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Remove a chip from card 2"
+            >
+              -1
             </button>
           </div>
         </div>
@@ -616,11 +546,23 @@
           </div>
 
           <div class="text-center bg-white m-2 rounded">
-            <button class="btn btn-danger m-2" onclick="removeChips(this);">
-              -1
-            </button>
-            <button class="btn btn-primary m-2" onclick="addChips(this);">
+            <button
+              class="btn btn-primary m-2"
+              onclick="addChips(this);"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Add a chip to card 3"
+            >
               +1
+            </button>
+            <button
+              class="btn btn-danger m-2"
+              onclick="removeChips(this);"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Remove a chip from card 3"
+            >
+              -1
             </button>
           </div>
         </div>
@@ -636,11 +578,23 @@
             <h1 id="card4label">0</h1>
           </div>
           <div class="text-center bg-white m-2 rounded">
-            <button class="btn btn-danger m-2" onclick="removeChips(this);">
-              -1
-            </button>
-            <button class="btn btn-primary m-2" onclick="addChips(this);">
+            <button
+              class="btn btn-primary m-2"
+              onclick="addChips(this);"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Add a chip to card 4"
+            >
               +1
+            </button>
+            <button
+              class="btn btn-danger m-2"
+              onclick="removeChips(this);"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Remove a chip from card 4"
+            >
+              -1
             </button>
           </div>
         </div>
@@ -655,11 +609,23 @@
             <h1 id="card5label">0</h1>
           </div>
           <div class="text-center bg-white m-2 rounded">
-            <button class="btn btn-danger m-2" onclick="removeChips(this);">
-              -1
-            </button>
-            <button class="btn btn-primary m-2" onclick="addChips(this);">
+            <button
+              class="btn btn-primary m-2"
+              onclick="addChips(this);"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Add a chip to card 5"
+            >
               +1
+            </button>
+            <button
+              class="btn btn-danger m-2"
+              onclick="removeChips(this);"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Remove a chip from card 5"
+            >
+              -1
             </button>
           </div>
         </div>
@@ -674,11 +640,23 @@
             <h1 id="card6label">0</h1>
           </div>
           <div class="text-center bg-white m-2 rounded">
-            <button class="btn btn-danger m-2" onclick="removeChips(this);">
-              -1
-            </button>
-            <button class="btn btn-primary m-2" onclick="addChips(this);">
+            <button
+              class="btn btn-primary m-2"
+              onclick="addChips(this);"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Add a chip to card 6"
+            >
               +1
+            </button>
+            <button
+              class="btn btn-danger m-2"
+              onclick="removeChips(this);"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Remove a chip from card 6"
+            >
+              -1
             </button>
           </div>
         </div>
@@ -693,11 +671,23 @@
             <h1 id="card7label">0</h1>
           </div>
           <div class="text-center bg-white m-2 rounded">
-            <button class="btn btn-danger m-2" onclick="removeChips(this);">
-              -1
-            </button>
-            <button class="btn btn-primary m-2" onclick="addChips(this);">
+            <button
+              class="btn btn-primary m-2"
+              onclick="addChips(this);"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Add a chip to card 7"
+            >
               +1
+            </button>
+            <button
+              class="btn btn-danger m-2"
+              onclick="removeChips(this);"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Remove a chip from card 7"
+            >
+              -1
             </button>
           </div>
         </div>
@@ -712,11 +702,23 @@
             <h1 id="card8label">0</h1>
           </div>
           <div class="text-center bg-white m-2 rounded">
-            <button class="btn btn-danger m-2" onclick="removeChips(this);">
-              -1
-            </button>
-            <button class="btn btn-primary m-2" onclick="addChips(this);">
+            <button
+              class="btn btn-primary m-2"
+              onclick="addChips(this);"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Add a chip to card 8"
+            >
               +1
+            </button>
+            <button
+              class="btn btn-danger m-2"
+              onclick="removeChips(this);"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Remove a chip from card 8"
+            >
+              -1
             </button>
           </div>
         </div>
@@ -731,11 +733,23 @@
             <h1 id="card9label">0</h1>
           </div>
           <div class="text-center bg-white m-2 rounded">
-            <button class="btn btn-danger m-2" onclick="removeChips(this);">
-              -1
-            </button>
-            <button class="btn btn-primary m-2" onclick="addChips(this);">
+            <button
+              class="btn btn-primary m-2"
+              onclick="addChips(this);"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Add a chip to card 9"
+            >
               +1
+            </button>
+            <button
+              class="btn btn-danger m-2"
+              onclick="removeChips(this);"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Remove a chip from card 9"
+            >
+              -1
             </button>
           </div>
         </div>
@@ -750,11 +764,23 @@
             <h1 id="card10label">0</h1>
           </div>
           <div class="text-center bg-white m-2 rounded">
-            <button class="btn btn-danger m-2" onclick="removeChips(this);">
-              -1
-            </button>
-            <button class="btn btn-primary m-2" onclick="addChips(this);">
+            <button
+              class="btn btn-primary m-2"
+              onclick="addChips(this);"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Add a chip to card 10"
+            >
               +1
+            </button>
+            <button
+              class="btn btn-danger m-2"
+              onclick="removeChips(this);"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Remove a chip from card 10"
+            >
+              -1
             </button>
           </div>
         </div>
@@ -769,11 +795,23 @@
             <h1 id="card11label">0</h1>
           </div>
           <div class="text-center bg-white m-2 rounded">
-            <button class="btn btn-danger m-2" onclick="removeChips(this);">
-              -1
-            </button>
-            <button class="btn btn-primary m-2" onclick="addChips(this);">
+            <button
+              class="btn btn-primary m-2"
+              onclick="addChips(this);"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Add a chip to card 11"
+            >
               +1
+            </button>
+            <button
+              class="btn btn-danger m-2"
+              onclick="removeChips(this);"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Remove a chip from card 11"
+            >
+              -1
             </button>
           </div>
         </div>
@@ -788,11 +826,23 @@
             <h1 id="card12label">0</h1>
           </div>
           <div class="text-center bg-white m-2 rounded">
-            <button class="btn btn-danger m-2" onclick="removeChips(this);">
-              -1
-            </button>
-            <button class="btn btn-primary m-2" onclick="addChips(this);">
+            <button
+              class="btn btn-primary m-2"
+              onclick="addChips(this);"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Add a chip to card 12"
+            >
               +1
+            </button>
+            <button
+              class="btn btn-danger m-2"
+              onclick="removeChips(this);"
+              data-bs-toggle="tooltip"
+              data-bs-placement="top"
+              title="Remove a chip from card 12"
+            >
+              -1
             </button>
           </div>
         </div>

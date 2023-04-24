@@ -77,7 +77,7 @@ class CoinSimulation {
         var data = this.#flips[coinSide];
 
         // Number of bins for histogram
-        var numBins = 50;
+        var numBins = 100;
 
         // Define the scale for the x-axis (the data range)
         var xScale = d3.scaleLinear()

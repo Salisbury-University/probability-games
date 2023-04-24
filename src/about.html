@@ -4,35 +4,69 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.104.2">
     <title>Probability Games!</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/carousel/">
-
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/about.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="../css/about.css" type="text/css" />
+    <link rel="stylesheet" href="../css/settings.css" type="text/css" />
 
 </head>
 
 <body>
+    <!-- Settings Modal -->
+    <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Settings</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Volume:</p>
+                    <p>
+                        <input type="range" id="volume-control" value="100" />
+                    </p>
+
+                    <hr class="featurette-divider" />
+                    <div class="row text-align">
+                        <div class="col-3">
+                            <p>Light Theme</p>
+                        </div>
+                        <div class="col-2">
+                            <label class="switch">
+                                <input id="themeTypeSwitch" type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <div class="col-3">
+                            <p>Dark Theme</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Nav Bar-->
     <header>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar" style="z-index: 25;">
             <div class="container-fluid">
-                <a class="navbar-brand" href="home.html"><img src="../images/logo.png" id="logo_img"
-                        style="max-height: 35px;"></img></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png" alt="logo"
+                        style="max-height: 35px" /></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="collapse navbar-collapse">
                     <ul class="navbar-nav me-auto mb-2 mb-md-0">
                         <li class="nav-item">
                             <a class="nav-link" href="about.html">About</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
                                 Games
                             </a>
@@ -46,13 +80,19 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="https://github.com/Salisbury-University/probability-games.git"
-                                target="_blank" rel="noopener noreferrer">GitHub</a>
+                            <a class="nav-link"
+                                href="https://github.com/Salisbury-University/probability-games.git">GitHub</a>
                         </li>
-
                     </ul>
+
+                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                        <!-- settings button -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#settingsModal">
+                            <img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
+                        </button>
+                    </div>
                 </div>
-            </div>
         </nav>
     </header>
     <main>
@@ -61,7 +101,8 @@
                 <h1 class="display-5 fw-bold text-body-emphasis">Welcome to Probability Games!</h1>
                 <div class="row" style="margin-top: 8%;">
                     <div class="col-4 offset-2 text-start">
-                        <p class="hanging-indent">Welcome to our website, a fun and educational platform designed to help students develop
+                        <p class="hanging-indent">Welcome to our website, a fun and educational platform designed to
+                            help students develop
                             their understanding of probability through interactive games. Our purpose is to provide an
                             engaging and enjoyable experience that helps students build their confidence in this
                             important mathematical concept.</p>
@@ -72,8 +113,7 @@
                             learners. Our games are engaging and challenging, yet easy to understand, so that even
                             children who are new to the concept of probability can quickly grasp the basics. </p>
                     </div>
-                    <div class="col-3 offset-1 mt-5"><img src="../images/logo.png" alt="logo" width="371"
-                            height="120">
+                    <div class="col-3 offset-1 mt-5"><img src="../images/logo.png" alt="logo" width="371" height="120">
                     </div>
                     <div class="row text-start">
                         <div class="col-10 offset-2">
