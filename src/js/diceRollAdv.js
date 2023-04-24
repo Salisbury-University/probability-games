@@ -152,17 +152,17 @@ class DiceGame {
                 document.getElementById("singleRoll").disabled = true;
                 document.getElementById("multiRoll").disabled = true;
 
-                document.getElementById("prompt").innerHTML = "Which side is weighted? Click the side you think it is.";
+                document.getElementById("prompt").innerHTML = "Click the weighted side of the die.";
                 this.#clickable = true
                 this.#changeCursor();
             } else {
-                document.getElementById("prompt").innerHTML = "Correct, the Dice isn't Weighted! Lets play again";
+                document.getElementById("prompt").innerHTML = "Correct, the Dice isn't Weighted! Lets play again.";
                 this.#reset();
             }
         }
         else {
             this.#playAudio(AUDIO_WRONG);
-            document.getElementById("prompt").innerHTML = "Try Again";
+            document.getElementById("prompt").innerHTML = "Try Again.";
         }
 
     }
@@ -211,12 +211,12 @@ class DiceGame {
         if (this.#clickable) {
             if (side == this.#weightedSide) {
                 this.#playAudio(AUDIO_CORRECT);
-                document.getElementById("prompt").innerHTML = "Correct the " + side + " side is the weighted side. What is the probablity that this side is obtained?";
+                document.getElementById("prompt").innerHTML = "Correct, the " + side + " side is the weighted side. What is the probablity that this side is obtained?";
                 document.getElementById("guessWeight").hidden = false;
             }
             else {
                 this.#playAudio(AUDIO_WRONG);
-                document.getElementById("prompt").innerHTML = "Try Again";
+                document.getElementById("prompt").innerHTML = "Try Again,";
             }
         }
     }
@@ -278,7 +278,7 @@ class DiceGame {
         }
         else if ((guess * 20) == this.#probabilities[this.#weightedSide - 1]) {
             this.#playAudio(AUDIO_CORRECT);
-            document.getElementById("prompt").innerHTML = "Correct the " + this.#weightedSide + " side has a probability of being obtained " + guessFraction + " of the time";
+            document.getElementById("prompt").innerHTML = "Correct, the " + this.#weightedSide + " side has a " + guessFraction + " chance of being obtained. Let's play again.";
             document.getElementById("guessWeight").hidden = true;
             document.getElementById("singleRoll").disabled = false;
             document.getElementById("multiRoll").disabled = false;
@@ -314,8 +314,8 @@ function changeTheme() {
   }
   
   function changeLightTheme() {  
-    document.body.style.backgroundColor = "#ffd789";
-	document.getElementById("start").style.backgroundColor = "#ffd789";
+    document.body.style.backgroundColor = "white";
+	document.getElementById("start").style.backgroundColor = "white";
     document.getElementById("title").style.color = "black";
     document.getElementById("single").style.color = "black";
     document.getElementById("multi").style.color = "black";

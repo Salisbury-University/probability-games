@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
 	<!-- custom css -->
 	<link rel="stylesheet" href="../css/needles.css" type="text/css" />
+	<link rel="stylesheet" href="../css/settings.css" type="text/css" />
 
 	<title>Buffon's Needles</title>
 </head>
@@ -51,24 +52,6 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Bug Modal -->
-	<div class="modal fade" id="bugModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="settingsModalLabel">Bug Report</h1>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">Email: mdemchuk1@gulls.salisbury.edu with any bugs found
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-						Close
-					</button>
 				</div>
 			</div>
 		</div>
@@ -157,17 +140,14 @@
 							Play</button>
 					</div>
 					<div class="btn-group me-2" role="group" aria-label="Third group">
-						<button type="radio" class="btn btn-primary" data-bs-toggle="modal"
-							data-bs-target="#bugModal">Report
-							Bug</button>
-					</div>
-					<div class="btn-group" role="group" aria-label="Fourth group">
+						<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+							data-bs-target="#settingsModal">
+							<img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
+						</button>
 					</div>
 				</div>
 				<!-- settings button -->
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModal">
-					<img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
-				</button>
+
 			</div>
 		</div>
 	</nav>
@@ -271,6 +251,11 @@
 	<!-- canvas -->
 	<div class="container-fluid">
 		<div class="row">
+			<!-- this section is left of the canvas-->
+			<div class="col-2 fs-2" style="width: 11%;background-color: white;word-wrap: break-word;">
+				<p> L = wjefjwejfb ijwfioe nwwfe wmlnefkl wefklfnm </p>
+			</div>
+			<div class="col-8" id="app"></div>
 			<div id="app"></div></canvas>
 		</div>
 	</div>
