@@ -1,9 +1,10 @@
 // create window height variable
 let windowWidth = document.body.clientWidth * .75;
-let windowHeight = window.innerHeight * .65;
+let windowHeight = window.innerHeight * .53;
 let pi = 0;
 let canvas = document.getElementById('my-canvas');
-const halfPi = Math.PI / 2
+const halfPi = Math.PI / 2;
+
 
 //create Application Window
 let app = new PIXI.Application({
@@ -12,6 +13,16 @@ let app = new PIXI.Application({
   width: windowWidth,
   height: windowHeight
 });
+const style = new PIXI.TextStyle({
+  fontFamily: 'Arial',
+  fontSize: 36,
+  fontWeight: 'bold',
+  fill: ['#ffffff'], // gradient
+});
+let basicText = new PIXI.Text('L', style);
+basicText.x = 1000;
+basicText.y = 20;
+app.stage.addChild(basicText);
 
 // append the application window to the page
 document.getElementById('app').appendChild(app.view);
@@ -153,12 +164,14 @@ function changeLines(num) {
       app.stage.addChild(line);
       lines[i] = yValue;
       yValue = yValue + lineSpace;
+      
     }
   }
 }
 
 //first function to be called while user guessing PI
 function guessPI() {
+  document.getElementById("topPageSection").hidden = true;
 
   document.getElementById("guessingPiNum").addEventListener("keydown", function (e) {
     if (e.code === "Enter") {  //checks whether the pressed key is "Enter" (if enter is pressed then calls next function)
@@ -193,6 +206,7 @@ function guessingPIfunc() {
 
 //last section displayed (resets back to how website originally looked)
 function continueGame() {
+  document.getElementById("topPageSection").hidden = false;
   document.getElementById("resultArea").setAttribute("hidden", "hidden");
   document.getElementById("stats").hidden = false;
   document.getElementById("guessPIButton").removeAttribute("hidden");
@@ -204,6 +218,7 @@ function continueGame() {
 }
 
 function needleXY() {
+  app.stage.removeChild(basicText);
   let dropNeedles = document.getElementById("amountOfNeedles").value;
   if (dropNeedles > 50000) {
     alert("Please enter 50,000 Needles or less");
