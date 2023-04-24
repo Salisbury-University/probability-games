@@ -1,5 +1,5 @@
 // create window height variable
-let windowWidth = document.body.clientWidth * .75;
+let windowWidth = document.body.clientWidth * .9;
 let windowHeight = window.innerHeight * .53;
 let pi = 0;
 let canvas = document.getElementById('my-canvas');
@@ -19,9 +19,9 @@ const style = new PIXI.TextStyle({
   fontWeight: 'bold',
   fill: ['#ffffff'], // gradient
 });
-let basicText = new PIXI.Text('L', style);
-basicText.x = 1000;
-basicText.y = 20;
+let basicText = new PIXI.Text('d', style);
+basicText.x = windowWidth - 100;
+basicText.y = 100;
 app.stage.addChild(basicText);
 
 // append the application window to the page
@@ -93,7 +93,7 @@ for (let i = 0; i < amountLines + 1; i++) {
     line.lineStyle(1, 0x0096FF, 1);
   }
   line.moveTo(0, yValue);
-  line.lineTo(windowWidth, yValue);
+  line.lineTo(windowWidth *.75, yValue);
   line.closePath();
   app.stage.addChild(line);
   lines[i] = yValue;
