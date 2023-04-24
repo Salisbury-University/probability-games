@@ -63,19 +63,14 @@ body {
   }
 }
 
-.carousel-container {
-  overflow-x: scroll;
+#gameList {
   white-space: nowrap;
-}
-
-.carousel-container::-webkit-scrollbar {
-  display: none;
 }
 
 .card {
   display: inline-block;
   vertical-align: top;
-  width: 150px;
+  width: 15.5%;
   height: 300px;
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -83,10 +78,11 @@ body {
   margin-right: 20px;
   padding: 20px;
   transition: transform 0.3s ease;
+  position: relative;
 }
 
 .card:hover {
-  transform: scale(1.05);
+  transform: scale(1.5);
   z-index: 1;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
