@@ -7,12 +7,14 @@
 	<title>Coin Flip</title>
 	<link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
 	<link rel="stylesheet" href="../css/coinFlip.css" type="text/css" />
+	<link rel="stylesheet" href="../css/settings.css" type="text/css" />
+
 </head>
 
-<body style="background-color: #ffd789;">
+<body>
 	<!-- How to Play Modal -->
 	<div class="modal fade" id="howToPlay" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog modal-xl" style="position: relative; top: 10%">
+		<div class="modal-dialog modal-xl">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h1 class="modal-title fs-5" id="instructionsModalLabel">
@@ -119,24 +121,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- Bug Modal -->
-	<div class="modal fade" id="bugModal" tabindex="-1" aria-labelledby="bugModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h1 class="modal-title fs-5">Bug Report</h1>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">Email: mdemchuk1@gulls.salisbury.edu with any bugs found
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-						Close
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
 	<!-- Settings Modal -->
 	<div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
@@ -224,18 +208,12 @@
 							<label class="btn btn-outline-primary" for="advanced_btn">Simulation</label>
 						</div>
 						<div class="btn-group me-2" role="group" aria-label="Third group">
-							<button type="radio" class="btn btn-primary" data-bs-toggle="modal"
-								data-bs-target="#bugModal">Report
-								Bug</button>
-						</div>
-						<div class="btn-group" role="group" aria-label="Fourth group">
+							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+								data-bs-target="#settingsModal">
+								<img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
+							</button>
 						</div>
 					</div>
-					<!-- settings button -->
-					<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-						data-bs-target="#settingsModal">
-						<img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
-					</button>
 				</div>
 			</div>
 		</nav>
