@@ -13,22 +13,62 @@
 </head>
 
 <body>
+  <!-- Settings Modal -->
+  <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Settings</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Volume:</p>
+          <p>
+            <input type="range" id="volume-control" value="100" />
+          </p>
+
+          <hr class="featurette-divider" />
+          <div class="row text-align">
+            <div class="col-3">
+              <p>Light Theme</p>
+            </div>
+            <div class="col-2">
+              <label class="switch">
+                <input id="themeTypeSwitch" type="checkbox">
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div class="col-3">
+              <p>Dark Theme</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nav Bar-->
   <header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar" style="z-index: 25;">
       <div class="container-fluid">
-        <a class="navbar-brand" href="home.html"><img src="../images/logo.png" id="logo_img"
-            style="max-height: 35px;"></img></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
-          aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png" alt="logo"
+            style="max-height: 35px" /></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="collapse navbar-collapse">
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
               <a class="nav-link" href="about.html">About</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
                 Games
               </a>
               <ul class="dropdown-menu">
@@ -41,13 +81,17 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="https://github.com/Salisbury-University/probability-games.git" target="_blank"
-                rel="noopener noreferrer">GitHub</a>
+              <a class="nav-link" href="https://github.com/Salisbury-University/probability-games.git">GitHub</a>
             </li>
-
           </ul>
+
+          <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <!-- settings button -->
+            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#settingsModal">
+              <img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
+            </button>
+          </div>
         </div>
-      </div>
     </nav>
   </header>
 
@@ -71,13 +115,67 @@
       <div class="row text-center">
         <h1 class="display-5 fw-bold text-body-emphasis">Lets Play Some Games!</h1>
       </div>
-      <div id="gameList">
-        <div class="card" style="background-image: url(../images/12card_thumbnail.png);">Sum of Two Dice</div>
-        <div class="card" style="background-image: url(../images/goatgame_thumbnail.png);">Monty Hall Game</div>
-        <div class="card" style="background-image: url(../images/27_thumbnail.png);">Game 27</div>
-        <div class="card" style="background-image: url(../images/die_thumbnail.jpg);">Dice Roll</div>
-        <div class="card" style="background-image: url(../images/coin_thumbnail.png);">Coin Flip</div>
-        <div class="card" style="background-image: url(../images/buffon_thumbnail.png);">Buffons Needle</div>
+      <div class="cardList">
+        <div class="card" id="leftCard" data-name="sumDice">
+          <div class="cardTitle">Sum of Two Dice</div>
+          <img class="cardImage" src="../images/homePage/sumDiceThumbnail.png">
+          <div id="sumDice" hidden>
+            <div class="cardInfo">
+              <p>First player to get rid of all of their chips from rolling the die wins!</p>
+              <button type="button" class="btn btn-success playButton" data-game="card">Play Game</button>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-name="montyHall">
+          <div class="cardTitle">Monty Hall Game</div>
+          <img class="cardImage" src="../images/homePage/montyHallThumbnail.png">
+          <div id="montyHall" hidden>
+            <div class="cardInfo">
+              <p>Try to guess which door the prize is behind, with one opportunity to switch!</p>
+              <button type="button" class="btn btn-success playButton" data-game="GoatGame">Play Game</button>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-name="game27">
+          <div class="cardTitle">Game of 27</div>
+          <img class="cardImage" src="../images/homePage/game27Thumbnail.png">
+          <div id="game27" hidden>
+            <div class="cardInfo">
+              <p>Roll a die and use division to earn chips, player with the most chips wins!</p>
+              <button type="button" class="btn btn-success playButton" data-game="dice27">Play Game</button>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-name="diceRoll">
+          <div class="cardTitle">Dice Roll</div>
+          <img class="cardImage" src="../images/homePage/diceRollThumbnail.png">
+          <div id="diceRoll" hidden>
+            <div class="cardInfo">
+              <p>Roll a die and guess whether or not it is weighted!</p>
+              <button type="button" class="btn btn-success playButton" data-game="diceRoll">Play Game</button>
+            </div>
+          </div>
+        </div>
+        <div class="card" data-name="coinFlip">
+          <div class="cardTitle">Coin Flip</div>
+          <img class="cardImage" src="../images/homePage/coinFlipThumbnail.png">
+          <div id="coinFlip" hidden>
+            <div class="cardInfo">
+              <p>Flip a coin, and predict whether or not it is weighted to win!</p>
+              <button type="button" class="btn btn-success playButton" data-game="coinFlip">Play Game</button>
+            </div>
+          </div>
+        </div>
+        <div class="card" id="rightCard" data-name="buffonsNeedles">
+          <div class="cardTitle">Buffons Needles</div>
+          <img class="cardImage" src="../images/homePage/buffonsNeedlesThumbnail.png">
+          <div id="buffonsNeedles" hidden>
+            <div class="cardInfo">
+              <p>Simulate dropping needles onto a grid, and see how many touch the gridlines.</p>
+              <button type="button" class="btn btn-success playButton" data-game="needles">Play Game</button>
+            </div>
+          </div>
+        </div>
       </div>
       <hr class="featurette-divider">
     </div><!-- /.container -->
