@@ -48,11 +48,23 @@
                             data-bs-target="#howToPlay">How to
                             Play</button>
                     </div>
+
+                    <div class="btn-group me-2" role="group" aria-label="Second group">
+                        <input type="radio" class="btn-check" name="btnradio" id="basic_btn" autocomplete="off"
+                            checked />
+                        <label class="btn btn-outline-primary" for="basic_btn">Basic</label>
+
+                        <input type="radio" class="btn-check" name="btnradio" id="advanced_btn" autocomplete="off"
+                            onclick="window.location.href = 'GoatGameadvanced.html'" />
+                        <label class="btn btn-outline-primary" for="advanced_btn">Advanced</label>
+                    </div>
+
                     <div class="btn-group me-2" role="group" aria-label="Third group">
                         <button type="radio" class="btn btn-primary" data-bs-toggle="modal"
                             data-bs-target="#bugModal">Report
                             Bug</button>
                     </div>
+
                     <div class="btn-group" role="group" aria-label="Fourth group">
                     </div>
                 </div>
@@ -159,7 +171,7 @@
                     <div class="row text-align">
                         <div class="col-6">
                             <div class="dropdown">
-                                <h5>Prize Selector (Current Prize)</h5>
+                                <h5>Winning Prize</h5>
                                 <button class="btn btn-primary dropdown-toggle" type="button" id="prizeSelectorDropDown"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     Ice Cream
@@ -174,15 +186,17 @@
                         </div>
                         <div class="col-6">
                             <div class="dropdown">
-                                <h5>Trash Selector (Current Trash)</h5>
+                                <h5>Losing Prize</h5>
                                 <button class="btn btn-primary dropdown-toggle" type="button" id="trashSelectorDropDown"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     Vegetables
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="trashSelectorDropDown">
-                                    <li><button class="dropdown-item" onclick="changeTrash('vegetable')">Vegetables</button></li>
+                                    <li><button class="dropdown-item"
+                                            onclick="changeTrash('vegetable')">Vegetables</button></li>
                                     <li><button class="dropdown-item" onclick="changeTrash('Trash')">Trash</button></li>
-                                    <li><button class="dropdown-item" onclick="changeTrash('Chores')">Chores</button></li>
+                                    <li><button class="dropdown-item" onclick="changeTrash('Chores')">Chores</button>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -274,7 +288,7 @@
     <div id="sectionAforTheme" style="background-color: #FFEDC9; height: 25%;border-top: 6px solid black;">
         <div class="container-fluid text-center">
             <!--<h1 class="centerText"> Statistics For Game </h1>-->
-            <p id="simulateInfo">Click Simulate Runs to simulate the game!</p>
+            <p id="simulateInfo">Click Show Stats to display stats for the game!</p>
             <p id="simulateInfo2"></p>
             <div class=" row">
                 <div class="col">
@@ -282,39 +296,9 @@
                         Stats</button>
                     <button type="button" class="btn btn-primary" onclick="hideStats()" id="hideStatsButton"
                         hidden="hidden">Hide Stats</button>
-                    <button type="button" class="btn btn-primary" onclick="resetStats()">Reset Stats</button>
-
-                    <button type="button" class="btn btn-primary" onclick="prepreSimulate()"
-                        id="simulateRunButton">Start Simulation</button>
-                    <button type="button" class="btn btn-primary" onclick="simulateGame()" id="continueSimulation"
-                        hidden="hidden">Run Simulation</button>
-                    <button type="button" class="btn btn-primary" onclick="endSimulation()" id="endSimButton"
-                        hidden="hidden">End simulation</button>
+                    <button type="button" class="btn btn-primary" onclick="resetStats()">Reset Game</button>
                 </div>
             </div>
-
-            <div id="simulationInputArea" style="margin-top: 10px;" hidden>
-                <div class="row text-center">
-                    <div class="col-5 offset-2">
-                        <p> Here you enter how many times you would like to run the simulation!</p>
-                    </div>
-                    <div class="col-2">
-                        <input type="number" id="amountTimesToRun" placeholder="Number of Runs" hidden="hidden"
-                            style="margin-bottom: 10px;">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-5 offset-2">
-                        <p>Here you enter how many times you would like to switch doors!</p>
-                    </div>
-                    <div class="col-2">
-                        <input type="number" id="amountTimesToSwitch" placeholder="# Times To Switch Doors"
-                            hidden="hidden" style="margin-top:0px;">
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
     <script src="js/bootstrap.bundle.min.js"></script>
