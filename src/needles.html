@@ -280,8 +280,8 @@
 		<div class="row" style="text-align: center;">
 			<!-- this section shows estimate pi button, continue button and stats header-->
 			<h1 id="statsH1"> Stats <button class="btn btn-primary" id="guessPIButton" onclick="guessPI()" disabled>
-					Estimate PI</button>
-				<button class="btn btn-primary" id="continueButton" onclick="continueGame()" hidden>Continue</button>
+					More Info</button>
+				<button class="btn btn-primary" id="continueButton" onclick="continueGame()" hidden>Drop More Needles</button>
 			</h1>
 		</div>
 		<div class="row text-center" id="stats">
@@ -310,10 +310,16 @@
 				<h3>h = needles that cross a grid line </h3>
 				<h3>n = total number of needles dropped</h3>
 			</div>
+			<div class="col" id=estimatePiValues>
+				<h3 id="needLength"></h3>
+				<h3 id="gridSpace"></h3>
+				<h3 class="needCross"></h3>
+				<h3 class="total"></h3>
+			</div>
 
 			<div class="col">
 				<p>Using the fomula below estimate the value of Pi</p>
-				<p>Please estimate PI: <input type="number" id="guessingPiNum"> Press Enter</p>
+				<!--<p>Please estimate PI: <input type="number" id="guessingPiNum"> Press Enter</p>-->
 				<h3>Buffon's needle formula:
 					<math>
 						<mrow>
@@ -334,12 +340,7 @@
 				</h3>
 			</div>
 
-			<div class="col" id=estimatePiValues>
-				<h3 id="needLength"></h3>
-				<h3 id="gridSpace"></h3>
-				<h3 class="needCross"></h3>
-				<h3 class="total"></h3>
-			</div>
+			
 		</div>
 
 		<!-- resultArea, the last section to be displayed-->
