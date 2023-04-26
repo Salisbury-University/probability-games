@@ -163,26 +163,7 @@ function changeLines(num) {
   }
 }
 
-//first function to be called while user guessing PI
-function guessPI() {
-  document.getElementById("topPageSection").hidden = true;
 
-  document.getElementById("guessingPiNum").addEventListener("keydown", function (e) {
-    if (e.code === "Enter") {  //checks whether the pressed key is "Enter" (if enter is pressed then calls next function)
-      guessingPIfunc();
-    }
-  });
-
-  //this hides the previous page (the stats for the page)
-  //document.getElementById("stats").hidden = true;
-  //document.getElementById("statsLocated3").setAttribute("hidden", "hidden");
-  //document.getElementById("formulaValue").setAttribute("hidden", "hidden");
-  //disables the button to drop needles
-  document.getElementById("dropNeedleButton").setAttribute("disabled", "disabled");
-
-  //shows guessingPI section
-  //document.getElementById("guessingPI").removeAttribute("hidden");
-}
 //the second function to be called (by user pressing enter)
 function guessingPIfunc() {
   //shows result area
@@ -202,6 +183,7 @@ const buttons = document.querySelectorAll(".statsSection");
 buttons[0].addEventListener("click", () => {
     buttons[0].hidden = true;
     buttons[1].hidden = false;
+    document.getElementById("topPageSection").hidden = true;
     document.getElementById("moreInfo").hidden = false;
     document.getElementById("stats").hidden = true;
 });
