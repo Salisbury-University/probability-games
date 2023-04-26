@@ -2,75 +2,182 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="../css/GoatGame.css">
-    <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <title>Monty Hall Problem Simulation</title>
+
+    <!-- CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../css/GoatGame.css" rel="stylesheet" />
+    <link href="../css/siteWide.css" rel="stylesheet" />
+
+    <!-- favicon stuff -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../images/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png" />
+    <link rel="manifest" href="../images/site.webmanifest" />
 </head>
 
-<!-- Navbar -->
-<header>
-    <title> Monty Hall Problem</title>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar" style="z-index: 25;">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png" alt="logo"
-                    style="max-height: 35px" /></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">About</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Games
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="diceRoll.html">Dice Roll</a></li>
-                            <li><a class="dropdown-item" href="coinFlip.html">Coin Flip</a></li>
-                            <li><a class="dropdown-item" href="GoatGame.html">Monty Hall Problem</a></li>
-                            <li><a class="dropdown-item" href="needles.html">Buffons Needles</a></li>
-                            <li><a class="dropdown-item" href="card.html">Sum of Two Dice</a></li>
-                            <li><a class="dropdown-item" href="dice27.html">Game of 27</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link"
-                            href="https://github.com/Salisbury-University/probability-games.git">GitHub</a>
-                    </li>
-                </ul>
+<body>
 
-                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                    <div class="btn-group me-2" role="group" aria-label="First group">
-                        <button type="radio" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#howToPlay">How to
-                            Play</button>
+    <!-- Navbar -->
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar" style="z-index: 25;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png" alt="logo"
+                        style="max-height: 35px" /></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Games
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="diceRoll.html">Dice Roll</a></li>
+                                <li><a class="dropdown-item" href="coinFlip.html">Coin Flip</a></li>
+                                <li><a class="dropdown-item" href="GoatGame.html">Monty Hall Problem</a></li>
+                                <li><a class="dropdown-item" href="needles.html">Buffons Needles</a></li>
+                                <li><a class="dropdown-item" href="card.html">Sum of Two Dice</a></li>
+                                <li><a class="dropdown-item" href="dice27.html">Game of 27</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"
+                                href="https://github.com/Salisbury-University/probability-games.git">GitHub</a>
+                        </li>
+                    </ul>
+
+                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                        <div class="btn-group me-2" role="group" aria-label="First group">
+                            <button type="radio" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#howToPlay">How to
+                                Play</button>
+                        </div>
+                        <div class="btn-group me-2" role="group" aria-label="Second group">
+                            <input type="radio" class="btn-check" name="btnradio" id="basic_btn" autocomplete="off"
+                                onclick="window.location.href = 'goatGame.html'" />
+                            <label class="btn btn-outline-primary" for="basic_btn">Basic</label>
+                            <input type="radio" class="btn-check" name="btnradio" id="advanced_btn" autocomplete="off"
+                                checked />
+                            <label class="btn btn-outline-primary" for="advanced_btn">Advanced</label>
+                        </div>
+                        <div class="btn-group me-2" role="group" aria-label="Third group">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#settingsModal">
+                                <img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
+                            </button>
+                        </div>
                     </div>
-                    <div class="btn-group me-2" role="group" aria-label="Second group">
-                        <input type="radio" class="btn-check" name="btnradio" id="basic_btn" autocomplete="off"
-                            onclick="window.location.href = 'goatGame.html'" />
-                        <label class="btn btn-outline-primary" for="basic_btn">Basic</label>
-                        <input type="radio" class="btn-check" name="btnradio" id="advanced_btn" autocomplete="off"
-                            checked />
-                        <label class="btn btn-outline-primary" for="advanced_btn">Advanced</label>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div id="overlay">
+        </div>
+
+        <!-- the title of the game-->
+        <div id="sectionAforTheme" class="container-fluid" style="background-color: #FFEDC9;">
+            <div class="row" style="padding-bottom: 5px; border-bottom: 6px solid black;border-top: 6px solid black;">
+                <div class="col text-center">
+                    <h1>Monty Hall Advanced</h1>
+                </div>
+            </div>
+        </div>
+        <!-- the images of the door-->
+        <div id="sectionBforTheme" class="container-fluid" style="background-color: #ffd789;">
+            <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
+
+                <div class="col-2 offset-1">
+                    <img src="../images/ClosedDoor1.png" width="300px" height="300px" alt="Door 1" id="door0">
+                </div>
+                <div class="col-2 offset-2 ">
+                    <img src="../images/ClosedDoor2.png" width="300px" height="300px" alt="Door 2" id="door1">
+                </div>
+                <div class="col-2 offset-2">
+                    <img src="../images/ClosedDoor3.png" width="300px" height="300px" alt="Door 3" id="door2">
+                </div>
+            </div>
+        </div>
+
+        <div id="sectionBforTheme" class="container-fluid" style="background-color: #ffd789;">
+            <div class="row text-center" style="width: 100%;" id="statShow&Hide">
+                <div class="col-4">
+                    <h3 id="gamesPlayed" title="Hello, this is the tooltip">Total Games Played: 0 </h3>
+                    <h3 id="gamesWon">Total Games Won: 0</h3>
+                    <h3 id="gamesLost">Total Games Lost: 0</h3>
+                </div>
+                <div class="col-4">
+                    <h3 id="switchDoorsGames">Total games where switched door: 0</h3>
+                    <h3 id="switchDoorsWon"> Switched doors and won: 0</h3>
+                    <h3 id="switchDoorsLose">Switched doors and lost: 0</h3>
+                </div>
+                <div class="col-4">
+                    <h3 id="keptDoorsGames">Total Games where kept door: 0 </h3>
+                    <h3 id="keptDoorsWon"> Kept door and won: 0</h3>
+                    <h3 id="keptDoorsLose">Kept door and lost: 0 </h3>
+                </div>
+            </div>
+        </div>
+
+        <div id="sectionAforTheme" style="background-color: #FFEDC9; height: 25%;border-top: 6px solid black;">
+            <div class="container-fluid text-center">
+                <!--<h1 class="centerText"> Statistics For Game </h1>-->
+                <p id="simulateInfo">Click Simulate Runs to simulate the game!</p>
+                <p id="simulateInfo2"></p>
+                <div class=" row">
+                    <div class="col">
+                        <button type="button" class="btn btn-primary" onclick="resetStats()">Reset Stats</button>
+                        <button type="button" class="btn btn-primary" onclick="simulateGame()"
+                            id="continueSimulation">Run
+                            Simulation</button>
                     </div>
-                    <div class="btn-group me-2" role="group" aria-label="Third group">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#settingsModal">
-                            <img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
-                        </button>
+                </div>
+
+                <div id="simulationInputArea" style="margin-top: 10px;">
+                    <div class="row text-center">
+                        <div class="col-5 offset-2">
+                            <p> Here you enter how many times you would like to run the simulation!</p>
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="amountTimesToRun" placeholder="Number of Runs"
+                                style="margin-bottom: 10px;">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-5 offset-2">
+                            <p>Here you enter how many times you would like to switch doors!</p>
+                        </div>
+                        <div class="col-2">
+                            <input type="number" id="amountTimesToSwitch" placeholder="# Times To Switch Doors"
+                                style="margin-top:0px;">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </nav>
-</header>
+    </main>
 
+    <!-- FOOTER -->
+    <div class="container-fluid text-center mb-1">
+        <div class="row">
+            <div class="col mb-1">
+                <hr class="featurette-divider">
+                <p> &middot; Salisbury University &middot; | <a href="#">Back to top</a></p>
+            </div>
+        </div>
+    </div>
 
-<!-- contains all the modals-->
-<div class="container-fluid">
     <!-- How to Play Modal -->
     <div class="modal fade" id="howToPlay" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -105,7 +212,6 @@
             </div>
         </div>
     </div>
-
     <!-- Settings Modal -->
     <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -183,95 +289,7 @@
             </div>
         </div>
     </div>
-</div>
 
-
-<body>
-
-    <div id="overlay">
-    </div>
-
-    <!-- the title of the game-->
-    <div id="sectionAforTheme" class="container-fluid" style="background-color: #FFEDC9;">
-        <div class="row" style="padding-bottom: 5px; border-bottom: 6px solid black;border-top: 6px solid black;">
-            <div class="col text-center">
-                <h1>Monty Hall Advanced</h1>
-            </div>
-        </div>
-    </div>
-    <!-- the images of the door-->
-    <div id="sectionBforTheme" class="container-fluid" style="background-color: #ffd789;">
-        <div class="row" style="padding-bottom: 20px; padding-top: 20px;">
-
-            <div class="col-2 offset-1">
-                <img src="../images/ClosedDoor1.png" width="300px" height="300px" alt="Door 1" id="door0">
-            </div>
-            <div class="col-2 offset-2 ">
-                <img src="../images/ClosedDoor2.png" width="300px" height="300px" alt="Door 2" id="door1">
-            </div>
-            <div class="col-2 offset-2">
-                <img src="../images/ClosedDoor3.png" width="300px" height="300px" alt="Door 3" id="door2">
-            </div>
-        </div>
-    </div>
-
-    <div id="sectionBforTheme" class="container-fluid" style="background-color: #ffd789;">
-        <div class="row text-center" style="width: 100%;" id="statShow&Hide">
-            <div class="col-4">
-                <h3 id="gamesPlayed" title="Hello, this is the tooltip">Total Games Played: 0 </h3>
-                <h3 id="gamesWon">Total Games Won: 0</h3>
-                <h3 id="gamesLost">Total Games Lost: 0</h3>
-            </div>
-            <div class="col-4">
-                <h3 id="switchDoorsGames">Total games where switched door: 0</h3>
-                <h3 id="switchDoorsWon"> Switched doors and won: 0</h3>
-                <h3 id="switchDoorsLose">Switched doors and lost: 0</h3>
-            </div>
-            <div class="col-4">
-                <h3 id="keptDoorsGames">Total Games where kept door: 0 </h3>
-                <h3 id="keptDoorsWon"> Kept door and won: 0</h3>
-                <h3 id="keptDoorsLose">Kept door and lost: 0 </h3>
-            </div>
-        </div>
-    </div>
-
-    <div id="sectionAforTheme" style="background-color: #FFEDC9; height: 25%;border-top: 6px solid black;">
-        <div class="container-fluid text-center">
-            <!--<h1 class="centerText"> Statistics For Game </h1>-->
-            <p id="simulateInfo">Click Simulate Runs to simulate the game!</p>
-            <p id="simulateInfo2"></p>
-            <div class=" row">
-                <div class="col">
-                    <button type="button" class="btn btn-primary" onclick="resetStats()">Reset Stats</button>
-                    <button type="button" class="btn btn-primary" onclick="simulateGame()" id="continueSimulation">Run
-                        Simulation</button>
-                </div>
-            </div>
-
-            <div id="simulationInputArea" style="margin-top: 10px;">
-                <div class="row text-center">
-                    <div class="col-5 offset-2">
-                        <p> Here you enter how many times you would like to run the simulation!</p>
-                    </div>
-                    <div class="col-2">
-                        <input type="number" id="amountTimesToRun" placeholder="Number of Runs"
-                            style="margin-bottom: 10px;">
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-5 offset-2">
-                        <p>Here you enter how many times you would like to switch doors!</p>
-                    </div>
-                    <div class="col-2">
-                        <input type="number" id="amountTimesToSwitch" placeholder="# Times To Switch Doors"
-                            style="margin-top:0px;">
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/goatGameAdv.js"></script>
 

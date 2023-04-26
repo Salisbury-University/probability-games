@@ -3,17 +3,337 @@
 
 <head>
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-	<link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
-	<!-- custom css -->
-	<link rel="stylesheet" href="../css/needles.css" type="text/css" />
-	<link rel="stylesheet" href="../css/settings.css" type="text/css" />
+	<title>Buffons Needles</title>
 
-	<title>Buffon's Needles</title>
+	<!-- CSS -->
+	<link href="../css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../css/needles.css" rel="stylesheet" />
+	<link href="../css/siteWide.css" rel="stylesheet" />
+
+	<!-- favicon stuff -->
+	<link rel="apple-touch-icon" sizes="180x180" href="../images/apple-touch-icon.png" />
+	<link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png" />
+	<link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png" />
+	<link rel="manifest" href="../images/site.webmanifest" />
+	<style>
+		table {
+			font-family: arial, sans-serif;
+			border-collapse: collapse;
+			width: 100%;
+		}
+
+		td,
+		th {
+			border: 1px solid #dddddd;
+			text-align: left;
+			padding: 8px;
+		}
+
+		tr:nth-child(even) {
+			background-color: #dddddd;
+		}
+	</style>
 </head>
 
-<body style="background-color: #ffd789;">
+<body>
+	<!-- Navbar -->
+	<header>
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png" alt="logo"
+						style="max-height: 35px" /></a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse">
+					<ul class="navbar-nav me-auto mb-2 mb-md-0">
+						<li class="nav-item">
+							<a class="nav-link" href="about.html">About</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								Games
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="diceRoll.html">Dice Roll</a></li>
+								<li><a class="dropdown-item" href="coinFlip.html">Coin Flip</a></li>
+								<li><a class="dropdown-item" href="GoatGame.html">Monty Hall Problem</a></li>
+								<li><a class="dropdown-item" href="needles.html">Buffons Needles</a></li>
+								<li><a class="dropdown-item" href="card.html">Sum of Two Dice</a></li>
+								<li><a class="dropdown-item" href="dice27.html">Game of 27</a></li>
+							</ul>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link"
+								href="https://github.com/Salisbury-University/probability-games.git">GitHub</a>
+						</li>
+					</ul>
+
+					<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+						<div class="btn-group me-2" role="group" aria-label="First group">
+							<button type="radio" class="btn btn-primary" data-bs-toggle="modal"
+								data-bs-target="#howToPlay">How to
+								Play</button>
+						</div>
+						<div class="btn-group me-2" role="group" aria-label="Third group">
+							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+								data-bs-target="#settingsModal">
+								<img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
+							</button>
+						</div>
+					</div>
+					<!-- settings button -->
+
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<main>
+		<!-- this is the section where user clicks on needle amount to drop-->
+		<div class="container-fluid" id="topPageSection" style="background-color: #FFEDC9;">
+			<!--Top Section of the Page-->
+			<div class="row text-center">
+				<!--Left Section-->
+				<div id="optionalSettingsArea" class="col-3"
+					style="text-align: left;margin-left: 12%;margin-bottom: 10px;margin-top: 10px;">
+					<div class="row">
+						<div class="btn-toolbar" role="toolbar" aria-label="Needle Length Group">
+							<div class="btn-group me-2" role="group" aria-label="First group">
+								<h5>Needle Length (% of L): </h5>
+							</div>
+							<div class="btn-group" role="group" aria-label="Second group">
+								<button class="btn btn-primary dropdown-toggle btn-sm" type="button"
+									id="percentDropdown" data-bs-toggle="dropdown" aria-expanded="false">90%</button>
+								<ul class="dropdown-menu" aria-labelledby="coin-dropdown">
+									<li id="10"><a class="dropdown-item dropdown-percent" href="#"
+											data-percent="10">10%</a>
+									</li>
+									<li id="20"><a class="dropdown-item dropdown-percent" href="#"
+											data-percent="20">20%</a>
+									</li>
+									<li id="30"><a class="dropdown-item dropdown-percent" href="#"
+											data-percent="30">30%</a>
+									</li>
+									<li id="40"><a class="dropdown-item dropdown-percent" href="#"
+											data-percent="40">40%</a>
+									</li>
+									<li id="50"><a class="dropdown-item dropdown-percent" href="#"
+											data-percent="50">50%</a>
+									</li>
+									<li id="60"><a class="dropdown-item dropdown-percent" href="#"
+											data-percent="60">60%</a>
+									</li>
+									<li id="70"><a class="dropdown-item dropdown-percent" href="#"
+											data-percent="70">70%</a>
+									</li>
+									<li id="80"><a class="dropdown-item dropdown-percent" href="#"
+											data-percent="80">80%</a>
+									</li>
+									<li id="90" hidden><a class="dropdown-item dropdown-percent" href="#"
+											data-percent="90">90%</a></li>
+									<li id="100"><a class="dropdown-item dropdown-percent" href="#"
+											data-percent="100">100%</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="btn-toolbar" role="toolbar" aria-label="Drop Type Group">
+							<!--<div class="btn-group me-2" role="group" aria-label="First group">
+							<h5>Drop Type:</h5>
+						</div>-->
+							<div class="btn-group me-2" role="group" aria-label="Second group">
+								<input type="radio" class="btn-check" name="btnradio" id="singular" autocomplete="off"
+									checked>
+								<label class="btn btn-outline-primary btn-sm" for="singular">Clear Everytime</label>
+								<input type="radio" class="btn-check" name="btnradio" id="cumulative"
+									autocomplete="off">
+								<label class="btn btn-outline-primary btn-sm" for="cumulative">Don't clear
+									Screen</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="btn-toolbar" role="toolbar" aria-label="Drop Type Group">
+							<div class="btn-group me-2" role="group" aria-label="First group">
+								<h5>Number of Grid Lines: <b id="displayNumberGridLines">8</b></h5>
+							</div>
+							<div class="btn-group me-2" role="group" aria-label="Second group">
+								<button class="btn btn-primary btn-sm" onclick="changeLines(1);">+1</button>
+							</div>
+							<div class="btn-group me-2" role="group" aria-label="Third group">
+								<button class="btn btn-primary btn-sm" onclick="changeLines(-1);">-1</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--Middle Section-->
+				<div id="middleTitleArea" class="col-3">
+					<h1>Buffon's Needles </h1>
+				</div>
+				<!--Right Section-->
+				<div id="tutorialAmountNeedle" class="col-3"
+					style="text-align: right;margin-right: 12%;padding-bottom: 10px;padding-top: 10px;">
+					<!-- top row (number of needles to drop)-->
+					<div class="row" style="margin-bottom: 5px;">
+						<div class="col-8 offset-4">
+							<input class="form-control" type="number" id="amountOfNeedles"
+								placeholder="# Needles to Drop" min="0">
+						</div>
+					</div>
+					<!-- bottom row (drop needles and clear screen)-->
+					<div class="row">
+						<div class="col">
+							<button class="btn btn-primary" id="dropNeedleButton" type="submit"
+								onclick="needleXY()">Drop
+								Needles
+							</button>
+							<button class="btn btn-primary" onclick="clearNeedles()">Clear Screen and Stats</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- canvas -->
+		<div class="container-fluid">
+			<div class="row">
+				<div id="app"></div> </canvas>
+			</div>
+		</div>
+
+		<!--This is the stats area-->
+		<div class="container-fluid" id="bottomSection" style="background-color: #FFEDC9;">
+			<div class="row" style="text-align: center;">
+				<!-- this section shows estimate pi button, continue button and stats header-->
+				<h1 id="statsH1"> Stats <button class="btn btn-primary statsSection" id="guessPIButton"
+						onclick="guessPI()">
+						More Info</button>
+					<button class="btn btn-primary statsSection" id="continueButton"
+						onclick="continueGame()">Continue</button>
+				</h1>
+			</div>
+			<div class="row text-center" id="stats">
+				<div class="col">
+					<h3 class="estimation"></h3>
+					<h3 id="realPi"> </h3>
+					<h3 id="percentError"></h3>
+				</div>
+				<div class="col">
+					<h3 class="total"></h3>
+					<h3 class="needCross"></h3>
+					<h3 id="needleDontCross"></h3>
+				</div>
+			</div>
+
+			<!-- guessing PI, second section to appear and lets user guess (estimate) the value of PI based on the data from the game-->
+			<div class="row text-center" id="guessingPI" hidden>
+				<!-- rows in bootstrap are used to group items together
+				review bootstrap grid view, and mess around with site	
+			-->
+
+				<!-- there are 12 columns to the view of a website, helps organize website-->
+				<div class="col">
+					<table>
+						<tr>
+							<th>Variable Names</th>
+							<th>Values</th>
+						</tr>
+						<tr>
+							<td>&#8467 = length of needle</td>
+							<td id="needLength"></td>
+						</tr>
+						<tr>
+							<td>d = distance between Lines</td>
+							<td id="gridSpace"></td>
+						</tr>
+						<tr>
+							<td>h = needles that cross a grid line </td>
+							<td class="needCross"></td>
+						</tr>
+						<tr>
+							<td>n = total number of needles dropped</td>
+							<td class="total"></td>
+						</tr>
+
+					</table>
+				</div>
+
+				<div class="col">
+					<p>Using the fomula below estimate the value of Pi</p>
+					<p>Please estimate PI: <input type="number" id="guessingPiNum"> Press Enter</p>
+					<h3>Buffon's needle formula:
+						<math>
+							<mrow>
+								<mi>&#960;</mi>
+								<mo>&#8776</mo>
+								<mfrac>
+									<mrow>
+										<mn>2</mn>
+										<mi>&#8467*n</mi>
+									</mrow>
+									<mrow>
+										<mi>d*h</mi>
+										<!--<mi>&#960;</mi>-->
+									</mrow>
+								</mfrac>
+							</mrow>
+						</math>
+					</h3>
+					<!--<h3>
+						<math>
+							<mrow>
+								<mi>&#960;</mi>
+								<mo>=</mo>
+								<mfrac>
+									<mrow>
+										<mn>2</mn>
+										<mi>&#8467*n</mi>
+									</mrow>
+									<mrow>
+										<mi>d*h</mi>
+										<mi>&#960;</mi>
+									</mrow>
+								</mfrac>
+							</mrow>
+						</math>
+					</h3>-->
+				</div>
+
+				<!--<div class="col" id=estimatePiValues>
+					
+					
+					<h3 class="needCross"></h3>
+					<h3 class="total"></h3>
+				</div>-->
+			</div>
+
+			<!--resultArea, the last section to be displayed-->
+			<div class="row text-center" id="resultArea" hidden>
+				<div class="col">
+					<h3 class="estimation"></h3>
+				</div>
+				<div class="col">
+					<h3 id="userGuessSection"></h3>
+				</div>
+				<div class="col">
+					<h3 id="percentErrorSection"></h3>
+				</div>
+
+			</div>
+		</div>
+	</main>
+
+	<!-- FOOTER -->
+	<footer class="container-fluid text-center">
+		<hr class="featurette-divider">
+		<p> &middot; Salisbury University &middot; | <a href="#">Back to top</a></p>
+	</footer>
 
 	<!-- How to Play Modal -->
 	<div class="modal fade modal-lg" id="howToPlay" tabindex="-1" aria-hidden="true">
@@ -99,248 +419,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- Navbar -->
-	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png" alt="logo"
-					style="max-height: 35px" /></a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse">
-				<ul class="navbar-nav me-auto mb-2 mb-md-0">
-					<li class="nav-item">
-						<a class="nav-link" href="about.html">About</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-							aria-expanded="false">
-							Games
-						</a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="diceRoll.html">Dice Roll</a></li>
-							<li><a class="dropdown-item" href="coinFlip.html">Coin Flip</a></li>
-							<li><a class="dropdown-item" href="GoatGame.html">Monty Hall Problem</a></li>
-							<li><a class="dropdown-item" href="needles.html">Buffons Needles</a></li>
-							<li><a class="dropdown-item" href="card.html">Sum of Two Dice</a></li>
-							<li><a class="dropdown-item" href="dice27.html">Game of 27</a></li>
-						</ul>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link"
-							href="https://github.com/Salisbury-University/probability-games.git">GitHub</a>
-					</li>
-				</ul>
-
-				<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-					<div class="btn-group me-2" role="group" aria-label="First group">
-						<button type="radio" class="btn btn-primary" data-bs-toggle="modal"
-							data-bs-target="#howToPlay">How to
-							Play</button>
-					</div>
-					<div class="btn-group me-2" role="group" aria-label="Third group">
-						<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-							data-bs-target="#settingsModal">
-							<img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
-						</button>
-					</div>
-				</div>
-				<!-- settings button -->
-
-			</div>
-		</div>
-	</nav>
-
-	<!-- this is the section where user clicks on needle amount to drop-->
-	<div class="container-fluid" id="topPageSection" style="background-color: #FFEDC9;">
-		<!--Top Section of the Page-->
-		<div class="row text-center">
-			<!--Left Section-->
-			<div id="optionalSettingsArea" class="col-3"
-				style="text-align: left;margin-left: 12%;margin-bottom: 10px;margin-top: 10px;">
-				<div class="row">
-					<div class="btn-toolbar" role="toolbar" aria-label="Needle Length Group">
-						<div class="btn-group me-2" role="group" aria-label="First group">
-							<h5>Needle Length (% of L): </h5>
-						</div>
-						<div class="btn-group" role="group" aria-label="Second group">
-							<button class="btn btn-primary dropdown-toggle btn-sm" type="button" id="percentDropdown"
-								data-bs-toggle="dropdown" aria-expanded="false">90%</button>
-							<ul class="dropdown-menu" aria-labelledby="coin-dropdown">
-								<li id="10"><a class="dropdown-item dropdown-percent" href="#" data-percent="10">10%</a>
-								</li>
-								<li id="20"><a class="dropdown-item dropdown-percent" href="#" data-percent="20">20%</a>
-								</li>
-								<li id="30"><a class="dropdown-item dropdown-percent" href="#" data-percent="30">30%</a>
-								</li>
-								<li id="40"><a class="dropdown-item dropdown-percent" href="#" data-percent="40">40%</a>
-								</li>
-								<li id="50"><a class="dropdown-item dropdown-percent" href="#" data-percent="50">50%</a>
-								</li>
-								<li id="60"><a class="dropdown-item dropdown-percent" href="#" data-percent="60">60%</a>
-								</li>
-								<li id="70"><a class="dropdown-item dropdown-percent" href="#" data-percent="70">70%</a>
-								</li>
-								<li id="80"><a class="dropdown-item dropdown-percent" href="#" data-percent="80">80%</a>
-								</li>
-								<li id="90" hidden><a class="dropdown-item dropdown-percent" href="#"
-										data-percent="90">90%</a></li>
-								<li id="100"><a class="dropdown-item dropdown-percent" href="#"
-										data-percent="100">100%</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="btn-toolbar" role="toolbar" aria-label="Drop Type Group">
-						<!--<div class="btn-group me-2" role="group" aria-label="First group">
-							<h5>Drop Type:</h5>
-						</div>-->
-						<div class="btn-group me-2" role="group" aria-label="Second group">
-							<input type="radio" class="btn-check" name="btnradio" id="singular" autocomplete="off"
-								checked>
-							<label class="btn btn-outline-primary btn-sm" for="singular">Clear Everytime</label>
-							<input type="radio" class="btn-check" name="btnradio" id="cumulative" autocomplete="off">
-							<label class="btn btn-outline-primary btn-sm" for="cumulative">Don't clear Screen</label>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="btn-toolbar" role="toolbar" aria-label="Drop Type Group">
-						<div class="btn-group me-2" role="group" aria-label="First group">
-							<h5>Number of Grid Lines: <b id="displayNumberGridLines">8</b></h5>
-						</div>
-						<div class="btn-group me-2" role="group" aria-label="Second group">
-							<button class="btn btn-primary btn-sm" onclick="changeLines(1);">+1</button>
-						</div>
-						<div class="btn-group me-2" role="group" aria-label="Third group">
-							<button class="btn btn-primary btn-sm" onclick="changeLines(-1);">-1</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--Middle Section-->
-			<div id="middleTitleArea" class="col-3">
-				<h1>Buffon's Needles </h1>
-			</div>
-			<!--Right Section-->
-			<div id="tutorialAmountNeedle" class="col-3"
-				style="text-align: right;margin-right: 12%;padding-bottom: 10px;padding-top: 10px;">
-				<!-- top row (number of needles to drop)-->
-				<div class="row" style="margin-bottom: 5px;">
-					<div class="col-8 offset-4">
-						<input class="form-control" type="number" id="amountOfNeedles" placeholder="# Needles to Drop"
-							min="0">
-					</div>
-				</div>
-				<!-- bottom row (drop needles and clear screen)-->
-				<div class="row">
-					<div class="col">
-						<button class="btn btn-primary" id="dropNeedleButton" type="submit" onclick="needleXY()">Drop
-							Needles
-						</button>
-						<button class="btn btn-primary" onclick="clearNeedles()">Clear Screen and Stats</button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-	</div>
-
-	<!-- canvas -->
-	<div class="container-fluid">
-		<div class="row">
-			<!-- this section is left of the canvas-->
-			<div class="col-2 fs-2" style="width: 11%;background-color: white;word-wrap: break-word;">
-				<p> L = wjefjwejfb ijwfioe nwwfe wmlnefkl wefklfnm </p>
-			</div>
-			<div class="col-8" id="app"></div>
-			<div id="app"></div></canvas>
-		</div>
-	</div>
-
-	<!--This is the stats area-->
-	<div class="container-fluid" id="bottomSection" style="background-color: #FFEDC9;">
-		<div class="row" style="text-align: center;">
-			<!-- this section shows estimate pi button, continue button and stats header-->
-			<h1 id="statsH1"> Stats <button class="btn btn-primary" id="guessPIButton" onclick="guessPI()" disabled>
-					Estimate PI</button>
-				<button class="btn btn-primary" id="continueButton" onclick="continueGame()" hidden>Continue</button>
-			</h1>
-		</div>
-		<div class="row text-center" id="stats">
-			<div class="col">
-				<h3 class="estimation"></h3>
-				<h3 id="realPi"> </h3>
-				<h3 id="percentError"></h3>
-			</div>
-			<div class="col">
-				<h3 class="total"></h3>
-				<h3 class="needCross"></h3>
-				<h3 id="needleDontCross"></h3>
-			</div>
-		</div>
-
-		<!-- guessing PI, second section to appear and lets user guess (estimate) the value of PI based on the data from the game-->
-		<div class="row text-center" id="guessingPI" hidden>
-			<!-- rows in bootstrap are used to group items together
-				review bootstrap grid view, and mess around with site	
-			-->
-
-			<!-- there are 12 columns to the view of a website, helps organize website-->
-			<div class="col">
-				<h3>&#8467 = length of needle</h3>
-				<h3>t = distance between Lines</h3>
-				<h3>h = needles that cross a grid line </h3>
-				<h3>n = total number of needles dropped</h3>
-			</div>
-
-			<div class="col">
-				<p>Using the fomula below estimate the value of Pi</p>
-				<p>Please estimate PI: <input type="number" id="guessingPiNum"> Press Enter</p>
-				<h3>Buffon's needle formula:
-					<math>
-						<mrow>
-							<mi>&#960;</mi>
-							<mo>=</mo>
-							<mfrac>
-								<mrow>
-									<mn>2</mn>
-									<mi>&#8467*n</mi>
-								</mrow>
-								<mrow>
-									<mi>t*h</mi>
-									<!--<mi>&#960;</mi>-->
-								</mrow>
-							</mfrac>
-						</mrow>
-					</math>
-				</h3>
-			</div>
-
-			<div class="col" id=estimatePiValues>
-				<h3 id="needLength"></h3>
-				<h3 id="gridSpace"></h3>
-				<h3 class="needCross"></h3>
-				<h3 class="total"></h3>
-			</div>
-		</div>
-
-		<!-- resultArea, the last section to be displayed-->
-		<div class="row text-center" id="resultArea" hidden>
-			<div class="col">
-				<h3 class="estimation"></h3>
-			</div>
-			<div class="col">
-				<h3 id="userGuessSection"></h3>
-			</div>
-			<div class="col">
-				<h3 id="percentErrorSection"></h3>
-			</div>
-
-		</div>
-
 	</div>
 
 	<script src="js/bootstrap.bundle.min.js"></script>
