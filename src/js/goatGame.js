@@ -81,9 +81,7 @@ function playAgain() {
 
     for (let i = 0; i < 3; i++) {
         document.getElementById(`door${i}`).style.borderRadius = "0%";
-        //let d = `doorImg${i+1}`;
         document.getElementById(`door${i}`).src = doorImgPaths[i];
-        // console.log(`doorImg${i+1}`);
         document.getElementById(`door${i}`).style.boxShadow = "none";
         document.getElementById(`door${i}`).setAttribute("onclick", `stepOne(${i})`);
     }
@@ -138,7 +136,7 @@ function stepOne(doorChose) {
 
     //please click door when goat is located
     document.getElementById("titleSentence").innerHTML = " You chose Door " + (globalDoorChose + 1) + " <br>One " + trashName + " is located at Door " + (revealGoat + 1) + "!"
-    document.getElementById("firstSentenceID").innerHTML = "Can you click on Door " + (revealGoat + 1) + "?";
+    document.getElementById("firstSentenceID").innerHTML = "<b>Click on Door " + (revealGoat + 1) + ".</b>";
     document.getElementById(goatDoor).removeAttribute("onclick");
     document.getElementById(OGdoorChoice).removeAttribute("onclick");
     document.getElementById(goatDoor).setAttribute("onclick", "afterStepOne(" + revealGoat + ")");
@@ -179,12 +177,12 @@ function afterStepOne(revealGoat) {
 
         document.getElementById(otherDoor).setAttribute("onclick", "determineKeep(0)");
         document.getElementById(userDoor).setAttribute("onclick", "determineKeep(1)");
-    }, 250);
+    }, 350);
 }
 
 function secondIntermediate() {
     document.getElementById("titleSentence").innerHTML = "";
-    setTimeout(finalFunction, 800);
+    setTimeout(finalFunction, 1500);
 }
 
 //downsize here
@@ -274,10 +272,10 @@ function finalFunction() {
     else
         document.getElementById("door2").src = carImg;
 
-    for (let i = 0; i < 3; i++){
+    for (let i = 0; i < 3; i++) {
         document.getElementById(`door${i}`).style.borderRadius = "99%";
     }
-    
+
 
     doorOpenSound.loop = false;
     doorOpenSound.play();
