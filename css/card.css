@@ -1,3 +1,7 @@
+html{
+  zoom: 0.6;
+}
+
 .help-modal {
   height: 34em;
   overflow-y: scroll;
