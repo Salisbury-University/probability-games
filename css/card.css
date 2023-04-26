@@ -1,0 +1,39 @@
+.help-modal {
+  height: 34em;
+  overflow-y: scroll;
+}
+
+.tutorial-gif {
+  max-height: 350px;
+}
+
+.instruction-modal {
+  position: relative;
+  top: 10%;
+}
+
+.dist-dropdown {
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
+.mid-col {
+  min-width: 22%;
+  overflow-y: scroll;
+  height: 27em;
+}
+
+.foot-col {
+  bottom: 0;
+}
+
+.imgs-icon {
+  max-height: 22px;
+  vertical-align: middle;
+}
+
+.logo {
+  max-height: 35px;
+}
+
+/* # is for ids*/
