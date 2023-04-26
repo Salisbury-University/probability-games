@@ -21,122 +21,6 @@
 </head>
 
 <body>
-  <!-- instructions modal -->
-  <div class="modal fade" id="howToPlay" tabindex="-1" aria-labelledby="instructionsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" style="position: relative; top: 10%">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="instructionsModalLabel">
-            How to Play
-          </h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="container-fluid m-2 p-2">
-            <div class="row">
-              <div id="list-instructions" class="list-group col-3">
-                <a class="list-group-item list-group-item-action" href="#list-item-1">Setting a Distribution</a>
-                <a class="list-group-item list-group-item-action" href="#list-item-2">Simulation Options</a>
-                <a class="list-group-item list-group-item-action" href="#list-item-3">Simulation Statistics</a>
-              </div>
-              <div data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0" tabindex="0"
-                class="col help-modal">
-                <h4 id="list-item-1">Setting a Distribution</h4>
-                <p>There are <b>3 options</b> for choosing a distribution.</p>
-                <ol>
-                  <li>Manually distribute chips</li>
-                  <p>This simply means adding and removing chips from cards using the +/- buttons.</p>
-                  <p>ADDING: You can use the <b>blue +</b> button to add a chip to a card.</p>
-                  <p>REMOVING: You can use the <b>red -</b> to remove a chip from a card.</p>
-                  <li>Randomly distributing chips</li>
-                  <li>Loading a saved distribution</li>
-                </ol>
-                <h4 id="list-item-2">Simulation Options</h4>
-                <p>
-                  <b>Number of Games</b> - Choose the number of games that are
-                  run during one simulation. Stats will be tracked and
-                  recorded over the specified number of games.
-                </p>
-
-                <div class="text-center">
-                  <img src="../gifs/clickToPlace.gif" style="max-height: 350px" />
-                </div>
-                <h4 id="list-item-3">Simulation Statistics</h4>
-                <p>
-                  There are <b>2 areas</b> to see statistics from recent
-                  simulations.
-                <ol>
-                  <li>Recent Games Table</li>
-                  <li>Recent Games Bar Graph</li>
-                </ol>
-                </p>
-                <div class="text-center">
-                  <img src="../gifs/winGame.gif" class="tutorial-gif" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Bug Modal -->
-  <div class="modal fade" id="bugModal" tabindex="-1" aria-labelledby="bugModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5">Bug Report</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Email: mdemchuk1@gulls.salisbury.edu with any bugs found
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Settings Modal -->
-  <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5">Settings</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body" id="settingsModalContent">
-          <div class="row text-align">
-            <div class="col-3">
-              <p>Light Theme</p>
-            </div>
-            <div class="col-2">
-              <label class="switch">
-                <input id="themeTypeSwitch" type="checkbox" onclick="changeTheme()" />
-                <span class="slider round"></span>
-              </label>
-            </div>
-            <div class="col-3">
-              <p>Dark Theme</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
   <!-- Navbar -->
   <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container-fluid">
@@ -522,6 +406,103 @@
       </div>
     </div>
   </div>
+
+  <!-- instructions modal -->
+  <div class="modal fade" id="howToPlay" tabindex="-1" aria-labelledby="instructionsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" style="position: relative; top: 10%">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="instructionsModalLabel">
+            How to Play
+          </h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid m-2 p-2">
+            <div class="row">
+              <div id="list-instructions" class="list-group col-3">
+                <a class="list-group-item list-group-item-action" href="#list-item-1">Setting a Distribution</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-2">Simulation Options</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-3">Simulation Statistics</a>
+              </div>
+              <div data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0" tabindex="0"
+                class="col help-modal">
+                <h4 id="list-item-1">Setting a Distribution</h4>
+                <p>There are <b>3 options</b> for choosing a distribution.</p>
+                <ol>
+                  <li>Manually distribute chips</li>
+                  <p>This simply means adding and removing chips from cards using the +/- buttons.</p>
+                  <p>ADDING: You can use the <b>blue +</b> button to add a chip to a card.</p>
+                  <p>REMOVING: You can use the <b>red -</b> to remove a chip from a card.</p>
+                  <li>Randomly distributing chips</li>
+                  <li>Loading a saved distribution</li>
+                </ol>
+                <h4 id="list-item-2">Simulation Options</h4>
+                <p>
+                  <b>Number of Games</b> - Choose the number of games that are
+                  run during one simulation. Stats will be tracked and
+                  recorded over the specified number of games.
+                </p>
+
+                <div class="text-center">
+                  <img src="../gifs/clickToPlace.gif" style="max-height: 350px" />
+                </div>
+                <h4 id="list-item-3">Simulation Statistics</h4>
+                <p>
+                  There are <b>2 areas</b> to see statistics from recent
+                  simulations.
+                <ol>
+                  <li>Recent Games Table</li>
+                  <li>Recent Games Bar Graph</li>
+                </ol>
+                </p>
+                <div class="text-center">
+                  <img src="../gifs/winGame.gif" class="tutorial-gif" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Settings Modal -->
+  <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Settings</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="settingsModalContent">
+          <div class="row text-align">
+            <div class="col-3">
+              <p>Light Theme</p>
+            </div>
+            <div class="col-2">
+              <label class="switch">
+                <input id="themeTypeSwitch" type="checkbox" onclick="changeTheme()" />
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div class="col-3">
+              <p>Dark Theme</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="js/bootstrap.bundle.min.js"></script>
