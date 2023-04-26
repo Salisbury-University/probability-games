@@ -184,8 +184,11 @@ function simulateGame() {
 
     var timesSwitched = parseInt(document.getElementById("amountTimesToSwitch").value);
 
+    console.log(timesPlayed);
     if (timesPlayed < timesSwitched) {
         alert("You cannot enter more times to switch then the total games played!");
+    } else if (isNaN(timesPlayed)) {
+        alert("You must enter a value greater then 0");
     } else {
         switchDoor = isKept;
         for (var i = 0; i < timesPlayed; i++) {
