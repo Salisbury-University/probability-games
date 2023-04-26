@@ -1,5 +1,5 @@
 // create window height variable
-let windowWidth = document.body.clientWidth * .8;
+let windowWidth = document.body.clientWidth * .8; //.8
 let windowHeight = window.innerHeight * .53;
 let pi = 0;
 //let canvas = document.getElementById('app');
@@ -199,18 +199,18 @@ function guessingPIfunc() {
 }
 
 //last section displayed (resets back to how website originally looked)
-function continueGame() {
-  document.getElementById("topPageSection").hidden = false;
-  document.getElementById("resultArea").setAttribute("hidden", "hidden");
-  document.getElementById("stats").hidden = false;
-  document.getElementById("guessPIButton").removeAttribute("hidden");
-  document.getElementById("continueButton").setAttribute("hidden", "hidden");
+const buttons = querySelectorAll(".statsSection");
+buttons[0].addEventListener("click", () => {
+    buttons[0].hidden = true;
+    buttons[1].hidden = false;
+    console.log("duxk odf");
+});
+buttons[1].addEventListener("click", () => {
+    buttons[1].hidden = true;
+    buttons[0].hidden = false;
+    console.log("fcuk you");
 
-  document.getElementById("guessPIButton").setAttribute("disabled", "disabled");
-  document.getElementById("dropNeedleButton").removeAttribute("disabled");
-  clearNeedles();
-}
-
+});
 function needleXY() {
   app.stage.removeChild(basicText);
   let dropNeedles = document.getElementById("amountOfNeedles").value;
