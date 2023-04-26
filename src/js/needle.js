@@ -87,7 +87,7 @@ for (let i = 0; i < amountLines + 1; i++) {
     line.lineStyle(1, 0x0096FF, 1);
   }
   line.moveTo(0, yValue);
-  line.lineTo(windowWidth *.75, yValue);
+  line.lineTo(windowWidth, yValue); //*.75
   line.closePath();
   app.stage.addChild(line);
   lines[i] = yValue;
@@ -153,7 +153,7 @@ function changeLines(num) {
         line.lineStyle(1, 0x0096FF, 1);
       }
       line.moveTo(0, yValue);
-      line.lineTo(windowWidth, yValue);
+      line.lineTo(windowWidth , yValue);//*.75
       line.closePath();
       app.stage.addChild(line);
       lines[i] = yValue;
@@ -163,27 +163,7 @@ function changeLines(num) {
   }
 }
 
-//first function to be called while user guessing PI
-function guessPI() {
-  document.getElementById("topPageSection").hidden = true;
 
-  document.getElementById("guessingPiNum").addEventListener("keydown", function (e) {
-    if (e.code === "Enter") {  //checks whether the pressed key is "Enter" (if enter is pressed then calls next function)
-      guessingPIfunc();
-    }
-  });
-  //hello
-
-  //this hides the previous page (the stats for the page)
-  document.getElementById("stats").hidden = true;
-  //document.getElementById("statsLocated3").setAttribute("hidden", "hidden");
-  //document.getElementById("formulaValue").setAttribute("hidden", "hidden");
-  //disables the button to drop needles
-  document.getElementById("dropNeedleButton").setAttribute("disabled", "disabled");
-
-  //shows guessingPI section
-  document.getElementById("guessingPI").removeAttribute("hidden");
-}
 //the second function to be called (by user pressing enter)
 function guessingPIfunc() {
   //shows result area
@@ -199,16 +179,21 @@ function guessingPIfunc() {
 }
 
 //last section displayed (resets back to how website originally looked)
-const buttons = querySelectorAll(".statsSection");
+const buttons = document.querySelectorAll(".statsSection");
 buttons[0].addEventListener("click", () => {
     buttons[0].hidden = true;
     buttons[1].hidden = false;
-    console.log("duxk odf");
+    document.getElementById("topPageSection").hidden = true;
+    document.getElementById("moreInfo").hidden = false;
+    document.getElementById("stats").hidden = true;
 });
 buttons[1].addEventListener("click", () => {
     buttons[1].hidden = true;
     buttons[0].hidden = false;
-    console.log("fcuk you");
+    document.getElementById("moreInfo").hidden = true;
+    document.getElementById("stats").hidden = false;
+    document.getElementById("topPageSection").hidden = false;
+
 
 });
 function needleXY() {
