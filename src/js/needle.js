@@ -87,7 +87,7 @@ for (let i = 0; i < amountLines + 1; i++) {
     line.lineStyle(1, 0x0096FF, 1);
   }
   line.moveTo(0, yValue);
-  line.lineTo(windowWidth, yValue); //*.75
+  line.lineTo(windowWidth *.75, yValue); //*.75
   line.closePath();
   app.stage.addChild(line);
   lines[i] = yValue;
