@@ -257,6 +257,7 @@ class Dice27 {
                 document.getElementById("questionCard").hidden = false;
                 document.getElementById("rollNumber1").textContent = this.#rollValue;
                 document.getElementById("rollNumber2").textContent = this.#rollValue;
+                document.getElementById("rollNumber3").textContent = this.#rollValue;
                 document.getElementById("pilesMake").hidden = false;
 
                 //set the gamestate to pile creation state and make coins interactive

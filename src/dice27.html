@@ -102,8 +102,8 @@
         <div class="col">
           <div id="questionCard" class="card" hidden>
             <div id="pilesMake" class="card-body" hidden>
-              <div>Create the maximum number of piles of <strong><span id="rollNumber1"></span></strong> by selecting
-                groups. Press submit once a group is made.</div>
+              <div>Create piles of <strong><span id="rollNumber1"></span></strong> by selecting
+                the chips above.</div>
               <button type="button" class="btn btn-success mx-auto" onclick="createPile()">Submit</button>
               <button type="button" class="btn btn-dark mx-auto" style="background-color: #8064A2 !important;"
                 onclick="autoComplete()">Auto</button>
@@ -117,7 +117,7 @@
               <button type="button" class="btn btn-success mx-auto" onclick="pileCountCheck()">Submit</button>
             </div>
             <div id="remainderQuestion" class="card" hidden>
-              <div>How many chips are left over?</div>
+              <div>How many chips did not end up in a group of <strong><span id="rollNumber3"></span></strong>?</div>
               <input type="text" pattern="[0-9]+" class="form-control" id="remainderInput" placeholder="Chips Remaining"
                 required>
               <button type="button" class="btn btn-success mx-auto" onclick="remainderCheck()">Submit</button>
@@ -171,88 +171,49 @@
           <div class="container-fluid m-2 p-2">
             <div class="row">
               <div id="list-instructions" class="list-group col-3">
-                <a class="list-group-item list-group-item-action" href="#list-item-1">Game Setup</a>
-                <a class="list-group-item list-group-item-action" href="#list-item-2">Single Flip</a>
-                <a class="list-group-item list-group-item-action" href="#list-item-3">Multiple Flips</a>
-                <a class="list-group-item list-group-item-action" href="#list-item-4">Guess Weight</a>
-                <a class="list-group-item list-group-item-action" href="#list-item-4">Change Coin</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-1">Game Information</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-2">Roll Dice</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-3">Select Chips</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-4">Answer Quesions</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-4">Auto Select</a>
               </div>
               <div data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0" tabindex="0" class="col"
                 style="height: 40em; overflow-y: scroll">
-                <h4 id="list-item-1">Welcome to the Coin Flip Game!</h4>
+                <h4 id="list-item-1">Welcome to the Game of 27!</h4>
                 <ul>
-                  <p>Welcome to the coin flip simulation game! This game is designed to
-                    not only provide hours of fun and entertainment, but also to teach players an
-                    important lesson about the weight of coins and how it can affect the outcome of
-                    a flip.</p>
-                  <p>In this game, players can flip a virtual coin an large number of times and
-                    can guess whether the coin is weighted or not. If the coin is indeed weighted,
-                    players can also make a guess about the degree of the weight.</p>
-
-                  <p>This game is perfect for anyone who wants to understand the concept
-                    of coin
-                    weight and how it can influence the outcome of a coin flip. So what are you
-                    waiting for? Lets start flipping!</p>
+                  <p></p>
                 </ul>
                 <hr class="featurette-divider" />
-                <h4 id="list-item-2">Single Flip</h4>
+                <h4 id="list-item-2">Roll Dice</h4>
                 <ul>
-                  <p>
-                    Our game's "Single Flip" button enables players to quickly and easily flip a
-                    coin
-                    and see the result. This feature provides an opportunity for players to test
-                    their
-                    luck and try to guess the outcome of the flip. Whether you're new to the game or
-                    an
-                    experienced player, the "Single Flip" button is a convenient and fun way to
-                    play.
-                  </p>
+                  <p></p>
                 </ul>
                 <div class="text-center">
-                  <img src="../gifs/singleFlip.gif" style="max-height: 350px" />
+                  <img src="../gifs/dice27Roll.gif" style="max-height: 350px" />
                 </div>
                 <hr class="featurette-divider" />
-                <h4 id="list-item-3">Multiple Flips</h4>
+                <h4 id="list-item-3">Select Chips</h4>
                 <ul>
-                  <p>
-                    Our game features a "Multiple Flip" button that allows players to flip the coin
-                    multiple times with a single click. This feature enables players to experiment
-                    with
-                    different numbers of flips and observe how it affects the outcome of the game.
-                    The
-                    "Multiple Flip" button is an excellent way to test your luck and improve your
-                    understanding of how the game works. Whether you're a newcomer or a seasoned
-                    player,
-                    the "Multiple Flip" button is a fun and convenient feature that makes our coin
-                    flip
-                    simulation game enjoyable to play.
-                  </p>
+                  <p></p>
                 </ul>
                 <div class="text-center">
-                  <img src="../gifs/multiFlip.gif" style="max-height: 350px" />
+                  <img src="../gifs/dice27Select.gif" style="max-height: 350px" />
                 </div>
                 <hr class="featurette-divider" />
-                <h4 id="list-item-4">Removing Chips</h4>
+                <h4 id="list-item-4">Answer Quesions</h4>
                 <uL>
-                  <p>
-                    When the player rolls the dice, they must add up the sum of
-                    the two dice. Once they get the sum, they check the card
-                    labeled with that sum. If they have a chip on that card,
-                    they can <b>click their chip on that card</b>, and it will
-                    be removed from it.
-                  </p>
+                  <p></p>
                 </uL>
                 <div class="text-center">
-                  <img src="../gifs/guessWeight.gif" style="max-height: 350px" />
+                  <img src="../gifs/dice27Answer.gif" style="max-height: 350px" />
                 </div>
                 <hr class="featurette-divider" />
-                <h4 id="list-item-4">Change Coin (Optional)</h4>
+                <h4 id="list-item-4">Auto Select (Optional)</h4>
                 <ul>
-                  <p>Player can change image of the coin by selecting the center dropdown menu and
-                    choosing from the list of possible images.</p>
+                  <p></p>
                 </ul>
                 <div class="text-center">
-                  <img src="../gifs/changeCoin.gif" style="max-height: 350px" />
+                  <img src="../gifs/dice27Auto.gif" style="max-height: 350px" />
                 </div>
               </div>
             </div>
