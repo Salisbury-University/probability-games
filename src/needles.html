@@ -212,7 +212,7 @@
 				<!-- this section shows estimate pi button, continue button and stats header-->
 				<h1 id="statsH1"> Stats <button class="btn btn-primary statsSection" id="guessPIButton" onclick="guessPI()">
 						More Info</button>
-				<button class="btn btn-primary statsSection" id="continueButton" onclick="continueGame()">Continue</button>
+				<button class="btn btn-primary statsSection" id="continueButton" hidden>Drop More Needles</button>
 				</h1>
 			</div>
 			<div class="row text-center" id="stats">
@@ -229,7 +229,7 @@
 			</div>
 
 			<!-- guessing PI, second section to appear and lets user guess (estimate) the value of PI based on the data from the game-->
-			<div class="row text-center" id="guessingPI" hidden>
+			<div class="row text-center" id="moreInfo" hidden>
 				<!-- rows in bootstrap are used to group items together
 				review bootstrap grid view, and mess around with site	
 			-->
@@ -262,8 +262,8 @@
 				</div>
 
 				<div class="col">
-					<p>Using the fomula below estimate the value of Pi</p>
-					<p>Please estimate PI: <input type="number" id="guessingPiNum"> Press Enter</p>
+					<!--<p>Using the fomula below estimate the value of Pi</p>
+					<p>Please estimate PI: <input type="number" id="guessingPiNum"> Press Enter</p>-->
 					<h3>Buffon's needle formula:
 						<math>
 							<mrow>
@@ -282,15 +282,15 @@
 							</mrow>
 						</math>
 					</h3>
-					<!--<h3>
+					<h3>
 						<math>
 							<mrow>
 								<mi>&#960;</mi>
-								<mo>=</mo>
+								<mo>&#8776</mo>
 								<mfrac>
 									<mrow>
 										<mn>2</mn>
-										<mi>&#8467*n</mi>
+										<mi id="needLength">*n</mi>
 									</mrow>
 									<mrow>
 										<mi>d*h</mi>
@@ -299,7 +299,7 @@
 								</mfrac>
 							</mrow>
 						</math>
-					</h3>-->
+					</h3>
 				</div>
 
 				<!--<div class="col" id=estimatePiValues>
