@@ -3,48 +3,201 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!--CSS stylsheets used-->
-  <link rel="stylesheet" href="../css/bootstrap.min.css" type="text/css" />
-  <link rel="stylesheet" href="../css/dice27.css" type="text/css">
   <title>Game of 27</title>
+
+  <!-- CSS -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../css/dice27.css" rel="stylesheet" />
+  <link href="../css/siteWide.css" rel="stylesheet" />
+
+  <!-- favicon stuff -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../images/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png" />
+  <link rel="manifest" href="../images/site.webmanifest" />
 </head>
 
 <body>
-  <!-- How to Play Modal -->
-  <div class="modal fade" id="howToPlay" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5">How to Play: Game of 27</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <!-- Main Content -->
+  <main>
+    <div id="container" class="container-fluid text-center">
+      <div class="row">
+        <div id="app"></div>
+      </div>
+      <div class="row">
+        <div class="text" id="overalScore"></div>
+      </div>
+      <div class="row">
+        <h2 class="text" id="mainPrompt">Press Play Game to Play!</h2>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="card border-0" style="color: #990000; margin-left: 40%;">
+            <div class="player">Player 1</div>
+            <div class="score" id="player0"></div>
+          </div>
         </div>
-        <div class="modal-body">
-          <ol>
-            <li>Player rolls dice.</li>
-            <li>Player asked what is the max number of piles that can be made based on dice roll.</li>
-            <li>Player asked how many chips remain after creating piles.</li>
-            <li>If the remainder is greater than 0 the player gets those chips as points.</li>
-            <li>Swap to the other player.</li>
-            <li>Repeat steps 1 - 5 until the total number of chips is 0 then the player with the most chips wins.</li>
-          </ol>
+        <div class="col">
+          <div id="questionCard" class="card" hidden>
+            <div id="pilesMake" class="card-body" hidden>
+              <div>Create the maximum number of piles of <strong><span id="rollNumber1"></span></strong> by selecting
+                groups. Press submit once a group is made.</div>
+              <button type="button" class="btn btn-success mx-auto" onclick="createPile()">Submit</button>
+              <button type="button" class="btn btn-dark mx-auto" style="background-color: #8064A2 !important;"
+                onclick="autoComplete()">Auto</button>
+            </div>
+            <div id="pilesQuestion" class="card-body" hidden>
+              <div>How many piles of <strong><span id="rollNumber2"></span></strong> did you create?</div>
+              <div class="col text-center">
+                <input type="text" pattern="[0-9]+" class="form-control" id="pilesInput" placeholder="Number of Piles"
+                  required>
+              </div>
+              <button type="button" class="btn btn-success mx-auto" onclick="pileCountCheck()">Submit</button>
+            </div>
+            <div id="remainderQuestion" class="card" hidden>
+              <div>How many chips are left over?</div>
+              <input type="text" pattern="[0-9]+" class="form-control" id="remainderInput" placeholder="Chips Remaining"
+                required>
+              <button type="button" class="btn btn-success mx-auto" onclick="remainderCheck()">Submit</button>
+            </div>
+          </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <div class="col">
+          <div class="card border-0" style="color:#4206c5; margin-right: 40%;">
+            <div class="player">Player 2</div>
+            <div class="score" id="player1"></div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div id="diceApp"></div>
+      </div>
+
+      <div class="row">
+        <button id="createGame" type="button" class="btn btn-success col-6 mx-auto" onclick="createGame()">Play
+          Game</button>
+        <button id="rollButton" type="button" class="btn btn-success col-6 mx-auto" onclick="roll()"
+          hidden>Roll</button>
+        <button id="resetButton" type="button" class="btn btn-danger col-6 mx-auto" onclick="reset()"
+          hidden>Reset</button>
+      </div>
+
+
+      <br>
+      <div class="row">
+        <div id="graph" hidden>
+          <h2>Number of Rolls: <div id="numberRolls"></div>
+          </h2>
+          <svg width="960" height="500"></svg>
         </div>
       </div>
     </div>
-  </div>
-  <!-- Bug Modal -->
-  <div class="modal fade" id="bugModal" tabindex="-1" aria-labelledby="bugModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
+  </main>
+
+  <!-- How to Play Modal -->
+  <div class="modal fade" id="howToPlay" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5">Bug Report</h1>
+          <h1 class="modal-title fs-5" id="instructionsModalLabel">
+            How to Play
+          </h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">Email: mdemchuk1@gulls.salisbury.edu with any bugs found
+        <div class="modal-body">
+          <div class="container-fluid m-2 p-2">
+            <div class="row">
+              <div id="list-instructions" class="list-group col-3">
+                <a class="list-group-item list-group-item-action" href="#list-item-1">Game Setup</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-2">Single Flip</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-3">Multiple Flips</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-4">Guess Weight</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-4">Change Coin</a>
+              </div>
+              <div data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0" tabindex="0" class="col"
+                style="height: 40em; overflow-y: scroll">
+                <h4 id="list-item-1">Welcome to the Coin Flip Game!</h4>
+                <ul>
+                  <p>Welcome to the coin flip simulation game! This game is designed to
+                    not only provide hours of fun and entertainment, but also to teach players an
+                    important lesson about the weight of coins and how it can affect the outcome of
+                    a flip.</p>
+                  <p>In this game, players can flip a virtual coin an large number of times and
+                    can guess whether the coin is weighted or not. If the coin is indeed weighted,
+                    players can also make a guess about the degree of the weight.</p>
+
+                  <p>This game is perfect for anyone who wants to understand the concept
+                    of coin
+                    weight and how it can influence the outcome of a coin flip. So what are you
+                    waiting for? Lets start flipping!</p>
+                </ul>
+                <hr class="featurette-divider" />
+                <h4 id="list-item-2">Single Flip</h4>
+                <ul>
+                  <p>
+                    Our game's "Single Flip" button enables players to quickly and easily flip a
+                    coin
+                    and see the result. This feature provides an opportunity for players to test
+                    their
+                    luck and try to guess the outcome of the flip. Whether you're new to the game or
+                    an
+                    experienced player, the "Single Flip" button is a convenient and fun way to
+                    play.
+                  </p>
+                </ul>
+                <div class="text-center">
+                  <img src="../gifs/singleFlip.gif" style="max-height: 350px" />
+                </div>
+                <hr class="featurette-divider" />
+                <h4 id="list-item-3">Multiple Flips</h4>
+                <ul>
+                  <p>
+                    Our game features a "Multiple Flip" button that allows players to flip the coin
+                    multiple times with a single click. This feature enables players to experiment
+                    with
+                    different numbers of flips and observe how it affects the outcome of the game.
+                    The
+                    "Multiple Flip" button is an excellent way to test your luck and improve your
+                    understanding of how the game works. Whether you're a newcomer or a seasoned
+                    player,
+                    the "Multiple Flip" button is a fun and convenient feature that makes our coin
+                    flip
+                    simulation game enjoyable to play.
+                  </p>
+                </ul>
+                <div class="text-center">
+                  <img src="../gifs/multiFlip.gif" style="max-height: 350px" />
+                </div>
+                <hr class="featurette-divider" />
+                <h4 id="list-item-4">Removing Chips</h4>
+                <uL>
+                  <p>
+                    When the player rolls the dice, they must add up the sum of
+                    the two dice. Once they get the sum, they check the card
+                    labeled with that sum. If they have a chip on that card,
+                    they can <b>click their chip on that card</b>, and it will
+                    be removed from it.
+                  </p>
+                </uL>
+                <div class="text-center">
+                  <img src="../gifs/guessWeight.gif" style="max-height: 350px" />
+                </div>
+                <hr class="featurette-divider" />
+                <h4 id="list-item-4">Change Coin (Optional)</h4>
+                <ul>
+                  <p>Player can change image of the coin by selecting the center dropdown menu and
+                    choosing from the list of possible images.</p>
+                </ul>
+                <div class="text-center">
+                  <img src="../gifs/changeCoin.gif" style="max-height: 350px" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -134,98 +287,17 @@
               onclick="window.location.href = 'dice27Sim.html'" />
             <label class="btn btn-outline-primary" for="advanced_btn">Simulation</label>
           </div>
-          <div class="btn-group me-2" role="group" aria-label="Third group">
-            <button type="radio" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bugModal">Report
-              Bug</button>
-          </div>
-          <div class="btn-group" role="group" aria-label="Fourth group">
+          <div class="btn-group" role="group" aria-label="Third group">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModal">
+              <img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
+            </button>
           </div>
         </div>
         <!-- settings button -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModal">
-          <img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
-        </button>
+
       </div>
     </div>
   </nav>
-
-  <!-- Main Content -->
-  <main>
-    <div id="container" class="container-fluid text-center">
-      <div class="row">
-        <div id="app"></div>
-      </div>
-      <div class="row">
-        <div class="text" id="overalScore"></div>
-      </div>
-      <div class="row">
-        <h2 class="text" id="mainPrompt">Press Play Game to Play!</h2>
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <div class="card border-0" style="color: #990000; margin-left: 40%;">
-            <div class="player">Player 1</div>
-            <div class="score" id="player0"></div>
-          </div>
-        </div>
-        <div class="col">
-          <div id="questionCard" class="card" hidden>
-            <div id="pilesMake" class="card-body" hidden>
-              <div>Create the maximum number of piles of <strong><span id="rollNumber1"></span></strong> by selecting
-                groups. Press submit once a group is made.</div>
-              <button type="button" class="btn btn-success mx-auto" onclick="createPile()">Submit</button>
-              <button type="button" class="btn btn-dark mx-auto" style="background-color: #8064A2 !important;"
-                onclick="autoComplete()">Auto</button>
-            </div>
-            <div id="pilesQuestion" class="card-body" hidden>
-              <div>How many piles of <strong><span id="rollNumber2"></span></strong> did you create?</div>
-              <div class="col text-center">
-                <input type="text" pattern="[0-9]+" class="form-control" id="pilesInput" placeholder="Number of Piles"
-                  required>
-              </div>
-              <button type="button" class="btn btn-success mx-auto" onclick="pileCountCheck()">Submit</button>
-            </div>
-            <div id="remainderQuestion" class="card" hidden>
-              <div>How many chips are left over?</div>
-              <input type="text" pattern="[0-9]+" class="form-control" id="remainderInput" placeholder="Chips Remaining"
-                required>
-              <button type="button" class="btn btn-success mx-auto" onclick="remainderCheck()">Submit</button>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card border-0" style="color:#4206c5; margin-right: 40%;">
-            <div class="player">Player 2</div>
-            <div class="score" id="player1"></div>
-          </div>
-        </div>
-      </div>
-      <br>
-      <div class="row">
-        <div id="diceApp"></div>
-      </div>
-
-      <div class="row">
-        <button id="createGame" type="button" class="btn btn-success col-6 mx-auto" onclick="createGame()">Play
-          Game</button>
-        <button id="rollButton" type="button" class="btn btn-success col-6 mx-auto" onclick="roll()"
-          hidden>Roll</button>
-        <button id="resetButton" type="button" class="btn btn-danger col-6 mx-auto" onclick="reset()"
-          hidden>Reset</button>
-      </div>
-
-
-      <br>
-      <div class="row">
-        <div id="graph" hidden>
-          <h2>Number of Rolls: <div id="numberRolls"></div>
-          </h2>
-          <svg width="960" height="500"></svg>
-        </div>
-      </div>
-    </div>
-  </main>
 
   <!--Javascripts used for the page-->
   <script src="js/d3.min.js"></script>

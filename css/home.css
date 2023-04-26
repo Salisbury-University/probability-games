@@ -1,64 +1,61 @@
-/* GLOBAL STYLES
--------------------------------------------------- */
-/* Padding below the footer and lighter body text */
-
-body {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  color: #5a5a5a;
+.featurette-divider {
+  margin: 2rem 0;
 }
 
-.rounded-circle {
-  width: 140;
-  height: 140;
+.cardList {
+  white-space: nowrap;
 }
 
-/* MARKETING CONTENT
-  -------------------------------------------------- */
-
-/* Center align the text within the three columns below the carousel */
-.col-lg-4 {
-  margin-bottom: 1.5rem;
+.cardTitle {
   text-align: center;
 }
 
-/* rtl:begin:ignore */
-.col-lg-4 p {
-  margin-right: 0.75rem;
-  margin-left: 0.75rem;
+.cardInfo {
+  margin-top: 20px;
+  overflow-x: hidden;
+  white-space: normal;
+  z-index: 3;
 }
 
-/* rtl:end:ignore */
-
-/* Featurettes
-  ------------------------- */
-
-.featurette-divider {
-  margin: 5rem 0;
-  /* Space out the Bootstrap <hr> more */
+.cardImage {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
 }
 
-/* Thin out the marketing headings */
-/* rtl:begin:remove */
-.featurette-heading {
-  letter-spacing: -0.05rem;
+.cardList {
+  padding-left: 1.5%;
 }
 
-/* rtl:end:remove */
-
-/* RESPONSIVE CSS
-  -------------------------------------------------- */
-
-@media (min-width: 40em) {
-
-
-  .featurette-heading {
-    font-size: 50px;
-  }
+.card {
+  display: inline-block;
+  vertical-align: top;
+  width: 15.5%;
+  height: attr(width);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  background-size: cover;
+  margin-right: 20px;
+  padding: 20px;
+  z-index: 2;
+  transition: transform 1s ease;
 }
 
-@media (min-width: 62em) {
-  .featurette-heading {
-    margin-top: 7rem;
-  }
+.card:hover {
+  transform: scale(1.5) translateY(-20%);
+  z-index: 3;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+#leftCard:hover {
+  transform: scale(1.5) translateX(20%) translateY(-20%);
+  z-index: 3;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+#rightCard:hover {
+  transform: scale(1.5) translateX(-20%) translateY(-20%);
+  z-index: 3;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
