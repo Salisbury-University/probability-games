@@ -194,8 +194,8 @@ function guessPI() {
 function guessingPIfunc() {
   //shows result area
   document.getElementById("resultArea").removeAttribute("hidden");
-  document.getElementById("userGuessSection").innerHTML = "You guessed: " + document.getElementById("guessingPiNum").value;
-  document.getElementById("percentErrorSection").innerHTML = "You were this far off: " + (Math.round((Math.abs((document.getElementById("guessingPiNum").value - pi) / pi) * 100) * 100) / 100) + "%";
+  //document.getElementById("userGuessSection").innerHTML = "You guessed: " + document.getElementById("guessingPiNum").value;
+  //document.getElementById("percentErrorSection").innerHTML = "You were this far off: " + (Math.round((Math.abs((document.getElementById("guessingPiNum").value - pi) / pi) * 100) * 100) / 100) + "%";
   document.getElementById("guessingPI").setAttribute("hidden", "hidden");
 
   //shows the guess pi button (which brings us back to first page)
@@ -302,13 +302,13 @@ function needleXY() {
     document.getElementsByClassName("estimation")[0].innerHTML = "PI Estimation: " + Math.round(pi * 10000) / 10000;
     document.getElementsByClassName("estimation")[1].innerHTML = "PI Estimation: " + Math.round(pi * 10000) / 10000;
     document.getElementById("realPi").innerHTML = "Real value of PI : " + Math.round(Math.PI * 10000) / 10000;
-    document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10) / 10 + " Units"; // units is pixels
-    document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10) / 10 + " Units";
+    document.getElementById("needLength").innerHTML = Math.round(needleLength * 10) / 10 ; //the  units is pixels
+    document.getElementById("gridSpace").innerHTML =  Math.round(lineSpace * 10) / 10;
     document.getElementsByClassName("needCross")[0].innerHTML = "# of Needles that Cross a Line(Green): " + needleCross;
-    document.getElementsByClassName("needCross")[1].innerHTML = "# of Needles that Cross a Line: " + needleCross;
+    document.getElementsByClassName("needCross")[1].innerHTML = needleCross;
     document.getElementById("needleDontCross").innerHTML = "# of Needles that Don't Cross a Line(Purple): " + (needleDrop - needleCross);
     document.getElementsByClassName("total")[0].innerHTML = "Total # of Needles Dropped: " + needleDrop;
-    document.getElementsByClassName("total")[1].innerHTML = "Total # of Needles Dropped: " + needleDrop;
+    document.getElementsByClassName("total")[1].innerHTML = needleDrop;
     document.getElementById("percentError").innerHTML = "Percent Error for PI estimaton: " + Math.round(error * 10000) / 10000 + "%";
 
   }
