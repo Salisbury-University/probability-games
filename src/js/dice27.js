@@ -26,13 +26,6 @@ class Line {
     getLine() {
         return this.#line;
     }
-    /*resize(dist, chipSize) {
-        this.#line.destroy();
-        this.#line = new Graphics;
-        this.#line.beginFill("0x000000");
-        this.#line.drawRect(dist + chipSize, 0, 5, 5000);
-        this.#line.endFill();
-    }*/
 }
 
 class Coin {
@@ -107,12 +100,6 @@ class Coin {
     #hoverOut() {
         this.#coin.alpha = 1;
     }
-    /*resize(dist, yAxis, chipSize, app) {
-        this.#coin.destroy();
-        this.#coin = new Graphics;
-        this.#createCoin(dist, yAxis, chipSize);
-        console.log("new coin");
-    }*/
 }
 
 class WindowInfo {
@@ -128,10 +115,6 @@ class WindowInfo {
     getWindowHeight() {
         return this.#windowHeight;
     }
-    /*resizeWindow() {
-        this.#windowWidth = window.innerWidth * .98;
-        this.#windowHeight = window.innerHeight;
-    }*/
 }
 
 class App {
@@ -154,12 +137,6 @@ class App {
     getApp() {
         return this.#app;
     }
-    /*resize(windowInfo) {
-        document.getElementById(this.#appName).removeChild(this.#app.view);
-        this.#app.destroy();
-        this.#app = this.#createApp(windowInfo);
-        this.appendApp();
-    }*/
 }
 
 class Dice27 {
@@ -200,6 +177,22 @@ class Dice27 {
         document.getElementById("player1").innerHTML = this.#scoreboard[1];
         //set array to size
         this.#stats = new Array(baseTotal).fill(0);
+        this.#setupButtons();
+    }
+    #setupButtons() {
+        let rollButton = document.getElementById("rollButton");
+        let startButton = document.getElementById("createGame");
+        let resetButton = document.getElementById("resetButton");
+
+        rollButton.addEventListener('click', () => {
+            this.#roll();
+        });
+        startButton.addEventListener('click', () => {
+            this.#createGame();
+        });
+        resetButton.addEventListener('click', () => {
+            this.#createGame();
+        });
     }
     getApp() {
         return this.#app.getApp();
@@ -210,7 +203,7 @@ class Dice27 {
     setNumberClicked(num) {
         this.#numberClicked = this.#numberClicked + num;
     }
-    createGame() {
+    #createGame() {
         let dist = this.#window.getWindowWidth() * .025;
         let add = this.#window.getWindowWidth() * .036;
         let chipSize = this.#window.getWindowWidth() * .016;
@@ -239,7 +232,7 @@ class Dice27 {
         document.getElementById("createGame").hidden = true;
         document.getElementById("rollButton").hidden = false;
     }
-    roll() {
+    #roll() {
         //hide roll button and play the audio
         document.getElementById("rollButton").hidden = true;
         this.#playAudio(AUDIO_ROLL);
@@ -528,16 +521,8 @@ class ScreenManagement {
 const game = new Dice27();
 const screen = new ScreenManagement();
 
-function roll() {
-    game.roll();
-}
-
 function reset() {
     game.resetGame();
-}
-
-function createGame() {
-    game.createGame();
 }
 
 function pileCountCheck() {
