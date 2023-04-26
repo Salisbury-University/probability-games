@@ -3,56 +3,23 @@
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="Matthew Demchuk, Jovanni Rodriguez">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>Probability Games!</title>
 
-  <link href="../css/bootstrap.min.css" rel="stylesheet">
-  <link href="../css/home.css" rel="stylesheet">
-  <link href="../css/lightDarkMode.css" rel="stylesheet">
+  <!-- CSS -->
+  <link href="../css/bootstrap.min.css" rel="stylesheet" />
+  <link href="../css/home.css" rel="stylesheet" />
+  <link href="../css/siteWide.css" rel="stylesheet" />
 
-
+  <!-- favicon stuff -->
+  <link rel="apple-touch-icon" sizes="180x180" href="../images/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png" />
+  <link rel="manifest" href="../images/site.webmanifest" />
 </head>
 
 <body>
-  <!-- Settings Modal -->
-  <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5">Settings</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p>Volume:</p>
-          <p>
-            <input type="range" id="volume-control" value="100" />
-          </p>
-
-          <hr class="featurette-divider" />
-          <div class="row text-align">
-            <div class="col-3">
-              <p>Light Theme</p>
-            </div>
-            <div class="col-2">
-              <label class="switch">
-                <input id="themeTypeSwitch" type="checkbox">
-                <span class="slider round"></span>
-              </label>
-            </div>
-            <div class="col-3">
-              <p>Dark Theme</p>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            Close
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
   <!-- Nav Bar-->
   <header>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar" style="z-index: 25;">
@@ -134,6 +101,7 @@
             <div class="cardInfo">
               <p>Try to guess which door the prize is behind, with one opportunity to switch!</p>
               <button type="button" class="btn btn-success playButton" data-game="GoatGame">Play Game</button>
+
             </div>
           </div>
         </div>
@@ -178,15 +146,54 @@
           </div>
         </div>
       </div>
-      <hr class="featurette-divider">
-    </div><!-- /.container -->
+    </div>
   </main>
 
   <!-- FOOTER -->
-  <footer class="container">
-    <p class="float-end"><a href="#">Back to top</a></p>
-    <p> &middot; Salisbury University &middot; </p>
+  <footer class="container-fluid text-center">
+    <hr class="featurette-divider">
+    <p> &middot; Salisbury University &middot; | <a href="#">Back to top</a></p>
   </footer>
+
+  <!-- Settings Modal -->
+  <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Settings</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Volume:</p>
+          <p>
+            <input type="range" id="volume-control" value="100" />
+          </p>
+
+          <hr class="featurette-divider" />
+          <div class="row text-align">
+            <div class="col-3">
+              <p>Light Theme</p>
+            </div>
+            <div class="col-2">
+              <label class="switch">
+                <input id="themeTypeSwitch" type="checkbox">
+                <span class="slider round"></span>
+              </label>
+            </div>
+            <div class="col-3">
+              <p>Dark Theme</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/home.js"></script>
 
