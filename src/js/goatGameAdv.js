@@ -189,6 +189,8 @@ function simulateGame() {
         alert("You cannot enter more times to switch then the total games played!");
     } else if (isNaN(timesPlayed)) {
         alert("You must enter a value greater then 0");
+    } else if (timesPlayed < 10 || timesPlayed > 1000000) {
+        alert("You must enter between 10 and 1,000,000 games.");
     } else {
         switchDoor = isKept;
         for (var i = 0; i < timesPlayed; i++) {
