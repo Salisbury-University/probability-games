@@ -155,9 +155,7 @@ function afterStepOne(revealGoat) {
     setTimeout(function () {
 
         document.getElementById(go).src = goatImg;
-        let doorway = document.getElementById(`doorWay${revealGoat}`);
-        //doorway.setAttribute("zindex",2);
-        doorway.hidden = false;
+        document.getElementById(`doorWay${revealGoat}`).hidden = false;
 
         if (revealGoat == 0)
             document.getElementById("door0").style.borderRadius = "99%";
@@ -195,12 +193,16 @@ function midStepTwo(imgType, userDoorChoice) {
         correctSound.play();
 
         document.getElementById(userDoorChoice).src = carImg;
-        if (userDoorChoice == "door0")
+        if (userDoorChoice == "door0") {
             document.getElementById("door0").style.borderRadius = "99%";
-        else if (userDoorChoice == "door1")
+            document.getElementById("doorWay0").hidden = false;
+        } else if (userDoorChoice == "door1") {
             document.getElementById("door1").style.borderRadius = "99%";
-        else
+            document.getElementById("doorWay1").hidden = false;
+        } else {
             document.getElementById("door2").style.borderRadius = "99%";
+            document.getElementById("doorWay2").hidden = false;
+        }
 
 
     } else {
@@ -209,12 +211,16 @@ function midStepTwo(imgType, userDoorChoice) {
 
         document.getElementById(userDoorChoice).src = goatImg;
 
-        if (userDoorChoice == "door0")
+        if (userDoorChoice == "door0") {
             document.getElementById("door0").style.borderRadius = "99%";
-        else if (userDoorChoice == "door1")
+            document.getElementById("doorWay0").hidden = false;
+        } else if (userDoorChoice == "door1") {
             document.getElementById("door1").style.borderRadius = "99%";
-        else
+            document.getElementById("doorWay1").hidden = false;
+        } else {
             document.getElementById("door2").style.borderRadius = "99%";
+            document.getElementById("doorWay2").hidden = false;
+        }
     }
 }
 
@@ -277,6 +283,7 @@ function finalFunction() {
 
     for (let i = 0; i < 3; i++) {
         document.getElementById(`door${i}`).style.borderRadius = "99%";
+        document.getElementById(`doorWay${i}`).hidden = false;
     }
 
 
