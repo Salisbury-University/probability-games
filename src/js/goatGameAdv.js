@@ -1,9 +1,9 @@
 let carImg = "../images/iceCream.png";
 let goatImg = "../images/aspargus.png";
-let doorImg1 = "../images/ClosedDoor1.png";
-let doorImg2 = "../images/ClosedDoor2.png";
-let doorImg3 = "../images/ClosedDoor3.png";
-let doorImgPaths = ["../images/ClosedDoor1.png", "../images/ClosedDoor2.png", "../images/ClosedDoor3.png"];
+let doorImg1 = "../images/doorImg1.png";
+let doorImg2 = "../images/doorImg2.png";
+let doorImg3 = "../images/doorImg3.png";
+let doorImgPaths = ["../images/doorImg1.png", "../images/doorImg2.png", "../images/doorImg3.png"];
 
 var Doors = [0, 0, 0];
 var carLocation = Math.floor(Math.random() * 3);
@@ -217,8 +217,11 @@ function simulateGame() {
 }//end of simulate game
 
 function runVisualGame(iteration = 0) {
-    if (iteration == 3)
+    document.getElementById("continueSimulation").disabled = true;
+    if (iteration == 3) {
+        document.getElementById("continueSimulation").disabled = false;
         return;
+    }
 
     let nonWinningDoor = Math.floor(Math.random() * 3);
 
