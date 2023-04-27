@@ -84,6 +84,7 @@ function playAgain() {
         document.getElementById(`door${i}`).src = doorImgPaths[i];
         document.getElementById(`door${i}`).style.boxShadow = "none";
         document.getElementById(`door${i}`).setAttribute("onclick", `stepOne(${i})`);
+        document.getElementById(`doorWay${i}`).hidden = true;
     }
 
     carLocation = Math.floor(Math.random() * 3);
@@ -129,7 +130,6 @@ function stepOne(doorChose) {
     var switchDoorLoc = "door" + doorChoice;
     var OGdoorChoice = "door" + doorChose;
 
-    //document.getElementById(goatDoor).removeAttribute("onclick");
     document.getElementById(switchDoorLoc).removeAttribute("onclick");
 
     document.getElementById("door" + doorChose).style.boxShadow = "0 0 100px greenyellow";
@@ -155,6 +155,9 @@ function afterStepOne(revealGoat) {
     setTimeout(function () {
 
         document.getElementById(go).src = goatImg;
+        let doorway = document.getElementById(`doorWay${revealGoat}`);
+        //doorway.setAttribute("zindex",2);
+        doorway.hidden = false;
 
         if (revealGoat == 0)
             document.getElementById("door0").style.borderRadius = "99%";
