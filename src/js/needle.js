@@ -1,14 +1,14 @@
 // create window height variable
-let windowWidth = document.body.clientWidth * .75;
+let windowWidth = document.body.clientWidth * .8; //.8
 let windowHeight = window.innerHeight * .53;
 let pi = 0;
-let canvas = document.getElementById('my-canvas');
+//let canvas = document.getElementById('app');
 const halfPi = Math.PI / 2;
 
 
 //create Application Window
 let app = new PIXI.Application({
-  view: canvas,
+  view:  document.getElementById('app').appendChild(document.createElement('canvas')), //canvas,
   backgroundColor: 0x323031,
   width: windowWidth,
   height: windowHeight
@@ -19,10 +19,15 @@ const style = new PIXI.TextStyle({
   fontWeight: 'bold',
   fill: ['#ffffff'], // gradient
 });
-let basicText = new PIXI.Text('L', style);
-basicText.x = 1000;
-basicText.y = 20;
+let basicText = new PIXI.Text('d', style);
+basicText.x = windowWidth - 100;
+basicText.y = 100;
 app.stage.addChild(basicText);
+
+// resize canvas when window is resized
+window.addEventListener('resize', function() {
+  app.renderer.resize(document.body.clientWidth * .8, window.innerHeight * .53);
+});
 
 // append the application window to the page
 document.getElementById('app').appendChild(app.view);
@@ -33,17 +38,6 @@ document.getElementById("amountOfNeedles").addEventListener("keydown", function 
     needleXY();
   }
 });
-
-
-/*function resizeCanvas() {
-  canvas.width = document.body.clientWidth * .75;; // Set the canvas width to 75% of the window width
-  canvas.height = window.innerHeight * .65; // Set the canvas height to 65% of the window height
-  windowWidth = document.body.clientWidth * .75;
-  windowHeight = window.innerHeight * .65;
-}*/
-
-// Add an event listener to resize the canvas when the window size changes
-//window.addEventListener('resize', resizeCanvas);
 
 let line = new PIXI.Graphics();
 let lines = [];
@@ -93,7 +87,7 @@ for (let i = 0; i < amountLines + 1; i++) {
     line.lineStyle(1, 0x0096FF, 1);
   }
   line.moveTo(0, yValue);
-  line.lineTo(windowWidth, yValue);
+  line.lineTo(windowWidth *.75, yValue);
   line.closePath();
   app.stage.addChild(line);
   lines[i] = yValue;
@@ -194,8 +188,8 @@ function guessPI() {
 function guessingPIfunc() {
   //shows result area
   document.getElementById("resultArea").removeAttribute("hidden");
-  document.getElementById("userGuessSection").innerHTML = "You guessed: " + document.getElementById("guessingPiNum").value;
-  document.getElementById("percentErrorSection").innerHTML = "You were this far off: " + (Math.round((Math.abs((document.getElementById("guessingPiNum").value - pi) / pi) * 100) * 100) / 100) + "%";
+  //document.getElementById("userGuessSection").innerHTML = "You guessed: " + document.getElementById("guessingPiNum").value;
+  //document.getElementById("percentErrorSection").innerHTML = "You were this far off: " + (Math.round((Math.abs((document.getElementById("guessingPiNum").value - pi) / pi) * 100) * 100) / 100) + "%";
   document.getElementById("guessingPI").setAttribute("hidden", "hidden");
 
   //shows the guess pi button (which brings us back to first page)
@@ -205,18 +199,18 @@ function guessingPIfunc() {
 }
 
 //last section displayed (resets back to how website originally looked)
-function continueGame() {
-  document.getElementById("topPageSection").hidden = false;
-  document.getElementById("resultArea").setAttribute("hidden", "hidden");
-  document.getElementById("stats").hidden = false;
-  document.getElementById("guessPIButton").removeAttribute("hidden");
-  document.getElementById("continueButton").setAttribute("hidden", "hidden");
+const buttons = querySelectorAll(".statsSection");
+buttons[0].addEventListener("click", () => {
+    buttons[0].hidden = true;
+    buttons[1].hidden = false;
+    console.log("duxk odf");
+});
+buttons[1].addEventListener("click", () => {
+    buttons[1].hidden = true;
+    buttons[0].hidden = false;
+    console.log("fcuk you");
 
-  document.getElementById("guessPIButton").setAttribute("disabled", "disabled");
-  document.getElementById("dropNeedleButton").removeAttribute("disabled");
-  clearNeedles();
-}
-
+});
 function needleXY() {
   app.stage.removeChild(basicText);
   let dropNeedles = document.getElementById("amountOfNeedles").value;
@@ -302,13 +296,13 @@ function needleXY() {
     document.getElementsByClassName("estimation")[0].innerHTML = "PI Estimation: " + Math.round(pi * 10000) / 10000;
     document.getElementsByClassName("estimation")[1].innerHTML = "PI Estimation: " + Math.round(pi * 10000) / 10000;
     document.getElementById("realPi").innerHTML = "Real value of PI : " + Math.round(Math.PI * 10000) / 10000;
-    document.getElementById("needLength").innerHTML = "Needle Length: " + Math.round(needleLength * 10) / 10 + " Units"; // units is pixels
-    document.getElementById("gridSpace").innerHTML = "Space Between Lines: " + Math.round(lineSpace * 10) / 10 + " Units";
+    document.getElementById("needLength").innerHTML = Math.round(needleLength * 10) / 10 ; //the  units is pixels
+    document.getElementById("gridSpace").innerHTML =  Math.round(lineSpace * 10) / 10;
     document.getElementsByClassName("needCross")[0].innerHTML = "# of Needles that Cross a Line(Green): " + needleCross;
-    document.getElementsByClassName("needCross")[1].innerHTML = "# of Needles that Cross a Line: " + needleCross;
+    document.getElementsByClassName("needCross")[1].innerHTML = needleCross;
     document.getElementById("needleDontCross").innerHTML = "# of Needles that Don't Cross a Line(Purple): " + (needleDrop - needleCross);
     document.getElementsByClassName("total")[0].innerHTML = "Total # of Needles Dropped: " + needleDrop;
-    document.getElementsByClassName("total")[1].innerHTML = "Total # of Needles Dropped: " + needleDrop;
+    document.getElementsByClassName("total")[1].innerHTML = needleDrop;
     document.getElementById("percentError").innerHTML = "Percent Error for PI estimaton: " + Math.round(error * 10000) / 10000 + "%";
 
   }

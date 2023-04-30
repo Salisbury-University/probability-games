@@ -1,19 +1,27 @@
+#gamesTitle {
+  text-align: center;
+}
+
 .featurette-divider {
   margin: 2rem 0;
 }
 
 .cardList {
-  white-space: nowrap;
+  max-width: 100vw;
+  margin-left: 5vw;
 }
 
 .cardTitle {
   text-align: center;
+  font-size: 150%;
 }
 
 .cardInfo {
   margin-top: 20px;
   overflow-x: hidden;
   white-space: normal;
+  padding-left: 10%;
+  padding-right: 10%;
   z-index: 3;
 }
 
@@ -24,38 +32,41 @@
   width: 75%;
 }
 
-.cardList {
-  padding-left: 1.5%;
-}
-
 .card {
   display: inline-block;
   vertical-align: top;
-  width: 15.5%;
+  width: 15%;
   height: attr(width);
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   background-size: cover;
-  margin-right: 20px;
-  padding: 20px;
   z-index: 2;
   transition: transform 1s ease;
 }
 
 .card:hover {
-  transform: scale(1.5) translateY(-20%);
+  transform: scale(1.5) translateY(-5vw);
   z-index: 3;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
-#leftCard:hover {
-  transform: scale(1.5) translateX(20%) translateY(-20%);
-  z-index: 3;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+@media screen and (min-width: 500px) {
+  .cardTitle {
+    font-size: 100%;
+  }
+
+  .cardInfo {
+    font-size: 50%;
+  }
 }
 
-#rightCard:hover {
-  transform: scale(1.5) translateX(-20%) translateY(-20%);
-  z-index: 3;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+@media screen and (min-width: 1200px) {
+  .cardTitle {
+    font-size: 150%;
+  }
+
+  .cardInfo {
+    font-size: 100%;
+  }
 }

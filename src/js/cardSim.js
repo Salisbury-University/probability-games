@@ -254,17 +254,7 @@ function simulate() {
   );
 
   // append the stats based on the simulation
-  data.unshift(sim.getAverageRolls());
-
-  // after the game is simulated, alter corresponding HTML elements
-  document.getElementById("mean_label").innerHTML =
-    "Mean Rolls: " + sim.getAverageRolls();
-  document.getElementById("max_label").innerHTML =
-    "Max Rolls: " + sim.getMaxRolls();
-  document.getElementById("min_label").innerHTML =
-    "Min Rolls: " + sim.getMinRolls();
-  document.getElementById("total_label").innerHTML =
-    "Total Rolls: " + sim.getTotalRolls();
+  data.push(sim.getAverageRolls());
 
   // delete the sim object
   delete sim;
@@ -279,7 +269,7 @@ function simulate() {
   }
 
   // track distributions in the chart
-  chartedDistributions.unshift(temp);
+  chartedDistributions.push(temp);
 
   // re-enable all the html elments
   button.disabled = false;
@@ -451,20 +441,28 @@ function updateLogs(min, max, avg, tot) {
   }
 
   // content to add
-  let newRowContent = `<td>${gameLog[lastIdx][0]}</td>\n
-      <td>${gameLog[lastIdx][1]}</td>\n
-      <td>${gameLog[lastIdx][2]}</td>\n
-      <td>${gameLog[lastIdx][3]}</td>\n
-      <td>${simConf.get("numRuns")}</td>\n
-      <td>${distStr}</td>\n
+  let newRowContent = `<td class="table-cell themeable">${
+    gameLog[lastIdx][0]
+  }</td>\n
+      <td class="table-cell themeable">${gameLog[lastIdx][1]}</td>\n
+      <td class="table-cell themeable">${gameLog[lastIdx][2]}</td>\n
+      <td class="table-cell themeable">${gameLog[lastIdx][3]}</td>\n
+      <td class="table-cell themeable">${simConf.get("numRuns")}</td>\n
+      <td class="table-cell themeable">${distStr}</td>\n
   `;
 
   let tableRef = document
     .getElementById("rollDataTable")
     .getElementsByTagName("tbody")[0];
 
-  let newRow = tableRef.insertRow(tableRef.rows.length);
+  let newRow = tableRef.insertRow(0);
   newRow.innerHTML = newRowContent;
+
+  if (document.getElementById("themeTypeSwitch").checked) {
+    document
+      .querySelectorAll("td")
+      .forEach((ele) => ele.classList.add("text-white"));
+  }
 }
 
 // clear table
@@ -475,11 +473,11 @@ function clearTable() {
   table.innerHTML = "";
 }
 
-data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+data = [];
 
 // clear chart and underlying storage
 function clearChart() {
-  data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  data = [];
 
   updateChart();
 
@@ -487,9 +485,12 @@ function clearChart() {
   chartedDistributions = [];
 }
 
+// in order to update the chart, maintain the array in the order
+// that you want the bars to appear, i.e. add new averges to the end
 function updateChart() {
   if (data.length > 10) {
-    data.pop();
+    data.shift();
+    chartedDistributions.shift();
   }
 
   // set the dimensions of the chart
@@ -549,8 +550,9 @@ function updateChart() {
 
       // fill div with highlighted distribution
       div.hidden = false;
+      document.getElementById("hoverLabel").hidden = false;
 
-      let str = "[";
+      let str = "[ ";
 
       for (let i = 0; i < 11; i++) {
         str += `${chartedDistributions[xIdx][i]} `;
@@ -590,35 +592,54 @@ function updateChart() {
       }
       str += "]";
       div.innerHTML = str;
+      div.hidden = true;
+      document.getElementById("hoverLabel").hidden = true;
     });
 
   // create the label
   chart
     .append("text")
+    .attr("class", "x label")
+    .attr("text-anchor", "middle")
+    .attr("x", width / 2)
+    .attr("y", height + margin.bottom)
+    .text("Game No");
+  chart
+    .append("text")
     .attr("class", "y label")
-    .attr("text-anchor", "end")
-    .attr("y", -40)
-    .attr("dy", ".75em")
-    .attr("transform", "rotate(-90)")
-    .text("Average Rolls per Game");
+    .attr("text-anchor", "middle")
+    .attr("x", -height / 2)
+    .attr("y", -margin.left + 13)
+    .attr("transform", `rotate(-90)`)
+    .text("Average Rolls");
+
+  if (!document.getElementById("themeTypeSwitch").checked) {
+    chart.selectAll("text").attr("fill", "#000000");
+  } else {
+    chart.selectAll("text").attr("fill", "#ffffff");
+  }
 }
 
 function changeTheme() {
   if (!document.getElementById("themeTypeSwitch").checked) {
     document.body.style.backgroundColor = "#ffffff";
-
-    document.getElementById("settingsModalContent").classList.remove("bg-dark");
     document
-      .getElementById("settingsModalContent")
-      .classList.remove("text-white");
+      .querySelectorAll(".themeable")
+      .forEach((el) => el.classList.remove("text-white"));
+    document
+      .querySelectorAll(".modal-content, .list-group-item")
+      .forEach((el) => el.classList.remove("bg-dark"));
+    updateChart();
 
     // change to Dark Mode
   } else if (document.getElementById("themeTypeSwitch").checked) {
-    document.body.style.backgroundColor = "#666666";
-    charcoal = 0xffffff;
-
-    // update html elemnets to work in dark mode
-    document.getElementById("settingsModalContent").classList.add("bg-dark");
-    document.getElementById("settingsModalContent").classList.add("text-white");
+    document.body.style.backgroundColor = "#434445";
+    document
+      .querySelectorAll(".themeable")
+      .forEach((el) => el.classList.add("text-white"));
+    document
+      .querySelectorAll(".modal-content, .list-group-item-action")
+      .forEach((el) => el.classList.add("bg-dark"));
+    updateChart();
   }
 }
