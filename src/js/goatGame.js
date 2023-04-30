@@ -156,14 +156,14 @@ function afterStepOne(revealGoat) {
 
         document.getElementById(go).src = goatImg;
         document.getElementById(`doorWay${revealGoat}`).hidden = false;
-
+/*
         if (revealGoat == 0)
             document.getElementById("door0").style.borderRadius = "99%";
         else if (revealGoat == 1)
             document.getElementById("door1").style.borderRadius = "99%";
         else
             document.getElementById("door2").style.borderRadius = "99%";
-
+*/
         document.getElementById("titleSentence").innerHTML = "Great Job! <br> Now Make a Choice!"
         document.getElementById("firstSentenceID").innerHTML = "There is now one " + trashName + " and one " + prizeName + " left! <br> If you want to keep the Door you chose, then click on <b>Door "
             + (globalDoorChose + 1) + ". </b><br> Otherwise click on <b>Door " + (doorChoice + 1) + " </b>to switch doors!";
@@ -194,13 +194,13 @@ function midStepTwo(imgType, userDoorChoice) {
 
         document.getElementById(userDoorChoice).src = carImg;
         if (userDoorChoice == "door0") {
-            document.getElementById("door0").style.borderRadius = "99%";
+          //  document.getElementById("door0").style.borderRadius = "99%";
             document.getElementById("doorWay0").hidden = false;
         } else if (userDoorChoice == "door1") {
-            document.getElementById("door1").style.borderRadius = "99%";
+           // document.getElementById("door1").style.borderRadius = "99%";
             document.getElementById("doorWay1").hidden = false;
         } else {
-            document.getElementById("door2").style.borderRadius = "99%";
+           // document.getElementById("door2").style.borderRadius = "99%";
             document.getElementById("doorWay2").hidden = false;
         }
 
@@ -212,13 +212,13 @@ function midStepTwo(imgType, userDoorChoice) {
         document.getElementById(userDoorChoice).src = goatImg;
 
         if (userDoorChoice == "door0") {
-            document.getElementById("door0").style.borderRadius = "99%";
+          //  document.getElementById("door0").style.borderRadius = "99%";
             document.getElementById("doorWay0").hidden = false;
         } else if (userDoorChoice == "door1") {
-            document.getElementById("door1").style.borderRadius = "99%";
+           // document.getElementById("door1").style.borderRadius = "99%";
             document.getElementById("doorWay1").hidden = false;
         } else {
-            document.getElementById("door2").style.borderRadius = "99%";
+           // document.getElementById("door2").style.borderRadius = "99%";
             document.getElementById("doorWay2").hidden = false;
         }
     }
@@ -282,7 +282,7 @@ function finalFunction() {
         document.getElementById("door2").src = carImg;
 
     for (let i = 0; i < 3; i++) {
-        document.getElementById(`door${i}`).style.borderRadius = "99%";
+        //document.getElementById(`door${i}`).style.borderRadius = "99%";
         document.getElementById(`doorWay${i}`).hidden = false;
     }
 

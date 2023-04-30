@@ -108,10 +108,6 @@ function finalFunction() {
     else
         document.getElementById("door2").src = carImg;
 
-    for (let i = 0; i < 3; i++) {
-        document.getElementById(`door${i}`).style.borderRadius = "99%";
-    }
-
 
     doorOpenSound.loop = false;
     doorOpenSound.play();
