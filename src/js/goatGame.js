@@ -32,7 +32,7 @@ function changePrize(img) {
     //define objects and map img location,name to value being searched
     const prizes = {
         iceCream: ["../images/iceCream.png", "Ice Cream"],
-        Toy: ["../images/toy.jpg", "Legos"],
+        Toy: ["../images/toy.png", "Rubik's Cube"],
         Money: ["../images/nickelHead.png", "Money"]
     };
     //asign carImg to first in array, and name to second
