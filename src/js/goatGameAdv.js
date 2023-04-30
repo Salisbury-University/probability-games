@@ -1,9 +1,9 @@
 let carImg = "../images/iceCream.png";
 let goatImg = "../images/aspargus.png";
-let doorImg1 = "../images/ClosedDoor1.png";
-let doorImg2 = "../images/ClosedDoor2.png";
-let doorImg3 = "../images/ClosedDoor3.png";
-let doorImgPaths = ["../images/ClosedDoor1.png", "../images/ClosedDoor2.png", "../images/ClosedDoor3.png"];
+let doorImg1 = "../images/doorImg1.png";
+let doorImg2 = "../images/doorImg2.png";
+let doorImg3 = "../images/doorImg3.png";
+let doorImgPaths = ["../images/doorImg1.png", "../images/doorImg2.png", "../images/doorImg3.png"];
 
 var Doors = [0, 0, 0];
 var carLocation = Math.floor(Math.random() * 3);
@@ -83,10 +83,9 @@ function playAgain() {
 
     for (let i = 0; i < 3; i++) {
         document.getElementById(`door${i}`).style.borderRadius = "0%";
-        //let d = `doorImg${i+1}`;
         document.getElementById(`door${i}`).src = doorImgPaths[i];
-        // console.log(`doorImg${i+1}`);
         document.getElementById(`door${i}`).style.boxShadow = "none";
+        document.getElementById(`doorWay${i}`).hidden = true;
     }
 
     carLocation = Math.floor(Math.random() * 3);
@@ -189,6 +188,8 @@ function simulateGame() {
         alert("You cannot enter more times to switch then the total games played!");
     } else if (isNaN(timesPlayed)) {
         alert("You must enter a value greater then 0");
+    } else if (timesPlayed < 10 || timesPlayed > 1000000) {
+        alert("You must enter between 10 and 1,000,000 games.");
     } else {
         switchDoor = isKept;
         for (var i = 0; i < timesPlayed; i++) {
@@ -210,14 +211,17 @@ function simulateGame() {
                 updateStats(userChoice, false);
             }
         }//end of for loop
-        printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
         runVisualGame();
+        printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
     }
 }//end of simulate game
 
 function runVisualGame(iteration = 0) {
-    if (iteration == 3)
+    document.getElementById("continueSimulation").disabled = true;
+    if (iteration == 3) {
+        document.getElementById("continueSimulation").disabled = false;
         return;
+    }
 
     let nonWinningDoor = Math.floor(Math.random() * 3);
 
@@ -227,15 +231,19 @@ function runVisualGame(iteration = 0) {
 
     setTimeout(function () {
         document.getElementById(`door${nonWinningDoor}`).src = goatImg;
+        document.getElementById(`doorWay${nonWinningDoor}`).hidden = false;
     }, 150);
 
     //take quarter break all doors results
     setTimeout(function () {
         for (let j = 0; j < 3; j++) {
-            if (Doors[j] == 1)
+            if (Doors[j] == 1) {
                 document.getElementById(`door${j}`).src = carImg;
-            else
+                document.getElementById(`doorWay${j}`).hidden = false;
+            } else {
                 document.getElementById(`door${j}`).src = goatImg;
+                document.getElementById(`doorWay${j}`).hidden = false;
+            }
         }
     }, 300);
 
