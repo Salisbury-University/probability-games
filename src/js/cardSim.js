@@ -441,22 +441,14 @@ function updateLogs(min, max, avg, tot) {
   }
 
   // content to add
-  let newRowContent = `<td style="border-right: solid 1px #dee2e6; border-left: solid 1px #dee2e6">${
+  let newRowContent = `<td class="table-cell themeable">${
     gameLog[lastIdx][0]
   }</td>\n
-      <td style="border-right: solid 1px #dee2e6; border-left: solid 1px #dee2e6">${
-        gameLog[lastIdx][1]
-      }</td>\n
-      <td style="border-right: solid 1px #dee2e6; border-left: solid 1px #dee2e6">${
-        gameLog[lastIdx][2]
-      }</td>\n
-      <td style="border-right: solid 1px #dee2e6; border-left: solid 1px #dee2e6">${
-        gameLog[lastIdx][3]
-      }</td>\n
-      <td style="border-right: solid 1px #dee2e6; border-left: solid 1px #dee2e6">${simConf.get(
-        "numRuns"
-      )}</td>\n
-      <td style="border-right: solid 1px #dee2e6; border-left: solid 1px #dee2e6">${distStr}</td>\n
+      <td class="table-cell themeable">${gameLog[lastIdx][1]}</td>\n
+      <td class="table-cell themeable">${gameLog[lastIdx][2]}</td>\n
+      <td class="table-cell themeable">${gameLog[lastIdx][3]}</td>\n
+      <td class="table-cell themeable">${simConf.get("numRuns")}</td>\n
+      <td class="table-cell themeable">${distStr}</td>\n
   `;
 
   let tableRef = document
@@ -465,6 +457,12 @@ function updateLogs(min, max, avg, tot) {
 
   let newRow = tableRef.insertRow(0);
   newRow.innerHTML = newRowContent;
+
+  if (document.getElementById("themeTypeSwitch").checked) {
+    document
+      .querySelectorAll("td")
+      .forEach((ele) => ele.classList.add("text-white"));
+  }
 }
 
 // clear table
@@ -601,29 +599,47 @@ function updateChart() {
   // create the label
   chart
     .append("text")
+    .attr("class", "x label")
+    .attr("text-anchor", "middle")
+    .attr("x", width / 2)
+    .attr("y", height + margin.bottom)
+    .text("Game No");
+  chart
+    .append("text")
     .attr("class", "y label")
-    .attr("text-anchor", "end")
-    .attr("y", -40)
-    .attr("dy", ".75em")
-    .attr("transform", "rotate(-90)")
-    .text("Average Rolls per Game");
+    .attr("text-anchor", "middle")
+    .attr("x", -height / 2)
+    .attr("y", -margin.left + 13)
+    .attr("transform", `rotate(-90)`)
+    .text("Average Rolls");
+
+  if (!document.getElementById("themeTypeSwitch").checked) {
+    chart.selectAll("text").attr("fill", "#000000");
+  } else {
+    chart.selectAll("text").attr("fill", "#ffffff");
+  }
 }
 
 function changeTheme() {
   if (!document.getElementById("themeTypeSwitch").checked) {
     document.body.style.backgroundColor = "#ffffff";
-
-    // document.getElementById("settingsModalContent").classList.remove("bg-dark");
-    // document
-    //   .getElementById("settingsModalContent")
-    //   .classList.remove("text-white");
+    document
+      .querySelectorAll(".themeable")
+      .forEach((el) => el.classList.remove("text-white"));
+    document
+      .querySelectorAll(".modal-content, .list-group-item")
+      .forEach((el) => el.classList.remove("bg-dark"));
+    updateChart();
 
     // change to Dark Mode
   } else if (document.getElementById("themeTypeSwitch").checked) {
-    document.body.style.backgroundColor = "#6c757d";
-
-    // update html elemnets to work in dark mode
-    // document.getElementById("settingsModalContent").classList.add("bg-dark");
-    // document.getElementById("settingsModalContent").classList.add("text-white");
+    document.body.style.backgroundColor = "#434445";
+    document
+      .querySelectorAll(".themeable")
+      .forEach((el) => el.classList.add("text-white"));
+    document
+      .querySelectorAll(".modal-content, .list-group-item-action")
+      .forEach((el) => el.classList.add("bg-dark"));
+    updateChart();
   }
 }
