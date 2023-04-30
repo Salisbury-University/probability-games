@@ -279,15 +279,19 @@ function needleXY() {
     pi = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop)); // pi estimation 
     let error = Math.abs((pi - Math.PI) / Math.PI) * 100; //percent error
     document.getElementsByClassName("estimation")[0].innerHTML = "PI Estimation: " + Math.round(pi * 10000) / 10000;
-    document.getElementsByClassName("estimation")[1].innerHTML = "PI Estimation: " + Math.round(pi * 10000) / 10000;
+    document.getElementsByClassName("estimation")[1].innerHTML = Math.round(pi * 10000) / 10000;
     document.getElementById("realPi").innerHTML = "Real value of PI : " + Math.round(Math.PI * 10000) / 10000;
-    document.getElementById("needLength").innerHTML = Math.round(needleLength * 10) / 10 ; //the  units is pixels
-    document.getElementById("gridSpace").innerHTML =  Math.round(lineSpace * 10) / 10;
+    document.getElementsByClassName("needLength")[0].innerHTML = Math.round(needleLength * 10) / 10 + " Units"; //the  units is pixels
+    document.getElementsByClassName("needLength")[1].innerHTML = Math.round(needleLength * 10) / 10 ; //the  units is pixels
+    document.getElementsByClassName("gridSpace")[0].innerHTML =  Math.round(lineSpace * 10) / 10 + " Units";
+    document.getElementsByClassName("gridSpace")[1].innerHTML =  Math.round(lineSpace * 10) / 10;
     document.getElementsByClassName("needCross")[0].innerHTML = "# of Needles that Cross a Line(Green): " + needleCross;
     document.getElementsByClassName("needCross")[1].innerHTML = needleCross;
+    document.getElementsByClassName("needCross")[2].innerHTML = needleCross
     document.getElementById("needleDontCross").innerHTML = "# of Needles that Don't Cross a Line(Purple): " + (needleDrop - needleCross);
     document.getElementsByClassName("total")[0].innerHTML = "Total # of Needles Dropped: " + needleDrop;
     document.getElementsByClassName("total")[1].innerHTML = needleDrop;
+    document.getElementsByClassName("total")[2].innerHTML = needleDrop;
     document.getElementById("percentError").innerHTML = "Percent Error for PI estimaton: " + Math.round(error * 10000) / 10000 + "%";
 
   }
