@@ -1,5 +1,21 @@
-html{
-  zoom: 0.6;
+html {
+  zoom: 85%;
+}
+
+.card-blue {
+  color: #177e89;
+  font-size: 2em;
+}
+
+.sim-logs {
+  max-height: 22.5em;
+  height: 22.5em;
+  overflow-y: scroll;
+}
+
+.card-red {
+  color: #db3a34;
+  font-size: 2em;
 }
 
 .help-modal {
@@ -23,12 +39,7 @@ html{
 
 .mid-col {
   min-width: 22%;
-  overflow-y: scroll;
-  height: 27em;
-}
-
-.foot-col {
-  bottom: 0;
+  height: 29em;
 }
 
 .imgs-icon {
@@ -38,6 +49,15 @@ html{
 
 .logo {
   max-height: 35px;
+}
+
+.table-cell {
+  border-right: solid 1px #dee2e6;
+  border-left: solid 1px #dee2e6;
+}
+
+.side-col {
+  max-width: 27%;
 }
 
 /* # is for ids*/

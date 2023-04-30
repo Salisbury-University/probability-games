@@ -933,40 +933,28 @@ function changeTheme() {
   // change to Light Mode
   if (!document.getElementById("themeTypeSwitch").checked) {
     document.body.style.backgroundColor = "#ffffff";
-    charcoal = 0xd3d3d3;
 
-    document.getElementById("settingsModalContent").classList.remove("bg-dark");
+    // update html elements
     document
-      .getElementById("settingsModalContent")
-      .classList.remove("text-white");
-
-    // update html elemnets to work in dark mode
-    document.getElementById("page-header").classList.remove("text-white");
-    document.getElementById("win-header").classList.remove("bg-dark");
-    document.getElementById("win-header").classList.add("bg-light");
+      .querySelectorAll(".themeable")
+      .forEach((el) => el.classList.remove("text-white"));
+    document
+      .querySelectorAll(".modal-content")
+      .forEach((el) => el.classList.remove("bg-dark"));
+    updateChart();
 
     // change to Dark Mode
   } else if (document.getElementById("themeTypeSwitch").checked) {
-    document.body.style.backgroundColor = "#666666";
-    charcoal = 0xffffff;
+    document.body.style.backgroundColor = "#434445";
 
-    // update html elemnets to work in dark mode
-    document.getElementById("settingsModalContent").classList.add("bg-dark");
-    document.getElementById("settingsModalContent").classList.add("text-white");
-
-    document.getElementById("page-header").classList.add("text-white");
-    document.getElementById("win-header").classList.remove("bg-light");
-    document.getElementById("win-header").classList.add("bg-dark");
-
-    //update PIXIjs colors
-    for (let i = 0; i < 10; i++) {
-      cards[i].lineStyle(2, 0xffffff, 4);
-      cards[i].tint = 0xffffff;
-      chips1[i].lineStyle(1, 0xffffff, 1); // ellipse border
-      chips2[i].lineStyle(1, 0xffffff, 1); // ellipse border
-    }
-
-    cards[10].lineStyle(2, 0xffffff, 4);
+    // update html elements
+    document
+      .querySelectorAll(".themeable")
+      .forEach((el) => el.classList.add("text-white"));
+    document
+      .querySelectorAll(".modal-content, .list-group-item")
+      .forEach((el) => el.classList.add("bg-dark"));
+    updateChart();
   }
 }
 
@@ -1023,11 +1011,24 @@ function updateChart() {
 
   chart
     .append("text")
+    .attr("class", "x label")
+    .attr("text-anchor", "middle")
+    .attr("x", width / 2)
+    .attr("y", height + margin.bottom)
+    .text("Dice Sum");
+  chart
+    .append("text")
     .attr("class", "y label")
-    .attr("text-anchor", "end")
-    .attr("y", -40)
-    .attr("dy", ".70em")
-    .attr("transform", "rotate(-90)")
+    .attr("text-anchor", "middle")
+    .attr("x", -height / 2)
+    .attr("y", -margin.left + 15)
+    .attr("transform", `rotate(-90)`)
     .text("Number of Hits");
+
+  if (!document.getElementById("themeTypeSwitch").checked) {
+    chart.selectAll("text").attr("fill", "#000000");
+  } else {
+    chart.selectAll("text").attr("fill", "#ffffff");
+  }
 }
 updateChart();
