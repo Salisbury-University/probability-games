@@ -84,7 +84,7 @@
         </nav>
     </header>
 
-    <main>
+    <main id="content">
         <div id="overlay">
         </div>
 
@@ -170,19 +170,16 @@
                     </div>
                 </div>
             </div>
+
         </div>
+
     </main>
 
     <!-- FOOTER -->
-    <div class="container-fluid text-center mb-1">
-        <div class="row">
-            <div class="col mb-1">
-                <hr class="featurette-divider">
-                <p> &middot; Salisbury University &middot; | <a href="#">Back to top</a></p>
-            </div>
-        </div>
-    </div>
-
+    <footer class="container-fluid text-center">
+        <hr class="featurette-divider">
+        <p> &middot; Salisbury University &middot; | <a href="#">Back to top</a></p>
+    </footer>
 
     <!-- How to Play Modal -->
     <div class="modal fade" id="howToPlay" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -195,11 +192,13 @@
                 <div class="modal-body">
                     <h5 id="mainTitleSection"><b>This is how you play our game.</b></h5>
                     <p id="mainInfoSection">
-                        Below there are <b>three doors</b>, and there are <b>two vegetables</b> and <b>one dessert</b>
+                        Below there are <b>three doors</b>, and there are <b>two vegetables</b> and <b>one
+                            dessert</b>
                         hidden
                         behind the doors.
                         <br>
-                        You select <b>one door</b> and then <b>a vegetable</b> is revealed. You are then given an option
+                        You select <b>one door</b> and then <b>a vegetable</b> is revealed. You are then given an
+                        option
                         to either
                         <b>keep your current door</b> or <b>switch to the other unopened door</b>.
                         After which the door you choose is revealed.
@@ -264,8 +263,10 @@
                                 <ul class="dropdown-menu" aria-labelledby="prizeSelectorDropDown">
                                     <li><button class="dropdown-item" onclick="changePrize('iceCream')">Ice
                                             Cream</button></li>
-                                    <li><button class="dropdown-item" onclick="changePrize('Toy')">Legos</button></li>
-                                    <li><button class="dropdown-item" onclick="changePrize('Money')">Money</button></li>
+                                    <li><button class="dropdown-item" onclick="changePrize('Toy')">Legos</button>
+                                    </li>
+                                    <li><button class="dropdown-item" onclick="changePrize('Money')">Money</button>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -279,7 +280,8 @@
                                 <ul class="dropdown-menu" aria-labelledby="trashSelectorDropDown">
                                     <li><button class="dropdown-item"
                                             onclick="changeTrash('vegetable')">Vegetables</button></li>
-                                    <li><button class="dropdown-item" onclick="changeTrash('Trash')">Trash</button></li>
+                                    <li><button class="dropdown-item" onclick="changeTrash('Trash')">Trash</button>
+                                    </li>
                                     <li><button class="dropdown-item" onclick="changeTrash('Chores')">Chores</button>
                                     </li>
                                 </ul>

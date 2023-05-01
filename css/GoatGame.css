@@ -16,14 +16,6 @@ input[type=number] {
   z-index: 50;
 }
 
-html {
-  height: 100%;
-}
-
-body {
-  height: 100%;
-}
-
 .border {
   background-color: aqua;
   border-top: 4pt solid black;
@@ -87,5 +79,4 @@ body {
 
 body {
   background-color: #FFEDC9;
-
 }
