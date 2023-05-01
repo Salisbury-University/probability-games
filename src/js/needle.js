@@ -1,5 +1,5 @@
 // create window height variable
-let windowWidth = document.body.clientWidth * .8; //.8
+let windowWidth = document.body.clientWidth * .75; //.8
 let windowHeight = window.innerHeight * .53;
 let pi = 0;
 //let canvas = document.getElementById('app');
@@ -19,10 +19,7 @@ const style = new PIXI.TextStyle({
   fontWeight: 'bold',
   fill: ['#ffffff'], // gradient
 });
-let basicText = new PIXI.Text('d', style);
-basicText.x = windowWidth - 100;
-basicText.y = 100;
-app.stage.addChild(basicText);
+let basicText = new PIXI.Text();
 
 // resize canvas when window is resized
 window.addEventListener('resize', function() {
@@ -40,7 +37,9 @@ document.getElementById("amountOfNeedles").addEventListener("keydown", function 
 });
 
 let line = new PIXI.Graphics();
+let label = new PIXI.Graphics();
 let lines = [];
+//let labels = [];
 let needles = [];
 let nextEmpty = 0;
 let needleCross = 0;
@@ -57,7 +56,6 @@ let lineSpace = windowHeight / amountLines;
 let needleLengthPercent = 0.9;
 let needleLength = lineSpace * needleLengthPercent;
 let yValue = 0; //yValue is space between lines
-
 needleDropSound.volume = 0.5;
 
 window.onload = function () {
@@ -82,16 +80,27 @@ document.getElementById("disableSound").addEventListener("click", function () {
 for (let i = 0; i < amountLines + 1; i++) {
   if (i == 0 || i == amountLines) {
     line.lineStyle(3, 0x0096FF);
+    
   }
   else {
     line.lineStyle(1, 0x0096FF, 1);
   }
   line.moveTo(0, yValue);
-  line.lineTo(windowWidth, yValue); //*.75
+  line.lineTo(windowWidth *.9, yValue); //*.75
   line.closePath();
   app.stage.addChild(line);
   lines[i] = yValue;
   yValue = yValue + lineSpace;
+}
+for(let j = 0; j< amountLines + 1; j++){
+  label.lineStyle(1, 0xFFFFFF, 1);
+  label.moveTo(windowWidth * .9, lines[j] + 10)
+  label.lineTo(windowWidth * .9, lines[j+1] - 10)
+  app.stage.addChild(label);
+  basicText = new PIXI.Text('d', style);
+  basicText.x = windowWidth *.91;
+  basicText.y = lines[j];
+  app.stage.addChild(basicText);
 }
 
 
@@ -138,9 +147,12 @@ function changeLines(num) {
     document.getElementById("displayNumberGridLines").innerHTML = (amountLines + 1);
     clearNeedles();
     line.destroy(); //destroy lines to build again
+    label.destroy();
+    basicText.destroy();
     lines = [];
     line = new PIXI.Graphics();
-
+    label = new PIXI.Graphics();
+    basicText = new PIXI.Text();
     lineSpace = windowHeight / amountLines;
     needleLength = lineSpace * 0.9;
     yValue = 0; //yValue is space between lines - starts at 0
@@ -153,13 +165,24 @@ function changeLines(num) {
         line.lineStyle(1, 0x0096FF, 1);
       }
       line.moveTo(0, yValue);
-      line.lineTo(windowWidth , yValue);//*.75
+      line.lineTo(windowWidth * .9 , yValue);//*.75
       line.closePath();
       app.stage.addChild(line);
       lines[i] = yValue;
       yValue = yValue + lineSpace;
       
     }
+    for(let j = 0; j< amountLines + 1; j++){
+      label.lineStyle(1, 0xFFFFFF, 1);
+      label.moveTo(windowWidth * .9, lines[j] + 10)
+      label.lineTo(windowWidth * .9, lines[j+1] - 10)
+      app.stage.addChild(label);
+      basicText = new PIXI.Text('d', style);
+      basicText.x = windowWidth *.91;
+      basicText.y = lines[j];
+      app.stage.addChild(basicText);
+    }
+    
   }
 }
 
@@ -197,7 +220,8 @@ buttons[1].addEventListener("click", () => {
 
 });
 function needleXY() {
-  app.stage.removeChild(basicText);
+  
+  //app.stage.removeChild(basicText);
   let dropNeedles = document.getElementById("amountOfNeedles").value;
   if (dropNeedles > 50000) {
     alert("Please enter 50,000 Needles or less");
@@ -222,7 +246,7 @@ function needleXY() {
 
       //do-while loop that drops xCenter a clear distance away from the edge
       do {
-        xCenter = Math.random() * windowWidth;
+        xCenter = Math.random() * windowWidth * .88;
       } while (xCenter < needleLength || xCenter > windowWidth - needleLength);
 
       let max = lines[lines.length - 1];
@@ -279,15 +303,19 @@ function needleXY() {
     pi = (2.0 * needleLength) / (lineSpace * ((needleCross) / needleDrop)); // pi estimation 
     let error = Math.abs((pi - Math.PI) / Math.PI) * 100; //percent error
     document.getElementsByClassName("estimation")[0].innerHTML = "PI Estimation: " + Math.round(pi * 10000) / 10000;
-    document.getElementsByClassName("estimation")[1].innerHTML = "PI Estimation: " + Math.round(pi * 10000) / 10000;
+    document.getElementsByClassName("estimation")[1].innerHTML = Math.round(pi * 10000) / 10000;
     document.getElementById("realPi").innerHTML = "Real value of PI : " + Math.round(Math.PI * 10000) / 10000;
-    document.getElementById("needLength").innerHTML = Math.round(needleLength * 10) / 10 ; //the  units is pixels
-    document.getElementById("gridSpace").innerHTML =  Math.round(lineSpace * 10) / 10;
+    document.getElementsByClassName("needLength")[0].innerHTML = Math.round(needleLength * 10) / 10 + " Units"; //the  units is pixels
+    document.getElementsByClassName("needLength")[1].innerHTML = Math.round(needleLength * 10) / 10 ; //the  units is pixels
+    document.getElementsByClassName("gridSpace")[0].innerHTML =  Math.round(lineSpace * 10) / 10 + " Units";
+    document.getElementsByClassName("gridSpace")[1].innerHTML =  Math.round(lineSpace * 10) / 10;
     document.getElementsByClassName("needCross")[0].innerHTML = "# of Needles that Cross a Line(Green): " + needleCross;
     document.getElementsByClassName("needCross")[1].innerHTML = needleCross;
+    document.getElementsByClassName("needCross")[2].innerHTML = needleCross
     document.getElementById("needleDontCross").innerHTML = "# of Needles that Don't Cross a Line(Purple): " + (needleDrop - needleCross);
     document.getElementsByClassName("total")[0].innerHTML = "Total # of Needles Dropped: " + needleDrop;
     document.getElementsByClassName("total")[1].innerHTML = needleDrop;
+    document.getElementsByClassName("total")[2].innerHTML = needleDrop;
     document.getElementById("percentError").innerHTML = "Percent Error for PI estimaton: " + Math.round(error * 10000) / 10000 + "%";
 
   }

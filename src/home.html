@@ -79,77 +79,56 @@
           </div>
         </div>
       </div>
-      <hr class="px-0 featurette-divider">
-      <div class="row text-center">
-        <h1 class="display-5 fw-bold text-body-emphasis">Lets Play Some Games!</h1>
-      </div>
-      <div class="cardList">
-        <div class="card" id="leftCard" data-name="sumDice">
-          <div class="cardTitle">Sum of Two Dice</div>
-          <img class="cardImage" src="../images/homePage/sumDiceThumbnail.png">
-          <div id="sumDice" hidden>
-            <div class="cardInfo">
-              <p>First player to get rid of all of their chips from rolling the die wins!</p>
-              <button type="button" class="btn btn-success playButton" data-game="card">Play Game</button>
-            </div>
-          </div>
-        </div>
-        <div class="card" data-name="montyHall">
-          <div class="cardTitle">Monty Hall Game</div>
-          <img class="cardImage" src="../images/homePage/montyHallThumbnail.png">
-          <div id="montyHall" hidden>
-            <div class="cardInfo">
-              <p>Try to guess which door the prize is behind, with one opportunity to switch!</p>
-              <button type="button" class="btn btn-success playButton" data-game="GoatGame">Play Game</button>
+    </div>
 
-            </div>
-          </div>
+    <hr class="px-0 featurette-divider">
+
+    <div class="cardList">
+      <h1 class="display-5 fw-bold text-body-emphasis" id="gamesTitle">Lets Play Some Games!</h1>
+      <div class="card" data-name="card">
+        <div class="cardTitle">Sum of Two Dice</div>
+        <img class="cardImage" src="../images/homePage/sumDiceThumbnail.png">
+        <div id="card" class="cardInfo" hidden>
+          <p>First player to get rid of all of their chips from rolling the die wins!</p>
         </div>
-        <div class="card" data-name="game27">
-          <div class="cardTitle">Game of 27</div>
-          <img class="cardImage" src="../images/homePage/game27Thumbnail.png">
-          <div id="game27" hidden>
-            <div class="cardInfo">
-              <p>Roll a die and use division to earn chips, player with the most chips wins!</p>
-              <button type="button" class="btn btn-success playButton" data-game="dice27">Play Game</button>
-            </div>
-          </div>
+      </div>
+      <div class="card" data-name="GoatGame">
+        <div class="cardTitle">Monty Hall Game</div>
+        <img class="cardImage" src="../images/homePage/montyHallThumbnail.png">
+        <div id="GoatGame" class="cardInfo" hidden>
+          <p>Try to guess which door the prize is behind, with one opportunity to switch!</p>
         </div>
-        <div class="card" data-name="diceRoll">
-          <div class="cardTitle">Dice Roll</div>
-          <img class="cardImage" src="../images/homePage/diceRollThumbnail.png">
-          <div id="diceRoll" hidden>
-            <div class="cardInfo">
-              <p>Roll a die and guess whether or not it is weighted!</p>
-              <button type="button" class="btn btn-success playButton" data-game="diceRoll">Play Game</button>
-            </div>
-          </div>
+      </div>
+      <div class="card" data-name="dice27">
+        <div class="cardTitle">Game of 27</div>
+        <img class="cardImage" src="../images/homePage/game27Thumbnail.png">
+        <div id="dice27" class="cardInfo" hidden>
+          <p>Roll a die and use division to earn chips, player with the most chips wins!</p>
         </div>
-        <div class="card" data-name="coinFlip">
-          <div class="cardTitle">Coin Flip</div>
-          <img class="cardImage" src="../images/homePage/coinFlipThumbnail.png">
-          <div id="coinFlip" hidden>
-            <div class="cardInfo">
-              <p>Flip a coin, and predict whether or not it is weighted to win!</p>
-              <button type="button" class="btn btn-success playButton" data-game="coinFlip">Play Game</button>
-            </div>
-          </div>
+      </div>
+      <div class="card" data-name="diceRoll">
+        <div class="cardTitle">Dice Roll</div>
+        <img class="cardImage" src="../images/homePage/diceRollThumbnail.png">
+        <div id="diceRoll" class="cardInfo" hidden>
+          <p>Roll a die and guess whether or not it is weighted!</p>
         </div>
-        <div class="card" id="rightCard" data-name="buffonsNeedles">
-          <div class="cardTitle">Buffons Needles</div>
-          <img class="cardImage" src="../images/homePage/buffonsNeedlesThumbnail.png">
-          <div id="buffonsNeedles" hidden>
-            <div class="cardInfo">
-              <p>Simulate dropping needles onto a grid, and see how many touch the gridlines.</p>
-              <button type="button" class="btn btn-success playButton" data-game="needles">Play Game</button>
-            </div>
-          </div>
+      </div>
+      <div class="card" data-name="coinFlip">
+        <div class="cardTitle">Coin Flip</div>
+        <img class="cardImage" src="../images/homePage/coinFlipThumbnail.png">
+        <div id="coinFlip" class="cardInfo" hidden>
+          <p>Flip a coin, and predict whether or not it is weighted to win!</p>
+        </div>
+      </div>
+      <div class="card" data-name="needles">
+        <div class="cardTitle">Buffons Needles</div>
+        <img class="cardImage" src="../images/homePage/buffonsThumbnail.png">
+        <div id="needles" class="cardInfo" hidden>
+          <p>Simulate dropping needles onto a grid, and see how many touch the gridlines.</p>
         </div>
       </div>
     </div>
   </main>
-
-
 
   <!-- Settings Modal -->
   <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
