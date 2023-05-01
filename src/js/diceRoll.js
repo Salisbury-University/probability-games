@@ -132,7 +132,7 @@ class DiceGame {
 				document.getElementById("multiRoll").disabled = false;
 				ticks++;
 				if (this.#numberRolls >= 10) {
-					document.getElementById("prompt").innerHTML = "Is the Dice Weighted?";
+					document.getElementById("prompt").innerHTML = "Is the dice weighted?";
 					document.getElementById("guessButtons").hidden = false;
 				}
 			}
@@ -145,17 +145,17 @@ class DiceGame {
 			this.#playAudio(AUDIO_CORRECT);
 			document.getElementById("guessButtons").hidden = true;
 			if (this.#weighted) {
-				document.getElementById("prompt").innerHTML = "Which side is weighted? Click the side you think it is.";
+				document.getElementById("prompt").innerHTML = "Correct, the dice is weighted!. Now click the weighted side of the die.";
 				this.#clickable = true
 				this.#changeCursor();
 			} else {
-				document.getElementById("prompt").innerHTML = "Correct, the Dice isn't Weighted! Lets play again";
+				document.getElementById("prompt").innerHTML = "Correct, the dice isn't weighted! Lets play again.";
 				this.#reset();
 			}
 		}
 		else {
 			this.#playAudio(AUDIO_WRONG);
-			document.getElementById("prompt").innerHTML = "Try Again";
+			document.getElementById("prompt").innerHTML = "Try again, is the dice weighted?";
 		}
 	}
 	#rollDice() {
@@ -204,12 +204,12 @@ class DiceGame {
 		if (this.#clickable) {
 			if (side == this.#weightedSide) {
 				this.#playAudio(AUDIO_CORRECT);
-				document.getElementById("prompt").innerHTML = "Correct the " + side + " side is the weighted.";
+				document.getElementById("prompt").innerHTML = "Correct, the " + side + " side is the weighted side. Let's play again.";
 				this.#reset();
 			}
 			else {
 				this.#playAudio(AUDIO_WRONG);
-				document.getElementById("prompt").innerHTML = "Try Again";
+				document.getElementById("prompt").innerHTML = "Try again, click the weighted side of the die.";
 			}
 		}
 	}
