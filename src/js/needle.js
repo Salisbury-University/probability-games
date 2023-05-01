@@ -151,7 +151,8 @@ function changeLines(num) {
     basicText.destroy();
     lines = [];
     line = new PIXI.Graphics();
-
+    label = new PIXI.Graphics();
+    basicText = new PIXI.Text();
     lineSpace = windowHeight / amountLines;
     needleLength = lineSpace * 0.9;
     yValue = 0; //yValue is space between lines - starts at 0
