@@ -48,7 +48,17 @@ window.onload = function () {
     audio_point.volume = e.currentTarget.value / 100;
     audio_misclick.volume = e.currentTarget.value / 100;
   });
+  loadTheme();
 };
+
+function loadTheme() {
+  let theme = sessionStorage.getItem("theme");
+  console.log("theme from local storage: ", theme);
+  if (theme == "dark") {
+    document.getElementById("themeTypeSwitch").checked = true;
+    changeTheme();
+  }
+}
 
 // text styles
 // sytle for the numbers on the cards
@@ -943,6 +953,8 @@ function changeTheme() {
       .forEach((el) => el.classList.remove("bg-dark"));
     updateChart();
 
+    sessionStorage.setItem("theme", "light");
+
     // change to Dark Mode
   } else if (document.getElementById("themeTypeSwitch").checked) {
     document.body.style.backgroundColor = "#434445";
@@ -955,6 +967,8 @@ function changeTheme() {
       .querySelectorAll(".modal-content, .list-group-item")
       .forEach((el) => el.classList.add("bg-dark"));
     updateChart();
+
+    sessionStorage.setItem("theme", "dark");
   }
 }
 

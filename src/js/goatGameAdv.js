@@ -1,9 +1,9 @@
 let carImg = "../images/iceCream.png";
 let goatImg = "../images/aspargus.png";
-let doorImg1 = "../images/ClosedDoor1.png";
-let doorImg2 = "../images/ClosedDoor2.png";
-let doorImg3 = "../images/ClosedDoor3.png";
-let doorImgPaths = ["../images/ClosedDoor1.png", "../images/ClosedDoor2.png", "../images/ClosedDoor3.png"];
+let doorImg1 = "../images/doorImg1.png";
+let doorImg2 = "../images/doorImg2.png";
+let doorImg3 = "../images/doorImg3.png";
+let doorImgPaths = ["../images/doorImg1.png", "../images/doorImg2.png", "../images/doorImg3.png"];
 
 var Doors = [0, 0, 0];
 var carLocation = Math.floor(Math.random() * 3);
@@ -32,7 +32,7 @@ function changePrize(img) {
     //define objects and map img location,name to value being searched
     const prizes = {
         iceCream: ["../images/iceCream.png", "Ice Cream"],
-        Toy: ["../images/toy.jpg", "Legos"],
+        Toy: ["../images/toy.png", "Rubik's Cube"],
         Money: ["../images/nickelHead.png", "Money"]
     };
     //asign carImg to first in array, and name to second
@@ -83,10 +83,9 @@ function playAgain() {
 
     for (let i = 0; i < 3; i++) {
         document.getElementById(`door${i}`).style.borderRadius = "0%";
-        //let d = `doorImg${i+1}`;
         document.getElementById(`door${i}`).src = doorImgPaths[i];
-        // console.log(`doorImg${i+1}`);
         document.getElementById(`door${i}`).style.boxShadow = "none";
+        document.getElementById(`doorWay${i}`).hidden = true;
     }
 
     carLocation = Math.floor(Math.random() * 3);
@@ -108,10 +107,6 @@ function finalFunction() {
         document.getElementById("door2").src = goatImg;
     else
         document.getElementById("door2").src = carImg;
-
-    for (let i = 0; i < 3; i++) {
-        document.getElementById(`door${i}`).style.borderRadius = "99%";
-    }
 
 
     doorOpenSound.loop = false;
@@ -144,39 +139,6 @@ function updateStats(x, isKept) {
         keptDoorsGames++;
 } //end of update stats
 
-
-
-//these functions good -- rework simulateGame later
-function changeToHowToPlay() {
-    document.getElementById("mainInfoSection").innerHTML = "Below there are <b>three doors</b>, and there are <b>two vegetables</b> and"
-        + " <b>one dessert</b> hidden behind the doors.  <br> You select <b>one door</b> and then <b>a vegetable</b> is revealed. " +
-        " You are then given an option to either <b>keep your current door</b> or <b>switch to the other unopened door</b>. " +
-        " After which the door you choose is revealed. <br> The purpose of this game is to help educate you on probability.";
-
-    document.getElementById("mainTitleSection").innerHTML = "<b>This is how you play our game.</b>";
-
-
-    document.getElementById("buttonHowToPlay").setAttribute("hidden", "hidden");
-
-    document.getElementById("buttonHistory").removeAttribute("hidden");
-}
-
-function changeToHistory() {
-    document.getElementById("mainInfoSection").innerHTML = "Monty Hall was a TV and radio host most famous for hosting the game " +
-        "show Let's Make a Deal which he produced and hosted for many years.The Monty Hall Problem was named after him because of it " +
-        "similarities with Let's Make a Deal.The problem was first posted and solved a letter by Steve Selvin to the American " +
-        "Statistician in 1975. The original problem reading: Suppose you're on a game show, and you're given the choice of three" +
-        " doors: Behind one door is a car; behind the others, goats.You pick a door, say No. 1, and the host, who knows what's behind " +
-        "the doors, opens another door, say No. 3, which has a goat.He then says to you, Do you want to pick door No. 2? Is it to your" +
-        " advantage to switch your choice ?";
-
-    document.getElementById("mainTitleSection").innerHTML = "<b>The History of the Monty Hall Problem</b>";
-
-    document.getElementById("buttonHistory").setAttribute("hidden", "hidden");
-
-    document.getElementById("buttonHowToPlay").removeAttribute("hidden");
-}
-
 function simulateGame() {
     var switchDoor;
 
@@ -184,8 +146,13 @@ function simulateGame() {
 
     var timesSwitched = parseInt(document.getElementById("amountTimesToSwitch").value);
 
+    console.log(timesPlayed);
     if (timesPlayed < timesSwitched) {
         alert("You cannot enter more times to switch then the total games played!");
+    } else if (isNaN(timesPlayed)) {
+        alert("You must enter a value greater then 0");
+    } else if (timesPlayed < 10 || timesPlayed > 1000000) {
+        alert("You must enter between 10 and 1,000,000 games.");
     } else {
         switchDoor = isKept;
         for (var i = 0; i < timesPlayed; i++) {
@@ -207,14 +174,17 @@ function simulateGame() {
                 updateStats(userChoice, false);
             }
         }//end of for loop
-        printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
         runVisualGame();
+        printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, switchDoors, switchDoorLost, keptDoorsGames, keptDoorWon, keptDoorLost);
     }
 }//end of simulate game
 
 function runVisualGame(iteration = 0) {
-    if (iteration == 3)
+    document.getElementById("continueSimulation").disabled = true;
+    if (iteration == 3) {
+        document.getElementById("continueSimulation").disabled = false;
         return;
+    }
 
     let nonWinningDoor = Math.floor(Math.random() * 3);
 
@@ -224,15 +194,19 @@ function runVisualGame(iteration = 0) {
 
     setTimeout(function () {
         document.getElementById(`door${nonWinningDoor}`).src = goatImg;
+        document.getElementById(`doorWay${nonWinningDoor}`).hidden = false;
     }, 150);
 
     //take quarter break all doors results
     setTimeout(function () {
         for (let j = 0; j < 3; j++) {
-            if (Doors[j] == 1)
+            if (Doors[j] == 1) {
                 document.getElementById(`door${j}`).src = carImg;
-            else
+                document.getElementById(`doorWay${j}`).hidden = false;
+            } else {
                 document.getElementById(`door${j}`).src = goatImg;
+                document.getElementById(`doorWay${j}`).hidden = false;
+            }
         }
     }, 300);
 

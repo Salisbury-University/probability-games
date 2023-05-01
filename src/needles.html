@@ -103,7 +103,7 @@
 					<div class="row">
 						<div class="btn-toolbar" role="toolbar" aria-label="Needle Length Group">
 							<div class="btn-group me-2" role="group" aria-label="First group">
-								<h5>Needle Length (% of L): </h5>
+								<h5>Needle Length (% of d): </h5>
 							</div>
 							<div class="btn-group" role="group" aria-label="Second group">
 								<button class="btn btn-primary dropdown-toggle btn-sm" type="button"
@@ -211,11 +211,9 @@
 		<div class="container-fluid" id="bottomSection" style="background-color: #FFEDC9;">
 			<div class="row" style="text-align: center;">
 				<!-- this section shows estimate pi button, continue button and stats header-->
-				<h1 id="statsH1"> Stats <button class="btn btn-primary statsSection" id="guessPIButton"
-						onclick="guessPI()">
-						More Info</button>
-					<button class="btn btn-primary statsSection" id="continueButton"
-						onclick="continueGame()">Continue</button>
+				<h1 id="statsH1"> Current Values <button class="btn btn-primary statsSection" id="guessPIButton">
+						Explanation</button>
+					<button class="btn btn-primary statsSection" id="continueButton" hidden>Drop More Needles</button>
 				</h1>
 			</div>
 			<div class="row text-center" id="stats">
@@ -232,7 +230,7 @@
 			</div>
 
 			<!-- guessing PI, second section to appear and lets user guess (estimate) the value of PI based on the data from the game-->
-			<div class="row text-center" id="guessingPI" hidden>
+			<div class="row text-center" id="moreInfo" hidden>
 				<!-- rows in bootstrap are used to group items together
 				review bootstrap grid view, and mess around with site	
 			-->
@@ -246,11 +244,11 @@
 						</tr>
 						<tr>
 							<td>&#8467 = length of needle</td>
-							<td id="needLength"></td>
+							<td class="needLength"></td>
 						</tr>
 						<tr>
 							<td>d = distance between Lines</td>
-							<td id="gridSpace"></td>
+							<td class="gridSpace"></td>
 						</tr>
 						<tr>
 							<td>h = needles that cross a grid line </td>
@@ -265,8 +263,8 @@
 				</div>
 
 				<div class="col">
-					<p>Using the fomula below estimate the value of Pi</p>
-					<p>Please estimate PI: <input type="number" id="guessingPiNum"> Press Enter</p>
+					<!--<p>Using the fomula below estimate the value of Pi</p>
+					<p>Please estimate PI: <input type="number" id="guessingPiNum"> Press Enter</p>-->
 					<h3>Buffon's needle formula:
 						<math>
 							<mrow>
@@ -285,24 +283,25 @@
 							</mrow>
 						</math>
 					</h3>
-					<!--<h3>
+
+					<h3>
 						<math>
 							<mrow>
 								<mi>&#960;</mi>
-								<mo>=</mo>
+								<mo>&#8776</mo>
 								<mfrac>
 									<mrow>
-										<mn>2</mn>
-										<mi>&#8467*n</mi>
+										<mn>2*</mn>
+										<mi><span class="needLength"></span>*<span class="total"></span></mi>
 									</mrow>
 									<mrow>
-										<mi>d*h</mi>
-										<mi>&#960;</mi>
+										<mi><span class="gridSpace"></span>*<span class="needCross"></span></mi>
 									</mrow>
 								</mfrac>
+								<mi>= <span class="estimation"></span></mi>
 							</mrow>
 						</math>
-					</h3>-->
+					</h3>
 				</div>
 
 				<!--<div class="col" id=estimatePiValues>
@@ -328,12 +327,6 @@
 			</div>
 		</div>
 	</main>
-
-	<!-- FOOTER -->
-	<footer class="container-fluid text-center">
-		<hr class="featurette-divider">
-		<p> &middot; Salisbury University &middot; | <a href="#">Back to top</a></p>
-	</footer>
 
 	<!-- How to Play Modal -->
 	<div class="modal fade modal-lg" id="howToPlay" tabindex="-1" aria-hidden="true">
