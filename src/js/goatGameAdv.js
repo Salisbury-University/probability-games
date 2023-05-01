@@ -32,7 +32,7 @@ function changePrize(img) {
     //define objects and map img location,name to value being searched
     const prizes = {
         iceCream: ["../images/iceCream.png", "Ice Cream"],
-        Toy: ["../images/toy.jpg", "Legos"],
+        Toy: ["../images/toy.png", "Rubik's Cube"],
         Money: ["../images/nickelHead.png", "Money"]
     };
     //asign carImg to first in array, and name to second
@@ -108,10 +108,6 @@ function finalFunction() {
     else
         document.getElementById("door2").src = carImg;
 
-    for (let i = 0; i < 3; i++) {
-        document.getElementById(`door${i}`).style.borderRadius = "99%";
-    }
-
 
     doorOpenSound.loop = false;
     doorOpenSound.play();
@@ -142,39 +138,6 @@ function updateStats(x, isKept) {
     else
         keptDoorsGames++;
 } //end of update stats
-
-
-
-//these functions good -- rework simulateGame later
-function changeToHowToPlay() {
-    document.getElementById("mainInfoSection").innerHTML = "Below there are <b>three doors</b>, and there are <b>two vegetables</b> and"
-        + " <b>one dessert</b> hidden behind the doors.  <br> You select <b>one door</b> and then <b>a vegetable</b> is revealed. " +
-        " You are then given an option to either <b>keep your current door</b> or <b>switch to the other unopened door</b>. " +
-        " After which the door you choose is revealed. <br> The purpose of this game is to help educate you on probability.";
-
-    document.getElementById("mainTitleSection").innerHTML = "<b>This is how you play our game.</b>";
-
-
-    document.getElementById("buttonHowToPlay").setAttribute("hidden", "hidden");
-
-    document.getElementById("buttonHistory").removeAttribute("hidden");
-}
-
-function changeToHistory() {
-    document.getElementById("mainInfoSection").innerHTML = "Monty Hall was a TV and radio host most famous for hosting the game " +
-        "show Let's Make a Deal which he produced and hosted for many years.The Monty Hall Problem was named after him because of it " +
-        "similarities with Let's Make a Deal.The problem was first posted and solved a letter by Steve Selvin to the American " +
-        "Statistician in 1975. The original problem reading: Suppose you're on a game show, and you're given the choice of three" +
-        " doors: Behind one door is a car; behind the others, goats.You pick a door, say No. 1, and the host, who knows what's behind " +
-        "the doors, opens another door, say No. 3, which has a goat.He then says to you, Do you want to pick door No. 2? Is it to your" +
-        " advantage to switch your choice ?";
-
-    document.getElementById("mainTitleSection").innerHTML = "<b>The History of the Monty Hall Problem</b>";
-
-    document.getElementById("buttonHistory").setAttribute("hidden", "hidden");
-
-    document.getElementById("buttonHowToPlay").removeAttribute("hidden");
-}
 
 function simulateGame() {
     var switchDoor;
