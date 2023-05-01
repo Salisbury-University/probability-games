@@ -1,5 +1,5 @@
 // create window height variable
-let windowWidth = document.body.clientWidth * .8; //.8
+let windowWidth = document.body.clientWidth * .75; //.8
 let windowHeight = window.innerHeight * .53;
 let pi = 0;
 //let canvas = document.getElementById('app');
@@ -22,7 +22,7 @@ const style = new PIXI.TextStyle({
 let basicText = new PIXI.Text('d', style);
 basicText.x = windowWidth - 100;
 basicText.y = 100;
-app.stage.addChild(basicText);
+//app.stage.addChild(basicText);
 
 // resize canvas when window is resized
 window.addEventListener('resize', function() {
@@ -40,7 +40,9 @@ document.getElementById("amountOfNeedles").addEventListener("keydown", function 
 });
 
 let line = new PIXI.Graphics();
+let label = new PIXI.Graphics();
 let lines = [];
+//let labels = [];
 let needles = [];
 let nextEmpty = 0;
 let needleCross = 0;
@@ -82,16 +84,27 @@ document.getElementById("disableSound").addEventListener("click", function () {
 for (let i = 0; i < amountLines + 1; i++) {
   if (i == 0 || i == amountLines) {
     line.lineStyle(3, 0x0096FF);
+    
   }
   else {
     line.lineStyle(1, 0x0096FF, 1);
   }
   line.moveTo(0, yValue);
-  line.lineTo(windowWidth *.75, yValue); //*.75
+  line.lineTo(windowWidth *.9, yValue); //*.75
   line.closePath();
   app.stage.addChild(line);
   lines[i] = yValue;
   yValue = yValue + lineSpace;
+}
+for(let j = 0; j< amountLines + 1; j++){
+  label.lineStyle(1, 0xFFFFFF, 1);
+  label.moveTo(windowWidth * .9, lines[j] + 10)
+  label.lineTo(windowWidth * .9, lines[j+1] - 10)
+  app.stage.addChild(label);
+  let basicText = new PIXI.Text('d', style);
+  basicText.x = windowWidth *.91;
+  basicText.y = lines[j];
+  app.stage.addChild(basicText);
 }
 
 
@@ -138,6 +151,7 @@ function changeLines(num) {
     document.getElementById("displayNumberGridLines").innerHTML = (amountLines + 1);
     clearNeedles();
     line.destroy(); //destroy lines to build again
+    //label.destroy();
     lines = [];
     line = new PIXI.Graphics();
 
@@ -153,13 +167,24 @@ function changeLines(num) {
         line.lineStyle(1, 0x0096FF, 1);
       }
       line.moveTo(0, yValue);
-      line.lineTo(windowWidth , yValue);//*.75
+      line.lineTo(windowWidth * .9 , yValue);//*.75
       line.closePath();
       app.stage.addChild(line);
       lines[i] = yValue;
       yValue = yValue + lineSpace;
       
     }
+    for(let j = 0; j< amountLines + 1; j++){
+      label.lineStyle(1, 0xFFFFFF, 1);
+      label.moveTo(windowWidth * .9, lines[j] + 10)
+      label.lineTo(windowWidth * .9, lines[j+1] - 10)
+      app.stage.addChild(label);
+      let basicText = new PIXI.Text('d', style);
+      basicText.x = windowWidth *.91;
+      basicText.y = lines[j];
+      app.stage.addChild(basicText);
+    }
+    
   }
 }
 
@@ -197,7 +222,10 @@ buttons[1].addEventListener("click", () => {
 
 });
 function needleXY() {
-  app.stage.removeChild(basicText);
+  lineArray.forEach(label => {
+    app.stage.removeChild(label); //these remove the lines from Field of view but they are still present in memory
+  });
+  //app.stage.removeChild(basicText);
   let dropNeedles = document.getElementById("amountOfNeedles").value;
   if (dropNeedles > 50000) {
     alert("Please enter 50,000 Needles or less");
@@ -222,7 +250,7 @@ function needleXY() {
 
       //do-while loop that drops xCenter a clear distance away from the edge
       do {
-        xCenter = Math.random() * windowWidth;
+        xCenter = Math.random() * windowWidth * .88;
       } while (xCenter < needleLength || xCenter > windowWidth - needleLength);
 
       let max = lines[lines.length - 1];
