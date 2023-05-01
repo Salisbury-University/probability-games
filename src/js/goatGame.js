@@ -385,7 +385,7 @@ function changeDarkTheme() {
     //document.getElementById("bottomSection").style.color = "white";
     //document.body.style.backgroundColor = "#262626";
 
-    document.body.style.backgroundColor = "#262626";
+    document.body.style.backgroundColor = "#313b4b";
 }
 
 function changeLightTheme() {
@@ -403,7 +403,7 @@ function changeLightTheme() {
         d.style.color = "black";
     });
 
-    document.body.style.backgroundColor = "#ffd789";
+    document.body.style.backgroundColor = "#FFEDC9";
 }
 
 
