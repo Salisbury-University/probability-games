@@ -19,10 +19,7 @@ const style = new PIXI.TextStyle({
   fontWeight: 'bold',
   fill: ['#ffffff'], // gradient
 });
-let basicText = new PIXI.Text('d', style);
-basicText.x = windowWidth - 100;
-basicText.y = 100;
-//app.stage.addChild(basicText);
+let basicText = new PIXI.Text();
 
 // resize canvas when window is resized
 window.addEventListener('resize', function() {
@@ -59,7 +56,6 @@ let lineSpace = windowHeight / amountLines;
 let needleLengthPercent = 0.9;
 let needleLength = lineSpace * needleLengthPercent;
 let yValue = 0; //yValue is space between lines
-
 needleDropSound.volume = 0.5;
 
 window.onload = function () {
@@ -101,7 +97,7 @@ for(let j = 0; j< amountLines + 1; j++){
   label.moveTo(windowWidth * .9, lines[j] + 10)
   label.lineTo(windowWidth * .9, lines[j+1] - 10)
   app.stage.addChild(label);
-  let basicText = new PIXI.Text('d', style);
+  basicText = new PIXI.Text('d', style);
   basicText.x = windowWidth *.91;
   basicText.y = lines[j];
   app.stage.addChild(basicText);
@@ -151,9 +147,8 @@ function changeLines(num) {
     document.getElementById("displayNumberGridLines").innerHTML = (amountLines + 1);
     clearNeedles();
     line.destroy(); //destroy lines to build again
-    label.forEach(label => {
-      app.stage.removeChild(label); 
-    });
+    label.destroy();
+    basicText.destroy();
     lines = [];
     line = new PIXI.Graphics();
 
@@ -176,16 +171,16 @@ function changeLines(num) {
       yValue = yValue + lineSpace;
       
     }
-    /*for(let j = 0; j< amountLines + 1; j++){
+    for(let j = 0; j< amountLines + 1; j++){
       label.lineStyle(1, 0xFFFFFF, 1);
       label.moveTo(windowWidth * .9, lines[j] + 10)
       label.lineTo(windowWidth * .9, lines[j+1] - 10)
       app.stage.addChild(label);
-      let basicText = new PIXI.Text('d', style);
+      basicText = new PIXI.Text('d', style);
       basicText.x = windowWidth *.91;
       basicText.y = lines[j];
       app.stage.addChild(basicText);
-    }*/
+    }
     
   }
 }
