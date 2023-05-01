@@ -151,7 +151,9 @@ function changeLines(num) {
     document.getElementById("displayNumberGridLines").innerHTML = (amountLines + 1);
     clearNeedles();
     line.destroy(); //destroy lines to build again
-    //label.destroy();
+    label.forEach(label => {
+      app.stage.removeChild(label); 
+    });
     lines = [];
     line = new PIXI.Graphics();
 
@@ -174,7 +176,7 @@ function changeLines(num) {
       yValue = yValue + lineSpace;
       
     }
-    for(let j = 0; j< amountLines + 1; j++){
+    /*for(let j = 0; j< amountLines + 1; j++){
       label.lineStyle(1, 0xFFFFFF, 1);
       label.moveTo(windowWidth * .9, lines[j] + 10)
       label.lineTo(windowWidth * .9, lines[j+1] - 10)
@@ -183,7 +185,7 @@ function changeLines(num) {
       basicText.x = windowWidth *.91;
       basicText.y = lines[j];
       app.stage.addChild(basicText);
-    }
+    }*/
     
   }
 }
@@ -222,9 +224,7 @@ buttons[1].addEventListener("click", () => {
 
 });
 function needleXY() {
-  lineArray.forEach(label => {
-    app.stage.removeChild(label); //these remove the lines from Field of view but they are still present in memory
-  });
+  
   //app.stage.removeChild(basicText);
   let dropNeedles = document.getElementById("amountOfNeedles").value;
   if (dropNeedles > 50000) {
