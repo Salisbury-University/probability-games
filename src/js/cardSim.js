@@ -9,44 +9,21 @@ SIMULATION:
 const MINRUNS = 1;
 const MAXRUNS = 1000000;
 
-function test(ele) {
-  sortBy = ele.innerHTML.replace(/\s/g, "");
+function resizeScreen() {
+  let oHeight = document.getElementById("mainBody").offsetHeight;
+  let sHeight = document.body.scrollHeight;
 
-  let table, rows, sorting, i, x, y, shouldSwap;
-  let rowIdx = -1;
+  document.getElementById("mainBody").style.zoom = (oHeight / sHeight) * 0.85;
 
-  if (sortBy == "Min") {
-    rowIdx = 0;
-  } else if (sortBy == "Max") {
-    rowIdx = 1;
-  } else if (sortBy == "Mean") {
-    rowIdx = 2;
-  } else if (sortBy == "Total") {
-    rowIdx = 3;
-  } else if (sortBy == "GamesPlayed") {
-    rowIdx = 4;
-  }
+  loadTheme();
+}
 
-  table = document.getElementById("rollDataTable");
-
-  while (rowIdx != -1 && sorting) {
-    sorting = false;
-    rows = table.rows;
-
-    for (i = 1; i < rows.length - 1; i++) {
-      shouldSwitch = false;
-      x = rows[i].getElementsByTagName("td")[rowIdx];
-      y = rows[i + 1].getElementsByTagName("td")[rowIdx];
-
-      if (Number(x.innerHTML) > Number(y.innerHTML)) {
-        shouldSwitch = true;
-        break;
-      }
-    }
-    if (shouldSwitch) {
-      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-      sorting = true;
-    }
+function loadTheme() {
+  let theme = sessionStorage.getItem("theme");
+  console.log("theme from local storage: ", theme);
+  if (theme == "dark") {
+    document.getElementById("themeTypeSwitch").checked = true;
+    changeTheme();
   }
 }
 
@@ -234,6 +211,11 @@ function updateRuns(ele) {
   let runs = Number(document.getElementById(id).value);
   if (runs >= MINRUNS && runs <= MAXRUNS) {
     simConf.set("numRuns", runs);
+    document.getElementById("invRunsText").hidden = true;
+  } else {
+    document.getElementById("invRunsText").hidden = false;
+    document.getElementById("invRunsText").innerHTML =
+      "Number must be between 0 and 1000000";
   }
 }
 
@@ -620,6 +602,7 @@ function updateChart() {
   }
 }
 
+// add the local storage thingy to this, and add the onload function
 function changeTheme() {
   if (!document.getElementById("themeTypeSwitch").checked) {
     document.body.style.backgroundColor = "#ffffff";
@@ -630,6 +613,7 @@ function changeTheme() {
       .querySelectorAll(".modal-content, .list-group-item")
       .forEach((el) => el.classList.remove("bg-dark"));
     updateChart();
+    sessionStorage.setItem("theme", "light");
 
     // change to Dark Mode
   } else if (document.getElementById("themeTypeSwitch").checked) {
@@ -641,5 +625,7 @@ function changeTheme() {
       .querySelectorAll(".modal-content, .list-group-item-action")
       .forEach((el) => el.classList.add("bg-dark"));
     updateChart();
+
+    sessionStorage.setItem("theme", "dark");
   }
 }
