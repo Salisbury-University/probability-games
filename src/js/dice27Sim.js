@@ -40,29 +40,40 @@ class ProbabilitySimulator {
 
 class ScreenManagement {
   #color;
-  #text;
+  #theme;
 
   constructor() {
     this.#color = document.getElementById("themeTypeSwitch");
-    this.#text = document.querySelectorAll(".text");
+
+    let theme = sessionStorage.getItem("theme");
+    if (theme == "dark") {
+      document.getElementById("themeTypeSwitch").checked = true;
+      this.#changeColor();
+    }
+
     this.#setup();
   }
   #setup() {
     this.#color.addEventListener('click', () => {
       this.#changeColor();
     });
+
+
   }
   #changeColor() {
+    let text = document.querySelectorAll(".text");
     if (this.#color.checked) {//dark mode
       document.body.style.backgroundColor = "#262626";
-      for (let i = 0; i < this.#text.length; i++) {
-        this.#text[i].style.color = 'white';
+      for (let i = 0; i < text.length; i++) {
+        text[i].style.color = 'white';
       }
+      sessionStorage.setItem("theme", "dark");
     } else {//light mode
       document.body.style.backgroundColor = "#ffffff";
-      for (let i = 0; i < this.#text.length; i++) {
-        this.#text[i].style.color = 'black';
+      for (let i = 0; i < text.length; i++) {
+        text[i].style.color = 'black';
       }
+      sessionStorage.setItem("theme", "light");
     }
   }
 }

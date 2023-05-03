@@ -17,7 +17,7 @@
 }
 
 .cardInfo {
-  margin-top: 20px;
+  padding-top: 0%;
   overflow-x: hidden;
   white-space: normal;
   padding-left: 10%;
@@ -26,6 +26,7 @@
 }
 
 .cardImage {
+  padding-bottom: 0%;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -45,7 +46,6 @@
 }
 
 .card:hover {
-  transform: scale(1.5) translateY(-5vw);
   z-index: 3;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   cursor: pointer;

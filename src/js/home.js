@@ -5,7 +5,7 @@ cards.forEach(card => {
     //hover over
     card.addEventListener('mouseover', () => {
         document.getElementById(name).hidden = false;
-        card.style.transform = "scale(1.2)";
+        card.style.transform = "scale(1.2) translateY(-5vw)";
     });
     //hover out
     card.addEventListener('mouseout', () => {
