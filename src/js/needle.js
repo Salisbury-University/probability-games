@@ -8,7 +8,7 @@ const halfPi = Math.PI / 2;
 
 //create Application Window
 let app = new PIXI.Application({
-  view: document.getElementById('app').appendChild(document.createElement('canvas')), //canvas
+  view: document.getElementById('app').appendChild(document.createElement('canvas')), //canvas,
   backgroundColor: 0x323031,
   width: windowWidth,
   height: windowHeight
