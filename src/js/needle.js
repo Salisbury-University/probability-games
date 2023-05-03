@@ -148,6 +148,10 @@ function changeLines(num) {
     clearNeedles();
     line.destroy(); //destroy lines to build again
     label.destroy();
+     basicText.forEach(basicText => {
+      app.stage.removeChild(basicText); 
+    });
+  
     basicText.destroy();
     lines = [];
     line = new PIXI.Graphics();
