@@ -159,13 +159,13 @@ function changeLines(num) {
     for (let i = 0; i < basicTextArray.length; i++) {
       basicTextArray[i].destroy();
     }
-    basicText.destroy();
-
     //basicText.destroy();
+
     lines = [];
     line = new PIXI.Graphics();
     label = new PIXI.Graphics();
-    basicText = new PIXI.Text();
+    basicTextArray = [];
+    //basicText = new PIXI.Text();
     lineSpace = windowHeight / amountLines;
     needleLength = lineSpace * 0.9;
     yValue = 0; //yValue is space between lines - starts at 0
