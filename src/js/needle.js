@@ -36,6 +36,8 @@ document.getElementById("amountOfNeedles").addEventListener("keydown", function 
     needleXY();
   }
 });
+ 
+
 
 let line = new PIXI.Graphics();
 let label = new PIXI.Graphics();
@@ -61,6 +63,7 @@ needleDropSound.volume = 0.5;
 
 window.onload = function () {
   let volume = document.getElementById("volume-control");
+  changeLightTheme(); //also calls light theme
   volume.addEventListener("input", function (e) {
     needleDropSound.volume = e.currentTarget.value / 100;
   });
@@ -118,26 +121,26 @@ function changeTheme() {
 
 function changeDarkTheme() {
   //changes top section to dark and text to white
-  document.getElementById("topPageSection").style.backgroundColor = "#313b4b";
-  document.getElementById("topPageSection").style.color = "white";
 
-  document.getElementById("bottomSection").style.backgroundColor = "#313b4b";
-  document.getElementById("bottomSection").style.color = "white";
-  document.body.style.backgroundColor = "#262626";
-
-  //document.getElementById("body").style.backgroundColor = "#262626";
+  let div = document.querySelectorAll("#topPageSection");
+  div.forEach(d => {
+    d.style.backgroundColor = "#313b4b";
+    d.style.color = "white";
+  });
+  document.getElementById("canvasArea").style.backgroundColor = "#262626";
+  document.body.style.backgroundColor = "#313b4b";
 }
 
 function changeLightTheme() {
-  //changes top section
-  document.getElementById("topPageSection").style.backgroundColor = "#FFEDC9";
-  document.getElementById("topPageSection").style.color = "black";
 
-  //changes bottom section
-  document.getElementById("bottomSection").style.backgroundColor = "#FFEDC9";
-  document.getElementById("bottomSection").style.color = "black";
+  let div = document.querySelectorAll("#topPageSection");
+  div.forEach(d => {
+    d.style.backgroundColor = "#FFEDC9";
+    d.style.color = "black";
+  });
+  document.getElementById("canvasArea").style.backgroundColor = "#ffd789";
 
-  document.body.style.backgroundColor = "#ffd789";
+  document.body.style.backgroundColor = "#FFEDC9";
 }
 
 function changeLines(num) {
@@ -156,12 +159,13 @@ function changeLines(num) {
     for (let i = 0; i < basicTextArray.length; i++) {
       basicTextArray[i].destroy();
     }
+    basicText.destroy();
 
     //basicText.destroy();
     lines = [];
     line = new PIXI.Graphics();
     label = new PIXI.Graphics();
-    //basicText = new PIXI.Text();
+    basicText = new PIXI.Text();
     lineSpace = windowHeight / amountLines;
     needleLength = lineSpace * 0.9;
     yValue = 0; //yValue is space between lines - starts at 0
