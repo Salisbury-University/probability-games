@@ -107,15 +107,13 @@
             <div id="pilesQuestion" class="card-body" hidden>
               <div>How many groups of <strong><span id="rollNumber2"></span></strong> did you create?</div>
               <div class="col text-center">
-                <input type="text" pattern="[0-9]+" class="form-control" id="pilesInput" placeholder="Number of Piles"
-                  required>
+                <input type="text" pattern="[0-9]+" class="form-control" id="pilesInput" placeholder="" required>
               </div>
               <button type="button" class="btn btn-success mx-auto" onclick="pileCountCheck()">Submit</button>
             </div>
             <div id="remainderQuestion" class="card" hidden>
               <div>How many chips did not end up in a group of <strong><span id="rollNumber3"></span></strong>?</div>
-              <input type="text" pattern="[0-9]+" class="form-control" id="remainderInput" placeholder="Chips Remaining"
-                required>
+              <input type="text" pattern="[0-9]+" class="form-control" id="remainderInput" placeholder="" required>
               <button type="button" class="btn btn-success mx-auto" onclick="remainderCheck()">Submit</button>
             </div>
           </div>
