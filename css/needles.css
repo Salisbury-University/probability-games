@@ -85,7 +85,3 @@ input:checked+.slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
-
-body {
-    background-color: #ffd789;
-}

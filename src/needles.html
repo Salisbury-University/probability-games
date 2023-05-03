@@ -181,7 +181,7 @@
 					<div class="row" style="margin-bottom: 5px;">
 						<div class="col-8 offset-4">
 							<input class="form-control" type="number" id="amountOfNeedles"
-								placeholder="# Needles to Drop" min="0">
+								placeholder="# Needles to Drop" min="0" value="10">
 						</div>
 					</div>
 					<!-- bottom row (drop needles and clear screen)-->
@@ -200,14 +200,14 @@
 		</div>
 
 		<!-- canvas -->
-		<div class="container-fluid">
+		<div class="container-fluid" id="canvasArea">
 			<div class="row">
 				<div id="app"></div> </canvas>
 			</div>
 		</div>
 
 		<!--This is the stats area-->
-		<div class="container-fluid" id="bottomSection" style="background-color: #FFEDC9;">
+		<div class="container-fluid" id="topPageSection" style="background-color: #FFEDC9;">
 			<div class="row" style="text-align: center;">
 				<!-- this section shows estimate pi button, continue button and stats header-->
 				<h1 id="statsH1"> Current Values <button class="btn btn-primary statsSection" id="guessPIButton">
@@ -290,14 +290,18 @@
 								<mo>&#8776</mo>
 								<mfrac>
 									<mrow>
-										<mn>2*</mn>
-										<mi><span class="needLength"></span>*<span class="total"></span></mi>
+										<mn>2 (</mn>
+										<mi>
+											<div class="needLength"></div>)(<div class="total"></div>)
+										</mi>
 									</mrow>
 									<mrow>
-										<mi><span class="gridSpace"></span>*<span class="needCross"></span></mi>
+										<mi>
+											<div class="gridSpace"></div>(<div class="needCross"></div>)
+										</mi>
 									</mrow>
 								</mfrac>
-								<mi>= <span class="estimation"></span></mi>
+								<mi>= <div class="estimation"></div></mi>
 							</mrow>
 						</math>
 					</h3>
