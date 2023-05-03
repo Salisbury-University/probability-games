@@ -8,7 +8,7 @@ const halfPi = Math.PI / 2;
 
 //create Application Window
 let app = new PIXI.Application({
-  view:  document.getElementById('app').appendChild(document.createElement('canvas')), //canvas,
+  view: document.getElementById('app').appendChild(document.createElement('canvas')), //canvas,
   backgroundColor: 0x323031,
   width: windowWidth,
   height: windowHeight
@@ -20,9 +20,10 @@ const style = new PIXI.TextStyle({
   fill: ['#ffffff'], // gradient
 });
 let basicText = new PIXI.Text();
+let basicTextArray = [];
 
 // resize canvas when window is resized
-window.addEventListener('resize', function() {
+window.addEventListener('resize', function () {
   app.renderer.resize(document.body.clientWidth * .8, window.innerHeight * .53);
 });
 
@@ -80,27 +81,29 @@ document.getElementById("disableSound").addEventListener("click", function () {
 for (let i = 0; i < amountLines + 1; i++) {
   if (i == 0 || i == amountLines) {
     line.lineStyle(3, 0x0096FF);
-    
+
   }
   else {
     line.lineStyle(1, 0x0096FF, 1);
   }
   line.moveTo(0, yValue);
-  line.lineTo(windowWidth *.9, yValue); //*.75
+  line.lineTo(windowWidth * .9, yValue); //*.75
   line.closePath();
   app.stage.addChild(line);
   lines[i] = yValue;
   yValue = yValue + lineSpace;
 }
-for(let j = 0; j< amountLines + 1; j++){
+//creates the labels
+for (let j = 0; j < amountLines + 1; j++) {
   label.lineStyle(1, 0xFFFFFF, 1);
   label.moveTo(windowWidth * .9, lines[j] + 10)
-  label.lineTo(windowWidth * .9, lines[j+1] - 10)
+  label.lineTo(windowWidth * .9, lines[j + 1] - 10)
   app.stage.addChild(label);
   basicText = new PIXI.Text('d', style);
-  basicText.x = windowWidth *.91;
+  basicText.x = windowWidth * .91;
   basicText.y = lines[j];
   app.stage.addChild(basicText);
+  basicTextArray.push(basicText);
 }
 
 
@@ -148,11 +151,17 @@ function changeLines(num) {
     clearNeedles();
     line.destroy(); //destroy lines to build again
     label.destroy();
-    basicText.destroy();
+
+    // destroy each text object in the array
+    for (let i = 0; i < basicTextArray.length; i++) {
+      basicTextArray[i].destroy();
+    }
+
+    //basicText.destroy();
     lines = [];
     line = new PIXI.Graphics();
     label = new PIXI.Graphics();
-    basicText = new PIXI.Text();
+    //basicText = new PIXI.Text();
     lineSpace = windowHeight / amountLines;
     needleLength = lineSpace * 0.9;
     yValue = 0; //yValue is space between lines - starts at 0
@@ -165,24 +174,27 @@ function changeLines(num) {
         line.lineStyle(1, 0x0096FF, 1);
       }
       line.moveTo(0, yValue);
-      line.lineTo(windowWidth * .9 , yValue);//*.75
+      line.lineTo(windowWidth * .9, yValue);//*.75
       line.closePath();
       app.stage.addChild(line);
       lines[i] = yValue;
       yValue = yValue + lineSpace;
-      
+
     }
-    for(let j = 0; j< amountLines + 1; j++){
+
+    //creates the labels
+    for (let j = 0; j < amountLines + 1; j++) {
       label.lineStyle(1, 0xFFFFFF, 1);
       label.moveTo(windowWidth * .9, lines[j] + 10)
-      label.lineTo(windowWidth * .9, lines[j+1] - 10)
+      label.lineTo(windowWidth * .9, lines[j + 1] - 10)
       app.stage.addChild(label);
       basicText = new PIXI.Text('d', style);
-      basicText.x = windowWidth *.91;
+      basicText.x = windowWidth * .91;
       basicText.y = lines[j];
       app.stage.addChild(basicText);
+      basicTextArray.push(basicText);
     }
-    
+
   }
 }
 
@@ -204,23 +216,23 @@ function guessingPIfunc() {
 //last section displayed (resets back to how website originally looked)
 const buttons = document.querySelectorAll(".statsSection");
 buttons[0].addEventListener("click", () => {
-    buttons[0].hidden = true;
-    buttons[1].hidden = false;
-    document.getElementById("topPageSection").hidden = true;
-    document.getElementById("moreInfo").hidden = false;
-    document.getElementById("stats").hidden = true;
+  buttons[0].hidden = true;
+  buttons[1].hidden = false;
+  document.getElementById("topPageSection").hidden = true;
+  document.getElementById("moreInfo").hidden = false;
+  document.getElementById("stats").hidden = true;
 });
 buttons[1].addEventListener("click", () => {
-    buttons[1].hidden = true;
-    buttons[0].hidden = false;
-    document.getElementById("moreInfo").hidden = true;
-    document.getElementById("stats").hidden = false;
-    document.getElementById("topPageSection").hidden = false;
+  buttons[1].hidden = true;
+  buttons[0].hidden = false;
+  document.getElementById("moreInfo").hidden = true;
+  document.getElementById("stats").hidden = false;
+  document.getElementById("topPageSection").hidden = false;
 
 
 });
 function needleXY() {
-  
+
   //app.stage.removeChild(basicText);
   let dropNeedles = document.getElementById("amountOfNeedles").value;
   if (dropNeedles > 50000) {
@@ -306,9 +318,9 @@ function needleXY() {
     document.getElementsByClassName("estimation")[1].innerHTML = Math.round(pi * 10000) / 10000;
     document.getElementById("realPi").innerHTML = "Real value of PI : " + Math.round(Math.PI * 10000) / 10000;
     document.getElementsByClassName("needLength")[0].innerHTML = Math.round(needleLength * 10) / 10 + " Units"; //the  units is pixels
-    document.getElementsByClassName("needLength")[1].innerHTML = Math.round(needleLength * 10) / 10 ; //the  units is pixels
-    document.getElementsByClassName("gridSpace")[0].innerHTML =  Math.round(lineSpace * 10) / 10 + " Units";
-    document.getElementsByClassName("gridSpace")[1].innerHTML =  Math.round(lineSpace * 10) / 10;
+    document.getElementsByClassName("needLength")[1].innerHTML = Math.round(needleLength * 10) / 10; //the  units is pixels
+    document.getElementsByClassName("gridSpace")[0].innerHTML = Math.round(lineSpace * 10) / 10 + " Units";
+    document.getElementsByClassName("gridSpace")[1].innerHTML = Math.round(lineSpace * 10) / 10;
     document.getElementsByClassName("needCross")[0].innerHTML = "# of Needles that Cross a Line(Green): " + needleCross;
     document.getElementsByClassName("needCross")[1].innerHTML = needleCross;
     document.getElementsByClassName("needCross")[2].innerHTML = needleCross
