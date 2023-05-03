@@ -9,6 +9,7 @@ const halfPi = Math.PI / 2;
 //create Application Window
 let app = new PIXI.Application({
   view: document.getElementById('app').appendChild(document.createElement('canvas')), //canvas,
+  view: document.getElementById('app').appendChild(document.createElement('canvas')), //canvas,
   backgroundColor: 0x323031,
   width: windowWidth,
   height: windowHeight
@@ -20,6 +21,7 @@ const style = new PIXI.TextStyle({
   fill: ['#ffffff'], // gradient
 });
 let basicText = new PIXI.Text();
+let basicTextArray = [];
 
 // resize canvas when window is resized
 window.addEventListener('resize', function () {
@@ -95,8 +97,9 @@ for (let i = 0; i < amountLines + 1; i++) {
   lines[i] = yValue;
   yValue = yValue + lineSpace;
 }
+//creates the labels
 for (let j = 0; j < amountLines + 1; j++) {
-  label.lineStyle(5, 0xFFFFFF, 1);
+  label.lineStyle(1, 0xFFFFFF, 1);
   label.moveTo(windowWidth * .9, lines[j] + 10)
   label.lineTo(windowWidth * .9, lines[j + 1] - 10)
   app.stage.addChild(label);
@@ -104,6 +107,7 @@ for (let j = 0; j < amountLines + 1; j++) {
   basicText.x = windowWidth * .91;
   basicText.y = lines[j];
   app.stage.addChild(basicText);
+  basicTextArray.push(basicText);
 }
 
 
@@ -151,15 +155,17 @@ function changeLines(num) {
     clearNeedles();
     line.destroy(); //destroy lines to build again
     label.destroy();
-    /*basicText.forEach(basicText => {
-      app.stage.removeChild(basicText); 
-    });*/
-  
-    basicText.destroy();
+
+    // destroy each text object in the array
+    for (let i = 0; i < basicTextArray.length; i++) {
+      basicTextArray[i].destroy();
+    }
+
+    //basicText.destroy();
     lines = [];
     line = new PIXI.Graphics();
     label = new PIXI.Graphics();
-    basicText = new PIXI.Text();
+    //basicText = new PIXI.Text();
     lineSpace = windowHeight / amountLines;
     needleLength = lineSpace * 0.9;
     yValue = 0; //yValue is space between lines - starts at 0
@@ -179,6 +185,8 @@ function changeLines(num) {
       yValue = yValue + lineSpace;
 
     }
+
+    //creates the labels
     for (let j = 0; j < amountLines + 1; j++) {
       label.lineStyle(1, 0xFFFFFF, 1);
       label.moveTo(windowWidth * .9, lines[j] + 10)
@@ -188,6 +196,7 @@ function changeLines(num) {
       basicText.x = windowWidth * .91;
       basicText.y = lines[j];
       app.stage.addChild(basicText);
+      basicTextArray.push(basicText);
     }
 
   }
