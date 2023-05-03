@@ -19,13 +19,11 @@
   <link rel="manifest" href="../images/site.webmanifest" />
 </head>
 
-
 <body>
   <header>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png" alt="logo"
-            style="max-height: 35px" /></a>
+        <a class="navbar-brand" href="home.html"><img id="logoNavbar" src="../images/logo.png" alt="logo" /></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -66,7 +64,7 @@
             </div>
             <div class="btn-group" role="group" aria-label="Third group">
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModal">
-                <img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
+                <img id="settingsIcon" src="../images/setting.png" />
               </button>
             </div>
           </div>
@@ -92,7 +90,7 @@
 
       <div class="row">
         <div class="col">
-          <div class="card border-0" style="color: #990000; margin-left: 40%;">
+          <div id="playerCard1" class="card border-0">
             <div class="player">Player 1</div>
             <div class="score" id="player0"></div>
           </div>
@@ -100,14 +98,14 @@
         <div class="col">
           <div id="questionCard" class="card" hidden>
             <div id="pilesMake" class="card-body" hidden>
-              <div>Create piles of <strong><span id="rollNumber1"></span></strong> by selecting
+              <div>Create groups of <strong><span id="rollNumber1"></span></strong> by selecting
                 the chips above.</div>
               <button type="button" class="btn btn-success mx-auto" onclick="createPile()">Submit</button>
               <button type="button" class="btn btn-dark mx-auto" style="background-color: #8064A2 !important;"
                 onclick="autoComplete()">Auto</button>
             </div>
             <div id="pilesQuestion" class="card-body" hidden>
-              <div>How many piles of <strong><span id="rollNumber2"></span></strong> did you create?</div>
+              <div>How many groups of <strong><span id="rollNumber2"></span></strong> did you create?</div>
               <div class="col text-center">
                 <input type="text" pattern="[0-9]+" class="form-control" id="pilesInput" placeholder="Number of Piles"
                   required>
@@ -123,7 +121,7 @@
           </div>
         </div>
         <div class="col">
-          <div class="card border-0" style="color:#4206c5; margin-right: 40%;">
+          <div id="playerCard2" class="card border-0">
             <div class="player">Player 2</div>
             <div class="score" id="player1"></div>
           </div>

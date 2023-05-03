@@ -31,3 +31,13 @@
     text-align: center;
     font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
+
+#playerCard1 {
+    color: #990000;
+    margin-left: 40%;
+}
+
+#playerCard2 {
+    color: #4206c5;
+    margin-right: 40%;
+}

@@ -93,7 +93,7 @@ for (let i = 0; i < amountLines + 1; i++) {
   yValue = yValue + lineSpace;
 }
 for(let j = 0; j< amountLines + 1; j++){
-  label.lineStyle(1, 0xFFFFFF, 1);
+  label.lineStyle(5, 0xFFFFFF, 1);
   label.moveTo(windowWidth * .9, lines[j] + 10)
   label.lineTo(windowWidth * .9, lines[j+1] - 10)
   app.stage.addChild(label);
