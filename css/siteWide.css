@@ -1,3 +1,12 @@
+#settingsIcon {
+    max-height: 22px;
+    vertical-align: middle;
+}
+
+#logoNavbar {
+    max-height: 35px
+}
+
 .switch {
     position: relative;
     display: inline-block;

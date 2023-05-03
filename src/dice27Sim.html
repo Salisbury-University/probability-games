@@ -21,59 +21,62 @@
 
 <body>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png" alt="logo"
-          style="max-height: 35px" /></a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          <li class="nav-item">
-            <a class="nav-link" href="about.html">About</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Games
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="diceRoll.html">Dice Roll</a></li>
-              <li><a class="dropdown-item" href="coinFlip.html">Coin Flip</a></li>
-              <li><a class="dropdown-item" href="GoatGame.html">Monty Hall Problem</a></li>
-              <li><a class="dropdown-item" href="needles.html">Buffons Needles</a></li>
-              <li><a class="dropdown-item" href="card.html">Sum of Two Dice</a></li>
-              <li><a class="dropdown-item" href="dice27.html">Game of 27</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="https://github.com/Salisbury-University/probability-games.git">GitHub</a>
-          </li>
-        </ul>
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png" alt="logo"
+            style="max-height: 35px" /></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                Games
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="diceRoll.html">Dice Roll</a></li>
+                <li><a class="dropdown-item" href="coinFlip.html">Coin Flip</a></li>
+                <li><a class="dropdown-item" href="GoatGame.html">Monty Hall Problem</a></li>
+                <li><a class="dropdown-item" href="needles.html">Buffons Needles</a></li>
+                <li><a class="dropdown-item" href="card.html">Sum of Two Dice</a></li>
+                <li><a class="dropdown-item" href="dice27.html">Game of 27</a></li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://github.com/Salisbury-University/probability-games.git">GitHub</a>
+            </li>
+          </ul>
 
-        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-          <div class="btn-group me-2" role="group" aria-label="First group">
-            <button type="radio" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#howToPlay">How to
-              Play</button>
+          <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group me-2" role="group" aria-label="First group">
+              <button type="radio" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#howToPlay">How to
+                Play</button>
+            </div>
+            <div class="btn-group me-2" role="group" aria-label="Second group">
+              <input type="radio" class="btn-check" name="btnradio" id="basic_btn" autocomplete="off"
+                onclick="window.location.href = 'dice27.html'" />
+              <label class="btn btn-outline-primary" for="basic_btn">Basic</label>
+              <input type="radio" class="btn-check" name="btnradio" id="advanced_btn" autocomplete="off" checked />
+              <label class="btn btn-outline-primary" for="advanced_btn">Simulation</label>
+            </div>
+            <div class="btn-group" role="group" aria-label="Third group">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModal">
+                <img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
+              </button>
+            </div>
           </div>
-          <div class="btn-group me-2" role="group" aria-label="Second group">
-            <input type="radio" class="btn-check" name="btnradio" id="basic_btn" autocomplete="off"
-              onclick="window.location.href = 'dice27.html'" />
-            <label class="btn btn-outline-primary" for="basic_btn">Basic</label>
-            <input type="radio" class="btn-check" name="btnradio" id="advanced_btn" autocomplete="off" checked />
-            <label class="btn btn-outline-primary" for="advanced_btn">Simulation</label>
-          </div>
-          <div class="btn-group" role="group" aria-label="Third group">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModal">
-              <img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
-            </button>
-          </div>
+          <!-- settings button -->
+
         </div>
-        <!-- settings button -->
-
       </div>
-    </div>
-  </nav>
+    </nav>
+  </header>
 
   <main>
     <div id="container" class="container-fluid text-center">
@@ -83,8 +86,8 @@
 
       <div class="row">
         <div class="col-sm-5 mx-auto">
-          <input type="text" pattern="[0-9]+" class="form-control" id="userInput" placeholder="Number of Games"
-            required>
+          <div>Number of Games:</div>
+          <input type="text" class="form-control" id="userInput" placeholder="Number of Games" required>
         </div>
       </div>
       <div class="row">
@@ -168,7 +171,7 @@
                   </p>
                 </ul>
                 <div class="text-center">
-                  <img src="../gifs/singleFlip.gif" style="max-height: 350px" />
+                  <img src="" style="max-height: 350px" />
                 </div>
                 <hr class="featurette-divider" />
                 <h4 id="list-item-3">Multiple Flips</h4>
@@ -188,7 +191,7 @@
                   </p>
                 </ul>
                 <div class="text-center">
-                  <img src="../gifs/multiFlip.gif" style="max-height: 350px" />
+                  <img src="" style="max-height: 350px" />
                 </div>
                 <hr class="featurette-divider" />
                 <h4 id="list-item-4">Removing Chips</h4>
@@ -202,7 +205,7 @@
                   </p>
                 </uL>
                 <div class="text-center">
-                  <img src="../gifs/guessWeight.gif" style="max-height: 350px" />
+                  <img src="" style="max-height: 350px" />
                 </div>
                 <hr class="featurette-divider" />
                 <h4 id="list-item-4">Change Coin (Optional)</h4>
@@ -211,7 +214,7 @@
                     choosing from the list of possible images.</p>
                 </ul>
                 <div class="text-center">
-                  <img src="../gifs/changeCoin.gif" style="max-height: 350px" />
+                  <img src="" style="max-height: 350px" />
                 </div>
               </div>
             </div>
