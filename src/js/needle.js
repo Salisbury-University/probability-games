@@ -8,8 +8,7 @@ const halfPi = Math.PI / 2;
 
 //create Application Window
 let app = new PIXI.Application({
-  view: document.getElementById('app').appendChild(document.createElement('canvas')), //canvas,
-  view: document.getElementById('app').appendChild(document.createElement('canvas')), //canvas,
+  view: document.getElementById('app').appendChild(document.createElement('canvas')), //canvas
   backgroundColor: 0x323031,
   width: windowWidth,
   height: windowHeight
@@ -160,12 +159,13 @@ function changeLines(num) {
     for (let i = 0; i < basicTextArray.length; i++) {
       basicTextArray[i].destroy();
     }
+    basicText.destroy();
 
     //basicText.destroy();
     lines = [];
     line = new PIXI.Graphics();
     label = new PIXI.Graphics();
-    //basicText = new PIXI.Text();
+    basicText = new PIXI.Text();
     lineSpace = windowHeight / amountLines;
     needleLength = lineSpace * 0.9;
     yValue = 0; //yValue is space between lines - starts at 0
