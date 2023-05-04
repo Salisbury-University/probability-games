@@ -2,9 +2,10 @@
 let windowWidth = document.body.clientWidth * .75; //.8
 let windowHeight = window.innerHeight * .53;
 let pi = 0;
+let amountLines = 7;//number is visible lines is amountLines + 1
+let lineSpace = windowHeight / amountLines;
 //let canvas = document.getElementById('app');
 const halfPi = Math.PI / 2;
-
 
 //create Application Window
 let app = new PIXI.Application({
@@ -15,7 +16,7 @@ let app = new PIXI.Application({
 });
 const style = new PIXI.TextStyle({
   fontFamily: 'Arial',
-  fontSize: 36,
+  fontSize: lineSpace,
   fill: ['#ffffff'], // gradient
 });
 let basicText = new PIXI.Text();
@@ -53,8 +54,6 @@ var needleDropSound = new Audio('../sounds/needleDrop.mp3');
 
 let lineInArray = new PIXI.Graphics(); //created a new line variable to test out working code
 let lineArray = [];//an array of the lineInArray pixi graphics object
-let amountLines = 7;//number is visible lines is amountLines + 1
-let lineSpace = windowHeight / amountLines;
 let needleLengthPercent = 0.9;
 let needleLength = lineSpace * needleLengthPercent;
 let yValue = 0; //yValue is space between lines
@@ -191,6 +190,7 @@ function changeLines(num) {
       label.moveTo(windowWidth * .9, lines[j] + 10)
       label.lineTo(windowWidth * .9, lines[j + 1] - 10)
       app.stage.addChild(label);
+      style.fontSize = lineSpace;
       basicText = new PIXI.Text('}d', style);
       basicText.x = windowWidth * .91;
       basicText.y = lines[j];
@@ -206,8 +206,6 @@ function changeLines(num) {
 function guessingPIfunc() {
   //shows result area
   document.getElementById("resultArea").removeAttribute("hidden");
-  //document.getElementById("userGuessSection").innerHTML = "You guessed: " + document.getElementById("guessingPiNum").value;
-  //document.getElementById("percentErrorSection").innerHTML = "You were this far off: " + (Math.round((Math.abs((document.getElementById("guessingPiNum").value - pi) / pi) * 100) * 100) / 100) + "%";
   document.getElementById("guessingPI").setAttribute("hidden", "hidden");
 
   //shows the guess pi button (which brings us back to first page)
@@ -225,6 +223,7 @@ buttons[0].addEventListener("click", () => {
   document.getElementById("moreInfo").hidden = false;
   document.getElementById("stats").hidden = true;
 });
+
 buttons[1].addEventListener("click", () => {
   buttons[1].hidden = true;
   buttons[0].hidden = false;
@@ -235,8 +234,6 @@ buttons[1].addEventListener("click", () => {
 
 });
 function needleXY() {
-
-  //app.stage.removeChild(basicText);
   let dropNeedles = document.getElementById("amountOfNeedles").value;
   if (dropNeedles > 50000) {
     alert("Please enter 50,000 Needles or less");
