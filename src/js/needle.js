@@ -95,7 +95,7 @@ for (let i = 0; i < amountLines + 1; i++) {
 }
   labelD = new PIXI.Text('  d', style);  
   labelD.x = windowWidth * .91;
-  labelD.y = lines[0] - 10;
+  labelD.y = lines[0] - (lineSpace*.1);
   app.stage.addChild(labelD);
 //creates the labels
 for (let j = 0; j < amountLines + 1; j++) {
@@ -155,6 +155,7 @@ function changeLines(num) {
     for (let i = 0; i < basicTextArray.length; i++) {
       basicTextArray[i].destroy();
     }
+    labelD.destroy();
     //basicText.destroy();
 
     lines = [];
@@ -180,13 +181,17 @@ function changeLines(num) {
       yValue = yValue + lineSpace;
 
     }
+    labelD = new PIXI.Text('  d', style);  
+    labelD.x = windowWidth * .91;
+    labelD.y = lines[0] - 10;
+    app.stage.addChild(labelD);
 
     //creates the labels
     for (let j = 0; j < amountLines + 1; j++) {
       style.fontSize = lineSpace;
-      basicText = new PIXI.Text('}d', style);
+      basicText = new PIXI.Text('}', style);
       basicText.x = windowWidth * .91;
-      basicText.y = lines[j];
+      basicText.y = lines[j] - (lineSpace *.15);
       app.stage.addChild(basicText);
       basicTextArray.push(basicText);
     }
