@@ -40,7 +40,6 @@ document.getElementById("amountOfNeedles").addEventListener("keydown", function 
 
 
 let line = new PIXI.Graphics();
-let label = new PIXI.Graphics();
 let lines = [];
 //let labels = [];
 let needles = [];
@@ -94,15 +93,15 @@ for (let i = 0; i < amountLines + 1; i++) {
   lines[i] = yValue;
   yValue = yValue + lineSpace;
 }
+  labelD = new PIXI.Text('  d', style);  
+  labelD.x = windowWidth * .91;
+  labelD.y = lines[0] - 10;
+  app.stage.addChild(labelD);
 //creates the labels
 for (let j = 0; j < amountLines + 1; j++) {
-  label.lineStyle(1, 0xFFFFFF, 1);
-  label.moveTo(windowWidth * .9, lines[j] + 10)
-  label.lineTo(windowWidth * .9, lines[j + 1] - 10)
-  app.stage.addChild(label);
-  basicText = new PIXI.Text('}d', style);
+  basicText = new PIXI.Text('}', style);
   basicText.x = windowWidth * .91;
-  basicText.y = lines[j];
+  basicText.y = lines[j] - 10;
   app.stage.addChild(basicText);
   basicTextArray.push(basicText);
 }
@@ -151,7 +150,6 @@ function changeLines(num) {
     document.getElementById("displayNumberGridLines").innerHTML = (amountLines + 1);
     clearNeedles();
     line.destroy(); //destroy lines to build again
-    label.destroy();
 
     // destroy each text object in the array
     for (let i = 0; i < basicTextArray.length; i++) {
@@ -161,7 +159,6 @@ function changeLines(num) {
 
     lines = [];
     line = new PIXI.Graphics();
-    label = new PIXI.Graphics();
     basicTextArray = [];
     //basicText = new PIXI.Text();
     lineSpace = windowHeight / amountLines;
@@ -186,10 +183,6 @@ function changeLines(num) {
 
     //creates the labels
     for (let j = 0; j < amountLines + 1; j++) {
-      label.lineStyle(1, 0xFFFFFF, 1);
-      label.moveTo(windowWidth * .9, lines[j] + 10)
-      label.lineTo(windowWidth * .9, lines[j + 1] - 10)
-      app.stage.addChild(label);
       style.fontSize = lineSpace;
       basicText = new PIXI.Text('}d', style);
       basicText.x = windowWidth * .91;
