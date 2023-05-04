@@ -16,7 +16,6 @@ let app = new PIXI.Application({
 const style = new PIXI.TextStyle({
   fontFamily: 'Arial',
   fontSize: 36,
-  fontWeight: 'bold',
   fill: ['#ffffff'], // gradient
 });
 let basicText = new PIXI.Text();
@@ -102,7 +101,7 @@ for (let j = 0; j < amountLines + 1; j++) {
   label.moveTo(windowWidth * .9, lines[j] + 10)
   label.lineTo(windowWidth * .9, lines[j + 1] - 10)
   app.stage.addChild(label);
-  basicText = new PIXI.Text('d', style);
+  basicText = new PIXI.Text('}d', style);
   basicText.x = windowWidth * .91;
   basicText.y = lines[j];
   app.stage.addChild(basicText);
@@ -192,7 +191,7 @@ function changeLines(num) {
       label.moveTo(windowWidth * .9, lines[j] + 10)
       label.lineTo(windowWidth * .9, lines[j + 1] - 10)
       app.stage.addChild(label);
-      basicText = new PIXI.Text('d', style);
+      basicText = new PIXI.Text('}d', style);
       basicText.x = windowWidth * .91;
       basicText.y = lines[j];
       app.stage.addChild(basicText);
