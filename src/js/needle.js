@@ -2,9 +2,10 @@
 let windowWidth = document.body.clientWidth * .75; //.8
 let windowHeight = window.innerHeight * .53;
 let pi = 0;
+let amountLines = 7;//number is visible lines is amountLines + 1
+let lineSpace = windowHeight / amountLines;
 //let canvas = document.getElementById('app');
 const halfPi = Math.PI / 2;
-
 
 //create Application Window
 let app = new PIXI.Application({
@@ -15,8 +16,7 @@ let app = new PIXI.Application({
 });
 const style = new PIXI.TextStyle({
   fontFamily: 'Arial',
-  fontSize: 36,
-  fontWeight: 'bold',
+  fontSize: lineSpace,
   fill: ['#ffffff'], // gradient
 });
 let basicText = new PIXI.Text();
@@ -40,7 +40,6 @@ document.getElementById("amountOfNeedles").addEventListener("keydown", function 
 
 
 let line = new PIXI.Graphics();
-let label = new PIXI.Graphics();
 let lines = [];
 //let labels = [];
 let needles = [];
@@ -54,8 +53,6 @@ var needleDropSound = new Audio('../sounds/needleDrop.mp3');
 
 let lineInArray = new PIXI.Graphics(); //created a new line variable to test out working code
 let lineArray = [];//an array of the lineInArray pixi graphics object
-let amountLines = 7;//number is visible lines is amountLines + 1
-let lineSpace = windowHeight / amountLines;
 let needleLengthPercent = 0.9;
 let needleLength = lineSpace * needleLengthPercent;
 let yValue = 0; //yValue is space between lines
@@ -96,15 +93,15 @@ for (let i = 0; i < amountLines + 1; i++) {
   lines[i] = yValue;
   yValue = yValue + lineSpace;
 }
+  labelD = new PIXI.Text('  ', style);  
+  labelD.x = windowWidth * .91;
+  labelD.y = lines[0] - 10;
+  app.stage.addChild(labelD);
 //creates the labels
 for (let j = 0; j < amountLines + 1; j++) {
-  label.lineStyle(1, 0xFFFFFF, 1);
-  label.moveTo(windowWidth * .9, lines[j] + 10)
-  label.lineTo(windowWidth * .9, lines[j + 1] - 10)
-  app.stage.addChild(label);
-  basicText = new PIXI.Text('d', style);
+  basicText = new PIXI.Text('}', style);
   basicText.x = windowWidth * .91;
-  basicText.y = lines[j];
+  basicText.y = lines[j] - lineSpace*.15;
   app.stage.addChild(basicText);
   basicTextArray.push(basicText);
 }
@@ -153,7 +150,6 @@ function changeLines(num) {
     document.getElementById("displayNumberGridLines").innerHTML = (amountLines + 1);
     clearNeedles();
     line.destroy(); //destroy lines to build again
-    label.destroy();
 
     // destroy each text object in the array
     for (let i = 0; i < basicTextArray.length; i++) {
@@ -163,7 +159,6 @@ function changeLines(num) {
 
     lines = [];
     line = new PIXI.Graphics();
-    label = new PIXI.Graphics();
     basicTextArray = [];
     //basicText = new PIXI.Text();
     lineSpace = windowHeight / amountLines;
@@ -188,13 +183,10 @@ function changeLines(num) {
 
     //creates the labels
     for (let j = 0; j < amountLines + 1; j++) {
-      label.lineStyle(1, 0xFFFFFF, 1);
-      label.moveTo(windowWidth * .9, lines[j] + 10)
-      label.lineTo(windowWidth * .9, lines[j + 1] - 10)
-      app.stage.addChild(label);
-      basicText = new PIXI.Text('d', style);
+      style.fontSize = lineSpace;
+      basicText = new PIXI.Text('}', style);
       basicText.x = windowWidth * .91;
-      basicText.y = lines[j];
+      basicText.y = lines[j]- (lineSpace*.15);
       app.stage.addChild(basicText);
       basicTextArray.push(basicText);
     }
@@ -207,8 +199,6 @@ function changeLines(num) {
 function guessingPIfunc() {
   //shows result area
   document.getElementById("resultArea").removeAttribute("hidden");
-  //document.getElementById("userGuessSection").innerHTML = "You guessed: " + document.getElementById("guessingPiNum").value;
-  //document.getElementById("percentErrorSection").innerHTML = "You were this far off: " + (Math.round((Math.abs((document.getElementById("guessingPiNum").value - pi) / pi) * 100) * 100) / 100) + "%";
   document.getElementById("guessingPI").setAttribute("hidden", "hidden");
 
   //shows the guess pi button (which brings us back to first page)
@@ -226,6 +216,7 @@ buttons[0].addEventListener("click", () => {
   document.getElementById("moreInfo").hidden = false;
   document.getElementById("stats").hidden = true;
 });
+
 buttons[1].addEventListener("click", () => {
   buttons[1].hidden = true;
   buttons[0].hidden = false;
@@ -236,8 +227,6 @@ buttons[1].addEventListener("click", () => {
 
 });
 function needleXY() {
-
-  //app.stage.removeChild(basicText);
   let dropNeedles = document.getElementById("amountOfNeedles").value;
   if (dropNeedles > 50000) {
     alert("Please enter 50,000 Needles or less");
@@ -287,18 +276,11 @@ function needleXY() {
       for (let k = 0; k < lines.length; k++) {
         //checks to see if the needle dropped not crosses the grid lines and changes color red
         if ((yEnd <= lines[k] && yCenter <= lines[k]) || (yEnd >= lines[k] && yCenter >= lines[k])) {
-          //F248F2
-          //F331F3
-          //FB00FB
-          //F900E8
 
           lineInArray.lineStyle(1, 0xFB00FB, 1);
         }
         //checks to see if the needle does dropped crosses the grid line and changes color green
         else {
-          //lineInArray.tint = 0xAAFF00;
-          //08B908
-          //f50c878
           lineInArray.lineStyle(1, 0xf50c878, 1);
           needleCross++;
           //we stop so the colors don't overwrite the colors 
@@ -354,23 +336,6 @@ function playAudio() {
   needleDropSound.pause();
   needleDropSound.currentTime = 1.6;
   needleDropSound.play();
-}
-
-
-
-function colorNeedles(yEnd, yCenter) { // over writes the colors even though the for loop it's copied from doesn't
-  for (let k = 0; k < lines.length; k++) {
-    //checks to see if the needle dropped not crosses the grid lines and changes color red
-    if ((yEnd <= lines[k] && yCenter <= lines[k]) || (yEnd >= lines[k] && yCenter >= lines[k])) {
-      needleColor = 0xbf40bf;
-    }
-    //checks to see if the needle does dropped crosses the grid line and changes color green
-    else {
-      needleColor = 0xf50c878;
-      needleCross++;
-      k = lines.length;
-    }
-  }
 }
 
 //clears needles from page and removes them from the array
