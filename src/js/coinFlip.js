@@ -230,7 +230,7 @@ class CoinGame {
 		}
 		else {
 			this.#playAudio(AUDIO_WRONG);
-			document.getElementById("prompt").innerHTML = "Try Again";
+			document.getElementById("prompt").innerHTML = "Try again, is the coin weighted?";
 		}
 	}
 	#guessWeight() {
@@ -251,7 +251,7 @@ class CoinGame {
 		}
 		else {
 			this.#playAudio(AUDIO_WRONG);
-			document.getElementById("prompt").innerHTML = "Try Again.";
+			document.getElementById("prompt").innerHTML = "Try again, what is the weight of the coin?";
 		}
 
 
