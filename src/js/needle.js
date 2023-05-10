@@ -192,14 +192,14 @@ function changeLines(num) {
     app.stage.addChild(labelD);
 
     //creates the labels
-    for (let j = 0; j < amountLines + 1; j++) {
+    //for (let j = 0; j < amountLines + 1; j++) {
       style.fontSize = lineSpace;
       basicText = new PIXI.Text('}', style);
       basicText.x = windowWidth * .91;
-      basicText.y = lines[j] - (lineSpace *.15);
+      basicText.y = lines[0] - (lineSpace *.15);
       app.stage.addChild(basicText);
       basicTextArray.push(basicText);
-    }
+    //}
 
   }
 }
