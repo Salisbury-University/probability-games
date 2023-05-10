@@ -14,6 +14,19 @@ let app = new PIXI.Application({
   width: windowWidth,
   height: windowHeight
 });
+const bgContainer = new PIXI.Container();
+app.stage.addChild(bgContainer);
+
+// Create the a background colors as separate graphics objects for the } and d
+const bg1 = new PIXI.Graphics();
+bg1.beginFill(0xffd789);
+bg1.drawRect(windowWidth * .9, 0, app.view.width, app.view.height); // Top half of the canvas
+bg1.endFill();
+bgContainer.addChild(bg1);
+
+
+
+
 const style = new PIXI.TextStyle({
   fontFamily: 'Arial',
   fontSize: lineSpace,
@@ -41,7 +54,7 @@ document.getElementById("amountOfNeedles").addEventListener("keydown", function 
     needleXY();
   }
 });
- 
+
 
 
 let line = new PIXI.Graphics();
@@ -98,17 +111,17 @@ for (let i = 0; i < amountLines + 1; i++) {
   lines[i] = yValue;
   yValue = yValue + lineSpace;
 }
-  labelD = new PIXI.Text('  d', styled);  
-  labelD.x = windowWidth * .91;
-  labelD.y = lines[0] - (lineSpace*.1);
-  app.stage.addChild(labelD);
+labelD = new PIXI.Text('  d', styled);
+labelD.x = windowWidth * .91;
+labelD.y = lines[0] - (lineSpace * .1);
+app.stage.addChild(labelD);
 //creates the labels
 //for (let j = 0; j < amountLines + 1; j++) {
-  basicText = new PIXI.Text('}', style);
-  basicText.x = windowWidth * .91;
-  basicText.y = lines[0] - 10;
-  app.stage.addChild(basicText);
-  basicTextArray.push(basicText);
+basicText = new PIXI.Text('}', style);
+basicText.x = windowWidth * .91;
+basicText.y = lines[0] - 10;
+app.stage.addChild(basicText);
+basicTextArray.push(basicText);
 //}
 
 
@@ -186,19 +199,19 @@ function changeLines(num) {
       yValue = yValue + lineSpace;
 
     }
-    labelD = new PIXI.Text('  d', styled);  
+    labelD = new PIXI.Text('  d', styled);
     labelD.x = windowWidth * .91;
     labelD.y = lines[0];
     app.stage.addChild(labelD);
 
     //creates the labels
     //for (let j = 0; j < amountLines + 1; j++) {
-      style.fontSize = lineSpace;
-      basicText = new PIXI.Text('}', style);
-      basicText.x = windowWidth * .91;
-      basicText.y = lines[0] - (lineSpace *.15);
-      app.stage.addChild(basicText);
-      basicTextArray.push(basicText);
+    style.fontSize = lineSpace;
+    basicText = new PIXI.Text('}', style);
+    basicText.x = windowWidth * .91;
+    basicText.y = lines[0] - (lineSpace * .15);
+    app.stage.addChild(basicText);
+    basicTextArray.push(basicText);
     //}
 
   }
