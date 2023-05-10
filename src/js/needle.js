@@ -1,5 +1,5 @@
 // create window height variable
-let windowWidth = document.body.clientWidth * .75; //.8
+let windowWidth = document.body.clientWidth * .8; //.8
 let windowHeight = window.innerHeight * .53;
 let pi = 0;
 let amountLines = 7;//number is visible lines is amountLines + 1
@@ -17,6 +17,11 @@ let app = new PIXI.Application({
 const style = new PIXI.TextStyle({
   fontFamily: 'Arial',
   fontSize: lineSpace,
+  fill: ['#ffffff'], // gradient
+});
+const styled = new PIXI.TextStyle({
+  fontFamily: 'Arial',
+  fontSize: 36,
   fill: ['#ffffff'], // gradient
 });
 let basicText = new PIXI.Text();
@@ -93,18 +98,18 @@ for (let i = 0; i < amountLines + 1; i++) {
   lines[i] = yValue;
   yValue = yValue + lineSpace;
 }
-labelD = new PIXI.Text('  d', style);
+labelD = new PIXI.Text('  d', styled);
 labelD.x = windowWidth * .91;
 labelD.y = lines[0] - (lineSpace * .1);
 app.stage.addChild(labelD);
 //creates the labels
-for (let j = 0; j < amountLines + 1; j++) {
-  basicText = new PIXI.Text('}', style);
-  basicText.x = windowWidth * .91;
-  basicText.y = lines[j] - lineSpace * .15;
-  app.stage.addChild(basicText);
-  basicTextArray.push(basicText);
-}
+//for (let j = 0; j < amountLines + 1; j++) {
+basicText = new PIXI.Text('}', style);
+basicText.x = windowWidth * .91;
+basicText.y = lines[0] - 10;
+app.stage.addChild(basicText);
+basicTextArray.push(basicText);
+//}
 
 
 
@@ -181,20 +186,20 @@ function changeLines(num) {
       yValue = yValue + lineSpace;
 
     }
-    labelD = new PIXI.Text('  d', style);
+    labelD = new PIXI.Text('  d', styled);
     labelD.x = windowWidth * .91;
-    labelD.y = lines[0] - 10;
+    labelD.y = lines[0];
     app.stage.addChild(labelD);
 
     //creates the labels
-    for (let j = 0; j < amountLines + 1; j++) {
-      style.fontSize = lineSpace;
-      basicText = new PIXI.Text('}', style);
-      basicText.x = windowWidth * .91;
-      basicText.y = lines[j] - (lineSpace * .15);
-      app.stage.addChild(basicText);
-      basicTextArray.push(basicText);
-    }
+    //for (let j = 0; j < amountLines + 1; j++) {
+    style.fontSize = lineSpace;
+    basicText = new PIXI.Text('}', style);
+    basicText.x = windowWidth * .91;
+    basicText.y = lines[0] - (lineSpace * .15);
+    app.stage.addChild(basicText);
+    basicTextArray.push(basicText);
+    //}
 
   }
 }
