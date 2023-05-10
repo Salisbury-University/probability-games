@@ -84,7 +84,7 @@ window.onload = function () {
   });
 
   document.getElementsByClassName("estimation")[0].innerHTML = "PI Estimation: 0";
-  document.getElementsByClassName("estimation")[1].innerHTML = Math.round(pi * 10000) / 10000;
+  document.getElementsByClassName("estimation")[1].innerHTML = "0";
   document.getElementById("realPi").innerHTML = "Rounded value of PI : " + Math.round(Math.PI * 10000) / 10000;
   document.getElementsByClassName("needLength")[0].innerHTML = Math.round(needleLength * 10) / 10 + " Units"; //the  units is pixels
   document.getElementsByClassName("needLength")[1].innerHTML = Math.round(needleLength * 10) / 10; //the  units is pixels
@@ -397,7 +397,7 @@ function clearNeedles() {
   pos = 0;
 
   document.getElementsByClassName("estimation")[0].innerHTML = "PI Estimation: 0";
-  document.getElementsByClassName("estimation")[1].innerHTML = Math.round(pi * 10000) / 10000;
+  document.getElementsByClassName("estimation")[1].innerHTML = "0";
   document.getElementById("realPi").innerHTML = "Rounded value of PI : " + Math.round(Math.PI * 10000) / 10000;
   document.getElementsByClassName("needLength")[0].innerHTML = Math.round(needleLength * 10) / 10 + " Units"; //the  units is pixels
   document.getElementsByClassName("needLength")[1].innerHTML = Math.round(needleLength * 10) / 10; //the  units is pixels
