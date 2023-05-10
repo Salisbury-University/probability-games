@@ -100,52 +100,55 @@ class DiceGame {
 	}
 
 	#roll(check) {
-		for (let i = 1; i <= 6; i++) {
-			document.getElementById(`card${i}`).classList.remove("bg-success");
-		}
-		document.getElementById("singleRoll").disabled = true;
-		document.getElementById("multiRoll").disabled = true;
-		this.#playAudio(AUDIO_ROLL);
-		let ticks = 0;
-		// Roll the dice using the probabilities
-		let rollValue = 0;
+			for (let i = 1; i <= 6; i++) {
+				document.getElementById(`card${i}`).classList.remove("bg-success");
+			}
+			document.getElementById("singleRoll").disabled = true;
+			document.getElementById("multiRoll").disabled = true;
+			AUDIO_ROLL.play();
+			let ticks = 0;
+			// Roll the dice using the probabilities
+			let rollValue = 0;
 
-		this.#app.getApp().ticker.add(() => {
-			//rolling swap images
-			if (ticks % 5 == 0 && ticks < 50) {
-				rollValue = Math.floor(Math.random() * 6) + 1;
-				this.#dice.texture = this.#app.getApp().loader.resources[`dice${rollValue}`].texture;
-			}
-			//done rolling
-			else if (ticks == 50) {
-				rollValue = this.#rollDice();
-				this.#dice.texture = this.#app.getApp().loader.resources[`dice${rollValue}`].texture;
-				this.#faceTotals[rollValue - 1]++;
-				if (check == 1) {
-					this.#multi();
+			this.#app.getApp().ticker.add(() => {
+				//rolling swap images
+				if (ticks % 5 == 0 && ticks < 50) {
+					rollValue = Math.floor(Math.random() * 6) + 1;
+					this.#dice.texture = this.#app.getApp().loader.resources[`dice${rollValue}`].texture;
 				}
-				else {
-					document.getElementById(`card${rollValue}`).classList.add("bg-success");
+				//done rolling
+				else if (ticks == 50) {
+					rollValue = this.#rollDice();
+					this.#dice.texture = this.#app.getApp().loader.resources[`dice${rollValue}`].texture;
+					this.#faceTotals[rollValue - 1]++;
+					if (check == 1) {
+						this.#multi();
+					}
+					else {
+						document.getElementById(`card${rollValue}`).classList.add("bg-success");
+					}
+					this.#updateTable();
+					document.getElementById("singleRoll").disabled = false;
+					document.getElementById("multiRoll").disabled = false;
+					ticks++;
+					if (this.#numberRolls >= 10) {
+						document.getElementById("prompt").innerHTML = "Is the dice weighted?";
+						document.getElementById("guessButtons").hidden = false;
+					}
 				}
-				this.#updateTable();
-				document.getElementById("singleRoll").disabled = false;
-				document.getElementById("multiRoll").disabled = false;
 				ticks++;
-				if (this.#numberRolls >= 10) {
-					document.getElementById("prompt").innerHTML = "Is the dice weighted?";
-					document.getElementById("guessButtons").hidden = false;
-				}
-			}
-			ticks++;
-		});
+			});
 
 	}
 	#guess(check) {
 		if (this.#weighted == check) {
-			this.#playAudio(AUDIO_CORRECT);
+			AUDIO_CORRECT.play();
 			document.getElementById("guessButtons").hidden = true;
 			if (this.#weighted) {
-				document.getElementById("prompt").innerHTML = "Correct, the dice is weighted!. Now click the weighted side of the die.";
+				document.getElementById("singleRoll").disabled = true;
+                document.getElementById("multiRoll").disabled = true;
+
+				document.getElementById("prompt").innerHTML = "Correct, the dice is weighted! Now click the weighted side of the die.";
 				this.#clickable = true
 				this.#changeCursor();
 			} else {
@@ -154,7 +157,7 @@ class DiceGame {
 			}
 		}
 		else {
-			this.#playAudio(AUDIO_WRONG);
+			AUDIO_WRONG.play();
 			document.getElementById("prompt").innerHTML = "Try again, is the dice weighted?";
 		}
 	}
@@ -200,23 +203,18 @@ class DiceGame {
 		}
 	}
 	#cardSelect(side) {
-		console.log(side);
+		//console.log(side);
 		if (this.#clickable) {
 			if (side == this.#weightedSide) {
-				this.#playAudio(AUDIO_CORRECT);
+				AUDIO_CORRECT.play();
 				document.getElementById("prompt").innerHTML = "Correct, the " + side + " side is the weighted side. Let's play again.";
 				this.#reset();
 			}
 			else {
-				this.#playAudio(AUDIO_WRONG);
+				AUDIO_WRONG.play();
 				document.getElementById("prompt").innerHTML = "Try again, click the weighted side of the die.";
 			}
 		}
-	}
-	#playAudio(audioName) {/*
-        audioName.pause();
-        audioName.currentTime = 0;
-        audioName.play();*/
 	}
 	#isWeighted() {
 		// Randomly choose whether the dice is weighted or not
@@ -242,35 +240,8 @@ class DiceGame {
 		this.#clickable = false;
 		this.#changeCursor();
 		this.#isWeighted();
-	}
-}
-
-class ScreenManagement {
-	#color;
-	#text;
-
-	constructor() {
-		this.#color = document.getElementById("themeTypeSwitch");
-		this.#text = document.querySelectorAll(".text");
-		this.#setup();
-	}
-	#setup() {
-		this.#color.addEventListener('click', () => {
-			this.#changeColor();
-		});
-	}
-	#changeColor() {
-		if (this.#color.checked) {//dark mode
-			document.body.style.backgroundColor = "#262626";
-			for (let i = 0; i < this.#text.length; i++) {
-				this.#text[i].style.color = 'white';
-			}
-		} else {//light mode
-			document.body.style.backgroundColor = "#ffffff";
-			for (let i = 0; i < this.#text.length; i++) {
-				this.#text[i].style.color = 'black';
-			}
-		}
+		document.getElementById("singleRoll").disabled = false;
+        document.getElementById("multiRoll").disabled = false;
 	}
 }
 
@@ -302,4 +273,3 @@ function changeTheme() {
 
 
 const game = new DiceGame();
-const screens = new ScreenManagement();

@@ -83,7 +83,7 @@
 		<div class="container text-center">
 			<!--Title of the game-->
 			<div class="row">
-				<h1 class="text">Coin Flip Game</h1>
+				<h2 class="text" id="title">Coin Flip Game</h2>
 			</div>
 			<!-- PixiJS Application-->
 			<div class="row">
@@ -92,13 +92,13 @@
 			<!-- buttons to roll the dice-->
 			<div class="row" id="buttonArea">
 				<div class="col" id="singleFlipArea">
-					<h6 class="text">Single Flip:</h6>
+					<h6 class="text" id="single">Single Flip:</h6>
 					<button type="radio" class="btn btn-primary" id="singleFlip">Flip
 						Coin</button>
 				</div>
 				<div class="col">
 					<div class="dropdown">
-						<h6 class="text">Coin Type:</h6>
+						<h6 class="text" id="coinChange">Coin Type:</h6>
 						<button class="btn btn-secondary dropdown-toggle" type="button" id="coin-dropdown"
 							data-bs-toggle="dropdown" aria-expanded="false">Coin</button>
 						<ul class="dropdown-menu" aria-labelledby="coin-dropdown">
@@ -111,7 +111,7 @@
 					</div>
 				</div>
 				<div class="col" id="multiFlipArea">
-					<h6 class="text">Multiple Flip:</h6>
+					<h6 class="text" id="multi">Multiple Flip:</h6>
 					<div class="input-group align-items-center">
 						<input type="text" class="form-control" placeholder="Number of Flips"
 							aria-label="Recipient's username" aria-describedby="multiFlip" id="numberFlips">
@@ -141,7 +141,7 @@
 				</div>
 			</div>
 			<div class="row" id="guessSection">
-				<h1 id="prompt" class="text">Press Flip Coin to Play</h1>
+				<h4 class="text" id="prompt"></h4>
 				<div class="col" id="guessButtons" hidden>
 					<button type="radio" class="btn btn-primary" id="weighted">Weighted</button>
 					<button type="radio" class="btn btn-primary" id="notWeighted">Not Weighted</button>
@@ -295,7 +295,7 @@
 						</div>
 						<div class="col-2">
 							<label class="switch">
-								<input id="themeTypeSwitch" type="checkbox">
+								<input id="themeTypeSwitch" type="checkbox" onclick="changeTheme()">
 								<span class="slider round"></span>
 							</label>
 						</div>
