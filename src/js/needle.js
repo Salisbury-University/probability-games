@@ -27,15 +27,16 @@ bgContainer.addChild(bg1);
 
 let labelColor = '#000000';
 
-const style = new PIXI.TextStyle({
+let style = new PIXI.TextStyle({
   fontFamily: 'Arial',
   fontSize: lineSpace,
-  fill: [labelColor], 
+  fill: [labelColor],
 });
-const styled = new PIXI.TextStyle({
+
+let styled = new PIXI.TextStyle({
   fontFamily: 'Arial',
   fontSize: 36,
-  fill: [labelColor], 
+  fill: [labelColor],
 });
 let basicText = new PIXI.Text();
 let basicTextArray = [];
@@ -165,14 +166,12 @@ function changeDarkTheme() {
   });
   document.getElementById("canvasArea").style.backgroundColor = "#262626";
   document.body.style.backgroundColor = "#313b4b";
-  for (let i = 0; i < basicTextArray.length; i++) {
-    basicTextArray[i].destroy();
-  }
-  labelColor = '#ffffff';
+  labelColor = '0xffffff';
+
+  style.fill = 0xffffff;
+  styled.fill = 0xffffff;
   
-  for (let i = 0; i < basicTextArray.length; i++) {
-    basicTextArray[i].destroy();
-  }
+
   labelD.destroy();
   labelD = new PIXI.Text('  d', styled);
   labelD.x = windowWidth * .91;
@@ -207,10 +206,10 @@ function changeLightTheme() {
   bg1.fill.color = 0xffd789;
 
   document.body.style.backgroundColor = "#FFEDC9";
-  labelColor = '#000000';
-  for (let i = 0; i < basicTextArray.length; i++) {
-    basicTextArray[i].destroy();
-  }
+  labelColor = '0x000000';
+
+  style.fill = 0x00000;
+  styled.fill = 0x00000; 
   labelD.destroy();
   labelD = new PIXI.Text('  d', styled);
   labelD.x = windowWidth * .91;
@@ -247,7 +246,7 @@ function changeLines(num) {
     lines = [];
     line = new PIXI.Graphics();
     basicTextArray = [];
-    
+
     lineSpace = windowHeight / amountLines;
     needleLength = lineSpace * 0.9;
     yValue = 0; //yValue is space between lines - starts at 0
