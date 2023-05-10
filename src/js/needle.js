@@ -30,12 +30,12 @@ let labelColor = '#000000';
 const style = new PIXI.TextStyle({
   fontFamily: 'Arial',
   fontSize: lineSpace,
-  fill: [labelColor], 
+  fill: labelColor, 
 });
 const styled = new PIXI.TextStyle({
   fontFamily: 'Arial',
   fontSize: 36,
-  fill: [labelColor], 
+  fill: labelColor, 
 });
 let basicText = new PIXI.Text();
 let basicTextArray = [];
@@ -212,6 +212,7 @@ function changeLightTheme() {
     basicTextArray[i].destroy();
   }
   labelD.destroy();
+
   labelD = new PIXI.Text('  d', styled);
   labelD.x = windowWidth * .91;
   labelD.y = lines[0];
