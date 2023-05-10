@@ -82,6 +82,22 @@ window.onload = function () {
   volume.addEventListener("input", function (e) {
     needleDropSound.volume = e.currentTarget.value / 100;
   });
+
+  document.getElementsByClassName("estimation")[0].innerHTML = "PI Estimation: 0";
+  document.getElementsByClassName("estimation")[1].innerHTML = Math.round(pi * 10000) / 10000;
+  document.getElementById("realPi").innerHTML = "Rounded value of PI : " + Math.round(Math.PI * 10000) / 10000;
+  document.getElementsByClassName("needLength")[0].innerHTML = Math.round(needleLength * 10) / 10 + " Units"; //the  units is pixels
+  document.getElementsByClassName("needLength")[1].innerHTML = Math.round(needleLength * 10) / 10; //the  units is pixels
+  document.getElementsByClassName("gridSpace")[0].innerHTML = Math.round(lineSpace * 10) / 10 + " Units";
+  document.getElementsByClassName("gridSpace")[1].innerHTML = Math.round(lineSpace * 10) / 10;
+  document.getElementsByClassName("needCross")[0].innerHTML = "# of Needles that Cross a Line(Green): 0";
+  document.getElementsByClassName("needCross")[1].innerHTML = 0;
+  document.getElementsByClassName("needCross")[2].innerHTML = 0;
+  document.getElementById("needleDontCross").innerHTML = "# of Needles that Don't Cross a Line(Purple): 0";
+  document.getElementsByClassName("total")[0].innerHTML = "Total # of Needles Dropped: 0";
+  document.getElementsByClassName("total")[1].innerHTML = 0;
+  document.getElementsByClassName("total")[2].innerHTML = 0;
+  document.getElementById("percentError").innerHTML = "Percent Error for PI estimaton: 0";
 };
 
 
@@ -379,6 +395,23 @@ function playAudio() {
 function clearNeedles() {
   neg = 0;
   pos = 0;
+
+  document.getElementsByClassName("estimation")[0].innerHTML = "PI Estimation: 0";
+  document.getElementsByClassName("estimation")[1].innerHTML = Math.round(pi * 10000) / 10000;
+  document.getElementById("realPi").innerHTML = "Rounded value of PI : " + Math.round(Math.PI * 10000) / 10000;
+  document.getElementsByClassName("needLength")[0].innerHTML = Math.round(needleLength * 10) / 10 + " Units"; //the  units is pixels
+  document.getElementsByClassName("needLength")[1].innerHTML = Math.round(needleLength * 10) / 10; //the  units is pixels
+  document.getElementsByClassName("gridSpace")[0].innerHTML = Math.round(lineSpace * 10) / 10 + " Units";
+  document.getElementsByClassName("gridSpace")[1].innerHTML = Math.round(lineSpace * 10) / 10;
+  document.getElementsByClassName("needCross")[0].innerHTML = "# of Needles that Cross a Line(Green): 0";
+  document.getElementsByClassName("needCross")[1].innerHTML = 0;
+  document.getElementsByClassName("needCross")[2].innerHTML = 0;
+  document.getElementById("needleDontCross").innerHTML = "# of Needles that Don't Cross a Line(Purple): 0";
+  document.getElementsByClassName("total")[0].innerHTML = "Total # of Needles Dropped: 0";
+  document.getElementsByClassName("total")[1].innerHTML = 0;
+  document.getElementsByClassName("total")[2].innerHTML = 0;
+  document.getElementById("percentError").innerHTML = "Percent Error for PI estimaton: 0";
+
 
   //this code removes them from the stage
   lineArray.forEach(lineInArray => {
