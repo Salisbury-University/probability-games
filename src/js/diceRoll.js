@@ -105,7 +105,7 @@ class DiceGame {
 			}
 			document.getElementById("singleRoll").disabled = true;
 			document.getElementById("multiRoll").disabled = true;
-			this.#playAudio(AUDIO_ROLL);
+			AUDIO_ROLL.play();
 			let ticks = 0;
 			// Roll the dice using the probabilities
 			let rollValue = 0;
@@ -142,7 +142,7 @@ class DiceGame {
 	}
 	#guess(check) {
 		if (this.#weighted == check) {
-			this.#playAudio(AUDIO_CORRECT);
+			AUDIO_CORRECT.play();
 			document.getElementById("guessButtons").hidden = true;
 			if (this.#weighted) {
 				document.getElementById("singleRoll").disabled = true;
@@ -157,7 +157,7 @@ class DiceGame {
 			}
 		}
 		else {
-			this.#playAudio(AUDIO_WRONG);
+			AUDIO_WRONG.play();
 			document.getElementById("prompt").innerHTML = "Try again, is the dice weighted?";
 		}
 	}
@@ -206,20 +206,15 @@ class DiceGame {
 		//console.log(side);
 		if (this.#clickable) {
 			if (side == this.#weightedSide) {
-				this.#playAudio(AUDIO_CORRECT);
+				AUDIO_CORRECT.play();
 				document.getElementById("prompt").innerHTML = "Correct, the " + side + " side is the weighted side. Let's play again.";
 				this.#reset();
 			}
 			else {
-				this.#playAudio(AUDIO_WRONG);
+				AUDIO_WRONG.play();
 				document.getElementById("prompt").innerHTML = "Try again, click the weighted side of the die.";
 			}
 		}
-	}
-	#playAudio(audioName) {/*
-        audioName.pause();
-        audioName.currentTime = 0;
-        audioName.play();*/
 	}
 	#isWeighted() {
 		// Randomly choose whether the dice is weighted or not
