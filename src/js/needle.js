@@ -18,7 +18,7 @@ const bgContainer = new PIXI.Container();
 app.stage.addChild(bgContainer);
 
 // Create the a background colors as separate graphics objects for the } and d
-const bg1 = new PIXI.Graphics();
+let bg1 = new PIXI.Graphics();
 bg1.beginFill(0xffd789);
 bg1.drawRect(windowWidth * .9, 0, app.view.width, app.view.height); // Top half of the canvas
 bg1.endFill();
@@ -136,7 +136,12 @@ function changeTheme() {
 
 function changeDarkTheme() {
   //changes top section to dark and text to white
-
+  bg1.destroy();
+  bg1 = new PIXI.Graphics();
+  bg1.beginFill(0x262626);
+  bg1.drawRect(windowWidth * .9, 0, app.view.width, app.view.height); // Top half of the canvas
+  bg1.endFill();
+  bgContainer.addChild(bg1);
   let div = document.querySelectorAll("#topPageSection");
   div.forEach(d => {
     d.style.backgroundColor = "#313b4b";
@@ -144,16 +149,25 @@ function changeDarkTheme() {
   });
   document.getElementById("canvasArea").style.backgroundColor = "#262626";
   document.body.style.backgroundColor = "#313b4b";
+
 }
 
 function changeLightTheme() {
 
+  bg1.destroy();
+  bg1 = new PIXI.Graphics();
+  bg1.beginFill(0xffd789);
+  bg1.drawRect(windowWidth * .9, 0, app.view.width, app.view.height); // Top half of the canvas
+  bg1.endFill();
+  bgContainer.addChild(bg1);
   let div = document.querySelectorAll("#topPageSection");
   div.forEach(d => {
     d.style.backgroundColor = "#FFEDC9";
     d.style.color = "black";
   });
   document.getElementById("canvasArea").style.backgroundColor = "#ffd789";
+
+  bg1.fill.color = 0xffd789;
 
   document.body.style.backgroundColor = "#FFEDC9";
 }
