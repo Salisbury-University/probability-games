@@ -312,7 +312,7 @@ function needleXY() {
     let error = Math.abs((pi - Math.PI) / Math.PI) * 100; //percent error
     document.getElementsByClassName("estimation")[0].innerHTML = "PI Estimation: " + Math.round(pi * 10000) / 10000;
     document.getElementsByClassName("estimation")[1].innerHTML = Math.round(pi * 10000) / 10000;
-    document.getElementById("realPi").innerHTML = "Real value of PI : " + Math.round(Math.PI * 10000) / 10000;
+    document.getElementById("realPi").innerHTML = "Rounded value of PI : " + Math.round(Math.PI * 10000) / 10000;
     document.getElementsByClassName("needLength")[0].innerHTML = Math.round(needleLength * 10) / 10 + " Units"; //the  units is pixels
     document.getElementsByClassName("needLength")[1].innerHTML = Math.round(needleLength * 10) / 10; //the  units is pixels
     document.getElementsByClassName("gridSpace")[0].innerHTML = Math.round(lineSpace * 10) / 10 + " Units";
