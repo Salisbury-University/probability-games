@@ -25,17 +25,17 @@ bg1.endFill();
 bgContainer.addChild(bg1);
 
 
-
+let labelColor = '#000000';
 
 const style = new PIXI.TextStyle({
   fontFamily: 'Arial',
   fontSize: lineSpace,
-  fill: ['#ffffff'], // gradient
+  fill: [labelColor], 
 });
 const styled = new PIXI.TextStyle({
   fontFamily: 'Arial',
   fontSize: 36,
-  fill: ['#ffffff'], // gradient
+  fill: [labelColor], 
 });
 let basicText = new PIXI.Text();
 let basicTextArray = [];
@@ -144,6 +144,28 @@ function changeDarkTheme() {
   });
   document.getElementById("canvasArea").style.backgroundColor = "#262626";
   document.body.style.backgroundColor = "#313b4b";
+  for (let i = 0; i < basicTextArray.length; i++) {
+    basicTextArray[i].destroy();
+  }
+  labelColor = '#ffffff';
+  
+  for (let i = 0; i < basicTextArray.length; i++) {
+    basicTextArray[i].destroy();
+  }
+  labelD.destroy();
+  labelD = new PIXI.Text('  d', styled);
+  labelD.x = windowWidth * .91;
+  labelD.y = lines[0];
+  app.stage.addChild(labelD);
+
+  //creates the labels
+  style.fontSize = lineSpace;
+  basicText = new PIXI.Text('}', style);
+  basicText.x = windowWidth * .91;
+  basicText.y = lines[0] - (lineSpace * .15);
+  app.stage.addChild(basicText);
+  basicTextArray.push(basicText);
+
 }
 
 function changeLightTheme() {
@@ -156,6 +178,23 @@ function changeLightTheme() {
   document.getElementById("canvasArea").style.backgroundColor = "#ffd789";
 
   document.body.style.backgroundColor = "#FFEDC9";
+  labelColor = '#000000';
+  for (let i = 0; i < basicTextArray.length; i++) {
+    basicTextArray[i].destroy();
+  }
+  labelD.destroy();
+  labelD = new PIXI.Text('  d', styled);
+  labelD.x = windowWidth * .91;
+  labelD.y = lines[0];
+  app.stage.addChild(labelD);
+
+  //creates the labels
+  style.fontSize = lineSpace;
+  basicText = new PIXI.Text('}', style);
+  basicText.x = windowWidth * .91;
+  basicText.y = lines[0] - (lineSpace * .15);
+  app.stage.addChild(basicText);
+  basicTextArray.push(basicText);
 }
 
 function changeLines(num) {
@@ -179,7 +218,7 @@ function changeLines(num) {
     lines = [];
     line = new PIXI.Graphics();
     basicTextArray = [];
-    //basicText = new PIXI.Text();
+    
     lineSpace = windowHeight / amountLines;
     needleLength = lineSpace * 0.9;
     yValue = 0; //yValue is space between lines - starts at 0
@@ -205,14 +244,12 @@ function changeLines(num) {
     app.stage.addChild(labelD);
 
     //creates the labels
-    //for (let j = 0; j < amountLines + 1; j++) {
     style.fontSize = lineSpace;
     basicText = new PIXI.Text('}', style);
     basicText.x = windowWidth * .91;
     basicText.y = lines[0] - (lineSpace * .15);
     app.stage.addChild(basicText);
     basicTextArray.push(basicText);
-    //}
 
   }
 }
