@@ -18,7 +18,7 @@ const bgContainer = new PIXI.Container();
 app.stage.addChild(bgContainer);
 
 // Create the a background colors as separate graphics objects for the } and d
-const bg1 = new PIXI.Graphics();
+let bg1 = new PIXI.Graphics();
 bg1.beginFill(0xffd789);
 bg1.drawRect(windowWidth * .9, 0, app.view.width, app.view.height); // Top half of the canvas
 bg1.endFill();
@@ -82,6 +82,22 @@ window.onload = function () {
   volume.addEventListener("input", function (e) {
     needleDropSound.volume = e.currentTarget.value / 100;
   });
+
+  document.getElementsByClassName("estimation")[0].innerHTML = "PI Estimation: 0";
+  document.getElementsByClassName("estimation")[1].innerHTML = "0";
+  document.getElementById("realPi").innerHTML = "Rounded value of PI : " + Math.round(Math.PI * 10000) / 10000;
+  document.getElementsByClassName("needLength")[0].innerHTML = Math.round(needleLength * 10) / 10 + " Units"; //the  units is pixels
+  document.getElementsByClassName("needLength")[1].innerHTML = Math.round(needleLength * 10) / 10; //the  units is pixels
+  document.getElementsByClassName("gridSpace")[0].innerHTML = Math.round(lineSpace * 10) / 10 + " Units";
+  document.getElementsByClassName("gridSpace")[1].innerHTML = Math.round(lineSpace * 10) / 10;
+  document.getElementsByClassName("needCross")[0].innerHTML = "# of Needles that Cross a Line(Green): 0";
+  document.getElementsByClassName("needCross")[1].innerHTML = 0;
+  document.getElementsByClassName("needCross")[2].innerHTML = 0;
+  document.getElementById("needleDontCross").innerHTML = "# of Needles that Don't Cross a Line(Purple): 0";
+  document.getElementsByClassName("total")[0].innerHTML = "Total # of Needles Dropped: 0";
+  document.getElementsByClassName("total")[1].innerHTML = 0;
+  document.getElementsByClassName("total")[2].innerHTML = 0;
+  document.getElementById("percentError").innerHTML = "Percent Error for PI estimaton: 0";
 };
 
 
@@ -136,7 +152,12 @@ function changeTheme() {
 
 function changeDarkTheme() {
   //changes top section to dark and text to white
-
+  bg1.destroy();
+  bg1 = new PIXI.Graphics();
+  bg1.beginFill(0x262626);
+  bg1.drawRect(windowWidth * .9, 0, app.view.width, app.view.height); // Top half of the canvas
+  bg1.endFill();
+  bgContainer.addChild(bg1);
   let div = document.querySelectorAll("#topPageSection");
   div.forEach(d => {
     d.style.backgroundColor = "#313b4b";
@@ -170,12 +191,20 @@ function changeDarkTheme() {
 
 function changeLightTheme() {
 
+  bg1.destroy();
+  bg1 = new PIXI.Graphics();
+  bg1.beginFill(0xffd789);
+  bg1.drawRect(windowWidth * .9, 0, app.view.width, app.view.height); // Top half of the canvas
+  bg1.endFill();
+  bgContainer.addChild(bg1);
   let div = document.querySelectorAll("#topPageSection");
   div.forEach(d => {
     d.style.backgroundColor = "#FFEDC9";
     d.style.color = "black";
   });
   document.getElementById("canvasArea").style.backgroundColor = "#ffd789";
+
+  bg1.fill.color = 0xffd789;
 
   document.body.style.backgroundColor = "#FFEDC9";
   labelColor = '#000000';
@@ -402,6 +431,23 @@ function playAudio() {
 function clearNeedles() {
   neg = 0;
   pos = 0;
+
+  document.getElementsByClassName("estimation")[0].innerHTML = "PI Estimation: 0";
+  document.getElementsByClassName("estimation")[1].innerHTML = "0";
+  document.getElementById("realPi").innerHTML = "Rounded value of PI : " + Math.round(Math.PI * 10000) / 10000;
+  document.getElementsByClassName("needLength")[0].innerHTML = Math.round(needleLength * 10) / 10 + " Units"; //the  units is pixels
+  document.getElementsByClassName("needLength")[1].innerHTML = Math.round(needleLength * 10) / 10; //the  units is pixels
+  document.getElementsByClassName("gridSpace")[0].innerHTML = Math.round(lineSpace * 10) / 10 + " Units";
+  document.getElementsByClassName("gridSpace")[1].innerHTML = Math.round(lineSpace * 10) / 10;
+  document.getElementsByClassName("needCross")[0].innerHTML = "# of Needles that Cross a Line(Green): 0";
+  document.getElementsByClassName("needCross")[1].innerHTML = 0;
+  document.getElementsByClassName("needCross")[2].innerHTML = 0;
+  document.getElementById("needleDontCross").innerHTML = "# of Needles that Don't Cross a Line(Purple): 0";
+  document.getElementsByClassName("total")[0].innerHTML = "Total # of Needles Dropped: 0";
+  document.getElementsByClassName("total")[1].innerHTML = 0;
+  document.getElementsByClassName("total")[2].innerHTML = 0;
+  document.getElementById("percentError").innerHTML = "Percent Error for PI estimaton: 0";
+
 
   //this code removes them from the stage
   lineArray.forEach(lineInArray => {
