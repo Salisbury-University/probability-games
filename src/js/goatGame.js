@@ -45,7 +45,7 @@ function changeTrash(img) {
     //define objects and map img location,name to value being searched
     const trashes = {
         vegetable: ["../images/aspargus.png", "Vegetables"],
-        Trash: ["../images/trashBag.jpg", "Trash"],
+        Trash: ["../images/trashBag.jpg", "Trash Bags"],
         Chores: ["../images/chores.jpg", "Chores"]
     };
     //asign goatImg to first in array, and name to second
@@ -154,6 +154,14 @@ function afterStepOne(revealGoat) {
 
     setTimeout(function () {
 
+        if (trashName == "Trash Bags") {
+            trashName = "Trash Bag";
+        } else if (trashName == "Chores") {
+            trashName = "Chore";
+        } else if (trashName == "vegetables") {
+            trashName = "Vegetable";
+        }
+
         document.getElementById(go).src = goatImg;
         document.getElementById(`doorWay${revealGoat}`).hidden = false;
 
@@ -171,6 +179,14 @@ function afterStepOne(revealGoat) {
 
         document.getElementById(otherDoor).setAttribute("onclick", "determineKeep(0)");
         document.getElementById(userDoor).setAttribute("onclick", "determineKeep(1)");
+
+        if (trashName == "Trash Bag") {
+            trashName = "Trash Bags";
+        } else if (trashName == "Chore") {
+            trashName = "Chores";
+        } else if (trashName == "Vegetable") {
+            trashName = "vegetables";
+        }
     }, 350);
 }
 
@@ -187,13 +203,13 @@ function midStepTwo(imgType, userDoorChoice) {
 
         document.getElementById(userDoorChoice).src = carImg;
         if (userDoorChoice == "door0") {
-          //  document.getElementById("door0").style.borderRadius = "99%";
+            //  document.getElementById("door0").style.borderRadius = "99%";
             document.getElementById("doorWay0").hidden = false;
         } else if (userDoorChoice == "door1") {
-           // document.getElementById("door1").style.borderRadius = "99%";
+            // document.getElementById("door1").style.borderRadius = "99%";
             document.getElementById("doorWay1").hidden = false;
         } else {
-           // document.getElementById("door2").style.borderRadius = "99%";
+            // document.getElementById("door2").style.borderRadius = "99%";
             document.getElementById("doorWay2").hidden = false;
         }
 
@@ -205,13 +221,13 @@ function midStepTwo(imgType, userDoorChoice) {
         document.getElementById(userDoorChoice).src = goatImg;
 
         if (userDoorChoice == "door0") {
-          //  document.getElementById("door0").style.borderRadius = "99%";
+            //  document.getElementById("door0").style.borderRadius = "99%";
             document.getElementById("doorWay0").hidden = false;
         } else if (userDoorChoice == "door1") {
-           // document.getElementById("door1").style.borderRadius = "99%";
+            // document.getElementById("door1").style.borderRadius = "99%";
             document.getElementById("doorWay1").hidden = false;
         } else {
-           // document.getElementById("door2").style.borderRadius = "99%";
+            // document.getElementById("door2").style.borderRadius = "99%";
             document.getElementById("doorWay2").hidden = false;
         }
     }
@@ -359,31 +375,24 @@ function printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, swit
 function changeTheme() {
     if (document.getElementById("themeTypeSwitch").checked) {
         changeDarkTheme();
-        console.log("called dark");
     } else {
         changeLightTheme();
-        console.log("called light");
     }
 }
 
 function changeDarkTheme() {
     //changes top section to dark and text to white
-    // document.getElementById("topPageSection").style.backgroundColor = "#313b4b";
     let div = document.querySelectorAll("#sectionAforTheme");
     div.forEach(d => {
         d.style.backgroundColor = "#313b4b";
         d.style.color = "white";
     });
-    //document.getElementById("titleSection").style.color = "white";
 
     let div2 = document.querySelectorAll("#sectionBforTheme");
     div2.forEach(d => {
         d.style.backgroundColor = "#262626";
         d.style.color = "white";
     });
-    //document.getElementById("bottomSection").style.backgroundColor = "#313b4b";
-    //document.getElementById("bottomSection").style.color = "white";
-    //document.body.style.backgroundColor = "#262626";
 
     document.body.style.backgroundColor = "#313b4b";
 }
