@@ -145,6 +145,9 @@ class DiceGame {
 			this.#playAudio(AUDIO_CORRECT);
 			document.getElementById("guessButtons").hidden = true;
 			if (this.#weighted) {
+				document.getElementById("singleRoll").disabled = true;
+                document.getElementById("multiRoll").disabled = true;
+
 				document.getElementById("prompt").innerHTML = "Correct, the dice is weighted! Now click the weighted side of the die.";
 				this.#clickable = true
 				this.#changeCursor();
@@ -200,7 +203,7 @@ class DiceGame {
 		}
 	}
 	#cardSelect(side) {
-		console.log(side);
+		//console.log(side);
 		if (this.#clickable) {
 			if (side == this.#weightedSide) {
 				this.#playAudio(AUDIO_CORRECT);
@@ -242,6 +245,8 @@ class DiceGame {
 		this.#clickable = false;
 		this.#changeCursor();
 		this.#isWeighted();
+		document.getElementById("singleRoll").disabled = false;
+        document.getElementById("multiRoll").disabled = false;
 	}
 }
 
