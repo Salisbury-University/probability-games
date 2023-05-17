@@ -7,7 +7,6 @@
 
 canvas {
     margin-top: 5px;
-    border: 4px solid black;
     margin-left: 12%
 }
 
@@ -85,3 +84,20 @@ input:checked+.slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
+	table {
+		font-family: arial, sans-serif;
+		border-collapse: collapse;
+		width: 100%;
+	}
+
+	td,
+	th {
+		border: 1px solid #dddddd;
+		text-align: left;
+		padding: 8px;
+	}
+
+	tr:nth-child(even) {
+		background-color: #dddddd;
+	}
