@@ -79,6 +79,10 @@
   <main>
     <div id="container" class="container-fluid text-center">
       <div class="row">
+        <h2 class="text" id="title">Game of 27</h2>
+      </div>
+
+      <div class="row">
         <div id="app"></div>
       </div>
       <div class="row">
@@ -97,24 +101,16 @@
         </div>
         <div class="col">
           <div id="questionCard" class="card" hidden>
-            <div id="pilesMake" class="card-body" hidden>
-              <div>Create groups of <strong><span id="rollNumber1"></span></strong> by selecting
-                the chips above.</div>
-              <button type="button" class="btn btn-success mx-auto" onclick="createPile()">Submit</button>
-              <button type="button" class="btn btn-dark mx-auto" style="background-color: #8064A2 !important;"
-                onclick="autoComplete()">Auto</button>
-            </div>
-            <div id="pilesQuestion" class="card-body" hidden>
-              <div>How many groups of <strong><span id="rollNumber2"></span></strong> did you create?</div>
-              <div class="col text-center">
-                <input type="text" pattern="[0-9]+" class="form-control" id="pilesInput" placeholder="" required>
+            <div class="card-body">
+              <div id="questionText"></div>
+              <div id="questionInputGroup" class="input-group mb-3" hidden>
+                <input id="questionInput" type="text" class="form-control" placeholder="Enter" data-value="0" required>
+                <button id="questionSubmit" type="button" class="btn btn-success">Submit</button>
               </div>
-              <button type="button" class="btn btn-success mx-auto" onclick="pileCountCheck()">Submit</button>
-            </div>
-            <div id="remainderQuestion" class="card" hidden>
-              <div>How many chips did not end up in a group of <strong><span id="rollNumber3"></span></strong>?</div>
-              <input type="text" pattern="[0-9]+" class="form-control" id="remainderInput" placeholder="" required>
-              <button type="button" class="btn btn-success mx-auto" onclick="remainderCheck()">Submit</button>
+              <div id="makeButtons" class="button-group" hidden>
+                <button id="makeSubmit" type="button" class="btn btn-success mx-auto">Submit</button>
+                <button id="makeAuto" type="button" class="btn btn-dark mx-auto">Auto</button>
+              </div>
             </div>
           </div>
         </div>
@@ -170,8 +166,8 @@
                 <a class="list-group-item list-group-item-action" href="#list-item-4">Answer Quesions</a>
                 <a class="list-group-item list-group-item-action" href="#list-item-4">Auto Select</a>
               </div>
-              <div data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0" tabindex="0" class="col"
-                style="height: 40em; overflow-y: scroll">
+              <div id="scroll" data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0" tabindex="0"
+                class="col">
                 <h4 id="list-item-1">Welcome to the Game of 27!</h4>
                 <ul>
                   <p></p>
@@ -182,7 +178,7 @@
                   <p></p>
                 </ul>
                 <div class="text-center">
-                  <img src="../gifs/dice27Roll.gif" style="max-height: 350px" />
+                  <img class="gif" src="../gifs/dice27Roll.gif" />
                 </div>
                 <hr class="featurette-divider" />
                 <h4 id="list-item-3">Select Chips</h4>
@@ -190,7 +186,7 @@
                   <p></p>
                 </ul>
                 <div class="text-center">
-                  <img src="../gifs/dice27Select.gif" style="max-height: 350px" />
+                  <img class="gif" src="../gifs/dice27Select.gif" />
                 </div>
                 <hr class="featurette-divider" />
                 <h4 id="list-item-4">Answer Quesions</h4>
@@ -198,7 +194,7 @@
                   <p></p>
                 </uL>
                 <div class="text-center">
-                  <img src="../gifs/dice27Answer.gif" style="max-height: 350px" />
+                  <img class="gif" src="../gifs/dice27Answer.gif" />
                 </div>
                 <hr class="featurette-divider" />
                 <h4 id="list-item-4">Auto Select (Optional)</h4>
@@ -206,7 +202,7 @@
                   <p></p>
                 </ul>
                 <div class="text-center">
-                  <img src="../gifs/dice27Auto.gif" style="max-height: 350px" />
+                  <img class="gif" src="../gifs/dice27Auto.gif" />
                 </div>
               </div>
             </div>

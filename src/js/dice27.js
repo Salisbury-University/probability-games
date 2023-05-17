@@ -183,6 +183,10 @@ class Dice27 {
         let rollButton = document.getElementById("rollButton");
         let startButton = document.getElementById("createGame");
         let resetButton = document.getElementById("resetButton");
+        let questionInput = document.getElementById("questionInput");
+        let questionSubmit = document.getElementById("questionSubmit");
+        let makeAuto = document.getElementById("makeAuto");
+        let makeSubmit = document.getElementById("makeSubmit");
 
         rollButton.addEventListener('click', () => {
             this.#roll();
@@ -191,7 +195,23 @@ class Dice27 {
             this.#createGame();
         });
         resetButton.addEventListener('click', () => {
-            this.#createGame();
+            this.#resetGame();
+        });
+        /*questionInput.addEventListener('keypress', function (key) {
+            if (key.key == "Enter") {
+                this.#answerQuestion();
+            }
+        });*/
+        questionSubmit.addEventListener('click', () => {
+            this.#answerQuestion();
+        });
+        makeAuto.addEventListener('click', () => {
+            this.#auto();
+        });
+        makeSubmit.addEventListener('click', () => {
+            if (this.#numberClicked == this.#rollValue) {
+                this.#createGroup();
+            }
         });
     }
     getApp() {
@@ -204,12 +224,15 @@ class Dice27 {
         this.#numberClicked = this.#numberClicked + num;
     }
     #createGame() {
+        document.getElementById("title").hidden = true;
         let dist = this.#window.getWindowWidth() * .025;
         let add = this.#window.getWindowWidth() * .036;
         let chipSize = this.#window.getWindowWidth() * .016;
         let yAxis = this.#window.getWindowHeight() * .07;
 
         //update the html elements of the the page
+
+        document.getElementById("title").hidden = true;
         document.getElementById("mainPrompt").textContent = "Player 1 Roll";
         document.getElementById("mainPrompt").style = "color:#dc143c;";
         this.#app.appendApp();
@@ -248,10 +271,9 @@ class Dice27 {
             else if (ticks == 50) {
                 document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Answer";
                 document.getElementById("questionCard").hidden = false;
-                document.getElementById("rollNumber1").textContent = this.#rollValue;
-                document.getElementById("rollNumber2").textContent = this.#rollValue;
-                document.getElementById("rollNumber3").textContent = this.#rollValue;
-                document.getElementById("pilesMake").hidden = false;
+                document.getElementById("questionText").innerHTML = "Create groups of <strong>" + this.#rollValue +
+                    "</strong> by selecting the chips above. Press submit once a group is made.";
+                document.getElementById("makeButtons").hidden = false;
 
                 //set the gamestate to pile creation state and make coins interactive
                 this.#gameState = 0;
@@ -264,40 +286,30 @@ class Dice27 {
         });
         this.#numberRolls++;
     }
-    checkPile() {
-        if (this.#currTotal < this.#rollValue) {
-            document.getElementById("pilesMake").hidden = true;
-            document.getElementById("pilesQuestion").hidden = false;
-            document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Answer";
-            document.getElementById("pilesInput").focus();
-        }
-        else if (this.#numberClicked == this.#rollValue) {
-            this.#playAudio(AUDIO_CORRECT);
-            this.#createPile();
+    #answerQuestion() {
+        if (questionInput.getAttribute("data-value") == 0) {
+            this.#numberPilesQuestion();
         }
         else {
-            this.#playAudio(AUDIO_WRONG);
-            document.getElementById("mainPrompt").textContent = "Try again";
+            this.#numberRemainingQuestion();
         }
     }
-    checkPileAnswer() {
-        let userInput = document.getElementById("pilesInput").value;
+    #numberPilesQuestion() {
+        let userInput = document.getElementById("questionInput").value;
         if (userInput == this.#numberPiles) {
             this.#playAudio(AUDIO_CORRECT);
-            document.getElementById("pilesQuestion").hidden = true;
-            document.getElementById("remainderQuestion").hidden = false;
-            document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Answer";
-            document.getElementById("remainderInput").focus();
-            document.getElementById("pilesInput").value = "";
+            document.getElementById("questionInput").value = "";
+            document.getElementById("questionInput").focus();
+            document.getElementById("questionText").innerHTML = "How many chips are remaining?";
+            document.getElementById("questionInput").setAttribute("data-value", 1);
         }
         else {
-            this.#playAudio(AUDIO_WRONG);
-            document.getElementById("pilesInput").click();
-            document.getElementById("mainPrompt").textContent = "Try again";
+            document.getElementById("questionInput").click();
+            document.getElementById("mainPrompt").textContent = "Try again. Enter the correct number.";
         }
     }
-    checkRemainderAnswer() {
-        let userInput = document.getElementById("remainderInput").value;
+    #numberRemainingQuestion() {
+        let userInput = document.getElementById("questionInput").value;
         let remainder = this.#currTotal % this.#rollValue;
         if (userInput == remainder) {
             this.#playAudio(AUDIO_CORRECT);
@@ -305,22 +317,25 @@ class Dice27 {
                 this.#gameState = 1;
                 for (let i = 0; i < remainder; i++) {
                     this.#coins[(this.#currTotal - i) - 1].setInteractive(1);
-                    document.getElementById("remainderQuestion").hidden = true;
-                    document.getElementById("remainderInput").value = "";
                     document.getElementById("questionCard").hidden = true;
+                    document.getElementById("questionText").innerHTML = "How many groups <strong>" + this.#rollValue + "</strong> of did you create? ";
                     document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Remove you Chips";
                 }
             }
             else {
                 this.#swapPlayer();
             }
+            document.getElementById("questionInput").value = "";
+            document.getElementById("questionInput").setAttribute("data-value", 0);
+            document.getElementById("questionInputGroup").hidden = true;
             this.#stats[this.#currTotal]++;
         }
         else {
             this.#playAudio(AUDIO_WRONG);
-            document.getElementById("remainderInput").click();
-            document.getElementById("mainPrompt").textContent = "Try again";
+            document.getElementById("questionInput").click();
+            document.getElementById("mainPrompt").textContent = "Try again. Enter the correct number.";
         }
+
     }
     updateScore() {
         this.#currTotal--;
@@ -358,14 +373,12 @@ class Dice27 {
         this.#numberPiles = 0;
         this.#resetTint();
         this.#removeLines();
-        document.getElementById("remainderQuestion").hidden = true;
-        document.getElementById("remainderInput").value = "";
         document.getElementById("questionCard").hidden = true;
         document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Roll";
         document.getElementById("rollButton").hidden = false;
 
     }
-    #createPile() {
+    #createGroup() {
         this.#resetTint();
         let temp = this.#numberPiles * this.#rollValue;
         for (let i = temp; i < temp + this.#rollValue; i++) {
@@ -375,29 +388,34 @@ class Dice27 {
         this.#app.getApp().stage.addChild(this.#lines[(temp + this.#rollValue) - 1].getLine())
         this.#numberPiles++;
         this.#numberClicked = 0;
+
+        //check if all the chips are selected to move to next gamestate
         if (this.#numberPiles == Math.floor(this.#currTotal / this.#rollValue)) {
             for (let i = temp; i < this.#currTotal; i++) {
                 this.#coins[i].setInteractive(0);
             }
-            document.getElementById("pilesQuestion").hidden = false;
-            document.getElementById("pilesMake").hidden = true;
+            document.getElementById("makeButtons").hidden = true;
+            document.getElementById("questionInputGroup").hidden = false;
+            document.getElementById("questionText").innerHTML = "How many groups <strong>" + this.#rollValue + "</strong> of did you create? ";
             document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Answer";
-            document.getElementById("pilesInput").focus();
+            document.getElementById("questionInput").focus();
         }
         else {
-            document.getElementById("mainPrompt").textContent = "Good Job! Create Another Pile";
+            document.getElementById("mainPrompt").textContent = "Good Job! Create Another Group";
         }
     }
-    auto() {
+    #auto() {
         if (this.#currTotal < this.#rollValue) {
-            document.getElementById("pilesMake").hidden = true;
-            document.getElementById("pilesQuestion").hidden = false;
+            document.getElementById("makeButtons").hidden = true;
+            document.getElementById("questionInputGroup").hidden = false;
+            document.getElementById("questionText").innerHTML = "How many groups of <strong>" + this.#rollValue +
+                "</strong> did you create?";
             document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Answer";
-            document.getElementById("pilesInput").focus();
+            document.getElementById("questionInput").focus();
         }
         let totalPiles = Math.floor(this.#currTotal / this.#rollValue);
         while (this.#numberPiles != totalPiles) {
-            this.#createPile();
+            this.#createGroup();
         }
 
     }
@@ -411,7 +429,7 @@ class Dice27 {
             this.#app.getApp().stage.removeChild(this.#lines[i].getLine());
         }
     }
-    resetGame() {
+    #resetGame() {
         this.#currTotal = baseTotal;
         this.#scoreboard[0] = 0;
         this.#scoreboard[1] = 0;
@@ -542,20 +560,4 @@ const screen = new ScreenManagement();
 
 function reset() {
     game.resetGame();
-}
-
-function pileCountCheck() {
-    game.checkPileAnswer();
-}
-
-function createPile() {
-    game.checkPile();
-}
-
-function autoComplete() {
-    game.auto();
-}
-
-function remainderCheck() {
-    game.checkRemainderAnswer();
 }

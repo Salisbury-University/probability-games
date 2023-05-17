@@ -86,14 +86,12 @@
 
       <div class="row">
         <div class="col-sm-5 mx-auto">
-          <div>Number of Games:</div>
-          <input type="text" class="form-control" id="userInput" placeholder="Number of Games" required>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-5 mx-auto">
-          <button type="button" class="btn btn-success" onclick="simulate()">Submit</button>
-          <button type="button" class="btn btn-danger" onclick="reset()">Reset</button>
+          <div class="input-group mb-3">
+            <label class="input-group-text" for="inputGroupSelect01">Number of Games</label>
+            <input type="text" class="form-control" id="userInput" placeholder="Enter" required>
+            <button type="button" class="btn btn-success" onclick="simulate()">Submit</button>
+            <button type="button" class="btn btn-danger" onclick="reset()">Reset</button>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -237,11 +235,6 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>Volume:</p>
-          <p>
-            <input type="range" id="volume-control" value="100" />
-          </p>
-          <hr class="featurette-divider" />
           <div class="row text-align">
             <div class="col-3">
               <p>Light Theme</p>

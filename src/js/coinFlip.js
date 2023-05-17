@@ -181,7 +181,7 @@ class CoinGame {
 
 		document.getElementById("singleFlip").disabled = true;
 		document.getElementById("multiFlip").disabled = true;
-		this.#playAudio(AUDIO_FLIP);
+		AUDIO_FLIP.play();
 		let ticks = 0;
 
 		let flipValue = 0;
@@ -214,7 +214,7 @@ class CoinGame {
 	}
 	#guess(check) {
 		if (check == 0 && this.#probabliity[0] != 50) {//weighted
-			this.#playAudio(AUDIO_CORRECT);
+			AUDIO_CORRECT.play();
 			document.getElementById("prompt").innerHTML = "Correct the coin is weighted.";
 			document.getElementById("guessButtons").hidden = true;
 			document.getElementById("guessWeight").hidden = false;
@@ -223,25 +223,25 @@ class CoinGame {
 
 		}
 		else if (check == 1 && this.#probabliity[0] == 50) {
-			this.#playAudio(AUDIO_CORRECT);
+			AUDIO_CORRECT.play();
 			document.getElementById("prompt").innerHTML = "Correct the coin is not weighted.";
 			document.getElementById("guessButtons").hidden = true;
 			this.#reset();
 		}
 		else {
-			this.#playAudio(AUDIO_WRONG);
-			document.getElementById("prompt").innerHTML = "Try Again";
+			AUDIO_WRONG.play();
+			document.getElementById("prompt").innerHTML = "Try again, is the coin weighted?";
 		}
 	}
 	#guessWeight() {
 		let guess = document.getElementById("weightSelect").value;
 		console.log(guess);
 		if (isNaN(guess)) {
-			this.#playAudio(AUDIO_WRONG);
+			AUDIO_WRONG.play();
 			document.getElementById("prompt").innerHTML = "Please select an option from the dropdown.";
 		}
 		else if (guess == this.#probabliity[0]) {
-			this.#playAudio(AUDIO_CORRECT);
+			AUDIO_CORRECT.play();
 			document.getElementById("prompt").innerHTML = "Correct the weight is " + (this.#probabliity[0]) + "% Heads and " + (this.#probabliity[1]) + "% Tails";
 			document.getElementById("guessWeight").hidden = true;
 			document.getElementById("singleFlip").disabled = false;
@@ -250,49 +250,41 @@ class CoinGame {
 			this.#reset();
 		}
 		else {
-			this.#playAudio(AUDIO_WRONG);
-			document.getElementById("prompt").innerHTML = "Try Again.";
+			AUDIO_WRONG.play();
+			document.getElementById("prompt").innerHTML = "Try again, what is the weight of the coin?";
 		}
 
 
 	}
 }
 
-class ScreenManagement {
-	#color;
-
-	constructor() {
-		this.#color = document.getElementById("themeTypeSwitch");
-
-		let theme = sessionStorage.getItem("theme");
-		if (theme == "dark") {
-			document.getElementById("themeTypeSwitch").checked = true;
-			this.#changeColor();
-		}
-
-		this.#setup();
-	}
-	#setup() {
-		this.#color.addEventListener('click', () => {
-			this.#changeColor();
-		});
-	}
-	#changeColor() {
-		let text = document.querySelectorAll(".text");
-		if (this.#color.checked) {//dark mode
-			document.body.style.backgroundColor = "#262626";
-			for (let i = 0; i < text.length; i++) {
-				text[i].style.color = 'white';
-			}
-		} else {//light mode
-			document.body.style.backgroundColor = "#ffffff";
-			for (let i = 0; i < text.length; i++) {
-				text[i].style.color = 'black';
-			}
-		}
-	}
-}
+function changeTheme() {
+    if (document.getElementById("themeTypeSwitch").checked) {
+      console.log("Checked");
+      changeDarkTheme();
+    } else {
+      console.log("Not Checked");
+      changeLightTheme();
+    }
+  }
+  
+  function changeDarkTheme() {
+    document.body.style.backgroundColor = "#313b4b";
+    document.getElementById("title").style.color = "white";
+    document.getElementById("single").style.color = "white";
+    document.getElementById("multi").style.color = "white";
+    document.getElementById("prompt").style.color = "white";
+	document.getElementById("coinChange").style.color = "white";
+  }
+  
+  function changeLightTheme() {  
+    document.body.style.backgroundColor = "white";
+    document.getElementById("title").style.color = "black";
+    document.getElementById("single").style.color = "black";
+    document.getElementById("multi").style.color = "black";
+    document.getElementById("prompt").style.color = "black";
+	document.getElementById("coinChange").style.color = "black";
+  }
 
 
 const game = new CoinGame();
-const screens = new ScreenManagement();

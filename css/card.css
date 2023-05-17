@@ -1,15 +1,11 @@
-.main-container {
-  zoom: 100%;
-}
-
 .card-blue {
   color: #177e89;
   font-size: 2em;
 }
 
 .sim-logs {
-  max-height: 22.5em;
-  height: 22.5em;
+  max-height: 25em;
+  height: 25em;
   overflow-y: scroll;
 }
 
@@ -25,11 +21,7 @@
 
 .tutorial-gif {
   max-height: 350px;
-}
-
-.instruction-modal {
-  position: relative;
-  top: 10%;
+  max-width: 700px;
 }
 
 .dist-dropdown {
@@ -60,4 +52,6 @@
   max-width: 27%;
 }
 
-/* # is for ids*/
+.win-table-heading {
+  font-size: 2em;
+}
