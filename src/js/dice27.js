@@ -197,13 +197,13 @@ class Dice27 {
         resetButton.addEventListener('click', () => {
             this.#resetGame();
         });
-        questionInput.addEventListener('keypress', function (key) {
+        /*questionInput.addEventListener('keypress', function (key) {
             if (key.key == "Enter") {
-                this.answerQuestion();
+                this.#answerQuestion();
             }
-        });
+        });*/
         questionSubmit.addEventListener('click', () => {
-            this.answerQuestion();
+            this.#answerQuestion();
         });
         makeAuto.addEventListener('click', () => {
             this.#auto();
@@ -269,7 +269,7 @@ class Dice27 {
                 document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Answer";
                 document.getElementById("questionCard").hidden = false;
                 document.getElementById("questionText").innerHTML = "Create groups of <strong>" + this.#rollValue +
-                    "</strong> by selecting the chips above.";
+                    "</strong> by selecting the chips above. Press submit once a group is made.";
                 document.getElementById("makeButtons").hidden = false;
 
                 //set the gamestate to pile creation state and make coins interactive
@@ -283,25 +283,7 @@ class Dice27 {
         });
         this.#numberRolls++;
     }
-    /*
-    checkPile() {
-        if (this.#currTotal < this.#rollValue) {
-            document.getElementById("pilesMake").hidden = true;
-            document.getElementById("pilesQuestion").hidden = false;
-            document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Answer";
-            document.getElementById("pilesInput").focus();
-        }
-        else if (this.#numberClicked == this.#rollValue) {
-            this.#playAudio(AUDIO_CORRECT);
-            this.#createGroup();
-        }
-        else {
-            this.#playAudio(AUDIO_WRONG);
-            document.getElementById("mainPrompt").textContent = "Try again";
-        }
-    }*/
-
-    answerQuestion() {
+    #answerQuestion() {
         if (questionInput.getAttribute("data-value") == 0) {
             this.#numberPilesQuestion();
         }
@@ -326,7 +308,6 @@ class Dice27 {
     #numberRemainingQuestion() {
         let userInput = document.getElementById("questionInput").value;
         let remainder = this.#currTotal % this.#rollValue;
-        console.log("fuck");
         if (userInput == remainder) {
             this.#playAudio(AUDIO_CORRECT);
             if (remainder > 0) {
@@ -337,12 +318,12 @@ class Dice27 {
                     document.getElementById("questionCard").hidden = true;
                     document.getElementById("questionText").innerHTML = "How many groups <strong>" + this.#rollValue + "</strong> of did you create? ";
                     document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Remove you Chips";
-                    document.getElementById("questionInput").setAttribute("data-value", 0);
                 }
             }
             else {
                 this.#swapPlayer();
             }
+            document.getElementById("questionInput").setAttribute("data-value", 0);
             document.getElementById("questionInputGroup").hidden = true;
             this.#stats[this.#currTotal]++;
         }
