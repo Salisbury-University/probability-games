@@ -224,12 +224,15 @@ class Dice27 {
         this.#numberClicked = this.#numberClicked + num;
     }
     #createGame() {
+        document.getElementById("title").hidden = true;
         let dist = this.#window.getWindowWidth() * .025;
         let add = this.#window.getWindowWidth() * .036;
         let chipSize = this.#window.getWindowWidth() * .016;
         let yAxis = this.#window.getWindowHeight() * .07;
 
         //update the html elements of the the page
+
+        document.getElementById("title").hidden = true;
         document.getElementById("mainPrompt").textContent = "Player 1 Roll";
         document.getElementById("mainPrompt").style = "color:#dc143c;";
         this.#app.appendApp();
@@ -314,7 +317,6 @@ class Dice27 {
                 this.#gameState = 1;
                 for (let i = 0; i < remainder; i++) {
                     this.#coins[(this.#currTotal - i) - 1].setInteractive(1);
-                    document.getElementById("questionInput").value = "";
                     document.getElementById("questionCard").hidden = true;
                     document.getElementById("questionText").innerHTML = "How many groups <strong>" + this.#rollValue + "</strong> of did you create? ";
                     document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Remove you Chips";
@@ -323,6 +325,7 @@ class Dice27 {
             else {
                 this.#swapPlayer();
             }
+            document.getElementById("questionInput").value = "";
             document.getElementById("questionInput").setAttribute("data-value", 0);
             document.getElementById("questionInputGroup").hidden = true;
             this.#stats[this.#currTotal]++;
