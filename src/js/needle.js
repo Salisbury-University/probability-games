@@ -130,7 +130,7 @@ for (let i = 0; i < amountLines + 1; i++) {
 }
 labelD = new PIXI.Text('  d', styled);
 labelD.x = windowWidth * .91;
-labelD.y = lines[0] - (lineSpace * .1);
+labelD.y = lines[0] - (lineSpace * .15);
 app.stage.addChild(labelD);
 //creates the labels
 //for (let j = 0; j < amountLines + 1; j++) {
@@ -175,7 +175,7 @@ function changeDarkTheme() {
   labelD.destroy();
   labelD = new PIXI.Text('  d', styled);
   labelD.x = windowWidth * .91;
-  labelD.y = lines[0];
+  labelD.y = lines[0]- (lineSpace * .5);
   app.stage.addChild(labelD);
 
   //creates the labels
