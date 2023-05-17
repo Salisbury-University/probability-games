@@ -21,9 +21,7 @@
 
 .tutorial-gif {
   max-height: 350px;
-}
-
-.instruction-modal {
+  max-width: 700px;
 }
 
 .dist-dropdown {
