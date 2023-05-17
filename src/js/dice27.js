@@ -210,7 +210,12 @@ class Dice27 {
         });
         makeSubmit.addEventListener('click', () => {
             if (this.#numberClicked == this.#rollValue) {
+                this.#playAudio(AUDIO_CORRECT);
                 this.#createGroup();
+            }
+            else {
+                this.#playAudio(AUDIO_WRONG);
+                document.getElementById("mainPrompt").textContent = "You did not select a group of " + this.#rollValue + ". Try Again";
             }
         });
     }
@@ -302,6 +307,7 @@ class Dice27 {
             document.getElementById("questionInput").focus();
             document.getElementById("questionText").innerHTML = "How many chips are remaining?";
             document.getElementById("questionInput").setAttribute("data-value", 1);
+            document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Answer";
         }
         else {
             document.getElementById("questionInput").click();
@@ -319,7 +325,7 @@ class Dice27 {
                     this.#coins[(this.#currTotal - i) - 1].setInteractive(1);
                     document.getElementById("questionCard").hidden = true;
                     document.getElementById("questionText").innerHTML = "How many groups <strong>" + this.#rollValue + "</strong> of did you create? ";
-                    document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Remove you Chips";
+                    document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Remove your Chips";
                 }
             }
             else {
