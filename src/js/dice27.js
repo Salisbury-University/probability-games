@@ -196,30 +196,22 @@ class Dice27 {
         });
         resetButton.addEventListener('click', () => {
             this.#resetGame();
-        });
+        });/*
         questionInput.addEventListener('keypress', function (key) {
             if (key.key == "Enter") {
-                if (questionInput.getAttribute("data-value") == 0) {
 
-                }
-                else {
-
-                }
             }
-        });
+        });*/
         questionSubmit.addEventListener('click', () => {
-            if (questionInput.getAttribute("data-value") == 0) {
-
-            }
-            else {
-
-            }
+            this.#answerQuestion();
         });
         makeAuto.addEventListener('click', () => {
             this.#auto();
         });
         makeSubmit.addEventListener('click', () => {
-            this.#createGroup();
+            if (this.#numberClicked == this.#rollValue) {
+                this.#createGroup();
+            }
         });
     }
     getApp() {
@@ -308,35 +300,45 @@ class Dice27 {
             document.getElementById("mainPrompt").textContent = "Try again";
         }
     }*/
-    checkPileAnswer() {
-        let userInput = document.getElementById("pilesInput").value;
-        if (userInput == this.#numberPiles) {
-            this.#playAudio(AUDIO_CORRECT);
-            document.getElementById("pilesQuestion").hidden = true;
-            document.getElementById("remainderQuestion").hidden = false;
-            document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Answer";
-            document.getElementById("remainderInput").focus();
-            document.getElementById("pilesInput").value = "";
+
+    #answerQuestion() {
+        if (questionInput.getAttribute("data-value") == 0) {
+            this.#numberPilesQuestion();
         }
         else {
-            this.#playAudio(AUDIO_WRONG);
-            document.getElementById("pilesInput").click();
+            this.#numberRemainingQuestion();
+        }
+    }
+    #numberPilesQuestion() {
+        let userInput = document.getElementById("questionInput").value;
+        if (userInput == this.#numberPiles) {
+            this.#playAudio(AUDIO_CORRECT);
+            document.getElementById("questionInput").value = "";
+            document.getElementById("questionInput").focus();
+            document.getElementById("questionText").innerHTML = "How many chips are remaining?";
+            document.getElementById("questionInput").setAttribute("data-value", 1);
+        }
+        else {
+            document.getElementById("questionInput").click();
             document.getElementById("mainPrompt").textContent = "Try again. Enter the correct number.";
         }
     }
-    checkRemainderAnswer() {
-        let userInput = document.getElementById("remainderInput").value;
+    #numberRemainingQuestion() {
+        let userInput = document.getElementById("questionInput").value;
         let remainder = this.#currTotal % this.#rollValue;
+        console.log("fuck");
         if (userInput == remainder) {
             this.#playAudio(AUDIO_CORRECT);
             if (remainder > 0) {
                 this.#gameState = 1;
                 for (let i = 0; i < remainder; i++) {
                     this.#coins[(this.#currTotal - i) - 1].setInteractive(1);
-                    document.getElementById("remainderQuestion").hidden = true;
-                    document.getElementById("remainderInput").value = "";
+                    document.getElementById("questionInput").value = "";
                     document.getElementById("questionCard").hidden = true;
+                    document.getElementById("questionText").innerHTML = "How many groups <strong>" + this.#rollValue + "</strong> of did you create? ";
                     document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Remove you Chips";
+                    document.getElementById("questionInput").setAttribute("data-value", 0);
+                    document.getElementById("questionInputGroup").hidden = true;
                 }
             }
             else {
@@ -346,9 +348,10 @@ class Dice27 {
         }
         else {
             this.#playAudio(AUDIO_WRONG);
-            document.getElementById("remainderInput").click();
+            document.getElementById("questionInput").click();
             document.getElementById("mainPrompt").textContent = "Try again. Enter the correct number.";
         }
+
     }
     updateScore() {
         this.#currTotal--;
@@ -386,8 +389,6 @@ class Dice27 {
         this.#numberPiles = 0;
         this.#resetTint();
         this.#removeLines();
-        document.getElementById("remainderQuestion").hidden = true;
-        document.getElementById("remainderInput").value = "";
         document.getElementById("questionCard").hidden = true;
         document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Roll";
         document.getElementById("rollButton").hidden = false;
