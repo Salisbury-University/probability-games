@@ -111,11 +111,7 @@
                     can begin simulating runs.
                   </p>
                   <div class="text-center">
-                    <img
-                      class="tutorial-gif"
-                      src="../images/simCards.png"
-                      style="max-width: 700px"
-                    />
+                    <img class="tutorial-gif" src="../images/simCards.png" />
                   </div>
                   <ul>
                     <li>
@@ -531,9 +527,11 @@
             </button>
           </div>
           <div class="text-center">
-            <p id="infoText">
-              Finish placing all 10 chips to run a simulation.
-            </p>
+            <b>
+              <p id="infoText">
+                Finish placing all 10 chips to run a simulation.
+              </p></b
+            >
           </div>
         </div>
 
@@ -541,13 +539,14 @@
         <div class="col mx-2 p-2 border rounded mid-col">
           <div class="text-center">
             <h5 class="themeable" id="tableTitle">
-              Recent Simulations Roll Data
+              Simulations Roll Statistics
             </h5>
           </div>
           <div class="sim-logs mb-2">
             <table class="table" id="rollDataTable">
               <thead>
                 <tr>
+                  <th class="themeable" scope="col">Sim No.</th>
                   <th class="themeable" scope="col">Min</th>
                   <th class="themeable" scope="col">Max</th>
                   <th class="themeable" scope="col">Mean</th>
@@ -565,7 +564,7 @@
         <div class="col mx-2 border rounded side-col">
           <div class="text-center">
             <div class="p-2">
-              <h5 class="themeable">Simulation histogram</h5>
+              <h5 class="themeable">Average Rolls per Simulation</h5>
             </div>
             <p>
               <svg width="500" height="300" id="histogram"></svg>

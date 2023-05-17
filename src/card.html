@@ -191,8 +191,7 @@
                   data-bs-target="#list-instructions"
                   data-bs-offset="0"
                   tabindex="0"
-                  class="col"
-                  style="height: 34em; overflow-y: scroll"
+                  class="col help-modal"
                 >
                   <h4 id="list-item-1">Game Setup</h4>
                   <ul>
@@ -217,10 +216,7 @@
                   </p>
 
                   <div class="text-center">
-                    <img
-                      src="../gifs/clickToPlace.gif"
-                      style="max-height: 350px"
-                    />
+                    <img class="tutorial-gif" src="../gifs/clickToPlace.gif" />
                   </div>
                   <h4 id="list-item-3">Rolling the Dice</h4>
                   <p>
@@ -237,10 +233,7 @@
                     be removed from it.
                   </p>
                   <div class="text-center">
-                    <img
-                      src="../gifs/clickToRemove.gif"
-                      style="max-height: 350px"
-                    />
+                    <img class="tutorial-gif" src="../gifs/clickToRemove.gif" />
                   </div>
                   <h4 id="list-item-4">Winning the Game</h4>
                   <p>
@@ -251,7 +244,7 @@
                   </p>
 
                   <div class="text-center">
-                    <img src="../gifs/winGame.gif" style="max-height: 350px" />
+                    <img class="tutorial-gif" src="../gifs/winGame.gif" />
                   </div>
                 </div>
               </div>
@@ -273,14 +266,10 @@
     <!-- header -->
 
     <header>
-      <nav
-        class="navbar navbar-expand-md navbar-dark bg-dark"
-        id="navbar"
-        style="z-index: 25"
-      >
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar">
         <div class="container-fluid">
-          <a class="navbar-brand" href="home.html" style="color: white"
-            ><img src="../images/logo.png" alt="logo" style="max-height: 35px"
+          <a class="navbar-brand" href="home.html"
+            ><img class="logo" src="../images/logo.png" alt="logo"
           /></a>
           <button
             class="navbar-toggler"
@@ -396,14 +385,10 @@
                   data-bs-toggle="modal"
                   data-bs-target="#settingsModal"
                 >
-                  <img
-                    src="../images/setting.png"
-                    style="max-height: 22px; vertical-align: middle"
-                  />
+                  <img class="imgs-icon" src="../images/setting.png" />
                 </button>
               </div>
             </div>
-            <!-- settings button -->
           </div>
         </div>
       </nav>
@@ -418,7 +403,7 @@
       </div>
 
       <!-- should be hidden -->
-      <span id="border" hidden hidden>
+      <span id="border" hidden>
         <h1 class="mb-2 p-3 text-center display-3 themeable" id="win-header">
           Player _ Won in _ rolls!
         </h1>
@@ -426,42 +411,20 @@
           <table class="table table-hover table-sm" id="table1">
             <thead>
               <tr>
-                <th scope="col" class="themeable" style="font-size: 2em">
+                <th scope="col" class="themeable win-table-heading">
                   Player #
                 </th>
-                <th scope="col" class="themeable" style="font-size: 2em">
-                  Card 2
-                </th>
-                <th scope="col" class="themeable" style="font-size: 2em">
-                  Card 3
-                </th>
-                <th scope="col" class="themeable" style="font-size: 2em">
-                  Card 4
-                </th>
-                <th scope="col" class="themeable" style="font-size: 2em">
-                  Card 5
-                </th>
-                <th scope="col" class="themeable" style="font-size: 2em">
-                  Card 6
-                </th>
-                <th scope="col" class="themeable" style="font-size: 2em">
-                  Card 7
-                </th>
-                <th scope="col" class="themeable" style="font-size: 2em">
-                  Card 8
-                </th>
-                <th scope="col" class="themeable" style="font-size: 2em">
-                  Card 9
-                </th>
-                <th scope="col" class="themeable" style="font-size: 2em">
-                  Card 10
-                </th>
-                <th scope="col" class="themeable" style="font-size: 2em">
-                  Card 11
-                </th>
-                <th scope="col" class="themeable" style="font-size: 2em">
-                  Card 12
-                </th>
+                <th scope="col" class="themeable win-table-heading">Card 2</th>
+                <th scope="col" class="themeable win-table-heading">Card 3</th>
+                <th scope="col" class="themeable win-table-heading">Card 4</th>
+                <th scope="col" class="themeable win-table-heading">Card 5</th>
+                <th scope="col" class="themeable win-table-heading">Card 6</th>
+                <th scope="col" class="themeable win-table-heading">Card 7</th>
+                <th scope="col" class="themeable win-table-heading">Card 8</th>
+                <th scope="col" class="themeable win-table-heading">Card 9</th>
+                <th scope="col" class="themeable win-table-heading">Card 10</th>
+                <th scope="col" class="themeable win-table-heading">Card 11</th>
+                <th scope="col" class="themeable win-table-heading">Card 12</th>
               </tr>
             </thead>
             <tbody>

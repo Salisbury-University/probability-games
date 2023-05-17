@@ -433,9 +433,9 @@ function updateLogs(min, max, avg, tot) {
   }
 
   // content to add
-  let newRowContent = `<td class="table-cell themeable">${
-    gameLog[lastIdx][0]
-  }</td>\n
+  let newRowContent = `
+      <td class="table-cell themeable">${barCount + 1}</td>\n
+      <td class="table-cell themeable">${gameLog[lastIdx][0]}</td>\n
       <td class="table-cell themeable">${gameLog[lastIdx][1]}</td>\n
       <td class="table-cell themeable">${gameLog[lastIdx][2]}</td>\n
       <td class="table-cell themeable">${gameLog[lastIdx][3]}</td>\n
@@ -447,7 +447,8 @@ function updateLogs(min, max, avg, tot) {
     .getElementById("rollDataTable")
     .getElementsByTagName("tbody")[0];
 
-  let newRow = tableRef.insertRow(0);
+  // 0 index is front, -1 is end
+  let newRow = tableRef.insertRow(-1);
   newRow.innerHTML = newRowContent;
 
   if (document.getElementById("themeTypeSwitch").checked) {
