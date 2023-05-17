@@ -17,24 +17,7 @@
 	<link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png" />
 	<link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png" />
 	<link rel="manifest" href="../images/site.webmanifest" />
-	<style>
-		table {
-			font-family: arial, sans-serif;
-			border-collapse: collapse;
-			width: 100%;
-		}
-
-		td,
-		th {
-			border: 1px solid #dddddd;
-			text-align: left;
-			padding: 8px;
-		}
-
-		tr:nth-child(even) {
-			background-color: #dddddd;
-		}
-	</style>
+	
 </head>
 
 <body>
@@ -148,10 +131,10 @@
 							<div class="btn-group me-2" role="group" aria-label="Second group">
 								<input type="radio" class="btn-check" name="btnradio" id="singular" autocomplete="off"
 									checked>
-								<label class="btn btn-outline-primary btn-sm" for="singular">Clear Everytime</label>
+								<label class="btn btn-outline-primary btn-sm" for="singular">Clear Screen Everytime</label>
 								<input type="radio" class="btn-check" name="btnradio" id="cumulative"
 									autocomplete="off">
-								<label class="btn btn-outline-primary btn-sm" for="cumulative">Don't clear
+								<label class="btn btn-outline-primary btn-sm" for="cumulative">Don't Clear
 									Screen</label>
 							</div>
 						</div>
@@ -181,7 +164,7 @@
 					<div class="row" style="margin-bottom: 5px;">
 						<div class="col-8 offset-4">
 							<input class="form-control" type="number" id="amountOfNeedles"
-								placeholder="# Needles to Drop" min="0" value="10">
+								placeholder="# Needles to Drop" min="0">
 						</div>
 					</div>
 					<!-- bottom row (drop needles and clear screen)-->
@@ -246,15 +229,15 @@
 							<td class="needLength"></td>
 						</tr>
 						<tr>
-							<td>d = distance between Lines</td>
+							<td><i>d</i> = distance between Lines</td>
 							<td class="gridSpace"></td>
 						</tr>
 						<tr>
-							<td>h = needles that cross a grid line </td>
+							<td><i>h</i> = number of needles that cross a grid line </td>
 							<td class="needCross"></td>
 						</tr>
 						<tr>
-							<td>n = total number of needles dropped</td>
+							<td><i>n</i> = total number of needles dropped</td>
 							<td class="total"></td>
 						</tr>
 
@@ -272,11 +255,10 @@
 								<mfrac>
 									<mrow>
 										<mn>2</mn>
-										<mi>&#8467*n</mi>
+										<mi>&#8467*<i>n</i></mi>
 									</mrow>
 									<mrow>
-										<mi>d*h</mi>
-										<!--<mi>&#960;</mi>-->
+										<mi><i>d</i> *<i>h</i></mi>
 									</mrow>
 								</mfrac>
 							</mrow>
@@ -359,10 +341,14 @@
 					<ol>
 						<li>Enter How Many Needles To Drop</li>
 						<li>Press Enter or Click "Drop Needles" To Drop Needles</li>
-						<li>After You Dropped Enough Needles Click "Estimate Pi"</li>
-						<li>Follow The Provided Formula To Estimate Your Value of PI</li>
-						<li>See How Accurate You Were and Play Again!</li>
+						<li>After You Dropped Enough Needles Click "Explanation" to see how PI was estimated</li>
 					</ol>
+					<div class="text-center">
+						<img
+						  src="../gifs/Drop.gif"
+						  style="max-height: 350px"
+						/>
+					  </div>
 					<hr>
 					<h5> <b>Optional Settings </b></h5>
 
@@ -370,15 +356,33 @@
 						<li>Needle Length:</li>
 						<p>Needle Length is a percentage of the distance between grid lines. <br>
 							Automatically the Needle Length is 90% the distance between grid lines.</p>
+							<div class="text-center">
+								<img
+								  src="../gifs/NeedleLength.gif"
+								  style="max-height: 350px"
+								/>
+							  </div>
 						<li>Drop Type:</li>
 						<p>Drop Type Refers to what happens to the screen after you Click "Drop Needles". <br>
 							Singular Means each time you click "Drop Needles" The Previous Drop is Cleared <br>
 							Cumulative Means each time you click "Drop Needles" The Previous Drop is Added To</p>
+							<div class="text-center">
+								<img
+								  src="../gifs/clearScreen.gif"
+								  style="max-height: 350px"
+								/>
+							  </div>
 						<li>Number of Gird Lines</li>
 						<p>
 							This allows you to change the amount of grid lines that appear on the screen, there can be
 							between 2-9 grid lines.
 						</p>
+						<div class="text-center">
+							<img
+							  src="../gifs/GridLines.gif"
+							  style="max-height: 350px"
+							/>
+						  </div>
 					</ol>
 				</div>
 				<div class="modal-footer">
