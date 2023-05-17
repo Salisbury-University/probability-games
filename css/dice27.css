@@ -9,18 +9,13 @@
     background-color: #8064A2 !important;
 }
 
-#scroll {
-    height: 40em;
-    overflow-y: scroll;
-}
+
 
 #rollButton {
     text-align: center;
 }
 
-.gif {
-    max-height: 350px;
-}
+
 
 #questionCard {
     margin-left: 20%;
