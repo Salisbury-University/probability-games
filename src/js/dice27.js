@@ -196,14 +196,14 @@ class Dice27 {
         });
         resetButton.addEventListener('click', () => {
             this.#resetGame();
-        });/*
+        });
         questionInput.addEventListener('keypress', function (key) {
             if (key.key == "Enter") {
-
+                this.answerQuestion();
             }
-        });*/
+        });
         questionSubmit.addEventListener('click', () => {
-            this.#answerQuestion();
+            this.answerQuestion();
         });
         makeAuto.addEventListener('click', () => {
             this.#auto();
@@ -301,7 +301,7 @@ class Dice27 {
         }
     }*/
 
-    #answerQuestion() {
+    answerQuestion() {
         if (questionInput.getAttribute("data-value") == 0) {
             this.#numberPilesQuestion();
         }
@@ -338,12 +338,12 @@ class Dice27 {
                     document.getElementById("questionText").innerHTML = "How many groups <strong>" + this.#rollValue + "</strong> of did you create? ";
                     document.getElementById("mainPrompt").textContent = "Player " + (this.#turn + 1) + " Remove you Chips";
                     document.getElementById("questionInput").setAttribute("data-value", 0);
-                    document.getElementById("questionInputGroup").hidden = true;
                 }
             }
             else {
                 this.#swapPlayer();
             }
+            document.getElementById("questionInputGroup").hidden = true;
             this.#stats[this.#currTotal]++;
         }
         else {
