@@ -134,6 +134,14 @@ function stepOne(doorChose) {
 
     document.getElementById("door" + doorChose).style.boxShadow = "0 0 100px greenyellow";
 
+    if (trashName == "Trash Bags") {
+        trashName = "Trash Bag";
+    } else if (trashName == "Chores") {
+        trashName = "Chore";
+    } else if (trashName == "vegetables") {
+        trashName = "Vegetable";
+    }
+
     //please click door when goat is located
     document.getElementById("titleSentence").innerHTML = " You chose Door " + (globalDoorChose + 1) + " <br>One " + trashName + " is located at Door " + (revealGoat + 1) + "!"
     document.getElementById("firstSentenceID").innerHTML = "<b>Click on Door " + (revealGoat + 1) + ".</b>";
