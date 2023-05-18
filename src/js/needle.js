@@ -24,7 +24,6 @@ bg1.drawRect(windowWidth * .9, 0, app.view.width, app.view.height); // Top half 
 bg1.endFill();
 bgContainer.addChild(bg1);
 
-
 let labelColor = '#000000';
 
 let style = new PIXI.TextStyle({
@@ -86,10 +85,10 @@ window.onload = function () {
   document.getElementsByClassName("needLength")[1].innerHTML = Math.round(needleLength * 10) / 10; //the  units is pixels
   document.getElementsByClassName("gridSpace")[0].innerHTML = Math.round(lineSpace * 10) / 10 + " Units";
   document.getElementsByClassName("gridSpace")[1].innerHTML = Math.round(lineSpace * 10) / 10;
-  document.getElementsByClassName("needCross")[0].innerHTML = "# of Needles that Cross a Line(Green): 0";
+  document.getElementsByClassName("needCross")[0].innerHTML = "# of Needles Crossing a Line(Green): 0";
   document.getElementsByClassName("needCross")[1].innerHTML = 0;
   document.getElementsByClassName("needCross")[2].innerHTML = 0;
-  document.getElementById("needleDontCross").innerHTML = "# of Needles that Don't Cross a Line(Purple): 0";
+  document.getElementById("needleDontCross").innerHTML = "# of Needles Not Crossing a Line(Purple): 0";
   document.getElementsByClassName("total")[0].innerHTML = "Total # of Needles Dropped: 0";
   document.getElementsByClassName("total")[1].innerHTML = 0;
   document.getElementsByClassName("total")[2].innerHTML = 0;
