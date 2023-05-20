@@ -94,15 +94,15 @@
 
       <div class="row">
         <div class="col">
-          <div id="playerCard1" class="card border-0">
+          <div id="playerCard1" class="card border-0 gameCard">
             <div class="player">Player 1</div>
             <div class="score" id="player0"></div>
           </div>
         </div>
         <div class="col">
-          <div id="questionCard" class="card" hidden>
+          <div id="questionCard" class="card gameCard" hidden>
             <div class="card-body">
-              <div id="questionText"></div>
+              <div id="questionText" class="text"></div>
               <div id="questionInputGroup" class="input-group mb-3" hidden>
                 <input id="questionInput" type="text" class="form-control" placeholder="Enter" data-value="0" required>
                 <button id="questionSubmit" type="button" class="btn btn-success">Submit</button>
@@ -115,7 +115,7 @@
           </div>
         </div>
         <div class="col">
-          <div id="playerCard2" class="card border-0">
+          <div id="playerCard2" class="card border-0 gameCard">
             <div class="player">Player 2</div>
             <div class="score" id="player1"></div>
           </div>
@@ -148,8 +148,8 @@
 
   <!-- How to Play Modal -->
   <div class="modal fade" id="howToPlay" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-      <div class="modal-content">
+    <div class="modal-dialog modal-xl ">
+      <div class="modal-content text menu">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="instructionsModalLabel">
             How to Play
@@ -209,7 +209,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
             Close
           </button>
         </div>
@@ -217,9 +217,9 @@
     </div>
   </div>
   <!-- Settings Modal -->
-  <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
+  <div class="modal fade " id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg ">
+      <div class="modal-content text menu">
         <div class="modal-header">
           <h1 class="modal-title fs-5">Settings</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -246,7 +246,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
             Close
           </button>
         </div>
