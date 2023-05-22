@@ -29,7 +29,7 @@ let labelColor = '#000000';
 let style = new PIXI.TextStyle({
   fontFamily: 'Arial',
   fontSize: lineSpace,
-  fill: labelColor, 
+  fill: labelColor,
 });
 
 let basicText = new PIXI.Text();
@@ -73,7 +73,11 @@ needleDropSound.volume = 0.5;
 
 window.onload = function () {
   let volume = document.getElementById("volume-control");
-  changeLightTheme(); //also calls light theme
+  let theme = sessionStorage.getItem("theme");
+  if (theme == "dark") {
+    document.getElementById("themeTypeSwitch").checked = true;
+    changeDarkTheme();
+  }
   volume.addEventListener("input", function (e) {
     needleDropSound.volume = e.currentTarget.value / 100;
   });
@@ -129,9 +133,6 @@ basicText.y = lines[0] - 10;
 app.stage.addChild(basicText);
 basicTextArray.push(basicText);
 
-
-
-
 function changeTheme() {
   if (document.getElementById("themeTypeSwitch").checked) {
     changeDarkTheme();
@@ -158,7 +159,7 @@ function changeDarkTheme() {
   labelColor = '0xffffff';
 
   style.fill = 0xffffff;
-  
+
 
   //creates the labels
   style.fontSize = lineSpace;
@@ -168,6 +169,17 @@ function changeDarkTheme() {
   app.stage.addChild(basicText);
   basicTextArray.push(basicText);
 
+  let menu = document.querySelectorAll(".menu");
+  let text = document.querySelectorAll(".text");
+
+  for (let i = 0; i < text.length; i++) {
+    text[i].style.color = 'white';
+  }
+  for (let i = 0; i < menu.length; i++) {
+    menu[i].style.backgroundColor = "#343a40";
+  }
+
+  sessionStorage.setItem("theme", "dark");
 }
 
 function changeLightTheme() {
@@ -199,6 +211,18 @@ function changeLightTheme() {
   basicText.y = lines[0] - (lineSpace * .15);
   app.stage.addChild(basicText);
   basicTextArray.push(basicText);
+
+  let menu = document.querySelectorAll(".menu");
+  let text = document.querySelectorAll(".text");
+
+  for (let i = 0; i < text.length; i++) {
+    text[i].style.color = 'black';
+  }
+  for (let i = 0; i < menu.length; i++) {
+    menu[i].style.backgroundColor = "#ffffff";
+  }
+
+  sessionStorage.setItem("theme", "light");
 }
 
 function changeLines(num) {
@@ -241,7 +265,7 @@ function changeLines(num) {
 
     }
     //creates the labels
-    if(amountLines >= 3){
+    if (amountLines >= 3) {
       style.fontSize = lineSpace;
       basicText = new PIXI.Text('}d', style);
       basicText.x = windowWidth * .91;
@@ -249,8 +273,8 @@ function changeLines(num) {
       app.stage.addChild(basicText);
       basicTextArray.push(basicText);
     }
-    
-    
+
+
 
   }
 }
@@ -284,9 +308,9 @@ buttons[1].addEventListener("click", () => {
   document.getElementById("moreInfo").hidden = true;
   document.getElementById("stats").hidden = false;
   document.getElementById("topPageSection").hidden = false;
-
-
 });
+
+
 function needleXY() {
   let dropNeedles = document.getElementById("amountOfNeedles").value;
   if (dropNeedles > 50000) {
@@ -313,10 +337,10 @@ function needleXY() {
       //do-while loop that drops xCenter a clear distance away from the edge
       do {
         xCenter = Math.random() * windowWidth * .88;
-      } while (xCenter < needleLength || xCenter > windowWidth - needleLength);
+      } while (xCenter < needleLength || xCenter > (windowWidth * 0.88) - (needleLength / 2));
 
       let max = lines[lines.length - 1];
-      let min = lines[0]
+      let min = lines[0];
       yCenter = Math.floor(Math.random() * (max - min)) + min;
       needleDrop++;
 
@@ -462,3 +486,13 @@ document.getElementById("cumulative").addEventListener('click', () => {
     clearNeedles();
   }
 });
+
+let themeCheck = sessionStorage.getItem("theme");
+if (themeCheck == "dark") {
+  document.getElementById("themeTypeSwitch").checked = true;
+  changeDarkTheme();
+}
+
+class themeManagement {
+
+}
