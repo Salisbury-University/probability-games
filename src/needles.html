@@ -9,7 +9,7 @@
 
 	<!-- CSS -->
 	<link href="../css/bootstrap.min.css" rel="stylesheet" />
-	<link href="../css/needles.css" rel="stylesheet" />
+	<link href="../css/min/needles.min.css" rel="stylesheet" />
 	<link href="../css/siteWide.css" rel="stylesheet" />
 
 	<!-- favicon stuff -->
@@ -17,7 +17,7 @@
 	<link rel="icon" type="image/png" sizes="32x32" href="../images/favicon-32x32.png" />
 	<link rel="icon" type="image/png" sizes="16x16" href="../images/favicon-16x16.png" />
 	<link rel="manifest" href="../images/site.webmanifest" />
-	
+
 </head>
 
 <body>
@@ -25,8 +25,7 @@
 	<header>
 		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png" alt="logo"
-						style="max-height: 35px" /></a>
+				<a class="navbar-brand" href="home.html"><img id="logoNavbar" src="../images/logo.png" alt="logo" /></a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse">
 					<span class="navbar-toggler-icon"></span>
 				</button>
@@ -60,14 +59,14 @@
 								data-bs-target="#howToPlay">How to
 								Play</button>
 						</div>
+						<!-- settings button -->
 						<div class="btn-group me-2" role="group" aria-label="Third group">
 							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
 								data-bs-target="#settingsModal">
-								<img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
+								<img id="settingsIcon" src="../images/setting.png" />
 							</button>
 						</div>
 					</div>
-					<!-- settings button -->
 
 				</div>
 			</div>
@@ -76,12 +75,11 @@
 
 	<main>
 		<!-- this is the section where user clicks on needle amount to drop-->
-		<div class="container-fluid" id="topPageSection" style="background-color: #FFEDC9;">
+		<div class="container-fluid" id="topPageSection">
 			<!--Top Section of the Page-->
-			<div class="row text-center">
+			<div class=" row text-center">
 				<!--Left Section-->
-				<div id="optionalSettingsArea" class="col-3"
-					style="text-align: left;margin-left: 12%;margin-bottom: 10px;margin-top: 10px;">
+				<div id="optionalSettingsArea" class="col-3">
 					<div class="row">
 						<div class="btn-toolbar" role="toolbar" aria-label="Needle Length Group">
 							<div class="btn-group me-2" role="group" aria-label="First group">
@@ -131,7 +129,8 @@
 							<div class="btn-group me-2" role="group" aria-label="Second group">
 								<input type="radio" class="btn-check" name="btnradio" id="singular" autocomplete="off"
 									checked>
-								<label class="btn btn-outline-primary btn-sm" for="singular">Clear Screen Everytime</label>
+								<label class="btn btn-outline-primary btn-sm" for="singular">Clear Screen
+									Everytime</label>
 								<input type="radio" class="btn-check" name="btnradio" id="cumulative"
 									autocomplete="off">
 								<label class="btn btn-outline-primary btn-sm" for="cumulative">Don't Clear
@@ -158,10 +157,9 @@
 					<h1>Buffon's Needles </h1>
 				</div>
 				<!--Right Section-->
-				<div id="tutorialAmountNeedle" class="col-3"
-					style="text-align: right;margin-right: 12%;padding-bottom: 10px;padding-top: 10px;">
+				<div id="tutorialAmountNeedle" class="col-3">
 					<!-- top row (number of needles to drop)-->
-					<div class="row" style="margin-bottom: 5px;">
+					<div id="tutorialRow" class="row">
 						<div class="col-8 offset-4">
 							<input class="form-control" type="number" id="amountOfNeedles"
 								placeholder="# Needles to Drop" min="0">
@@ -190,8 +188,8 @@
 		</div>
 
 		<!--This is the stats area-->
-		<div class="container-fluid" id="topPageSection" style="background-color: #FFEDC9;">
-			<div class="row" style="text-align: center;">
+		<div class="container-fluid" id="topPageSection">
+			<div class="row text-center">
 				<!-- this section shows estimate pi button, continue button and stats header-->
 				<h1 id="statsH1"> Current Values <button class="btn btn-primary statsSection" id="guessPIButton">
 						Explanation</button>
@@ -333,73 +331,103 @@
 	</main>
 
 	<!-- How to Play Modal -->
-	<div class="modal fade modal-lg" id="howToPlay" tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content modal-lg">
+	<div class="modal fade" id="howToPlay" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog modal-xl ">
+			<div class="modal-content text menu">
 				<div class="modal-header">
-					<h1 class="modal-title fs-5">How to Play: Buffon's Needles</h1>
+					<h1 class="modal-title fs-5" id="instructionsModalLabel">
+						How to Play
+					</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<h5> <b> Required </b></h5>
-					<ol>
-						<li>Enter How Many Needles To Drop</li>
-						<li>Press Enter or Click "Drop Needles" To Drop Needles</li>
-						<li>After You Dropped Enough Needles Click "Explanation" to see how PI was estimated</li>
-					</ol>
-					<div class="text-center">
-						<img
-						  src="../gifs/Drop.gif"
-						  style="max-height: 350px"
-						/>
-					  </div>
-					<hr>
-					<h5> <b>Optional Settings </b></h5>
-
-					<ol>
-						<li>Needle Length:</li>
-						<p>Needle Length is a percentage of the distance between grid lines. <br>
-							Automatically the Needle Length is 90% the distance between grid lines.</p>
-							<div class="text-center">
-								<img
-								  src="../gifs/NeedleLength.gif"
-								  style="max-height: 350px"
-								/>
-							  </div>
-						<li>Drop Type:</li>
-						<p>Drop Type Refers to what happens to the screen after you Click "Drop Needles". <br>
-							Singular Means each time you click "Drop Needles" The Previous Drop is Cleared <br>
-							Cumulative Means each time you click "Drop Needles" The Previous Drop is Added To</p>
-							<div class="text-center">
-								<img
-								  src="../gifs/clearScreen.gif"
-								  style="max-height: 350px"
-								/>
-							  </div>
-						<li>Number of Gird Lines</li>
-						<p>
-							This allows you to change the amount of grid lines that appear on the screen, there can be
-							between 2-9 grid lines.
-						</p>
-						<div class="text-center">
-							<img
-							  src="../gifs/GridLines.gif"
-							  style="max-height: 350px"
-							/>
-						  </div>
-					</ol>
+					<div class="container-fluid m-2 p-2">
+						<div class="row">
+							<div id="list-instructions" class="list-group col-3">
+								<a class="list-group-item list-group-item-action" href="#list-item-1">Game
+									Information</a>
+								<a class="list-group-item list-group-item-action" href="#list-item-2">Drop Needles</a>
+								<a class="list-group-item list-group-item-action" href="#list-item-3">Needle Length</a>
+								<a class="list-group-item list-group-item-action" href="#list-item-4">Drop Type</a>
+								<a class="list-group-item list-group-item-action" href="#list-item-5">Number of Grid
+									Lines</a>
+								<a class="list-group-item list-group-item-action" href="#list-item-6">PI Estimation</a>
+							</div>
+							<div id="scroll" data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0"
+								tabindex="0" class="col">
+								<h4 id="list-item-1">Welcome to Buffons Needles!</h4>
+								<ul>
+									<p></p>
+								</ul>
+								<hr class="featurette-divider" />
+								<h4 id="list-item-2">Drop Needles</h4>
+								<ul>
+									<p>Users may enter the number of needles they would like to drop onto the board.
+										Once they have entered the desired number, they can click the "Drop Needles"
+									</p>
+								</ul>
+								<div class="text-center">
+									<img class="gif" src="../gifs/needlesDrop.gif" />
+								</div>
+								<hr class="featurette-divider" />
+								<h4 id="list-item-3">Needle Length</h4>
+								<ul>
+									<p>Needle Length is a percentage of the distance between grid lines. <br>
+										Automatically the Needle Length is 90% the distance between grid lines.</p>
+								</ul>
+								<div class="text-center">
+									<img class="gif" src="../gifs/needlesLength.gif" />
+								</div>
+								<hr class="featurette-divider" />
+								<h4 id="list-item-4">Drop Type</h4>
+								<uL>
+									<p>Drop Type Refers to what happens to the screen after you Click "Drop Needles".
+										<br>
+										Singular Means each time you click "Drop Needles" The Previous Drop is Cleared
+										<br>
+										Cumulative Means each time you click "Drop Needles" The Previous Drop is Added
+										To
+									</p>
+								</uL>
+								<div class="text-center">
+									<img class="gif" src="../gifs/needlesClear.gif" />
+								</div>
+								<hr class="featurette-divider" />
+								<h4 id="list-item-5">Number of Grid Lines</h4>
+								<uL>
+									<p>This allows you to change the amount of grid lines that appear on the screen,
+										there can be
+										between 2-9 grid lines.</p>
+								</uL>
+								<div class="text-center">
+									<img class="gif" src="../gifs/needlesLines.gif" />
+								</div>
+								<hr class="featurette-divider" />
+								<h4 id="list-item-6">PI Estimation</h4>
+								<ul>
+									<p>If the player wishes to skip the process of selecting groups of chips
+										individually, they may choose
+										to use the auto-select feature.</p>
+								</ul>
+								<div class="text-center">
+									<img class="gif" src="../gifs/needlesPI.gif" />
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+						Close
+					</button>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- Settings Modal -->
-	<div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-		aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
+	<div class="modal fade " id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content text menu">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">Settings</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -433,8 +461,7 @@
 
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save
-						changes</button>
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
@@ -442,7 +469,7 @@
 
 	<script src="js/bootstrap.bundle.min.js"></script>
 	<script src="js/pixi.min.js"></script>
-	<script src="js/needle.js"></script>
+	<script src="js/min/needles.min.js"></script>
 
 </body>
 
