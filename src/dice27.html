@@ -9,7 +9,7 @@
 
   <!-- CSS -->
   <link href="../css/bootstrap.min.css" rel="stylesheet" />
-  <link href="../css/dice27.css" rel="stylesheet" />
+  <link href="../css/min/dice27.min.css" rel="stylesheet" />
   <link href="../css/siteWide.css" rel="stylesheet" />
 
   <!-- favicon stuff -->
@@ -163,19 +163,25 @@
                 <a class="list-group-item list-group-item-action" href="#list-item-1">Game Information</a>
                 <a class="list-group-item list-group-item-action" href="#list-item-2">Roll Dice</a>
                 <a class="list-group-item list-group-item-action" href="#list-item-3">Select Chips</a>
-                <a class="list-group-item list-group-item-action" href="#list-item-4">Answer Quesions</a>
-                <a class="list-group-item list-group-item-action" href="#list-item-4">Auto Select</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-4">Answer Questions</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-5">Remove Chips</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-6">Auto Select</a>
               </div>
               <div id="scroll" data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0" tabindex="0"
                 class="col">
                 <h4 id="list-item-1">Welcome to the Game of 27!</h4>
                 <ul>
-                  <p></p>
+                  <p>
+                    The Game of 27 is an interactive dice rolling game designed to teach players about modulo
+                    arithmetic. It is played using a fair six-sided die and 27 chips. Two players take turns rolling the
+                    die and creating groups of chips based on the rolled value. If any chips remain after creating a
+                    group, those chips are added to the player's score. The game continues until all chips are removed
+                    from the board. The player with the highest score at the end of the game is declared the winner.</p>
                 </ul>
                 <hr class="featurette-divider" />
                 <h4 id="list-item-2">Roll Dice</h4>
                 <ul>
-                  <p></p>
+                  <p>To start each turn, players will be prompted to roll a fair six-sided die.</p>
                 </ul>
                 <div class="text-center">
                   <img class="gif" src="../gifs/dice27Roll.gif" />
@@ -183,23 +189,38 @@
                 <hr class="featurette-divider" />
                 <h4 id="list-item-3">Select Chips</h4>
                 <ul>
-                  <p></p>
+                  <p>
+                    Based on the rolled value, players will now have to start selecting groups of chips based on the
+                    rolled value.</p>
                 </ul>
                 <div class="text-center">
                   <img class="gif" src="../gifs/dice27Select.gif" />
                 </div>
                 <hr class="featurette-divider" />
-                <h4 id="list-item-4">Answer Quesions</h4>
+                <h4 id="list-item-4">Answer Questions</h4>
                 <uL>
-                  <p></p>
+                  <p>Now that the chips have been selected, the player will be prompted to answer two questions
+                    regarding the latest roll.</p>
                 </uL>
                 <div class="text-center">
                   <img class="gif" src="../gifs/dice27Answer.gif" />
                 </div>
                 <hr class="featurette-divider" />
-                <h4 id="list-item-4">Auto Select (Optional)</h4>
+                <h4 id="list-item-5">Remove Chips</h4>
+                <uL>
+                  <p>
+                    After both questions have been answered correctly, the player will now be able to start removing
+                    chips from the board if any are still remaining. All the selected chips will be added to the
+                    player's score.</p>
+                </uL>
+                <div class="text-center">
+                  <img class="gif" src="../gifs/dice27Remove.gif" />
+                </div>
+                <hr class="featurette-divider" />
+                <h4 id="list-item-6">Auto Select (Optional)</h4>
                 <ul>
-                  <p></p>
+                  <p>If the player wishes to skip the process of selecting groups of chips individually, they may choose
+                    to use the auto-select feature.</p>
                 </ul>
                 <div class="text-center">
                   <img class="gif" src="../gifs/dice27Auto.gif" />
@@ -258,7 +279,7 @@
   <script src="js/d3.min.js"></script>
   <script src="js/pixi.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/dice27.js"></script>
+  <script src="js/min/dice27.min.js"></script>
 </body>
 
 </html>

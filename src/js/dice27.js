@@ -197,11 +197,11 @@ class Dice27 {
         resetButton.addEventListener('click', () => {
             this.#resetGame();
         });
-        /*questionInput.addEventListener('keypress', function (key) {
+        questionInput.addEventListener('keypress', (key) => {
             if (key.key == "Enter") {
                 this.#answerQuestion();
             }
-        });*/
+        });
         questionSubmit.addEventListener('click', () => {
             this.#answerQuestion();
         });
@@ -558,7 +558,6 @@ class ScreenManagement {
             for (let i = 0; i < menu.length; i++) {
                 menu[i].style.backgroundColor = "#343a40";
             }
-
             sessionStorage.setItem("theme", "dark");
         } else {//light mode
             document.body.style.backgroundColor = "#ffffff";
@@ -578,7 +577,3 @@ class ScreenManagement {
 
 const game = new Dice27();
 const screen = new ScreenManagement();
-
-function reset() {
-    game.resetGame();
-}
