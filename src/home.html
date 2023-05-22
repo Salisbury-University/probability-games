@@ -22,10 +22,9 @@
 <body>
   <!-- Nav Bar-->
   <header>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar" style="z-index: 25;">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar">
       <div class="container-fluid">
-        <a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png" alt="logo"
-            style="max-height: 35px" /></a>
+        <a class="navbar-brand" href="home.html"><img id="logoNavbar" src="../images/logo.png" alt="logo" /></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -56,7 +55,7 @@
           <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
             <!-- settings button -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModal">
-              <img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
+              <img id="settingsIcon" src="../images/setting.png" />
             </button>
           </div>
         </div>
@@ -68,9 +67,9 @@
     <div class="pb-0 mb-0 container-fluid">
       <div class="pt-5 pb-0 text-center">
         <img class="d-block mx-auto mb-4" src="../images/logo.png" alt="logo" width="300" height="96">
-        <h1 class="display-5 fw-bold text-body-emphasis">Welcome to Probability Games!</h1>
+        <h1 class="display-5 fw-bold text-body-emphasis text">Welcome to Probability Games!</h1>
         <div class="col-lg-6 mx-auto">
-          <p class="lead mb-4">Play fun probability games and learn about probability concepts.</p>
+          <p class="lead mb-4 text">Play fun probability games and learn about probability concepts.</p>
           <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
             <a class="btn btn-primary btn-lg px-4 gap-3" href="about.html">About</a>
             <a class="btn btn-outline-secondary btn-lg px-4"
@@ -81,49 +80,49 @@
       </div>
     </div>
 
-    <hr class="px-0 featurette-divider">
+    <hr class="px-0 featurette-divider text">
 
     <div class="cardList">
-      <h1 class="display-5 fw-bold text-body-emphasis" id="gamesTitle">Let's Play Some Games!</h1>
+      <h1 class="display-5 fw-bold text-body-emphasis text" id="gamesTitle">Let's Play Some Games!</h1>
       <div class="card" data-name="card">
-        <div class="cardTitle">Sum of Two Dice</div>
+        <div class="cardTitle text">Sum of Two Dice</div>
         <img class="cardImage" src="../images/homePage/sumDiceThumbnail.png">
-        <div id="card" class="cardInfo" hidden>
+        <div id="card" class="cardInfo text" hidden>
           <p>First player to get rid of all of their chips from rolling the die wins!</p>
         </div>
       </div>
       <div class="card" data-name="GoatGame">
-        <div class="cardTitle">Monty Hall Game</div>
+        <div class="cardTitle text">Monty Hall Game</div>
         <img class="cardImage" src="../images/homePage/montyHallThumbnail.png">
-        <div id="GoatGame" class="cardInfo" hidden>
+        <div id="GoatGame" class="cardInfo text" hidden>
           <p>Try to guess which door the prize is behind, with one opportunity to switch!</p>
         </div>
       </div>
       <div class="card" data-name="dice27">
-        <div class="cardTitle">Game of 27</div>
+        <div class="cardTitle text">Game of 27</div>
         <img class="cardImage" src="../images/homePage/game27Thumbnail.png">
-        <div id="dice27" class="cardInfo" hidden>
+        <div id="dice27" class="cardInfo text" hidden>
           <p>Roll a die and use division to earn chips, player with the most chips wins!</p>
         </div>
       </div>
       <div class="card" data-name="diceRoll">
-        <div class="cardTitle">Dice Roll</div>
+        <div class="cardTitle text">Dice Roll</div>
         <img class="cardImage" src="../images/homePage/diceRollThumbnail.png">
-        <div id="diceRoll" class="cardInfo" hidden>
+        <div id="diceRoll" class="cardInfo text" hidden>
           <p>Roll a die and guess whether or not it is weighted!</p>
         </div>
       </div>
       <div class="card" data-name="coinFlip">
-        <div class="cardTitle">Coin Flip</div>
+        <div class="cardTitle text">Coin Flip</div>
         <img class="cardImage" src="../images/homePage/coinFlipThumbnail.png">
-        <div id="coinFlip" class="cardInfo" hidden>
+        <div id="coinFlip" class="cardInfo text" hidden>
           <p>Flip a coin, and predict whether or not it is weighted to win!</p>
         </div>
       </div>
       <div class="card" data-name="needles">
-        <div class="cardTitle">Buffons Needles</div>
+        <div class="cardTitle text">Buffons Needles</div>
         <img class="cardImage" src="../images/homePage/buffonsThumbnail.png">
-        <div id="needles" class="cardInfo" hidden>
+        <div id="needles" class="cardInfo text" hidden>
           <p>Simulate dropping needles onto a grid, and see how many touch the gridlines.</p>
         </div>
       </div>
@@ -132,8 +131,8 @@
 
   <!-- Settings Modal -->
   <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
+    <div class="modal-dialog ">
+      <div class="modal-content menu text">
         <div class="modal-header">
           <h1 class="modal-title fs-5">Settings</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -170,7 +169,7 @@
   </div>
 
   <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/home.js"></script>
+  <script src="js/min/home.min.js"></script>
 
 </body>
 

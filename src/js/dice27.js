@@ -6,15 +6,6 @@ const Graphics = PIXI.Graphics;
 const Sprite = PIXI.Sprite;
 const delay = 10000;
 
-window.onload = function () {
-    let volume = document.getElementById("volume-control");
-    volume.addEventListener("input", function (e) {
-        AUDIO_ROLL.volume = e.currentTarget.value / 100;
-        AUDIO_WRONG.volume = e.currentTarget.value / 100;
-        AUDIO_CORRECT.volume = e.currentTarget.value / 100;
-    });
-};
-
 class Line {
     #line;
     constructor(dist, chipSize) {
