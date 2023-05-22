@@ -284,9 +284,9 @@ buttons[1].addEventListener("click", () => {
   document.getElementById("moreInfo").hidden = true;
   document.getElementById("stats").hidden = false;
   document.getElementById("topPageSection").hidden = false;
-
-
 });
+
+
 function needleXY() {
   let dropNeedles = document.getElementById("amountOfNeedles").value;
   if (dropNeedles > 50000) {
@@ -313,10 +313,10 @@ function needleXY() {
       //do-while loop that drops xCenter a clear distance away from the edge
       do {
         xCenter = Math.random() * windowWidth * .88;
-      } while (xCenter < needleLength || xCenter > windowWidth - needleLength);
+      } while (xCenter < needleLength || xCenter > (windowWidth * 0.88) - (needleLength/2));
 
       let max = lines[lines.length - 1];
-      let min = lines[0]
+      let min = lines[0];
       yCenter = Math.floor(Math.random() * (max - min)) + min;
       needleDrop++;
 
