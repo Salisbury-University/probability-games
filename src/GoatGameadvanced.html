@@ -9,8 +9,8 @@
 
     <!-- CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet" />
-    <link href="../css/GoatGame.css" rel="stylesheet" />
-    <link href="../css/siteWide.css" rel="stylesheet" />
+    <link href="../css/min/goatGame.min.css" rel="stylesheet" />
+    <link href="../css/min/siteWide.min.css" rel="stylesheet" />
 
     <!-- favicon stuff -->
     <link rel="apple-touch-icon" sizes="180x180" href="../images/apple-touch-icon.png" />
@@ -23,10 +23,9 @@
 
     <!-- Navbar -->
     <header>
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar" style="z-index: 25;">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar">
             <div class="container-fluid">
-                <a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png" alt="logo"
-                        style="max-height: 35px" /></a>
+                <a class="navbar-brand" href="home.html"><img id="logoNavbar" src="../images/logo.png" alt="logo" /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -72,7 +71,7 @@
                         <div class="btn-group me-2" role="group" aria-label="Third group">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#settingsModal">
-                                <img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
+                                <img id="settingsIcon" src="../images/setting.png" />
                             </button>
                         </div>
                     </div>
@@ -151,8 +150,7 @@
                             <p> Here you enter how many times you would like to run the simulation!</p>
                         </div>
                         <div class="col-2">
-                            <input type="number" id="amountTimesToRun" placeholder="Number of Runs"
-                                style="margin-bottom: 10px;">
+                            <input type="number" id="amountTimesToRun" placeholder="Number of Runs">
                         </div>
                     </div>
 
@@ -161,8 +159,7 @@
                             <p>Here you enter how many times you would like to switch doors!</p>
                         </div>
                         <div class="col-2">
-                            <input type="number" id="amountTimesToSwitch" placeholder="# Times To Switch Doors"
-                                style="margin-top:0px;">
+                            <input type="number" id="amountTimesToSwitch" placeholder="# Times To Switch Doors">
                         </div>
                     </div>
                 </div>
@@ -173,7 +170,7 @@
     <!-- How to Play Modal -->
     <div class="modal fade" id="howToPlay" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl">
-            <div class="modal-content">
+            <div class="modal-content text menu">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="instructionsModalLabel">
                         How to Play
@@ -190,8 +187,8 @@
                                 <a class="list-group-item list-group-item-action" href="#list-item-3">Run Simulation</a>
                                 <a class="list-group-item list-group-item-action" href="#list-item-4">Reset Game</a>
                             </div>
-                            <div data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0"
-                                tabindex="0" class="col" style="height: 40em; overflow-y: scroll">
+                            <div id="scroll" data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0"
+                                tabindex="0" class="col">
                                 <h4 id="list-item-1">Welcome to Monty Hall Advanced Problem!</h4>
                                 <ul>
                                     <p> Below there are <b>three doors</b>, and there are <b>two losing prizes</b> and
@@ -218,7 +215,7 @@
 
                                 </ul>
                                 <div class="text-center">
-                                    <img src="../gifs/goatGameAdvGif1.gif" style="max-height: 350px" />
+                                    <img src="../gifs/goatGameAdvGif1.gif" class="gif" />
                                 </div>
                                 <hr class="featurette-divider" />
                                 <h4 id="list-item-3">Run Simulation</h4>
@@ -231,7 +228,7 @@
                                     </p>
                                 </ul>
                                 <div class="text-center">
-                                    <img src="../gifs/goatGameAdvGif2.gif" style="max-height: 350px" />
+                                    <img src="../gifs/goatGameAdvGif2.gif" class="gif" />
                                 </div>
                                 <hr class="featurette-divider" />
                                 <h4 id="list-item-4">Reset Game</h4>
@@ -241,7 +238,7 @@
                                     <p>This will set you back to how the game appeared when you first played.</p>
                                 </ul>
                                 <div class="text-center">
-                                    <img src="../gifs/goatGameAdvGif3.gif" style="max-height: 350px" />
+                                    <img src="../gifs/goatGameAdvGif3.gif" class="gif" />
                                 </div>
                             </div>
                         </div>
@@ -258,7 +255,7 @@
     <!-- Settings Modal -->
     <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+            <div class="modal-content text menu">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5">Settings</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -334,7 +331,7 @@
     </div>
 
     <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/goatGameAdv.js"></script>
+    <script src="js/min/goatGameAdv.min.js"></script>
 
 </body>
 
