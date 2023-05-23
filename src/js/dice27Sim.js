@@ -40,7 +40,6 @@ class ProbabilitySimulator {
 
 class ScreenManagement {
   #color;
-  #theme;
 
   constructor() {
     this.#color = document.getElementById("themeTypeSwitch");
