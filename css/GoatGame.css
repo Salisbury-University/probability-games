@@ -33,6 +33,10 @@ input[type=number] {
   border-top: 6px solid black;
 }
 
+.preTitle{
+  background-color: #FFEDC9;
+}
+
 .sectionBLoc{
   background-color: #ffd789;
 }
