@@ -146,7 +146,6 @@ function simulateGame() {
 
     var timesSwitched = parseInt(document.getElementById("amountTimesToSwitch").value);
 
-    console.log(timesPlayed);
     if (timesPlayed < timesSwitched) {
         alert("You cannot enter more times to switch then the total games played!");
     } else if (isNaN(timesPlayed)) {
