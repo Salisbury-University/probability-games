@@ -5,11 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Coin Flip</title>
+    <title>About Us</title>
 
     <!-- CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet" />
-    <link href="../css/about.css" rel="stylesheet" />
+    <link href="../css/min/about.min.css" rel="stylesheet" />
     <link href="../css/siteWide.css" rel="stylesheet" />
 
     <!-- favicon stuff -->
@@ -65,7 +65,7 @@
         </nav>
     </header>
     <main>
-        <div class="pb-0 mb-0 container">
+        <div class="pb-0 mb-0 container text">
             <div class="pt-5 pb-0 text-center">
                 <h1 class="display-5 fw-bold text-body-emphasis">Welcome to Probability Games!</h1>
                 <div class="row">
@@ -144,19 +144,13 @@
 
     <!-- Settings Modal -->
     <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+        <div class="modal-dialog">
+            <div class="modal-content text menu">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5">Settings</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Volume:</p>
-                    <p>
-                        <input type="range" id="volume-control" value="100" />
-                    </p>
-
-                    <hr class="featurette-divider" />
                     <div class="row text-align">
                         <div class="col-3">
                             <p>Light Theme</p>
@@ -182,6 +176,7 @@
     </div>
 
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/min/about.min.js"></script>
 </body>
 
 </html>
