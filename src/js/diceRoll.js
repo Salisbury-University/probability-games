@@ -300,31 +300,5 @@ class ScreenManagement {
 	}
 }
 
-function changeTheme() {
-	if (document.getElementById("themeTypeSwitch").checked) {
-		console.log("Checked");
-		changeDarkTheme();
-	} else {
-		console.log("Not Checked");
-		changeLightTheme();
-	}
-}
-
-function changeDarkTheme() {
-	document.body.style.backgroundColor = "#313b4b";
-	document.getElementById("title").style.color = "white";
-	document.getElementById("single").style.color = "white";
-	document.getElementById("multi").style.color = "white";
-	document.getElementById("prompt").style.color = "white";
-}
-
-function changeLightTheme() {
-	document.body.style.backgroundColor = "white";
-	document.getElementById("title").style.color = "black";
-	document.getElementById("single").style.color = "black";
-	document.getElementById("multi").style.color = "black";
-	document.getElementById("prompt").style.color = "black";
-}
-
 const screen = new ScreenManagement();
 const game = new DiceGame();

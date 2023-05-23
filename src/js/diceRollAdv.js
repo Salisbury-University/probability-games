@@ -254,19 +254,19 @@ class DiceGame {
     #guessWeight() {
         let guess = document.getElementById("weightSelect").value;
         let guessFraction = "";
-        if(guess == 1.5)
+        if (guess == 1.5)
             guessFraction = "1/4";
-        else if(guess == 2)
+        else if (guess == 2)
             guessFraction = "1/3";
-        else if(guess == 2.5)
+        else if (guess == 2.5)
             guessFraction = "5/12";
-        else if(guess == 3)
+        else if (guess == 3)
             guessFraction = "1/2";
-        else if(guess == 3.5)
+        else if (guess == 3.5)
             guessFraction = "7/12";
         else
             guessFraction = "2/3";
-        
+
         if (isNaN(guess)) {
             AUDIO_WRONG.play();
             document.getElementById("prompt").innerHTML = "Please select an option from the dropdown.";
@@ -287,54 +287,60 @@ class DiceGame {
     }
 }
 
-function changeTheme() {
-    if (document.getElementById("themeTypeSwitch").checked) {
-      console.log("Checked");
-      changeDarkTheme();
-    } else {
-      console.log("Not Checked");
-      changeLightTheme();
+class ScreenManagement {
+    #color;
+    #volume;
+
+    constructor() {
+        this.#color = document.getElementById("themeTypeSwitch");
+        this.#volume = document.getElementById("volume-control");
+
+        let theme = sessionStorage.getItem("theme");
+        if (theme == "dark") {
+            document.getElementById("themeTypeSwitch").checked = true;
+            this.#changeColor();
+        }
+
+        this.#setup();
     }
-  }
-  
-  function changeDarkTheme() {
-    document.body.style.backgroundColor = "#313b4b";
-    document.getElementById("title").style.color = "white";
-    document.getElementById("single").style.color = "white";
-    document.getElementById("multi").style.color = "white";
-    document.getElementById("prompt").style.color = "white";
-  }
-  
-  function changeLightTheme() {  
-    document.body.style.backgroundColor = "white";
-    document.getElementById("title").style.color = "black";
-    document.getElementById("single").style.color = "black";
-    document.getElementById("multi").style.color = "black";
-    document.getElementById("prompt").style.color = "black";
-  }
+    #setup() {
+        this.#color.addEventListener('click', () => {
+            this.#changeColor();
+        });
+        this.#volume.addEventListener('input', () => {
+            this.#volumeControl();
+        });
 
+    }
+    #volumeControl() {
+        AUDIO_CORRECT.volume = this.#volume.currentTarget.value / 100;
+        AUDIO_WRONG.volume = this.#volume.currentTarget.value / 100;
+        AUDIO_ROLL.volume = this.#volume.currentTarget.value / 100;
+    }
+    #changeColor() {
+        let text = document.querySelectorAll(".text");
+        let menu = document.querySelectorAll(".menu");
+        if (this.#color.checked) {//dark mode
+            document.body.style.backgroundColor = "#343a40";
+            for (let i = 0; i < text.length; i++) {
+                text[i].style.color = 'white';
+            }
+            for (let i = 0; i < menu.length; i++) {
+                menu[i].style.backgroundColor = "#343a40";
+            }
+            sessionStorage.setItem("theme", "dark");
+        } else {//light mode
+            document.body.style.backgroundColor = "#ffffff";
+            for (let i = 0; i < text.length; i++) {
+                text[i].style.color = 'black';
+            }
+            for (let i = 0; i < menu.length; i++) {
+                menu[i].style.backgroundColor = "#ffffff";
+            }
+            sessionStorage.setItem("theme", "light");
+        }
+    }
+}
+
+const screen = new ScreenManagement();
 const game = new DiceGame();
-
-// Get the welcome scene and the full page elements
-const welcomeScene = document.querySelector('.welcome-scene');
-const tutorial = document.querySelector('.tutorial');
-//const fullPage = document.querySelector('.container text-center');
-
-// Get the close button from the welcome scene
-const closeButton = document.querySelector('#close-welcome');
-const openTutorial = document.querySelector('#openTutorial');
-const closeTutorial = document.querySelector('#closeTutorial');
-
-// When the close button is clicked, hide the welcome scene and show the full page
-closeButton.addEventListener('click', function () {
-    welcomeScene.style.display = 'none';
-    //fullPage.style.display = 'block';
-});
-openTutorial.addEventListener('click', function () {
-    tutorial.style.display = 'flex';
-    //fullPage.style.display = 'block';
-});
-closeTutorial.addEventListener('click', function () {
-    welcomeScene.style.display = 'none';
-    //fullPage.style.display = 'block';
-});

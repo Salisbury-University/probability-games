@@ -23,10 +23,9 @@
 <body>
     <!-- Navbar -->
     <header>
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar" style="z-index: 25;">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar">
             <div class="container-fluid">
-                <a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png" alt="logo"
-                        style="max-height: 35px" /></a>
+                <a class="navbar-brand" href="home.html"><img src="../images/logo.png" alt="logo" /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -72,7 +71,7 @@
                         <div class="btn-group me-2" role="group" aria-label="Third group">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#settingsModal">
-                                <img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
+                                <img src="../images/setting.png" />
                             </button>
                         </div>
                     </div>
@@ -147,8 +146,8 @@
                                 <a class="list-group-item list-group-item-action" href="#list-item-4">Guess Weight</a>
                                 <a class="list-group-item list-group-item-action" href="#list-item-4">Change Coin</a>
                             </div>
-                            <div data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0"
-                                tabindex="0" class="col" style="height: 40em; overflow-y: scroll">
+                            <div id="scroll" data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0"
+                                tabindex="0" class="col">
                                 <h4 id="list-item-1">Welcome to the Coin Flip Game!</h4>
                                 <ul>
                                     <p>Welcome to the coin flip simulation game! This game is designed to
@@ -179,7 +178,7 @@
                                     </p>
                                 </ul>
                                 <div class="text-center">
-                                    <img src="../gifs/singleFlip.gif" style="max-height: 350px" />
+                                    <img src="../gifs/singleFlip.gif" class="gif" />
                                 </div>
                                 <hr class="featurette-divider" />
                                 <h4 id="list-item-3">Multiple Flips</h4>
@@ -199,7 +198,7 @@
                                     </p>
                                 </ul>
                                 <div class="text-center">
-                                    <img src="../gifs/multiFlip.gif" style="max-height: 350px" />
+                                    <img src="../gifs/multiFlip.gif" class="gif" />
                                 </div>
                                 <hr class="featurette-divider" />
                                 <h4 id="list-item-4">Removing Chips</h4>
@@ -213,7 +212,7 @@
                                     </p>
                                 </uL>
                                 <div class="text-center">
-                                    <img src="../gifs/guessWeight.gif" style="max-height: 350px" />
+                                    <img src="../gifs/guessWeight.gif" class="gif" />
                                 </div>
                                 <hr class="featurette-divider" />
                                 <h4 id="list-item-4">Change Coin (Optional)</h4>
@@ -222,7 +221,7 @@
                                         choosing from the list of possible images.</p>
                                 </ul>
                                 <div class="text-center">
-                                    <img src="../gifs/changeCoin.gif" style="max-height: 350px" />
+                                    <img src="../gifs/changeCoin.gif" class="gif" />
                                 </div>
                             </div>
                         </div>

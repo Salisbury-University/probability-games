@@ -22,10 +22,9 @@
 <body>
     <!-- Navbar -->
     <header>
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar" style="z-index: 25;">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar">
             <div class="container-fluid">
-                <a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png" alt="logo"
-                        style="max-height: 35px" /></a>
+                <a class="navbar-brand" href="home.html"><img id="logoNavbar" src="../images/logo.png" alt="logo" /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -70,7 +69,7 @@
                         <div class="btn-group me-2" role="group" aria-label="Third group">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#settingsModal">
-                                <img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
+                                <img id="settingsIcon" src="../images/setting.png" />
                             </button>
                         </div>
                     </div>
@@ -80,10 +79,10 @@
         </nav>
     </header>
     <main>
-        <div class="container text-center">
+        <div class="container text-center text">
             <!--Title of the game-->
             <div class="row">
-                <h2 id="title">Dice Roll Game</h2>
+                <h2 id="title">Dice Roll Advanced</h2>
             </div>
             <!-- PixiJS Application-->
             <div class="row">
@@ -93,7 +92,7 @@
             <div class="row">
                 <div class="col">
                     <h6 id="single">Single Roll:</h6>
-                    <button type="radio" class="btn btn-primary" id="singleRoll" style="z-index: 500;">Roll
+                    <button type="radio" class="btn btn-primary" id="singleRoll">Roll
                         Dice</button>
                 </div>
                 <div class="col">
@@ -183,7 +182,7 @@
     <!-- How to Play Modal -->
     <div class="modal fade" id="howToPlay" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl">
-            <div class="modal-content">
+            <div class="modal-content text menu">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="instructionsModalLabel">
                         How to Play
@@ -204,134 +203,67 @@
                                 <a class="list-group-item list-group-item-action" href="#list-item-6">Guess
                                     Probability</a>
                             </div>
-                            <div data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0"
-                                tabindex="0" class="col" style="height: 40em; overflow-y: scroll">
-                                <h4 id="list-item-1">Welcome to the Dice Roll Game!</h4>
+                            <div id="scroll" data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0"
+                                tabindex="0" class="col">
+                                <h4 id="list-item-1">Welcome to the Dice Roll Advanced!</h4>
                                 <ul>
-                                    <p>Welcome to the dice roll simulation game! This game is designed to
-                                        not only provide hours of fun and entertainment, but also to teach players an
-                                        important lesson about the weight of dice and how it can affect the outcome of
-                                        a roll.</p>
-                                    <p>In this game, players can flip a virtual die a large number of times, and
-                                        can guess whether the die is weighted or not. If the die is indeed weighted,
-                                        players can also guess which of the six sides of the dice is the weighted side.
-                                        Once players guess the correct side, they can also guess the probability of
-                                        how likely the weighted side of the dice is landed on.</p>
-
-                                    <p>This game is perfect for anyone who wants to understand the concept
-                                        of die
-                                        weight and how it can influence the outcome of a die roll. So what are you
-                                        waiting for? Lets start rolling!</p>
-
-                                    <p>One thing players should note is that this game may not fit perfectly on every
-                                        screen size. Players may have to zoom out in order for the game to fit properly
-                                        on the
-                                        screen without having to scroll.
-                                    </p>
+                                    <p></p>
                                 </ul>
                                 <hr class="featurette-divider" />
                                 <h4 id="list-item-2">Single Roll</h4>
                                 <ul>
-                                    <p>
-                                        Our game's "Single Roll" button enables players to quickly and easily flip a
-                                        die
-                                        and see the result. The gray backgorund behind the side of the die thats landed
-                                        on will
-                                        turn green to indicate which side was landed on. This feature provides an
-                                        opportunity
-                                        for players to test their
-                                        luck and try to guess the outcome of the roll. Whether you're new to the game or
-                                        an
-                                        experienced player, the "Single Roll" button is a convenient and fun way to
-                                        play.
-                                    </p>
+                                    <p>To roll the die, players can simply click the <b>Roll Dice</b> button located
+                                        on the left side of the page. This will roll the die a single time.</p>
                                 </ul>
                                 <div class="text-center">
-                                    <img src="../gifs/diceRollSingle.gif" style="max-height: 350px" />
+                                    <img src="../gifs/diceRollAdvSingle.gif" class="gif" />
                                 </div>
                                 <hr class="featurette-divider" />
                                 <h4 id="list-item-3">Multiple Rolls</h4>
                                 <ul>
-                                    <p>
-                                        Our game features a "Multiple Rolls" button that allows players to roll the die
-                                        multiple times with a single click. This feature enables players to experiment
-                                        with
-                                        different numbers of rolls and observe how it affects the outcome of the game.
-                                        Players can enter the amount of rolls into a text box next to the multiple rolls
-                                        button they'd like to see occur, and the die will roll that amount of times.
-                                        The "Multiple Rolls" button is an excellent way to test your luck and improve
-                                        your
-                                        understanding of how the game works. Whether you're a newcomer or a seasoned
-                                        player,
-                                        the "Multiple Rolls" button is a fun and convenient feature that makes our die
-                                        roll
-                                        simulation game enjoyable to play.
+                                    <p>To roll the die multiple times, players can enter the desired number of rolls in
+                                        the input box provided. After entering the number of rolls, they can click the
+                                        <b>Roll Dice</b> button located to the left of the input box. This will
+                                        roll the dice the designated number of rolls.
                                     </p>
                                 </ul>
                                 <div class="text-center">
-                                    <img src="../gifs/diceRollMulti.gif" style="max-height: 350px" />
+                                    <img src="../gifs/diceRollAdvMulti.gif" class="gif" />
                                 </div>
                                 <hr class="featurette-divider" />
                                 <h4 id="list-item-4">Guessing Weighted Or Not Weighted</h4>
                                 <uL>
-                                    <p>
-                                        When the player is satisfied with the amount of times they have rolled the die,
-                                        they can either click the weighted button or the not weighted button at the
-                                        bottom
-                                        of the screen. If the player thinks that the die is weighted, then they should
-                                        click
-                                        the weighted button, and if not then click the not weighted button. If the die
-                                        is in
-                                        fact not weighted, then the game is over and the player can start rolling the
-                                        die
-                                        again in a new game. If the dice is in fact weighted, the player will move on to
-                                        the
-                                        next step of the game.
-                                    </p>
+                                    <p>After rolling the die 10 or more times, the player will be prompted to guess
+                                        whether the die is weighted or not. If the die is not weighted, the game will
+                                        reset, and the player can continue rolling.</p>
                                 </uL>
                                 <div class="text-center">
-                                    <img src="../gifs/diceRollWeight.gif" style="max-height: 350px" />
+                                    <img src="../gifs/diceRollWeight.gif" class="gif" />
                                 </div>
                                 <hr class="featurette-divider" />
                                 <h4 id="list-item-5">Guessing Which Side Is Weighted</h4>
                                 <ul>
-                                    <p>If the dice is weighted, the player will move on to this step of the game. The
-                                        player
-                                        will be able to guess which of the six sides of the dice is the weighted side.
-                                        To do
-                                        this, the player will click the card containing the side of the dice that they
-                                        think
-                                        is weighted. Once the player selects the side that is weighted, they will be
-                                        able to
-                                        move on to the next step of the game.
-                                    </p>
+                                    <p>If the die is weighted, the player will be prompted to select
+                                        which die face is weighted. This can be done by choosing the corresponding card
+                                        or picture representing each side of the die.</p>
                                 </ul>
                                 <div class="text-center">
-                                    <img src="../gifs/diceRollSide.gif" style="max-height: 350px" />
+                                    <img src="../gifs/diceRollAdvGuessSide.gif" class="gif" />
                                 </div>
                                 <hr class="featurette-divider" />
                                 <h4 id="list-item-6">Guessing The Probability Of Weighted Side Being Rolled</h4>
                                 <ul>
-                                    <p>Once the player selects the side that is weighted, they will be able to guess the
-                                        probabiltiy of how likely it is that weighted side is landed on. In order to do
-                                        this,
-                                        the player will click a dropdown to see all of the possible options. The player
-                                        will
-                                        select the option that they think is the correct probability, and click the
-                                        submit button.
-                                        Once the player chooses the correct probability, the game will be over, and the
-                                        player
-                                        can start rolling the die again in a new game.</p>
+                                    <p>In this version players will also be asked </p>
                                 </ul>
                                 <div class="text-center">
-                                    <img src="../gifs/diceRollGuess.gif" style="max-height: 350px" />
+                                    <img src="../gifs/diceRollAdvGuessWeight.gif" class="gif" />
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
                         Close
                     </button>
                 </div>
@@ -340,8 +272,8 @@
     </div>
     <!-- Settings Modal -->
     <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+        <div class="modal-dialog">
+            <div class="modal-content text menu">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5">Settings</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -350,15 +282,6 @@
                     <p>Volume:</p>
                     <p>
                         <input type="range" id="volume-control" value="50" />
-                    </p>
-                    <hr class="featurette-divider" />
-                    <p>
-                        <input class="form-check-input m-1" type="checkbox" autocomplete="off" id="randPlacements" />
-                        Sound Effects
-                    </p>
-                    <p>
-                        <input class="form-check-input m-1" type="checkbox" autocomplete="off" id="muteBtn" />
-                        Music
                     </p>
                     <hr class="featurette-divider" />
                     <div class="row text-align">
@@ -377,7 +300,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
                         Close
                     </button>
                 </div>
