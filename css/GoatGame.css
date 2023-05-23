@@ -27,6 +27,31 @@ input[type=number] {
   z-index: 2;
 }
 
+.titleSection{
+  padding-bottom: 5px; 
+  border-bottom: 6px solid black;
+  border-top: 6px solid black;
+}
+
+.sectionBLoc{
+  background-color: #ffd789;
+}
+
+.sectionALoc{
+  background-color: #FFEDC9; 
+  height: 25%;
+  border-top: 6px solid black;
+}
+
+.simulationArea{
+  margin-top: 10px;
+}
+
+.imgSection{
+  padding-bottom: 20px; 
+  padding-top: 20px;
+}
+
 body {
   background-color: #FFEDC9;
 }

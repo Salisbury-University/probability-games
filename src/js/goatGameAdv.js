@@ -146,7 +146,6 @@ function simulateGame() {
 
     var timesSwitched = parseInt(document.getElementById("amountTimesToSwitch").value);
 
-    console.log(timesPlayed);
     if (timesPlayed < timesSwitched) {
         alert("You cannot enter more times to switch then the total games played!");
     } else if (isNaN(timesPlayed)) {
@@ -268,10 +267,8 @@ function printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, swit
 function changeTheme() {
     if (document.getElementById("themeTypeSwitch").checked) {
         changeDarkTheme();
-        console.log("called dark");
     } else {
         changeLightTheme();
-        console.log("called light");
     }
 }
 
