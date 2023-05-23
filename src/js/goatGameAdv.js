@@ -267,10 +267,8 @@ function printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, swit
 function changeTheme() {
     if (document.getElementById("themeTypeSwitch").checked) {
         changeDarkTheme();
-        console.log("called dark");
     } else {
         changeLightTheme();
-        console.log("called light");
     }
 }
 
