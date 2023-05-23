@@ -5,9 +5,17 @@
     font-weight: 100;
 }
 
+#makeAuto {
+    background-color: #8064A2 !important;
+}
+
+
+
 #rollButton {
     text-align: center;
 }
+
+
 
 #questionCard {
     margin-left: 20%;

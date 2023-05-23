@@ -105,7 +105,7 @@ class DiceGame {
 		}
 		document.getElementById("singleRoll").disabled = true;
 		document.getElementById("multiRoll").disabled = true;
-		this.#playAudio(AUDIO_ROLL);
+		AUDIO_ROLL.play();
 		let ticks = 0;
 		// Roll the dice using the probabilities
 		let rollValue = 0;
@@ -142,10 +142,13 @@ class DiceGame {
 	}
 	#guess(check) {
 		if (this.#weighted == check) {
-			this.#playAudio(AUDIO_CORRECT);
+			AUDIO_CORRECT.play();
 			document.getElementById("guessButtons").hidden = true;
 			if (this.#weighted) {
-				document.getElementById("prompt").innerHTML = "Correct, the dice is weighted!. Now click the weighted side of the die.";
+				document.getElementById("singleRoll").disabled = true;
+				document.getElementById("multiRoll").disabled = true;
+
+				document.getElementById("prompt").innerHTML = "Correct, the dice is weighted! Now click the weighted side of the die.";
 				this.#clickable = true
 				this.#changeCursor();
 			} else {
@@ -154,7 +157,7 @@ class DiceGame {
 			}
 		}
 		else {
-			this.#playAudio(AUDIO_WRONG);
+			AUDIO_WRONG.play();
 			document.getElementById("prompt").innerHTML = "Try again, is the dice weighted?";
 		}
 	}
@@ -200,23 +203,18 @@ class DiceGame {
 		}
 	}
 	#cardSelect(side) {
-		console.log(side);
+		//console.log(side);
 		if (this.#clickable) {
 			if (side == this.#weightedSide) {
-				this.#playAudio(AUDIO_CORRECT);
+				AUDIO_CORRECT.play();
 				document.getElementById("prompt").innerHTML = "Correct, the " + side + " side is the weighted side. Let's play again.";
 				this.#reset();
 			}
 			else {
-				this.#playAudio(AUDIO_WRONG);
+				AUDIO_WRONG.play();
 				document.getElementById("prompt").innerHTML = "Try again, click the weighted side of the die.";
 			}
 		}
-	}
-	#playAudio(audioName) {/*
-        audioName.pause();
-        audioName.currentTime = 0;
-        audioName.play();*/
 	}
 	#isWeighted() {
 		// Randomly choose whether the dice is weighted or not
@@ -242,64 +240,91 @@ class DiceGame {
 		this.#clickable = false;
 		this.#changeCursor();
 		this.#isWeighted();
+		document.getElementById("singleRoll").disabled = false;
+		document.getElementById("multiRoll").disabled = false;
 	}
 }
 
 class ScreenManagement {
 	#color;
-	#text;
+	#volume;
 
 	constructor() {
 		this.#color = document.getElementById("themeTypeSwitch");
-		this.#text = document.querySelectorAll(".text");
+		this.#volume = document.getElementById("volume-control");
+
+		let theme = sessionStorage.getItem("theme");
+		if (theme == "dark") {
+			document.getElementById("themeTypeSwitch").checked = true;
+			this.#changeColor();
+		}
+
 		this.#setup();
 	}
 	#setup() {
 		this.#color.addEventListener('click', () => {
 			this.#changeColor();
 		});
+		this.#volume.addEventListener('input', () => {
+			this.#volumeControl();
+		});
+
+	}
+	#volumeControl() {
+		AUDIO_CORRECT.volume = this.#volume.currentTarget.value / 100;
+		AUDIO_WRONG.volume = this.#volume.currentTarget.value / 100;
+		AUDIO_ROLL.volume = this.#volume.currentTarget.value / 100;
 	}
 	#changeColor() {
+		let text = document.querySelectorAll(".text");
+		let menu = document.querySelectorAll(".menu");
 		if (this.#color.checked) {//dark mode
-			document.body.style.backgroundColor = "#262626";
-			for (let i = 0; i < this.#text.length; i++) {
-				this.#text[i].style.color = 'white';
+			document.body.style.backgroundColor = "#343a40";
+			for (let i = 0; i < text.length; i++) {
+				text[i].style.color = 'white';
 			}
+			for (let i = 0; i < menu.length; i++) {
+				menu[i].style.backgroundColor = "#343a40";
+			}
+			sessionStorage.setItem("theme", "dark");
 		} else {//light mode
 			document.body.style.backgroundColor = "#ffffff";
-			for (let i = 0; i < this.#text.length; i++) {
-				this.#text[i].style.color = 'black';
+			for (let i = 0; i < text.length; i++) {
+				text[i].style.color = 'black';
 			}
+			for (let i = 0; i < menu.length; i++) {
+				menu[i].style.backgroundColor = "#ffffff";
+			}
+			sessionStorage.setItem("theme", "light");
 		}
 	}
 }
 
 function changeTheme() {
-    if (document.getElementById("themeTypeSwitch").checked) {
-      console.log("Checked");
-      changeDarkTheme();
-    } else {
-      console.log("Not Checked");
-      changeLightTheme();
-    }
-  }
-  
-  function changeDarkTheme() {
-    document.body.style.backgroundColor = "#313b4b";
-    document.getElementById("title").style.color = "white";
-    document.getElementById("single").style.color = "white";
-    document.getElementById("multi").style.color = "white";
-    document.getElementById("prompt").style.color = "white";
-  }
-  
-  function changeLightTheme() {  
-    document.body.style.backgroundColor = "white";
-    document.getElementById("title").style.color = "black";
-    document.getElementById("single").style.color = "black";
-    document.getElementById("multi").style.color = "black";
-    document.getElementById("prompt").style.color = "black";
-  }
+	if (document.getElementById("themeTypeSwitch").checked) {
+		console.log("Checked");
+		changeDarkTheme();
+	} else {
+		console.log("Not Checked");
+		changeLightTheme();
+	}
+}
 
+function changeDarkTheme() {
+	document.body.style.backgroundColor = "#313b4b";
+	document.getElementById("title").style.color = "white";
+	document.getElementById("single").style.color = "white";
+	document.getElementById("multi").style.color = "white";
+	document.getElementById("prompt").style.color = "white";
+}
 
+function changeLightTheme() {
+	document.body.style.backgroundColor = "white";
+	document.getElementById("title").style.color = "black";
+	document.getElementById("single").style.color = "black";
+	document.getElementById("multi").style.color = "black";
+	document.getElementById("prompt").style.color = "black";
+}
+
+const screen = new ScreenManagement();
 const game = new DiceGame();
-const screens = new ScreenManagement();

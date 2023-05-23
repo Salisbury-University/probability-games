@@ -23,10 +23,9 @@
 
 	<!-- Navbar -->
 	<header>
-		<nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar" style="z-index: 25;">
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png" alt="logo"
-						style="max-height: 35px" /></a>
+				<a class="navbar-brand" href="home.html"><img id="logoNavbar" src="../images/logo.png" alt="logo" /></a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse">
 					<span class="navbar-toggler-icon"></span>
 				</button>
@@ -71,7 +70,7 @@
 						<div class="btn-group me-2" role="group" aria-label="Third group">
 							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
 								data-bs-target="#settingsModal">
-								<img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
+								<img id="settingsIcon" src="../images/setting.png" />
 							</button>
 						</div>
 					</div>
@@ -94,7 +93,7 @@
 			<div class="row">
 				<div class="col">
 					<h6 class="text" id="single">Single Roll:</h6>
-					<button type="radio" class="btn btn-primary" id="singleRoll" style="z-index: 500;">Roll
+					<button type="radio" class="btn btn-primary" id="singleRoll">Roll
 						Dice</button>
 				</div>
 				<div class="col">
@@ -170,7 +169,7 @@
 	<!-- How to Play Modal -->
 	<div class="modal fade" id="howToPlay" tabindex="-1" aria-hidden="true">
 		<div class="modal-dialog modal-xl">
-			<div class="modal-content">
+			<div class="modal-content text menu">
 				<div class="modal-header">
 					<h1 class="modal-title fs-5" id="instructionsModalLabel">
 						How to Play
@@ -189,8 +188,8 @@
 								<a class="list-group-item list-group-item-action" href="#list-item-5">Guess Weighted
 									Side</a>
 							</div>
-							<div data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0"
-								tabindex="0" class="col" style="height: 40em; overflow-y: scroll">
+							<div id="scroll" data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0"
+								tabindex="0" class="col">
 								<h4 id="list-item-1">Welcome to the Dice Roll Game!</h4>
 								<ul>
 									<p>Welcome to the dice roll simulation game! This game is designed to
@@ -206,6 +205,11 @@
 										of die
 										weight and how it can influence the outcome of a die roll. So what are you
 										waiting for? Lets start rolling!</p>
+									<p>One thing players should note is that this game may not fit perfectly on every
+										screen size. Players may have to zoom out in order for the game to fit properly
+										on the
+										screen without having to scroll.
+									</p>
 								</ul>
 								<hr class="featurette-divider" />
 								<h4 id="list-item-2">Single Roll</h4>
@@ -225,7 +229,7 @@
 									</p>
 								</ul>
 								<div class="text-center">
-									<img src="../gifs/diceRollSingle.gif" style="max-height: 350px" />
+									<img src="../gifs/diceRollSingle.gif" class="gif" />
 								</div>
 								<hr class="featurette-divider" />
 								<h4 id="list-item-3">Multiple Rolls</h4>
@@ -247,7 +251,7 @@
 									</p>
 								</ul>
 								<div class="text-center">
-									<img src="../gifs/diceRollMulti.gif" style="max-height: 350px" />
+									<img src="../gifs/diceRollMulti.gif" class="gif" />
 								</div>
 								<hr class="featurette-divider" />
 								<h4 id="list-item-4">Guessing Weighted Or Not Weighted</h4>
@@ -268,7 +272,7 @@
 									</p>
 								</uL>
 								<div class="text-center">
-									<img src="../gifs/diceRollWeight.gif" style="max-height: 350px" />
+									<img src="../gifs/diceRollWeight.gif" class="gif" />
 								</div>
 								<hr class="featurette-divider" />
 								<h4 id="list-item-5">Guessing Which Side Is Weighted</h4>
@@ -284,7 +288,7 @@
 										start rolling the die in a new game. </p>
 								</ul>
 								<div class="text-center">
-									<img src="../gifs/diceRollSide.gif" style="max-height: 350px" />
+									<img src="../gifs/diceRollSide.gif" class="gif" />
 								</div>
 							</div>
 						</div>
@@ -300,8 +304,8 @@
 	</div>
 	<!-- Settings Modal -->
 	<div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
+		<div class="modal-dialog">
+			<div class="modal-content text menu">
 				<div class="modal-header">
 					<h1 class="modal-title fs-5">Settings</h1>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -309,7 +313,7 @@
 				<div class="modal-body">
 					<p>Volume:</p>
 					<p>
-						<input type="range" id="volume-control" value="100" />
+						<input type="range" id="volume-control" value="50" />
 					</p>
 					<hr class="featurette-divider" />
 					<div class="row text-align">

@@ -9,7 +9,7 @@
 
   <!-- CSS -->
   <link href="../css/bootstrap.min.css" rel="stylesheet" />
-  <link href="../css/dice27.css" rel="stylesheet" />
+  <link href="../css/min/dice27.min.css" rel="stylesheet" />
   <link href="../css/siteWide.css" rel="stylesheet" />
 
   <!-- favicon stuff -->
@@ -79,6 +79,10 @@
   <main>
     <div id="container" class="container-fluid text-center">
       <div class="row">
+        <h2 class="text" id="title">Game of 27</h2>
+      </div>
+
+      <div class="row">
         <div id="app"></div>
       </div>
       <div class="row">
@@ -90,36 +94,28 @@
 
       <div class="row">
         <div class="col">
-          <div id="playerCard1" class="card border-0">
+          <div id="playerCard1" class="card border-0 gameCard">
             <div class="player">Player 1</div>
             <div class="score" id="player0"></div>
           </div>
         </div>
         <div class="col">
-          <div id="questionCard" class="card" hidden>
-            <div id="pilesMake" class="card-body" hidden>
-              <div>Create groups of <strong><span id="rollNumber1"></span></strong> by selecting
-                the chips above.</div>
-              <button type="button" class="btn btn-success mx-auto" onclick="createPile()">Submit</button>
-              <button type="button" class="btn btn-dark mx-auto" style="background-color: #8064A2 !important;"
-                onclick="autoComplete()">Auto</button>
-            </div>
-            <div id="pilesQuestion" class="card-body" hidden>
-              <div>How many groups of <strong><span id="rollNumber2"></span></strong> did you create?</div>
-              <div class="col text-center">
-                <input type="text" pattern="[0-9]+" class="form-control" id="pilesInput" placeholder="" required>
+          <div id="questionCard" class="card gameCard" hidden>
+            <div class="card-body">
+              <div id="questionText" class="text"></div>
+              <div id="questionInputGroup" class="input-group mb-3" hidden>
+                <input id="questionInput" type="text" class="form-control" placeholder="Enter" data-value="0" required>
+                <button id="questionSubmit" type="button" class="btn btn-success">Submit</button>
               </div>
-              <button type="button" class="btn btn-success mx-auto" onclick="pileCountCheck()">Submit</button>
-            </div>
-            <div id="remainderQuestion" class="card" hidden>
-              <div>How many chips did not end up in a group of <strong><span id="rollNumber3"></span></strong>?</div>
-              <input type="text" pattern="[0-9]+" class="form-control" id="remainderInput" placeholder="" required>
-              <button type="button" class="btn btn-success mx-auto" onclick="remainderCheck()">Submit</button>
+              <div id="makeButtons" class="button-group" hidden>
+                <button id="makeSubmit" type="button" class="btn btn-success mx-auto">Submit</button>
+                <button id="makeAuto" type="button" class="btn btn-dark mx-auto">Auto</button>
+              </div>
             </div>
           </div>
         </div>
         <div class="col">
-          <div id="playerCard2" class="card border-0">
+          <div id="playerCard2" class="card border-0 gameCard">
             <div class="player">Player 2</div>
             <div class="score" id="player1"></div>
           </div>
@@ -152,8 +148,8 @@
 
   <!-- How to Play Modal -->
   <div class="modal fade" id="howToPlay" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-      <div class="modal-content">
+    <div class="modal-dialog modal-xl ">
+      <div class="modal-content text menu">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="instructionsModalLabel">
             How to Play
@@ -167,53 +163,74 @@
                 <a class="list-group-item list-group-item-action" href="#list-item-1">Game Information</a>
                 <a class="list-group-item list-group-item-action" href="#list-item-2">Roll Dice</a>
                 <a class="list-group-item list-group-item-action" href="#list-item-3">Select Chips</a>
-                <a class="list-group-item list-group-item-action" href="#list-item-4">Answer Quesions</a>
-                <a class="list-group-item list-group-item-action" href="#list-item-4">Auto Select</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-4">Answer Questions</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-5">Remove Chips</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-6">Auto Select</a>
               </div>
-              <div data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0" tabindex="0" class="col"
-                style="height: 40em; overflow-y: scroll">
+              <div id="scroll" data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0" tabindex="0"
+                class="col">
                 <h4 id="list-item-1">Welcome to the Game of 27!</h4>
                 <ul>
-                  <p></p>
+                  <p>
+                    The Game of 27 is an interactive dice rolling game designed to teach players about modulo
+                    arithmetic. It is played using a fair six-sided die and 27 chips. Two players take turns rolling the
+                    die and creating groups of chips based on the rolled value. If any chips remain after creating a
+                    group, those chips are added to the player's score. The game continues until all chips are removed
+                    from the board. The player with the highest score at the end of the game is declared the winner.</p>
                 </ul>
                 <hr class="featurette-divider" />
                 <h4 id="list-item-2">Roll Dice</h4>
                 <ul>
-                  <p></p>
+                  <p>To start each turn, players will be prompted to roll a fair six-sided die.</p>
                 </ul>
                 <div class="text-center">
-                  <img src="../gifs/dice27Roll.gif" style="max-height: 350px" />
+                  <img class="gif" src="../gifs/dice27Roll.gif" />
                 </div>
                 <hr class="featurette-divider" />
                 <h4 id="list-item-3">Select Chips</h4>
                 <ul>
-                  <p></p>
+                  <p>
+                    Based on the rolled value, players will now have to start selecting groups of chips based on the
+                    rolled value.</p>
                 </ul>
                 <div class="text-center">
-                  <img src="../gifs/dice27Select.gif" style="max-height: 350px" />
+                  <img class="gif" src="../gifs/dice27Select.gif" />
                 </div>
                 <hr class="featurette-divider" />
-                <h4 id="list-item-4">Answer Quesions</h4>
+                <h4 id="list-item-4">Answer Questions</h4>
                 <uL>
-                  <p></p>
+                  <p>Now that the chips have been selected, the player will be prompted to answer two questions
+                    regarding the latest roll.</p>
                 </uL>
                 <div class="text-center">
-                  <img src="../gifs/dice27Answer.gif" style="max-height: 350px" />
+                  <img class="gif" src="../gifs/dice27Answer.gif" />
                 </div>
                 <hr class="featurette-divider" />
-                <h4 id="list-item-4">Auto Select (Optional)</h4>
+                <h4 id="list-item-5">Remove Chips</h4>
+                <uL>
+                  <p>
+                    After both questions have been answered correctly, the player will now be able to start removing
+                    chips from the board if any are still remaining. All the selected chips will be added to the
+                    player's score.</p>
+                </uL>
+                <div class="text-center">
+                  <img class="gif" src="../gifs/dice27Remove.gif" />
+                </div>
+                <hr class="featurette-divider" />
+                <h4 id="list-item-6">Auto Select (Optional)</h4>
                 <ul>
-                  <p></p>
+                  <p>If the player wishes to skip the process of selecting groups of chips individually, they may choose
+                    to use the auto-select feature.</p>
                 </ul>
                 <div class="text-center">
-                  <img src="../gifs/dice27Auto.gif" style="max-height: 350px" />
+                  <img class="gif" src="../gifs/dice27Auto.gif" />
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
             Close
           </button>
         </div>
@@ -221,9 +238,9 @@
     </div>
   </div>
   <!-- Settings Modal -->
-  <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
+  <div class="modal fade " id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content text menu">
         <div class="modal-header">
           <h1 class="modal-title fs-5">Settings</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -231,7 +248,7 @@
         <div class="modal-body">
           <p>Volume:</p>
           <p>
-            <input type="range" id="volume-control" value="100" />
+            <input type="range" id="volume-control" value="50" />
           </p>
           <hr class="featurette-divider" />
           <div class="row text-align">
@@ -250,7 +267,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
             Close
           </button>
         </div>
@@ -262,7 +279,7 @@
   <script src="js/d3.min.js"></script>
   <script src="js/pixi.min.js"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/dice27.js"></script>
+  <script src="js/min/dice27.min.js"></script>
 </body>
 
 </html>

@@ -14,6 +14,15 @@
     height: 34px;
 }
 
+#scroll {
+    height: 40em;
+    overflow-y: scroll;
+}
+
+.gif {
+    max-height: 350px;
+}
+
 .switch input {
     opacity: 0;
     width: 0;

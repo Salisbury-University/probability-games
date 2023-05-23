@@ -1,5 +1,5 @@
 // create window height variable
-let windowWidth = document.body.clientWidth * .75; //.8
+let windowWidth = document.body.clientWidth * .8; //.8
 let windowHeight = window.innerHeight * .53;
 let pi = 0;
 let amountLines = 7;//number is visible lines is amountLines + 1
@@ -14,11 +14,24 @@ let app = new PIXI.Application({
   width: windowWidth,
   height: windowHeight
 });
-const style = new PIXI.TextStyle({
+const bgContainer = new PIXI.Container();
+app.stage.addChild(bgContainer);
+
+// Create the a background colors as separate graphics objects for the } and d
+let bg1 = new PIXI.Graphics();
+bg1.beginFill(0xffd789);
+bg1.drawRect(windowWidth * .9, 0, app.view.width, app.view.height); // Top half of the canvas
+bg1.endFill();
+bgContainer.addChild(bg1);
+
+let labelColor = '#000000';
+
+let style = new PIXI.TextStyle({
   fontFamily: 'Arial',
   fontSize: lineSpace,
-  fill: ['#ffffff'], // gradient
+  fill: labelColor,
 });
+
 let basicText = new PIXI.Text();
 let basicTextArray = [];
 
@@ -36,7 +49,7 @@ document.getElementById("amountOfNeedles").addEventListener("keydown", function 
     needleXY();
   }
 });
- 
+
 
 
 let line = new PIXI.Graphics();
@@ -60,10 +73,30 @@ needleDropSound.volume = 0.5;
 
 window.onload = function () {
   let volume = document.getElementById("volume-control");
-  changeLightTheme(); //also calls light theme
+  let theme = sessionStorage.getItem("theme");
+  if (theme == "dark") {
+    document.getElementById("themeTypeSwitch").checked = true;
+    changeDarkTheme();
+  }
   volume.addEventListener("input", function (e) {
     needleDropSound.volume = e.currentTarget.value / 100;
   });
+
+  document.getElementsByClassName("estimation")[0].innerHTML = "PI Estimation: ";
+  document.getElementsByClassName("estimation")[1].innerHTML = " ";
+  document.getElementById("realPi").innerHTML = "Rounded value of PI : " + Math.round(Math.PI * 10000) / 10000;
+  document.getElementsByClassName("needLength")[0].innerHTML = Math.round(needleLength * 10) / 10 + " Units"; //the  units is pixels
+  document.getElementsByClassName("needLength")[1].innerHTML = Math.round(needleLength * 10) / 10; //the  units is pixels
+  document.getElementsByClassName("gridSpace")[0].innerHTML = Math.round(lineSpace * 10) / 10 + " Units";
+  document.getElementsByClassName("gridSpace")[1].innerHTML = Math.round(lineSpace * 10) / 10;
+  document.getElementsByClassName("needCross")[0].innerHTML = "# of Needles Crossing a Line(Green): 0";
+  document.getElementsByClassName("needCross")[1].innerHTML = 0;
+  document.getElementsByClassName("needCross")[2].innerHTML = 0;
+  document.getElementById("needleDontCross").innerHTML = "# of Needles Not Crossing a Line(Purple): 0";
+  document.getElementsByClassName("total")[0].innerHTML = "Total # of Needles Dropped: 0";
+  document.getElementsByClassName("total")[1].innerHTML = 0;
+  document.getElementsByClassName("total")[2].innerHTML = 0;
+  document.getElementById("percentError").innerHTML = "Percent Error for PI estimaton: ";
 };
 
 
@@ -93,20 +126,12 @@ for (let i = 0; i < amountLines + 1; i++) {
   lines[i] = yValue;
   yValue = yValue + lineSpace;
 }
-  labelD = new PIXI.Text('  ', style);  
-  labelD.x = windowWidth * .91;
-  labelD.y = lines[0] - 10;
-  app.stage.addChild(labelD);
-//creates the labels
-for (let j = 0; j < amountLines + 1; j++) {
-  basicText = new PIXI.Text('}', style);
-  basicText.x = windowWidth * .91;
-  basicText.y = lines[j] - lineSpace*.15;
-  app.stage.addChild(basicText);
-  basicTextArray.push(basicText);
-}
 
-
+basicText = new PIXI.Text('}d', style);
+basicText.x = windowWidth * .91;
+basicText.y = lines[0] - 10;
+app.stage.addChild(basicText);
+basicTextArray.push(basicText);
 
 function changeTheme() {
   if (document.getElementById("themeTypeSwitch").checked) {
@@ -118,7 +143,12 @@ function changeTheme() {
 
 function changeDarkTheme() {
   //changes top section to dark and text to white
-
+  bg1.destroy();
+  bg1 = new PIXI.Graphics();
+  bg1.beginFill(0x262626);
+  bg1.drawRect(windowWidth * .9, 0, app.view.width, app.view.height); // Top half of the canvas
+  bg1.endFill();
+  bgContainer.addChild(bg1);
   let div = document.querySelectorAll("#topPageSection");
   div.forEach(d => {
     d.style.backgroundColor = "#313b4b";
@@ -126,10 +156,40 @@ function changeDarkTheme() {
   });
   document.getElementById("canvasArea").style.backgroundColor = "#262626";
   document.body.style.backgroundColor = "#313b4b";
+  labelColor = '0xffffff';
+
+  style.fill = 0xffffff;
+
+
+  //creates the labels
+  style.fontSize = lineSpace;
+  basicText = new PIXI.Text('}d', style);
+  basicText.x = windowWidth * .91;
+  basicText.y = lines[0] - (lineSpace * .15);
+  app.stage.addChild(basicText);
+  basicTextArray.push(basicText);
+
+  let menu = document.querySelectorAll(".menu");
+  let text = document.querySelectorAll(".text");
+
+  for (let i = 0; i < text.length; i++) {
+    text[i].style.color = 'white';
+  }
+  for (let i = 0; i < menu.length; i++) {
+    menu[i].style.backgroundColor = "#343a40";
+  }
+
+  sessionStorage.setItem("theme", "dark");
 }
 
 function changeLightTheme() {
 
+  bg1.destroy();
+  bg1 = new PIXI.Graphics();
+  bg1.beginFill(0xffd789);
+  bg1.drawRect(windowWidth * .9, 0, app.view.width, app.view.height); // Top half of the canvas
+  bg1.endFill();
+  bgContainer.addChild(bg1);
   let div = document.querySelectorAll("#topPageSection");
   div.forEach(d => {
     d.style.backgroundColor = "#FFEDC9";
@@ -137,7 +197,32 @@ function changeLightTheme() {
   });
   document.getElementById("canvasArea").style.backgroundColor = "#ffd789";
 
+  bg1.fill.color = 0xffd789;
+
   document.body.style.backgroundColor = "#FFEDC9";
+  labelColor = '0x000000';
+
+  style.fill = 0x00000;
+
+  //creates the labels
+  style.fontSize = lineSpace;
+  basicText = new PIXI.Text('}d', style);
+  basicText.x = windowWidth * .91;
+  basicText.y = lines[0] - (lineSpace * .15);
+  app.stage.addChild(basicText);
+  basicTextArray.push(basicText);
+
+  let menu = document.querySelectorAll(".menu");
+  let text = document.querySelectorAll(".text");
+
+  for (let i = 0; i < text.length; i++) {
+    text[i].style.color = 'black';
+  }
+  for (let i = 0; i < menu.length; i++) {
+    menu[i].style.backgroundColor = "#ffffff";
+  }
+
+  sessionStorage.setItem("theme", "light");
 }
 
 function changeLines(num) {
@@ -155,12 +240,11 @@ function changeLines(num) {
     for (let i = 0; i < basicTextArray.length; i++) {
       basicTextArray[i].destroy();
     }
-    //basicText.destroy();
 
     lines = [];
     line = new PIXI.Graphics();
     basicTextArray = [];
-    //basicText = new PIXI.Text();
+
     lineSpace = windowHeight / amountLines;
     needleLength = lineSpace * 0.9;
     yValue = 0; //yValue is space between lines - starts at 0
@@ -180,16 +264,17 @@ function changeLines(num) {
       yValue = yValue + lineSpace;
 
     }
-
     //creates the labels
-    for (let j = 0; j < amountLines + 1; j++) {
+    if (amountLines >= 3) {
       style.fontSize = lineSpace;
-      basicText = new PIXI.Text('}', style);
+      basicText = new PIXI.Text('}d', style);
       basicText.x = windowWidth * .91;
-      basicText.y = lines[j]- (lineSpace*.15);
+      basicText.y = lines[0] - (lineSpace * .15);
       app.stage.addChild(basicText);
       basicTextArray.push(basicText);
     }
+
+
 
   }
 }
@@ -223,9 +308,9 @@ buttons[1].addEventListener("click", () => {
   document.getElementById("moreInfo").hidden = true;
   document.getElementById("stats").hidden = false;
   document.getElementById("topPageSection").hidden = false;
-
-
 });
+
+
 function needleXY() {
   let dropNeedles = document.getElementById("amountOfNeedles").value;
   if (dropNeedles > 50000) {
@@ -252,10 +337,10 @@ function needleXY() {
       //do-while loop that drops xCenter a clear distance away from the edge
       do {
         xCenter = Math.random() * windowWidth * .88;
-      } while (xCenter < needleLength || xCenter > windowWidth - needleLength);
+      } while (xCenter < needleLength || xCenter > (windowWidth * 0.88) - (needleLength / 2));
 
       let max = lines[lines.length - 1];
-      let min = lines[0]
+      let min = lines[0];
       yCenter = Math.floor(Math.random() * (max - min)) + min;
       needleDrop++;
 
@@ -302,7 +387,7 @@ function needleXY() {
     let error = Math.abs((pi - Math.PI) / Math.PI) * 100; //percent error
     document.getElementsByClassName("estimation")[0].innerHTML = "PI Estimation: " + Math.round(pi * 10000) / 10000;
     document.getElementsByClassName("estimation")[1].innerHTML = Math.round(pi * 10000) / 10000;
-    document.getElementById("realPi").innerHTML = "Real value of PI : " + Math.round(Math.PI * 10000) / 10000;
+    document.getElementById("realPi").innerHTML = "Rounded value of PI : " + Math.round(Math.PI * 10000) / 10000;
     document.getElementsByClassName("needLength")[0].innerHTML = Math.round(needleLength * 10) / 10 + " Units"; //the  units is pixels
     document.getElementsByClassName("needLength")[1].innerHTML = Math.round(needleLength * 10) / 10; //the  units is pixels
     document.getElementsByClassName("gridSpace")[0].innerHTML = Math.round(lineSpace * 10) / 10 + " Units";
@@ -342,6 +427,23 @@ function playAudio() {
 function clearNeedles() {
   neg = 0;
   pos = 0;
+
+  document.getElementsByClassName("estimation")[0].innerHTML = "PI Estimation: ";
+  document.getElementsByClassName("estimation")[1].innerHTML = " ";
+  document.getElementById("realPi").innerHTML = "Rounded value of PI : " + Math.round(Math.PI * 10000) / 10000;
+  document.getElementsByClassName("needLength")[0].innerHTML = Math.round(needleLength * 10) / 10 + " Units"; //the  units is pixels
+  document.getElementsByClassName("needLength")[1].innerHTML = Math.round(needleLength * 10) / 10; //the  units is pixels
+  document.getElementsByClassName("gridSpace")[0].innerHTML = Math.round(lineSpace * 10) / 10 + " Units";
+  document.getElementsByClassName("gridSpace")[1].innerHTML = Math.round(lineSpace * 10) / 10;
+  document.getElementsByClassName("needCross")[0].innerHTML = "# of Needles that Cross a Line(Green): 0";
+  document.getElementsByClassName("needCross")[1].innerHTML = 0;
+  document.getElementsByClassName("needCross")[2].innerHTML = 0;
+  document.getElementById("needleDontCross").innerHTML = "# of Needles that Don't Cross a Line(Purple): 0";
+  document.getElementsByClassName("total")[0].innerHTML = "Total # of Needles Dropped: 0";
+  document.getElementsByClassName("total")[1].innerHTML = 0;
+  document.getElementsByClassName("total")[2].innerHTML = 0;
+  document.getElementById("percentError").innerHTML = "Percent Error for PI estimaton: ";
+
 
   //this code removes them from the stage
   lineArray.forEach(lineInArray => {
@@ -384,3 +486,13 @@ document.getElementById("cumulative").addEventListener('click', () => {
     clearNeedles();
   }
 });
+
+let themeCheck = sessionStorage.getItem("theme");
+if (themeCheck == "dark") {
+  document.getElementById("themeTypeSwitch").checked = true;
+  changeDarkTheme();
+}
+
+class themeManagement {
+
+}

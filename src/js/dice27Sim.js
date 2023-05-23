@@ -57,21 +57,26 @@ class ScreenManagement {
     this.#color.addEventListener('click', () => {
       this.#changeColor();
     });
-
-
   }
   #changeColor() {
     let text = document.querySelectorAll(".text");
+    let menu = document.querySelectorAll(".menu");
     if (this.#color.checked) {//dark mode
-      document.body.style.backgroundColor = "#262626";
+      document.body.style.backgroundColor = "#343a40";
       for (let i = 0; i < text.length; i++) {
         text[i].style.color = 'white';
+      }
+      for (let i = 0; i < menu.length; i++) {
+        menu[i].style.backgroundColor = "#343a40";
       }
       sessionStorage.setItem("theme", "dark");
     } else {//light mode
       document.body.style.backgroundColor = "#ffffff";
       for (let i = 0; i < text.length; i++) {
         text[i].style.color = 'black';
+      }
+      for (let i = 0; i < menu.length; i++) {
+        menu[i].style.backgroundColor = "#ffffff";
       }
       sessionStorage.setItem("theme", "light");
     }
@@ -89,7 +94,6 @@ function simulate() {
   simulator.simulate(userInput);
   simulator.displayStats();
   updateChart(simulator.stats);
-
 }
 
 function reset() {
@@ -191,4 +195,9 @@ function updateChart(data) {
         .duration('50')
         .style("opacity", 0);
     });
+  if (!document.getElementById("themeTypeSwitch").checked) {
+    chart.selectAll("text").attr("fill", "#000000");
+  } else {
+    chart.selectAll("text").attr("fill", "#ffffff");
+  }
 }

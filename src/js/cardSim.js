@@ -1,11 +1,3 @@
-/*
-TODO:
-SIMULATION:
-	[] hover or click click on bars to get to distribution
-	[] max of 3 different distributions
-	[] click on table entry to view/get distribution
-*/
-
 const MINRUNS = 1;
 const MAXRUNS = 1000000;
 
@@ -13,14 +5,14 @@ function resizeScreen() {
   let oHeight = document.getElementById("mainBody").offsetHeight;
   let sHeight = document.body.scrollHeight;
 
-  document.getElementById("mainBody").style.zoom = (oHeight / sHeight) * 0.85;
+  document.getElementById("mainBody").style.zoom = (oHeight / sHeight) * 0.9;
+  document.getElementById("mainBody").style.zoom = (oHeight / sHeight) * 0.9;
 
   loadTheme();
 }
 
 function loadTheme() {
   let theme = sessionStorage.getItem("theme");
-  console.log("theme from local storage: ", theme);
   if (theme == "dark") {
     document.getElementById("themeTypeSwitch").checked = true;
     changeTheme();
@@ -115,13 +107,27 @@ stats.set("mins", []);
 stats.set("maxes", []);
 
 function updateSimulateButton() {
-  if (simConf.get("totalChipsPlaced") == simConf.get("reqChips")) {
+  if (
+    simConf.get("totalChipsPlaced") == simConf.get("reqChips") &&
+    data.includes(0)
+  ) {
     document.getElementById("simBtn").disabled = false;
     document.getElementById("saveButton").disabled = false;
+    document.getElementById("infoText").innerHTML = "Ready to Simulate!";
   } else {
     document.getElementById("simBtn").disabled = true;
     document.getElementById("saveButton").disabled = true;
+
+    // which incomplete message to show them
+    if (!data.includes(0)) {
+      document.getElementById("infoText").innerHTML =
+        "Table and chart are full! Clear stats to continue simulating.";
+    } else {
+      document.getElementById("infoText").innerHTML =
+        "Finish Placing all 10 chips to run a simulation.";
+    }
   }
+
   // also update card highlighting for cards that do/don't have chips on them
   updateCardColors();
 }
@@ -214,12 +220,14 @@ function updateRuns(ele) {
     document.getElementById("invRunsText").hidden = true;
   } else {
     document.getElementById("invRunsText").hidden = false;
-    document.getElementById("invRunsText").innerHTML =
-      "Number must be between 0 and 1000000";
+    document.getElementById(
+      "invRunsText"
+    ).innerHTML = `Number must be between ${MINRUNS} and ${MAXRUNS}`;
   }
 }
 
 // when simualte button is pressed
+var barCount = 0;
 function simulate() {
   let button = document.getElementById("simBtn");
   button.disabled = true;
@@ -236,7 +244,8 @@ function simulate() {
   );
 
   // append the stats based on the simulation
-  data.push(sim.getAverageRolls());
+  data[barCount] = sim.getAverageRolls();
+  barCount += 1;
 
   // delete the sim object
   delete sim;
@@ -255,6 +264,7 @@ function simulate() {
 
   // re-enable all the html elments
   button.disabled = false;
+  updateSimulateButton();
 }
 
 function switchDistribution(ele) {
@@ -423,9 +433,9 @@ function updateLogs(min, max, avg, tot) {
   }
 
   // content to add
-  let newRowContent = `<td class="table-cell themeable">${
-    gameLog[lastIdx][0]
-  }</td>\n
+  let newRowContent = `
+      <td class="table-cell themeable">${barCount + 1}</td>\n
+      <td class="table-cell themeable">${gameLog[lastIdx][0]}</td>\n
       <td class="table-cell themeable">${gameLog[lastIdx][1]}</td>\n
       <td class="table-cell themeable">${gameLog[lastIdx][2]}</td>\n
       <td class="table-cell themeable">${gameLog[lastIdx][3]}</td>\n
@@ -437,7 +447,8 @@ function updateLogs(min, max, avg, tot) {
     .getElementById("rollDataTable")
     .getElementsByTagName("tbody")[0];
 
-  let newRow = tableRef.insertRow(0);
+  // 0 index is front, -1 is end
+  let newRow = tableRef.insertRow(-1);
   newRow.innerHTML = newRowContent;
 
   if (document.getElementById("themeTypeSwitch").checked) {
@@ -455,26 +466,27 @@ function clearTable() {
   table.innerHTML = "";
 }
 
-data = [];
+var data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 // clear chart and underlying storage
 function clearChart() {
-  data = [];
-
-  updateChart();
+  data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  barCount = 0;
 
   // clear array
   chartedDistributions = [];
+  updateChart();
+}
+
+function clearStats() {
+  clearTable();
+  clearChart();
+  updateSimulateButton();
 }
 
 // in order to update the chart, maintain the array in the order
 // that you want the bars to appear, i.e. add new averges to the end
 function updateChart() {
-  if (data.length > 10) {
-    data.shift();
-    chartedDistributions.shift();
-  }
-
   // set the dimensions of the chart
   const margin = { top: 20, right: 20, bottom: 30, left: 40 };
   const width = 500 - margin.left - margin.right;
@@ -536,6 +548,7 @@ function updateChart() {
 
       let str = "[ ";
 
+      // this is in the opposite order
       for (let i = 0; i < 11; i++) {
         str += `${chartedDistributions[xIdx][i]} `;
       }
@@ -585,7 +598,7 @@ function updateChart() {
     .attr("text-anchor", "middle")
     .attr("x", width / 2)
     .attr("y", height + margin.bottom)
-    .text("Game No");
+    .text("Simulation Number");
   chart
     .append("text")
     .attr("class", "y label")

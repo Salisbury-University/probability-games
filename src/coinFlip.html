@@ -22,10 +22,9 @@
 <body>
 	<!-- Navbar -->
 	<header>
-		<nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar" style="z-index: 25;">
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png" alt="logo"
-						style="max-height: 35px" /></a>
+				<a class="navbar-brand" href="home.html"><img id="logoNavbar" src="../images/logo.png" alt="logo" /></a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse">
 					<span class="navbar-toggler-icon"></span>
 				</button>
@@ -41,10 +40,10 @@
 							</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" href="diceRoll.html">Dice Roll</a></li>
+								<li><a class="dropdown-item" href="coinFlip.html">Coin Flip</a></li>
 								<li><a class="dropdown-item" href="GoatGame.html">Monty Hall Problem</a></li>
 								<li><a class="dropdown-item" href="needles.html">Buffons Needles</a></li>
 								<li><a class="dropdown-item" href="card.html">Sum of Two Dice</a></li>
-								<li><a class="dropdown-item" href="dice27.html">Game of 27</a></li>
 							</ul>
 						</li>
 						<li class="nav-item">
@@ -64,26 +63,29 @@
 								checked />
 							<label class="btn btn-outline-primary" for="basic_btn">Basic</label>
 							<input type="radio" class="btn-check" name="btnradio" id="advanced_btn" autocomplete="off"
-								onclick="window.location.href = 'coinFlipAdv.html'" />
+								onclick="window.location.href = 'dice27Sim.html'" />
 							<label class="btn btn-outline-primary" for="advanced_btn">Simulation</label>
 						</div>
-						<div class="btn-group me-2" role="group" aria-label="Third group">
+						<div class="btn-group" role="group" aria-label="Third group">
 							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
 								data-bs-target="#settingsModal">
-								<img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
+								<img id="settingsIcon" src="../images/setting.png" />
 							</button>
 						</div>
 					</div>
+					<!-- settings button -->
+
 				</div>
 			</div>
 		</nav>
 	</header>
 
+
 	<main>
 		<div class="container text-center">
 			<!--Title of the game-->
 			<div class="row">
-				<h1 class="text">Coin Flip Game</h1>
+				<h2 class="text" id="title">Coin Flip Game</h2>
 			</div>
 			<!-- PixiJS Application-->
 			<div class="row">
@@ -92,13 +94,13 @@
 			<!-- buttons to roll the dice-->
 			<div class="row" id="buttonArea">
 				<div class="col" id="singleFlipArea">
-					<h6 class="text">Single Flip:</h6>
+					<h6 class="text" id="single">Single Flip:</h6>
 					<button type="radio" class="btn btn-primary" id="singleFlip">Flip
 						Coin</button>
 				</div>
 				<div class="col">
 					<div class="dropdown">
-						<h6 class="text">Coin Type:</h6>
+						<h6 class="text" id="coinChange">Coin Type:</h6>
 						<button class="btn btn-secondary dropdown-toggle" type="button" id="coin-dropdown"
 							data-bs-toggle="dropdown" aria-expanded="false">Coin</button>
 						<ul class="dropdown-menu" aria-labelledby="coin-dropdown">
@@ -111,7 +113,7 @@
 					</div>
 				</div>
 				<div class="col" id="multiFlipArea">
-					<h6 class="text">Multiple Flip:</h6>
+					<h6 class="text" id="multi">Multiple Flip:</h6>
 					<div class="input-group align-items-center">
 						<input type="text" class="form-control" placeholder="Number of Flips"
 							aria-label="Recipient's username" aria-describedby="multiFlip" id="numberFlips">
@@ -141,7 +143,7 @@
 				</div>
 			</div>
 			<div class="row" id="guessSection">
-				<h1 id="prompt" class="text">Press Flip Coin to Play</h1>
+				<h4 class="text" id="prompt"></h4>
 				<div class="col" id="guessButtons" hidden>
 					<button type="radio" class="btn btn-primary" id="weighted">Weighted</button>
 					<button type="radio" class="btn btn-primary" id="notWeighted">Not Weighted</button>
@@ -186,8 +188,8 @@
 								<a class="list-group-item list-group-item-action" href="#list-item-4">Guess Weight</a>
 								<a class="list-group-item list-group-item-action" href="#list-item-4">Change Coin</a>
 							</div>
-							<div data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0"
-								tabindex="0" class="col" style="height: 40em; overflow-y: scroll">
+							<div id="scroll" data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0"
+								tabindex="0" class="col">
 								<h4 id="list-item-1">Welcome to the Coin Flip Game!</h4>
 								<ul>
 									<p>Welcome to the coin flip simulation game! This game is designed to
@@ -218,7 +220,7 @@
 									</p>
 								</ul>
 								<div class="text-center">
-									<img src="../gifs/coinFlipSingle.gif" style="max-height: 350px" />
+									<img class="gif" src="../gifs/coinFlipSingle.gif" />
 								</div>
 								<hr class="featurette-divider" />
 								<h4 id="list-item-3">Multiple Flips</h4>
@@ -238,7 +240,7 @@
 									</p>
 								</ul>
 								<div class="text-center">
-									<img src="../gifs/coinFlipMulti.gif" style="max-height: 350px" />
+									<img class="gif" src="../gifs/coinFlipMulti.gif" />
 								</div>
 								<hr class="featurette-divider" />
 								<h4 id="list-item-4">Guess Weight</h4>
@@ -251,7 +253,7 @@
 									</p>
 								</uL>
 								<div class="text-center">
-									<img src="../gifs/coinFlipWeight.gif" style="max-height: 350px" />
+									<img class="gif" src="../gifs/coinFlipWeight.gif" />
 								</div>
 								<hr class="featurette-divider" />
 								<h4 id="list-item-4">Change Coin (Optional)</h4>
@@ -260,7 +262,7 @@
 										choosing from the list of possible images.</p>
 								</ul>
 								<div class="text-center">
-									<img src="../gifs/coinFlipChange.gif" style="max-height: 350px" />
+									<img class="gif" src="../gifs/coinFlipChange.gif" />
 								</div>
 							</div>
 						</div>
@@ -285,7 +287,7 @@
 				<div class="modal-body">
 					<p>Volume:</p>
 					<p>
-						<input type="range" id="volume-control" value="100" />
+						<input type="range" id="volume-control" value="50" />
 					</p>
 
 					<hr class="featurette-divider" />
@@ -295,7 +297,7 @@
 						</div>
 						<div class="col-2">
 							<label class="switch">
-								<input id="themeTypeSwitch" type="checkbox">
+								<input id="themeTypeSwitch" type="checkbox" onclick="changeTheme()">
 								<span class="slider round"></span>
 							</label>
 						</div>

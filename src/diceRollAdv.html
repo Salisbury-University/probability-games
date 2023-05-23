@@ -57,8 +57,7 @@
                     <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                         <div class="btn-group me-2" role="group" aria-label="First group">
                             <button type="radio" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#howToPlay">How to
-                                Play</button>
+                                data-bs-target="#howToPlay">How to Play</button>
                         </div>
                         <div class="btn-group me-2" role="group" aria-label="Second group">
                             <input type="radio" class="btn-check" name="btnradio" id="basic_btn" autocomplete="off"
@@ -100,10 +99,10 @@
                 <div class="col">
                     <h6 id="multi">Multiple Rolls:</h6>
                     <div class="input-group align-items-center">
-                        <input type="text" class="form-control" placeholder="Number of Rolls"
-                            aria-label="Recipient's username" aria-describedby="multiRoll" id="numberRolls">
-                        <button class="btn btn-primary" type="button" id="multiRoll">Roll
-                            Dice</button>
+                        <input type="number" class="form-control" placeholder="Number of Rolls"
+                            aria-label="Recipient's username" aria-describedby="multiRoll" id="numberRolls" min="1"
+                            max="10000">
+                        <button class="btn btn-primary" type="button" id="multiRoll">Roll Dice</button>
                     </div>
                 </div>
             </div>
@@ -223,6 +222,12 @@
                                         of die
                                         weight and how it can influence the outcome of a die roll. So what are you
                                         waiting for? Lets start rolling!</p>
+
+                                    <p>One thing players should note is that this game may not fit perfectly on every
+                                        screen size. Players may have to zoom out in order for the game to fit properly
+                                        on the
+                                        screen without having to scroll.
+                                    </p>
                                 </ul>
                                 <hr class="featurette-divider" />
                                 <h4 id="list-item-2">Single Roll</h4>
@@ -344,7 +349,7 @@
                 <div class="modal-body">
                     <p>Volume:</p>
                     <p>
-                        <input type="range" id="volume-control" value="100" />
+                        <input type="range" id="volume-control" value="50" />
                     </p>
                     <hr class="featurette-divider" />
                     <p>

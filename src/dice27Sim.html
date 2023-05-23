@@ -9,7 +9,7 @@
 
   <!-- CSS -->
   <link href="../css/bootstrap.min.css" rel="stylesheet" />
-  <link href="../css/dice27.css" rel="stylesheet" />
+  <link href="../css/min/dice27.min.css" rel="stylesheet" />
   <link href="../css/siteWide.css" rel="stylesheet" />
 
   <!-- favicon stuff -->
@@ -24,8 +24,7 @@
   <header>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="home.html" style="color: white"><img src="../images/logo.png" alt="logo"
-            style="max-height: 35px" /></a>
+        <a class="navbar-brand" href="home.html"><img id="logoNavbar" src="../images/logo.png" alt="logo" /></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -67,7 +66,7 @@
             </div>
             <div class="btn-group" role="group" aria-label="Third group">
               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#settingsModal">
-                <img src="../images/setting.png" style="max-height: 22px; vertical-align: middle" />
+                <img src="../images/setting.png" id="settingsIcon" />
               </button>
             </div>
           </div>
@@ -86,14 +85,12 @@
 
       <div class="row">
         <div class="col-sm-5 mx-auto">
-          <div>Number of Games:</div>
-          <input type="text" class="form-control" id="userInput" placeholder="Number of Games" required>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-5 mx-auto">
-          <button type="button" class="btn btn-success" onclick="simulate()">Submit</button>
-          <button type="button" class="btn btn-danger" onclick="reset()">Reset</button>
+          <div class="input-group mb-3">
+            <label class="input-group-text" for="inputGroupSelect01">Number of Games</label>
+            <input type="text" class="form-control" id="userInput" placeholder="Enter" required>
+            <button type="button" class="btn btn-success" onclick="simulate()">Simulate</button>
+            <button type="button" class="btn btn-danger" onclick="reset()">Reset</button>
+          </div>
         </div>
       </div>
       <div class="row">
@@ -122,7 +119,7 @@
   <!-- How to Play Modal -->
   <div class="modal fade" id="howToPlay" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl">
-      <div class="modal-content">
+      <div class="modal-content text menu">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="instructionsModalLabel">
             How to Play
@@ -133,88 +130,39 @@
           <div class="container-fluid m-2 p-2">
             <div class="row">
               <div id="list-instructions" class="list-group col-3">
-                <a class="list-group-item list-group-item-action" href="#list-item-1">Game Setup</a>
-                <a class="list-group-item list-group-item-action" href="#list-item-2">Single Flip</a>
-                <a class="list-group-item list-group-item-action" href="#list-item-3">Multiple Flips</a>
-                <a class="list-group-item list-group-item-action" href="#list-item-4">Guess Weight</a>
-                <a class="list-group-item list-group-item-action" href="#list-item-4">Change Coin</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-1">Simulation Information</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-2">Simulate</a>
+                <a class="list-group-item list-group-item-action" href="#list-item-3">View Hits</a>
               </div>
-              <div data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0" tabindex="0" class="col"
-                style="height: 40em; overflow-y: scroll">
-                <h4 id="list-item-1">Welcome to the Coin Flip Game!</h4>
+              <div id="scroll" data-bs-spy="scroll" data-bs-target="#list-instructions" data-bs-offset="0" tabindex="0"
+                class="col">
+                <h4 id="list-item-1">Welcome to the Game of 27 Simulator!</h4>
                 <ul>
-                  <p>Welcome to the coin flip simulation game! This game is designed to
-                    not only provide hours of fun and entertainment, but also to teach players an
-                    important lesson about the weight of coins and how it can affect the outcome of
-                    a flip.</p>
-                  <p>In this game, players can flip a virtual coin an large number of times and
-                    can guess whether the coin is weighted or not. If the coin is indeed weighted,
-                    players can also make a guess about the degree of the weight.</p>
-
-                  <p>This game is perfect for anyone who wants to understand the concept
-                    of coin
-                    weight and how it can influence the outcome of a coin flip. So what are you
-                    waiting for? Lets start flipping!</p>
+                  <p>The Game of 27 simulation page is designed to simulate a large number of games of the Game of 27.
+                    This simulation allows users to gather data on the trend of dice rolls across a significant number
+                    of games. By analyzing this data, users can observe patterns or trends in the frequency of different
+                    dice rolls in the game.</p>
                 </ul>
                 <hr class="featurette-divider" />
-                <h4 id="list-item-2">Single Flip</h4>
+                <h4 id="list-item-2">Simulate</h4>
                 <ul>
-                  <p>
-                    Our game's "Single Flip" button enables players to quickly and easily flip a
-                    coin
-                    and see the result. This feature provides an opportunity for players to test
-                    their
-                    luck and try to guess the outcome of the flip. Whether you're new to the game or
-                    an
-                    experienced player, the "Single Flip" button is a convenient and fun way to
-                    play.
-                  </p>
+                  <p>Please use the input box below to enter the number of games you would like to simulate. Once you
+                    have entered the desired number, click the "Submit" button to initiate the simulation. If you wish
+                    to reset the data, you can click the "Reset" button located next to the submit button.</p>
                 </ul>
                 <div class="text-center">
-                  <img src="" style="max-height: 350px" />
+                  <img class="gif" src="../gifs/dice27Sim.gif" />
                 </div>
                 <hr class="featurette-divider" />
-                <h4 id="list-item-3">Multiple Flips</h4>
+                <h4 id="list-item-3">View Hits</h4>
                 <ul>
-                  <p>
-                    Our game features a "Multiple Flip" button that allows players to flip the coin
-                    multiple times with a single click. This feature enables players to experiment
-                    with
-                    different numbers of flips and observe how it affects the outcome of the game.
-                    The
-                    "Multiple Flip" button is an excellent way to test your luck and improve your
-                    understanding of how the game works. Whether you're a newcomer or a seasoned
-                    player,
-                    the "Multiple Flip" button is a fun and convenient feature that makes our coin
-                    flip
-                    simulation game enjoyable to play.
-                  </p>
+                  <p>By hovering over each column on the simulation page, you can see the number of times the dice roll
+                    landed on the corresponding number of chips. This feature provides users with specific information
+                    about the frequency of each dice roll outcome and how many times a particular number of chips was
+                    selected in the simulated games.</p>
                 </ul>
                 <div class="text-center">
-                  <img src="" style="max-height: 350px" />
-                </div>
-                <hr class="featurette-divider" />
-                <h4 id="list-item-4">Removing Chips</h4>
-                <uL>
-                  <p>
-                    When the player rolls the dice, they must add up the sum of
-                    the two dice. Once they get the sum, they check the card
-                    labeled with that sum. If they have a chip on that card,
-                    they can <b>click their chip on that card</b>, and it will
-                    be removed from it.
-                  </p>
-                </uL>
-                <div class="text-center">
-                  <img src="" style="max-height: 350px" />
-                </div>
-                <hr class="featurette-divider" />
-                <h4 id="list-item-4">Change Coin (Optional)</h4>
-                <ul>
-                  <p>Player can change image of the coin by selecting the center dropdown menu and
-                    choosing from the list of possible images.</p>
-                </ul>
-                <div class="text-center">
-                  <img src="" style="max-height: 350px" />
+                  <img class="gif" src="../gifs/dice27Hover.gif" />
                 </div>
               </div>
             </div>
@@ -230,18 +178,13 @@
   </div>
   <!-- Settings Modal -->
   <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
+    <div class="modal-dialog">
+      <div class="modal-content text menu">
         <div class="modal-header">
           <h1 class="modal-title fs-5">Settings</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>Volume:</p>
-          <p>
-            <input type="range" id="volume-control" value="100" />
-          </p>
-          <hr class="featurette-divider" />
           <div class="row text-align">
             <div class="col-3">
               <p>Light Theme</p>
@@ -258,7 +201,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
             Close
           </button>
         </div>
@@ -268,7 +211,7 @@
 
   <script src="js/bootstrap.bundle.min.js"></script>
   <script src="js/d3.min.js"></script>
-  <script src="js/dice27Sim.js"></script>
+  <script src="js/min/dice27Sim.min.js"></script>
 
 </body>
 

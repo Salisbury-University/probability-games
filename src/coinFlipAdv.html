@@ -89,12 +89,18 @@
 
             <div class="row">
                 <div class="col-sm-5 mx-auto">
-                    <input type="text" class="form-control userInput" id="numberFlips" placeholder="Number of Flips">
-                    <input type="text" class="form-control userInput" id="numberGames" placeholder="Number of Games">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="inputGroupSelect01">Number of Flips</label>
+                        <input type="text" class="form-control" id="numberFlips" placeholder="Enter" required>
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-5 mx-auto">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="inputGroupSelect01">Number of Games</label>
+                        <input type="text" class="form-control" id="numberGames" placeholder="Enter" required>
+                    </div>
                     <button type="button" class="btn btn-success" id="simulate">Submit</button>
                     <button type="button" class="btn btn-danger" id="reset">Reset</button>
                 </div>
@@ -241,7 +247,7 @@
                 <div class="modal-body">
                     <p>Volume:</p>
                     <p>
-                        <input type="range" id="volume-control" value="100" />
+                        <input type="range" id="volume-control" value="50" />
                     </p>
 
                     <hr class="featurette-divider" />
