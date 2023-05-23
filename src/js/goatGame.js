@@ -100,7 +100,6 @@ function showStats() {
     document.getElementById("statShow&Hide").removeAttribute("hidden");
     document.getElementById("showStatsButton").setAttribute("hidden", "hidden");
     document.getElementById("hideStatsButton").removeAttribute("hidden");
-    document.getElementById("overlay").style.display = "block";
 }
 
 function hideStats() {
@@ -108,7 +107,6 @@ function hideStats() {
     document.getElementById("statShow&Hide").setAttribute("hidden", "hidden");
     document.getElementById("hideStatsButton").setAttribute("hidden", "hidden");
     document.getElementById("showStatsButton").removeAttribute("hidden");
-    document.getElementById("overlay").style.display = "none";
 }
 
 function stepOne(doorChose) {
@@ -403,6 +401,18 @@ function changeDarkTheme() {
     });
 
     document.body.style.backgroundColor = "#313b4b";
+
+    let menu = document.querySelectorAll(".menu");
+    let text = document.querySelectorAll(".text");
+
+    for (let i = 0; i < text.length; i++) {
+        text[i].style.color = 'white';
+    }
+    for (let i = 0; i < menu.length; i++) {
+        menu[i].style.backgroundColor = "#343a40";
+    }
+
+    sessionStorage.setItem("theme", "dark");
 }
 
 function changeLightTheme() {
@@ -421,6 +431,18 @@ function changeLightTheme() {
     });
 
     document.body.style.backgroundColor = "#FFEDC9";
+
+    let menu = document.querySelectorAll(".menu");
+    let text = document.querySelectorAll(".text");
+
+    for (let i = 0; i < text.length; i++) {
+        text[i].style.color = 'black';
+    }
+    for (let i = 0; i < menu.length; i++) {
+        menu[i].style.backgroundColor = "#ffffff";
+    }
+
+    sessionStorage.setItem("theme", "light");
 }
 
 
@@ -431,6 +453,11 @@ doorOpenSound.volume = 0.5;
 
 window.onload = function () {
     let volume = document.getElementById("volume-control");
+    let theme = sessionStorage.getItem("theme");
+    if (theme == "dark") {
+        document.getElementById("themeTypeSwitch").checked = true;
+        changeDarkTheme();
+    }
     volume.addEventListener("input", function (e) {
         wrongSound.volume = e.currentTarget.value / 100;
         correctSound.volume = e.currentTarget.value / 100;
