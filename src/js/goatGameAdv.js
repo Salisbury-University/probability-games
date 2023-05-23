@@ -33,7 +33,7 @@ function changePrize(img) {
     const prizes = {
         iceCream: ["../images/iceCream.png", "Ice Cream"],
         Toy: ["../images/toy.png", "Rubik's Cube"],
-        Money: ["../images/nickelHead.png", "Money"]
+        Money: ["../images/nickelHead.png", "Coin"]
     };
     //asign carImg to first in array, and name to second
     [carImg, prizeName] = prizes[img];
@@ -146,7 +146,6 @@ function simulateGame() {
 
     var timesSwitched = parseInt(document.getElementById("amountTimesToSwitch").value);
 
-    console.log(timesPlayed);
     if (timesPlayed < timesSwitched) {
         alert("You cannot enter more times to switch then the total games played!");
     } else if (isNaN(timesPlayed)) {
@@ -268,10 +267,8 @@ function printStatistics(gamesPlayed, gamesWon, gamesLost, switchDoorGames, swit
 function changeTheme() {
     if (document.getElementById("themeTypeSwitch").checked) {
         changeDarkTheme();
-        console.log("called dark");
     } else {
         changeLightTheme();
-        console.log("called light");
     }
 }
 

@@ -83,18 +83,18 @@
     <main id="content">
 
         <!-- the title of the game-->
-        <div id="sectionAforTheme" class="container-fluid">
-            <div id="sectionARow" class="row">
+        <div id="sectionAforTheme" class="container-fluid preTitle">
+            <div id="sectionARow" class="row titleSection">
                 <div class="col text-center">
                     <h1>Monty Hall Problem</h1>
                 </div>
             </div>
         </div>
         <!-- the images of the door-->
-        <div id="sectionBforTheme" class="container-fluid">
-            <div id="sectionBRow" class="row">
 
-                <div class="col-2 offset-1">
+        <div id="sectionBforTheme" class="container-fluid" >
+            <div class="row imgSection" >
+               <div class="col-2 offset-1">
                     <img onclick="stepOne(0)" src="../images/doorImg1.png" class="mainImg" alt="Door 1" id="door0">
                     <img src="../images/doorImgOpen.png" class="doorWayImg" alt="Dooray 1" id="doorWay0" hidden>
                 </div>
@@ -109,10 +109,10 @@
             </div>
         </div>
 
-        <div id="sectionBforTheme" class="container-fluid" style="background-color: #ffd789;">
-            <div class="row text-center" style="width: 100%;" id="statShow&Hide" hidden="hidden">
+        <div id="sectionBforTheme" class="container-fluid sectionBLoc">
+            <div class="row text-center"  id="statShow&Hide" hidden="hidden">
                 <div class="col-4">
-                    <h3 id="gamesPlayed" title="Hello, this is the tooltip">Total Games Played: 0 </h3>
+                    <h3 id="gamesPlayed">Total Games Played: 0 </h3>
                     <h3 id="gamesWon">Total Games Won: 0</h3>
                     <h3 id="gamesLost">Total Games Lost: 0</h3>
                 </div>
@@ -149,9 +149,8 @@
             </div>
         </div>
 
-        <div id="sectionAforTheme" style="background-color: #FFEDC9; height: 25%;border-top: 6px solid black;">
+        <div id="sectionAforTheme" class="sectionALoc">
             <div class="container-fluid text-center">
-                <!--<h1 class="centerText"> Statistics For Game </h1>-->
                 <p id="simulateInfo">Click Show Stats to display stats for the game!</p>
                 <p id="simulateInfo2"></p>
                 <div class=" row">
@@ -322,7 +321,7 @@
                                     <li><button class="dropdown-item" onclick="changePrize('iceCream')">Ice
                                             Cream</button></li>
                                     <li><button class="dropdown-item" onclick="changePrize('Toy')">Toy</button></li>
-                                    <li><button class="dropdown-item" onclick="changePrize('Money')">Money</button></li>
+                                    <li><button class="dropdown-item" onclick="changePrize('Money')">Coin</button></li>
                                 </ul>
                             </div>
                         </div>
