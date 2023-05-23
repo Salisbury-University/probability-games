@@ -55,6 +55,8 @@ class CoinSimulation {
         //update graphs heads = 0 and tails = 1
         this.#updateChart(0);
         this.#updateChart(1);
+
+        this.#flips = null;
     }
     #updateChart(coinSide) {
         // Define the size of the chart
@@ -137,8 +139,66 @@ class CoinSimulation {
             .text("Number of Games");
     }
     #reset() {
+        // Clear the flips array
+        this.#flips = null;
 
+        // Clear the input values
+        document.getElementById("numberFlips").value = "";
+        document.getElementById("numberGames").value = "";
+
+        // Clear the chart elements
+        var svg = d3.select("#chart0");
+        svg.selectAll("*").remove();
+
+        svg = d3.select("#chart1");
+        svg.selectAll("*").remove();
+    }
+
+}
+class ScreenManagement {
+    #color;
+
+    constructor() {
+        this.#color = document.getElementById("themeTypeSwitch");
+
+        let theme = sessionStorage.getItem("theme");
+        if (theme == "dark") {
+            document.getElementById("themeTypeSwitch").checked = true;
+            this.#changeColor();
+        }
+
+        this.#setup();
+    }
+    #setup() {
+        this.#color.addEventListener('click', () => {
+            this.#changeColor();
+        });
+
+    }
+    #changeColor() {
+        let text = document.querySelectorAll(".text");
+        let menu = document.querySelectorAll(".menu");
+        if (this.#color.checked) {//dark mode
+            document.body.style.backgroundColor = "#343a40";
+            for (let i = 0; i < text.length; i++) {
+                text[i].style.color = 'white';
+            }
+            for (let i = 0; i < menu.length; i++) {
+                menu[i].style.backgroundColor = "#343a40";
+            }
+            sessionStorage.setItem("theme", "dark");
+        } else {//light mode
+            document.body.style.backgroundColor = "#ffffff";
+            for (let i = 0; i < text.length; i++) {
+                text[i].style.color = 'black';
+            }
+            for (let i = 0; i < menu.length; i++) {
+                menu[i].style.backgroundColor = "#ffffff";
+            }
+            sessionStorage.setItem("theme", "light");
+        }
     }
 }
 
-let simulator = new CoinSimulation();
+const screen = new ScreenManagement();
+const simulator = new CoinSimulation();
