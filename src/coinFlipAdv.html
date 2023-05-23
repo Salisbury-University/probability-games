@@ -25,7 +25,7 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navbar">
             <div class="container-fluid">
-                <a class="navbar-brand" href="home.html"><img src="../images/logo.png" alt="logo" /></a>
+                <a class="navbar-brand" href="home.html"><img id="logoNavbar" src="../images/logo.png" alt="logo" /></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -71,7 +71,7 @@
                         <div class="btn-group me-2" role="group" aria-label="Third group">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#settingsModal">
-                                <img src="../images/setting.png" />
+                                <img id="settingsIcon" src="../images/setting.png" />
                             </button>
                         </div>
                     </div>
@@ -129,7 +129,7 @@
     <!-- How to Play Modal -->
     <div class="modal fade" id="howToPlay" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-xl">
-            <div class="modal-content">
+            <div class="modal-content text menu">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="instructionsModalLabel">
                         How to Play
@@ -237,19 +237,13 @@
     </div>
     <!-- Settings Modal -->
     <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
+        <div class="modal-dialog">
+            <div class="modal-content text menu">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5">Settings</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Volume:</p>
-                    <p>
-                        <input type="range" id="volume-control" value="50" />
-                    </p>
-
-                    <hr class="featurette-divider" />
                     <div class="row text-align">
                         <div class="col-3">
                             <p>Light Theme</p>

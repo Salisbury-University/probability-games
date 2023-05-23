@@ -258,33 +258,61 @@ class CoinGame {
 	}
 }
 
-function changeTheme() {
-    if (document.getElementById("themeTypeSwitch").checked) {
-      console.log("Checked");
-      changeDarkTheme();
-    } else {
-      console.log("Not Checked");
-      changeLightTheme();
-    }
-  }
-  
-  function changeDarkTheme() {
-    document.body.style.backgroundColor = "#313b4b";
-    document.getElementById("title").style.color = "white";
-    document.getElementById("single").style.color = "white";
-    document.getElementById("multi").style.color = "white";
-    document.getElementById("prompt").style.color = "white";
-	document.getElementById("coinChange").style.color = "white";
-  }
-  
-  function changeLightTheme() {  
-    document.body.style.backgroundColor = "white";
-    document.getElementById("title").style.color = "black";
-    document.getElementById("single").style.color = "black";
-    document.getElementById("multi").style.color = "black";
-    document.getElementById("prompt").style.color = "black";
-	document.getElementById("coinChange").style.color = "black";
-  }
 
+class ScreenManagement {
+	#color;
+	#volume;
 
+	constructor() {
+		this.#color = document.getElementById("themeTypeSwitch");
+		this.#volume = document.getElementById("volume-control");
+
+		let theme = sessionStorage.getItem("theme");
+		if (theme == "dark") {
+			document.getElementById("themeTypeSwitch").checked = true;
+			this.#changeColor();
+		}
+
+		this.#setup();
+	}
+	#setup() {
+		this.#color.addEventListener('click', () => {
+			this.#changeColor();
+		});
+		this.#volume.addEventListener('input', () => {
+			this.#volumeControl();
+		});
+
+	}
+	#volumeControl() {
+		AUDIO_CORRECT.volume = this.#volume.currentTarget.value / 100;
+		AUDIO_WRONG.volume = this.#volume.currentTarget.value / 100;
+		AUDIO_ROLL.volume = this.#volume.currentTarget.value / 100;
+	}
+	#changeColor() {
+		let text = document.querySelectorAll(".text");
+		let menu = document.querySelectorAll(".menu");
+		if (this.#color.checked) {//dark mode
+			document.body.style.backgroundColor = "#343a40";
+			for (let i = 0; i < text.length; i++) {
+				text[i].style.color = 'white';
+			}
+			for (let i = 0; i < menu.length; i++) {
+				menu[i].style.backgroundColor = "#343a40";
+			}
+			sessionStorage.setItem("theme", "dark");
+		} else {//light mode
+			document.body.style.backgroundColor = "#ffffff";
+			for (let i = 0; i < text.length; i++) {
+				text[i].style.color = 'black';
+			}
+			for (let i = 0; i < menu.length; i++) {
+				menu[i].style.backgroundColor = "#ffffff";
+			}
+			sessionStorage.setItem("theme", "light");
+		}
+	}
+}
+
+const screen = new ScreenManagement();
 const game = new CoinGame();
