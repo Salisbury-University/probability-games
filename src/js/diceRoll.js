@@ -203,7 +203,6 @@ class DiceGame {
 		}
 	}
 	#cardSelect(side) {
-		//console.log(side);
 		if (this.#clickable) {
 			if (side == this.#weightedSide) {
 				AUDIO_CORRECT.play();
@@ -271,9 +270,9 @@ class ScreenManagement {
 
 	}
 	#volumeControl() {
-		AUDIO_CORRECT.volume = this.#volume.currentTarget.value / 100;
-		AUDIO_WRONG.volume = this.#volume.currentTarget.value / 100;
-		AUDIO_ROLL.volume = this.#volume.currentTarget.value / 100;
+		AUDIO_CORRECT.volume = this.#volume.value / 100;
+		AUDIO_WRONG.volume = this.#volume.value / 100;
+		AUDIO_ROLL.volume = this.#volume.value / 100;
 	}
 	#changeColor() {
 		let text = document.querySelectorAll(".text");

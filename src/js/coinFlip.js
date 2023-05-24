@@ -235,7 +235,6 @@ class CoinGame {
 	}
 	#guessWeight() {
 		let guess = document.getElementById("weightSelect").value;
-		console.log(guess);
 		if (isNaN(guess)) {
 			AUDIO_WRONG.play();
 			document.getElementById("prompt").innerHTML = "Please select an option from the dropdown.";

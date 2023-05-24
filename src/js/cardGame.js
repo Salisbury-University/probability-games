@@ -53,7 +53,6 @@ window.onload = function () {
 
 function loadTheme() {
   let theme = sessionStorage.getItem("theme");
-  console.log("theme from local storage: ", theme);
   if (theme == "dark") {
     document.getElementById("themeTypeSwitch").checked = true;
     changeTheme();
