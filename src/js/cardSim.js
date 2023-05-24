@@ -248,7 +248,7 @@ function simulate() {
   barCount += 1;
 
   // delete the sim object
-  delete sim;
+  sim = null;
 
   // update chart
   updateChart();
