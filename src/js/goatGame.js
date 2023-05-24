@@ -474,8 +474,8 @@ document.getElementById("disableSound").addEventListener("click", function () {
         // Do something when checkbox is checked
     } else {
         wrongSound.muted = false;
-        correctSound.muted = true;
-        doorOpenSound.muted = true;
+        correctSound.muted = false;
+        doorOpenSound.muted = false;
         // Do something when checkbox is unchecked
     }
 });

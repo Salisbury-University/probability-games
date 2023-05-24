@@ -141,7 +141,6 @@ function updateStats(x, isKept) {
 
 function simulateGame() {
     var switchDoor;
-
     var timesPlayed = parseInt(document.getElementById("amountTimesToRun").value);
 
     var timesSwitched = parseInt(document.getElementById("amountTimesToSwitch").value);
@@ -186,10 +185,12 @@ function runVisualGame(iteration = 0) {
     }
 
     let nonWinningDoor = Math.floor(Math.random() * 3);
-
+    doorOpenSound.currentTime = 0;
+    doorOpenSound.play();
     while (Doors[nonWinningDoor] == 1) {
         nonWinningDoor = Math.floor(Math.random() * 3);
     }
+
 
     setTimeout(function () {
         document.getElementById(`door${nonWinningDoor}`).src = goatImg;
@@ -360,8 +361,8 @@ document.getElementById("disableSound").addEventListener("click", function () {
         // Do something when checkbox is checked
     } else {
         wrongSound.muted = false;
-        correctSound.muted = true;
-        doorOpenSound.muted = true;
+        correctSound.muted = false;
+        doorOpenSound.muted = false;
         // Do something when checkbox is unchecked
     }
 });
