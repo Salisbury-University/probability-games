@@ -155,6 +155,7 @@ class DiceGame {
 				document.getElementById("prompt").innerHTML = "Correct, the dice isn't weighted! Lets play again.";
 				this.#reset();
 			}
+			this.#numberRolls = 0;
 		}
 		else {
 			AUDIO_WRONG.play();
